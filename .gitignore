@@ -1,0 +1,8 @@
+! .gitignore/*
+! .git
+
+! .bashrc/*
+! .bashprofile/*
+! .config/*
+
+.*/*
