@@ -1,8 +1,20 @@
-syntax on
-set t_Co=256 "色
-set background=dark
-
-colorscheme iceberg "カラースキームをiceberg
+" dein plugin manager
+if &compatible
+ set nocompatible
+endif
+set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
+if dein#load_state('~/.cache/dein')
+ call dein#begin('~/.cache/dein')
+ call dein#load_toml('~/.config/nvim/dein.toml', {'lazy': 0})
+ call dein#load_toml('~/.config/nvim/dein_lazy.toml', {'lazy': 1})
+ call dein#end()
+ call dein#save_state()
+endif
+if dein#check_install()
+  call dein#install()
+endif
+filetype plugin indent on
+syntax enable
 
 set encoding=utf-8 "文字コード
 set number "行番号表示
@@ -17,8 +29,7 @@ set incsearch "検索を移動
 set wrapscan "検索をループ
 set inccommand=split "置換のとき可視化
 set clipboard+=unnamed "clipboardをOSのものと同じに
-set list "改行，タブとかを可視化
-set smartindent "スマートインデント
+set list "改行，タブとかを可視化 set smartindent "スマートインデント
 set autoindent "オートインデント
 set showmatch "対応するかっこ
 set hls "検索のハイライト
@@ -43,36 +54,24 @@ inoremap <silent> <C-k> <F7>
 inoremap <silent> <C-l> <F9>
 inoremap <silent> <C-;> <F10>
 
-cnoremap <silent> <C-f> <Right>
-cnoremap <silent> <C-b> <Left>
-cnoremap <silent> <C-p> <Up>
-cnoremap <silent> <C-n> <Down>
-cnoremap <silent> <C-a> <Home>
-cnoremap <silent> <C-e> <End>
-cnoremap <silent> <C-d> <Del>
-cnoremap <silent> <C-h> <BS>
-cnoremap <silent> <C-j> <F6>
-cnoremap <silent> <C-k> <F7>
-cnoremap <silent> <C-l> <F9>
-cnoremap <silent> <C-;> <F10>
-
+cnoremap <C-f> <Right>
+cnoremap <C-b> <Left>
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+cnoremap <C-d> <Del>
+cnoremap <C-h> <BS>
+cnoremap <C-j> <F6>
+cnoremap <C-k> <F7>
+cnoremap <C-l> <F9>
+cnoremap <C-;> <F10>
+" ESC連打で:nohを行う
 nnoremap <silent> <Esc><Esc> :noh<CR>
-
-
-" dein plugin manager
-if &compatible
- set nocompatible
-endif
-set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
-if dein#load_state('~/.cache/dein')
- call dein#begin('~/.cache/dein')
- call dein#load_toml('~/.config/nvim/dein.toml', {'lazy': 0})
- call dein#load_toml('~/.config/nvim/dein_lazy.toml', {'lazy': 1})
- call dein#end()
- call dein#save_state()
-endif
-if dein#check_install()
-  call dein#install()
-endif
-filetype plugin indent on
-syntax enable
+" 表示行単位で上下移動を行う
+nnoremap j gj
+nnoremap k gk
+nnoremap gj j
+nnoremap gk k
+" エンターを押したときに改行
+nnoremap <CR> i<CR><ESC>
