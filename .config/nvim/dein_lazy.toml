@@ -1,1 +1,25 @@
+[[plugins]]
+repo = 'Shougo/deoplete.nvim'
+on_event = 'InsertEnter'
+hook_add = '''
+if !has('nvim')
+  call dein#add('roxma/nvim-yarp')
+  call dein#add('roxma/vim-hug-neovim-rpc')
+endif
+let g:deoplete#enable_at_startup = 1
+'''
+
+#[plugins]]
+#repo = 'codota/tabnine-vim'
+#on_event = 'InsertEnter'
+#hook_source = '''
+#let g:ycm_add_preview_to_completion = 1
+#let g:ycm_key_list_select_completetion += ['<C-n>','<Down>']
+#let g:ycm_key_list_previous_completetion += ['<C-p>','<Up>']
+#let g:ycm_autoclose_preview_window_after_completion = 1
+#'''
+
+[[plugins]]
+repo = 'deoplete-plugins/deoplete-jedi'
+on_event = 'InsertEnter'
 

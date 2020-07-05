@@ -16,6 +16,8 @@ endif
 filetype plugin indent on
 syntax enable
 
+let g:python3_host_prog = '/Users/mei/.venv/neovim3/bin/python3'
+
 set encoding=utf-8 "文字コード
 set number "行番号表示
 set expandtab "tabをスペースで
@@ -37,9 +39,8 @@ set hls "検索のハイライト
 set noswapfile
 set nobackup
 set nowritebackup
-
 " jjでnormal modeに，そして保存
-inoremap <silent> jj <ESC>:<C-u>w<CR> 
+inoremap <silent> jj <ESC>
 " キーマップを設定
 inoremap <silent> <C-f> <Right>
 inoremap <silent> <C-b> <Left>
@@ -75,3 +76,12 @@ nnoremap gj j
 nnoremap gk k
 " エンターを押したときに改行
 nnoremap <CR> i<CR><ESC>
+
+" 補完表示時のEnterで改行をしない
+inoremap <expr><CR>  pumvisible() ? "<C-y>" : "<CR>"
+" 上下を決める
+set completeopt=menuone,noinsert,preview
+inoremap <expr><C-n> pumvisible() ? "<Down>" : "<C-n>"
+inoremap <expr><C-p> pumvisible() ? "<Up>" : "<C-p>"
+
+

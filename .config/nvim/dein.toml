@@ -11,15 +11,17 @@ hook_add = '''
 repo = 'vim-airline/vim-airline-themes'
 
 [[plugins]]
-repo = 'Townk/vim-autoclose'
-
-[[plugins]]
-repo = 'Yggdroot/indentLine'
-
-[[plugins]]
 repo = 'cocopon/iceberg.vim'
 hook_add = '''
 syntax on
 set t_Co=256
 colorscheme iceberg
 '''
+
+[[plugins]]
+repo = 'Yggdroot/indentLine'
+
+[[plugins]]
+repo = 'Townk/vim-autoclose'
+
+
