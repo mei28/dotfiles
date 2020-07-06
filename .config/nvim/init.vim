@@ -1,3 +1,7 @@
+let g:python3_host_prog = '/Users/mei/.venv/neovim3/bin/python3'
+let mapleader = "\<Space>"
+set encoding=UTF-8 "文字コード
+
 " dein plugin manager
 if &compatible
  set nocompatible
@@ -7,6 +11,7 @@ if dein#load_state('~/.cache/dein')
  call dein#begin('~/.cache/dein')
  call dein#load_toml('~/.config/nvim/dein.toml', {'lazy': 0})
  call dein#load_toml('~/.config/nvim/dein_lazy.toml', {'lazy': 1})
+
  call dein#end()
  call dein#save_state()
 endif
@@ -16,9 +21,6 @@ endif
 filetype plugin indent on
 syntax enable
 
-let g:python3_host_prog = '/Users/mei/.venv/neovim3/bin/python3'
-
-set encoding=utf-8 "文字コード
 set number "行番号表示
 set expandtab "tabをスペースで
 set tabstop=2 "tabで半角2文字
@@ -39,6 +41,7 @@ set hls "検索のハイライト
 set noswapfile
 set nobackup
 set nowritebackup
+set undofile
 " jjでnormal modeに，そして保存
 inoremap <silent> jj <ESC>
 " キーマップを設定
@@ -67,6 +70,10 @@ cnoremap <C-j> <F6>
 cnoremap <C-k> <F7>
 cnoremap <C-l> <F9>
 cnoremap <C-;> <F10>
+
+nnoremap <C-a> <Home>
+nnoremap <C-e> <End>
+
 " ESC連打で:nohを行う
 nnoremap <silent> <Esc><Esc> :noh<CR>
 " 表示行単位で上下移動を行う
@@ -80,8 +87,8 @@ nnoremap <CR> i<CR><ESC>
 " 補完表示時のEnterで改行をしない
 inoremap <expr><CR>  pumvisible() ? "<C-y>" : "<CR>"
 " 上下を決める
-set completeopt=menuone,noinsert,preview
-inoremap <expr><C-n> pumvisible() ? "<Down>" : "<C-n>"
-inoremap <expr><C-p> pumvisible() ? "<Up>" : "<C-p>"
+set completeopt=menuone,noinsert
 
+inoremap <expr><TAB> pumvisible() ? "<Down>" : "<TAB>"
+inoremap <expr><S-TAB> pumvisible() ? "<Up>" : "<S-TAB>"
 
