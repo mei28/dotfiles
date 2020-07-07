@@ -1,5 +1,4 @@
 let g:python3_host_prog = '/Users/mei/.venv/neovim3/bin/python3'
-let g:node_host_prog = '/usr/local/bin/neovim-node-host'
 let mapleader = "\<Space>"
 set encoding=UTF-8 "文字コード
 
@@ -12,7 +11,6 @@ if dein#load_state('~/.cache/dein')
  call dein#begin('~/.cache/dein')
  call dein#load_toml('~/.config/nvim/dein.toml', {'lazy': 0})
  call dein#load_toml('~/.config/nvim/dein_lazy.toml', {'lazy': 1})
-
  call dein#end()
  call dein#save_state()
 endif

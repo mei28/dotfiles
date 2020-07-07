@@ -12,3 +12,5 @@ alias la='ls -laG'
 
 source ~/.git-prompt.sh
 PS1='\[\e[34m\]\w \[\e[32m$(__git_ps1 "(%s)")\]\[\e[37m\]\$\[\e[0m\] '
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
