@@ -1,4 +1,3 @@
-
 [[plugins]]
 repo = 'Shougo/dein.vim'
 
@@ -135,4 +134,10 @@ repo = 'tpope/vim-commentary'
 repo = 'preservim/nerdtree'
 hook_add='''
 map <Leader>n :NERDTreeToggle<CR>
+'''
+
+[[plugins]]
+repo = 'reireias/vim-cheatsheet'
+hook_add='''
+let g:cheatsheet#cheat_file = '~/dotfiles/.config/nvim/cheatsheet.md'
 '''
