@@ -1,3 +1,4 @@
+
 [[plugins]]
 repo = 'Shougo/dein.vim'
 
@@ -40,9 +41,43 @@ repo = 'airblade/vim-gitgutter'
 [[plugins]]
 repo = 'tpope/vim-fugitive'
 
+[[plugins]]
+repo = 'neoclide/coc.nvim'
+merged = 0
+'rev' = 'release'
+hook_add='''
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
 
-rev = 'release'
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" Use <C-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+'''
+
 [[plugins]]
 repo = 'dense-analysis/ale'
 hook_add='''
@@ -88,14 +123,16 @@ let g:ale_python_isort_executable = g:python3_host_prog
 let g:ale_python_isort_options = '-m isort'
 let g:ale_python_black_executable = g:python3_host_prog
 let g:ale_python_black_options = '-m black'
-
-
 '''
-
 
 [[plugins]]
 repo = 'jiangmiao/auto-pairs'
 
-
 [[plugins]]
 repo = 'tpope/vim-commentary'
+
+[[plugins]]
+repo = 'preservim/nerdtree'
+hook_add='''
+map <Leader>n :NERDTreeToggle<CR>
+'''
