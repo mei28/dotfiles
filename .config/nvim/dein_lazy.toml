@@ -1,20 +1,4 @@
 [[plugins]]
-repo = 'Shougo/deoplete.nvim'
-on_event = 'InsertEnter'
-hook_add = '''
-if !has('nvim')
-  call dein#add('roxma/nvim-yarp')
-  call dein#add('roxma/vim-hug-neovim-rpc')
-endif
-let g:deoplete#enable_at_startup = 1
-'''
-
-[[plugins]]
-repo = 'deoplete-plugins/deoplete-jedi'
-on_ft = ['python']
-on_event = 'InsertEnter'
-
-[[plugins]]
 repo = 'tpope/vim-surround'
 on_event = 'InsertEnter'
 
