@@ -40,7 +40,10 @@ set hls "検索のハイライト
 set noswapfile
 set nobackup
 set nowritebackup
-set undofile
+set undofile "undoの永続化
+"下に分割 右に分割
+set splitbelow
+set splitright
 " jjでnormal modeに，そして保存
 inoremap <silent> jj <ESC>
 " キーマップを設定
@@ -82,12 +85,18 @@ nnoremap gj j
 nnoremap gk k
 " エンターを押したときに改行
 nnoremap <CR> i<CR><ESC>
+" 分割ウィンドウの移動
+nnoremap <Leader>j <C-w>j
+nnoremap <Leader>k <C-w>k
+nnoremap <Leader>h <C-w>h
+nnoremap <Leader>l <C-w>l
 
 " 補完表示時のEnterで改行をしない
 inoremap <expr><CR>  pumvisible() ? "<C-y>" : "<CR>"
-" 上下を決める
+" 一番上を選択　
 set completeopt=menuone,noinsert
 
+" 上下を決める
 inoremap <expr><TAB> pumvisible() ? "<Down>" : "<TAB>"
 inoremap <expr><S-TAB> pumvisible() ? "<Up>" : "<S-TAB>"
 
