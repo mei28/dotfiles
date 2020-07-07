@@ -1,4 +1,5 @@
 let g:python3_host_prog = '/Users/mei/.venv/neovim3/bin/python3'
+let g:node_host_prog = '/usr/local/bin/neovim-node-host'
 let mapleader = "\<Space>"
 set encoding=UTF-8 "文字コード
 
