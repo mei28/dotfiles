@@ -2,14 +2,6 @@
 repo = 'Shougo/dein.vim'
 
 [[plugins]]
-repo = 'vim-airline/vim-airline'
-hook_add='''
-let g:airline_theme = 'murmur'
-'''
-[[plugins]]
-repo = 'vim-airline/vim-airline-themes'
-
-[[plugins]]
 repo = 'cocopon/iceberg.vim'
 hook_add = '''
 syntax on
@@ -18,14 +10,60 @@ colorscheme iceberg
 '''
 
 [[plugins]]
+repo = 'vim-airline/vim-airline'
+hook_add='''
+let g:airline_theme = 'wombat'
+set laststatus=2
+set t_Co=256
+let g:airline#extensions#branch#enabled = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#wordcount#enabled = 0
+let g:airline#extensions#default#layout = [['a', 'b', 'c'], ['x', 'y', 'z']]
+let g:airline_section_c = '%t'
+let g:airline_section_x = '%{&filetype}'
+let g:airline_section_z = '%3l:%2v %{airline#extensions#ale#get_warning()} %{airline#extensions#ale#get_error()}'
+let g:ale_sign_error = '⨉'
+let g:ale_sign_warning = '⚠'
+let g:airline#extensions#default#section_truncate_width = {}
+let g:airline#extensions#whitespace#enabled = 1
+'''
+
+[[plugins]]
+repo = 'vim-airline/vim-airline-themes'
+
+[[plugins]]
 repo = 'Yggdroot/indentLine'
 
 [[plugins]]
 repo = 'airblade/vim-gitgutter'
 
 [[plugins]]
+repo = 'tpope/vim-fugitive'
+
+
+
+rev = 'release'
+[[plugins]]
 repo = 'dense-analysis/ale'
 hook_add='''
+" エラー行にカーソルをあわせた際に表示されるメッセージフォーマット
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+" エラー表示の列を常時表示
+
+let g:ale_sign_column_always = 1
+" ファイルを開いたときにlint実行
+let g:ale_lint_on_enter = 1
+" ファイルを保存したときにlint実行
+let g:ale_lint_on_save = 1
+" 編集中のlintはしない
+let g:ale_lint_on_text_changed = 'never'
+
+" lint結果をロケーションリストとQuickFixには表示しない
+" 出てると結構うざいしQuickFixを書き換えられるのは困る
+let g:ale_set_loclist = 0
+let g:ale_set_quickfix = 0
+let g:ale_open_list = 0
+let g:ale_keep_list_window_open = 0
 nmap <silent> <Leader>k <Plug>(ale_previous_wrap)
 nmap <silent> <Leader>j <Plug>(ale_next_wrap)
 nmap <silent> <Leader>f <Plug>(ale_fix)
@@ -50,6 +88,8 @@ let g:ale_python_isort_executable = g:python3_host_prog
 let g:ale_python_isort_options = '-m isort'
 let g:ale_python_black_executable = g:python3_host_prog
 let g:ale_python_black_options = '-m black'
+
+
 '''
 
 
