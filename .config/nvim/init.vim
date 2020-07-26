@@ -45,7 +45,7 @@ set undofile "undoの永続化
 set splitbelow
 set splitright
 " jjでnormal modeに，そして保存
-inoremap <silent> jj <ESC>
+inoremap <silent> jj <ESC>:w<CR>
 " キーマップを設定
 inoremap <silent> <C-f> <Right>
 inoremap <silent> <C-b> <Left>
@@ -100,3 +100,5 @@ set completeopt=menuone,noinsert
 inoremap <expr><TAB> pumvisible() ? "<Down>" : "<TAB>"
 inoremap <expr><S-TAB> pumvisible() ? "<Up>" : "<S-TAB>"
 
+nmap  <leader>ip  :Ipython<CR>
+vmap  <leader>ip  :VIpython<CR>
