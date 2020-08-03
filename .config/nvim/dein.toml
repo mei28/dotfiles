@@ -133,11 +133,14 @@ repo = 'tpope/vim-commentary'
 [[plugins]]
 repo = 'preservim/nerdtree'
 hook_add='''
-map <Leader>n :NERDTreeToggle<CR>
+map <Leader>b :NERDTreeToggle<CR>
 '''
+
 
 [[plugins]]
 repo = 'reireias/vim-cheatsheet'
 hook_add='''
 let g:cheatsheet#cheat_file = '~/dotfiles/.config/nvim/cheatsheet.md'
 '''
+
+
