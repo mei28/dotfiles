@@ -100,5 +100,3 @@ set completeopt=menuone,noinsert
 inoremap <expr><TAB> pumvisible() ? "<Down>" : "<TAB>"
 inoremap <expr><S-TAB> pumvisible() ? "<Up>" : "<S-TAB>"
 
-nmap  <leader>ip  :Ipython<CR>
-vmap  <leader>ip  :VIpython<CR>
