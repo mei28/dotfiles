@@ -1,0 +1,269 @@
+{ ///----------editor----------/// 
+    "editor.renderWhitespace": "all", //空白の可視化
+    "editor.renderIndentGuides": true, //インデントのガイド表示
+    "editor.formatOnPaste": true, // ペースト時に自動でフォーマット
+    "editor.formatOnSave": true, // ファイル保存時に自動でフォーマット
+    "editor.formatOnType": true, // 入力した行を自動でフォーマット
+    "editor.dragAndDrop": false, //ドラッグドロップを無効化
+    "editor.wordWrapColumn": 80,
+    "editor.wordWrap": "wordWrapColumn",
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "editor.quickSuggestionsDelay": 0,
+    "editor.snippetSuggestions": "top",
+    "[jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "[json]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "[python]": {
+        "editor.tabSize": 4,
+        "editor.defaultFormatter": "ms-python.python",
+    },
+    "[tex]": {
+        // スニペット補完中にも補完を使えるようにする
+        "editor.suggest.snippetsPreventQuickSuggestions": false,
+        // インデント幅を2にする
+        "editor.tabSize": 2
+    },
+    "[latex]": {
+        // スニペット補完中にも補完を使えるようにする
+        "editor.suggest.snippetsPreventQuickSuggestions": false,
+        // インデント幅を2にする
+        "editor.tabSize": 2,
+        "editor.formatOnSave": false,
+        "editor.defaultFormatter": "James-Yu.latex-workshop",
+    },
+    "[bibtex]": {
+        // インデント幅を2にする
+        "editor.tabSize": 2
+    },
+    "[markdown]": {
+        "editor.tabSize": 2,
+        "editor.defaultFormatter": "DavidAnson.vscode-markdownlint"
+    },
+    "editor.parameterHints.enabled": true,
+    // 拡張機能を自動更新
+    // editor.wordSeparators: 単語単位での移動を行う場合の区切り文字を指定
+    // 日本語文書で単語移動を使うため、助詞や読点、括弧を区切り文字として指定する
+    "editor.wordSeparators": "./\\()\"'-:,.;<>~!@#$%^&*|+=[]{}`~?　、。「」【】『』（）！？てにをはがのともへでや",
+    "editor.suggestSelection": "first",
+    "editor.largeFileOptimizations": false,
+    "editor.renderControlCharacters": true,
+    ///----------workbench----------///
+    "workbench.startupEditor": "newUntitledFile",
+    ///----------files-----------///
+    "files.autoSave": "afterDelay",
+    "files.autoSaveDelay": 1000,
+    ///----------code-runner----------///
+    "code-runner.runInTerminal": true,
+    ///----------extensions----------///
+    // 拡張機能を自動更新
+    "extensions.autoUpdate": true,
+    ///----------latex-workshop----------///
+    // 設定: LaTeX Workshop
+    // ---------- LaTeX Workshop ----------
+    // 使用パッケージのコマンドや環境の補完を有効にする
+    "latex-workshop.intellisense.package.enabled": true,
+    // 生成ファイルを削除するときに対象とするファイル
+    // デフォルト値に "*.synctex.gz" を追加
+    "latex-workshop.latex.clean.fileTypes": [
+        "*.aux",
+        "*.bbl",
+        "*.blg",
+        "*.idx",
+        "*.ind",
+        "*.lof",
+        "*.lot",
+        "*.out",
+        "*.toc",
+        "*.acn",
+        "*.acr",
+        "*.alg",
+        "*.glg",
+        "*.glo",
+        "*.gls",
+        "*.ist",
+        "*.fls",
+        "*.log",
+        "*.fdb_latexmk",
+        "*.snm",
+        "*.nav",
+        "*.dvi",
+        "*.synctex.gz"
+    ],
+    // 生成ファイルを "out" ディレクトリに吐き出す
+    "latex-workshop.latex.outDir": "out",
+    // ビルドのレシピ
+    "latex-workshop.latex.recipes": [
+        {
+            "name": "latexmk",
+            "tools": [
+                "latexmk"
+            ]
+        },
+        {
+            "name": "pdflatex*2",
+            "tools": [
+                "pdflatex",
+                "pdflatex"
+            ]
+        },
+        {
+            "name": "pdflatex -> bibtex -> pdflatex*2",
+            "tools": [
+                "pdflatex",
+                "bibtex",
+                "pdflatex",
+                "pdflatex"
+            ]
+        },
+    ],
+    // ビルドのレシピに使われるパーツ
+    "latex-workshop.latex.tools": [
+        {
+            "name": "latexmk",
+            "command": "latexmk",
+            "args": [
+                "-silent",
+                "-outdir=%OUTDIR%",
+                "%DOC%"
+            ],
+        },
+        {
+            "name": "pdflatex",
+            "command": "pdflatex",
+            "args": [
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "-outdir=%OUTDIR%",
+                "%DOC%"
+            ]
+        },
+        {
+            "name": "bibtex",
+            "command": "bibtex",
+            "args": [
+                "%DOCFILE%"
+            ]
+        },
+    ],
+    ///----------window----------///
+    "window.zoomLevel": 0,
+    ///----------python----------///
+    "python.dataScience.sendSelectionToInteractiveWindow": true,
+    "python.autoComplete.addBrackets": true,
+    "python.dataScience.askForKernelRestart": false,
+    ///----------vsicons---------///
+    "vsicons.dontShowNewVersionMessage": true,
+    ///----------cSpell--------///
+    "cSpell.userWords": [
+        "Theano"
+    ],
+    "terminal.integrated.inheritEnv": false,
+    ///----------autoDocstring----------///
+    "autoDocstring.docstringFormat": "numpy",
+    "cSpell.enabledLanguageIds": [
+        "asciidoc",
+        "c",
+        "cpp",
+        "csharp",
+        "css",
+        "git-commit",
+        "go",
+        "handlebars",
+        "haskell",
+        "html",
+        "jade",
+        "java",
+        "javascript",
+        "javascriptreact",
+        "json",
+        "jsonc",
+        "jupyter",
+        "latex",
+        "less",
+        "markdown",
+        "php",
+        "plaintext",
+        "pug",
+        "python",
+        "restructuredtext",
+        "rust",
+        "scala",
+        "scss",
+        "text",
+        "typescript",
+        "typescriptreact",
+        "yaml",
+        "yml"
+    ],
+    "explorer.confirmDelete": false,
+    "latex-workshop.view.pdf.viewer": "tab",
+    "python.pythonPath": "/usr/local/bin/python3",
+    "git.autofetch": true,
+    ///----------vim----------//////
+    "vim.useCtrlKeys": false,
+    "vim.overrideCopy": true,
+    "vim.hlsearch": true,
+    "vim.useSystemClipboard": true,
+    "vim.visualstar": true,
+    "vim.handleKeys": {
+        "<C-f>": true,
+        "<C-b>": true,
+        "<C-u>": true,
+        "<C-r>": true,
+        "<C-v>": true,
+        "<C-[>": true,
+        "<C-w>": true,
+    },
+    "vim.cursorStylePerMode.normal": "block",
+    "vim.cursorStylePerMode.insert": "line-thin",
+    "vim.cursorStylePerMode.replace": "block-outline",
+    "vim.statusBarColorControl": true,
+    "vim.normalModeKeyBindings": [
+        {
+            "before": [
+                "j"
+            ],
+            "after": [
+                "g",
+                "j"
+            ]
+            
+        },{
+            
+            "before": [
+                "k"
+            ],
+            "after": [
+                "g",
+                "k"
+            ]
+            
+        }
+    ],
+    "vim.insertModeKeyBindings": [
+        {
+            "before": [
+                "j",
+                "j"
+            ],
+            "after": [
+                "<Esc>"
+            ]
+        }
+    ],
+    "workbench.colorCustomizations": {
+        "statusBar.background": "#005f5f",
+        "statusBar.noFolderBackground": "#005f5f",
+        "statusBar.debuggingBackground": "#005f5f"
+    },
+    "workbench.colorTheme": "Iceberg",
+    "workbench.iconTheme": "vscode-icons",
+    "tabnine.experimentalAutoImports": true,
+    "python.languageServer": "Microsoft",
+    "python.dataScience.alwaysTrustNotebooks": true,
+}

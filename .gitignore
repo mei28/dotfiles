@@ -3,6 +3,9 @@
 
 ! .bashrc/*
 ! .bashprofile/*
-! .config/nvim/*
+! .config/nvim
 
-.*/*
+! .vscode
+
+.config/coc
+.config/karabiner
