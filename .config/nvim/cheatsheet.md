@@ -6,20 +6,17 @@
 - gU 大文字に
 - <Leader>h,j,k,l ウィンドウの移動
 
-- gd 定義に移動
-- gy 型を確認
-- gi 実装に移動
-- gr 参照しているところに移動
-- K 定義をホバーして表示
+- <S-h> 定義をホバーして表示
 - <leader> f フォーマットする
-- <leader> j 次のエラーに移動
-- <leader> k 前のエラーに移動
-- <leader> n ファイルツリーを表示
+- <leader> n 次のエラーに移動
+- <leader> p 前のエラーに移動
+- <leader> b ファイルツリーを表示
 - <ESC><ESC> :nohとおなじ
 - <leader> gd 定義に移動
 - <leader> gy 型を確認
 - <leader> gi 実装に移動
 - <leader> gr 参照に移動
+- <leader><TAB> 表示するバッファを切り替える
 
 ## command line mode
 
@@ -30,6 +27,7 @@
 - :tabnew {file} タブを開く
 - [N]gt タブを移動する
 - :tabo 現在以外のタブを消す
+- edit <buffer> バッファを変える
 
 ## NERDTree
 
@@ -41,7 +39,7 @@
 
 - o ディレクトリを開く
 - O 全展開
-- x 閉じる<p> 
+- x 閉じる 
 - X 全閉じる
 
 ## commentout
@@ -53,3 +51,7 @@
 ## markdown
 
 - <Leader>p プレビューの表示
+
+## IPython
+
+- ヴィジュアルモード で<leader>ip  IPythonを起動する
