@@ -1,0 +1,55 @@
+# CheatSheet
+
+## normal mode
+
+- gu 小文字に
+- gU 大文字に
+- <Leader>h,j,k,l ウィンドウの移動
+
+- gd 定義に移動
+- gy 型を確認
+- gi 実装に移動
+- gr 参照しているところに移動
+- K 定義をホバーして表示
+- <leader> f フォーマットする
+- <leader> j 次のエラーに移動
+- <leader> k 前のエラーに移動
+- <leader> n ファイルツリーを表示
+- <ESC><ESC> :nohとおなじ
+- <leader> gd 定義に移動
+- <leader> gy 型を確認
+- <leader> gi 実装に移動
+- <leader> gr 参照に移動
+
+## command line mode
+
+- :new {file} 上下に分割
+- :vnew {file} 左右に分割
+- :sp {file} 上下に分割
+- :vs {file} 左右に分割
+- :tabnew {file} タブを開く
+- [N]gt タブを移動する
+- :tabo 現在以外のタブを消す
+
+## NERDTree
+
+- o <CR> ファイルを開く
+- t 新しいタブで開く
+- i 上下分割で開く
+- s 左右分割で開く
+- go,t,i,s フォーカスそのまま 
+
+- o ディレクトリを開く
+- O 全展開
+- x 閉じる<p> 
+- X 全閉じる
+
+## commentout
+
+ビジュアルモードで
+- gc コメントアウト
+- gcc コメントアウト解除
+
+## markdown
+
+- <Leader>p プレビューの表示

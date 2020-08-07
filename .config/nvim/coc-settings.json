@@ -1,0 +1,5 @@
+{
+  "diagnostic.enable": false,
+  "python.linting.enabled": false,
+  "suggest.noselect": false,
+}
