@@ -261,9 +261,9 @@
         "statusBar.noFolderBackground": "#005f5f",
         "statusBar.debuggingBackground": "#005f5f"
     },
-    "workbench.colorTheme": "Iceberg",
     "workbench.iconTheme": "vscode-icons",
     "tabnine.experimentalAutoImports": true,
     "python.languageServer": "Microsoft",
     "python.dataScience.alwaysTrustNotebooks": true,
+    "workbench.colorTheme": "Iceberg",
 }
