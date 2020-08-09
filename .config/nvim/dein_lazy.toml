@@ -7,20 +7,6 @@ repo = 'tpope/vim-commentary'
 on_event = 'InsertEnter'
 
 [[plugins]]
-repo = 'plasticboy/vim-markdown'
-on_ft = ['markdown']
-
-[[plugins]]
-repo = 'previm/previm'
-on_ft = ['markdown']
-hook_add = '''
-    autocmd BufRead,BufNewFile *.md  set filetype=markdown
-    nnoremap <silent> <Leader>p :PrevimOpen<CR>
-    let g:vim_markdown_folding_disabled=1
-    let g:previm_enable_realtime=1
-'''
-
-[[plugins]]
 repo = 'szkny/SplitTerm'
 on_ft = ['python']
 
@@ -31,3 +17,28 @@ hook_add = '''
   nmap  <leader>ip  :Ipython<CR>
   vmap  <leader>ip  :VIpython<CR>
 '''
+[[plugins]]
+repo = 'plasticboy/vim-markdown'
+on_ft = ['markdown']
+[[plugins]]
+repo = 'previm/previm'
+on_ft = ['markdown']
+hook_add = '''
+    autocmd BufRead,BufNewFile *.md  set filetype=markdown
+    nnoremap <silent> <Leader>om :PrevimOpen<CR>
+    let g:vim_markdown_folding_disabled=1
+    let g:previm_enable_realtime=1
+'''
+
+[[plugins]]
+repo = 'tyru/open-browser.vim'
+on_ft = ['markdown']
+
+[[plugins]]
+repo = 'vim-scripts/vim-auto-save'
+on_event = 'InsertLeave' 
+hook_source = '''
+  let g:auto_save = 1
+  let g:auto_save_no_updatetime = 1
+  let g:auto_save_in_insert_mode = 0
+''' 

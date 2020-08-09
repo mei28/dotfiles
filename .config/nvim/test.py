@@ -1,15 +1,13 @@
 #! /usr/bin/python3
 
-import json
-
-import yaml
 
 
 def main():
     a = 2
-    x = 'hoge'
+    x = "hoge"
     print(x)
+    print(a)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

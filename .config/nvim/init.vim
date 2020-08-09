@@ -44,8 +44,8 @@ set undofile "undoの永続化
 "下に分割 右に分割
 set splitbelow
 set splitright
-" jjでnormal modeに，そして保存
-inoremap <silent> jj <ESC>:w<CR>
+"" jjでnormal modeに，そして保存
+inoremap <silent> jj <ESC>
 " キーマップを設定
 inoremap <silent> <C-f> <Right>
 inoremap <silent> <C-b> <Left>
@@ -99,4 +99,7 @@ set completeopt=menuone,noinsert
 " 上下を決める
 inoremap <expr><TAB> pumvisible() ? "<Down>" : "<TAB>"
 inoremap <expr><S-TAB> pumvisible() ? "<Up>" : "<S-TAB>"
+
+" ターミナルモードでコマンドに戻るようにする
+tnoremap <Esc> <C-\><C-n>
 
