@@ -26,7 +26,7 @@
         "sysPrefix": "/usr/local/Cellar/python/3.7.7/Frameworks/Python.framework/Versions/3.7",
         "fileHash": "7f517e169d90e1e7c44553fbc38fd39e18465810fd18b36ad590545e699a713579b6e011ffe67384591e4a15318206e883f345f40d580399a3dd94f722585c5a"
       },
-      "expiry": 1597019867374
+      "expiry": 1597116932666
     },
     "/usr/local/bin/python3.v3": {
       "data": {
@@ -51,7 +51,7 @@
         "sysPrefix": "/usr/local/Cellar/python/3.7.7/Frameworks/Python.framework/Versions/3.7",
         "fileHash": "7430f13caf30a54cfea72898962ed0cc04a28a60cde008d5d171a6b5b260be8a3b12405eae39d96abe362fc9fcd2e21028a6ff7dbba32e88f272c3133408e937"
       },
-      "expiry": 1597019867349
+      "expiry": 1597116932667
     },
     "/usr/bin/python2.7.v3": {
       "data": {
@@ -76,7 +76,7 @@
         "sysPrefix": "/System/Library/Frameworks/Python.framework/Versions/2.7",
         "fileHash": "f37d30908d8c6351404a983fc160aec6b2ca238c9348e79c8b6c131a7d59ae099d15f133ef9df28cd43cb34b335598dcd399bb1120ef9cba24b946bfc6f860f5"
       },
-      "expiry": 1597019867455
+      "expiry": 1597116932756
     },
     "/usr/bin/python.v3": {
       "data": {
@@ -101,7 +101,7 @@
         "sysPrefix": "/System/Library/Frameworks/Python.framework/Versions/2.7",
         "fileHash": "88598a1e44f6283870d54852c59ba25b1c60b4f6e97b1a33bbff69ea71b0c51f3d9ce4822c67d573cc9bd632d8f7013e51db339880c0fe94d420664c7fb9b856"
       },
-      "expiry": 1597019867456
+      "expiry": 1597116932756
     },
     "INTERPRETERS_CACHE_v3_KnownPathsService": [
       {
@@ -358,7 +358,7 @@
         "sysPrefix": "/usr/local/Cellar/python/3.7.7/Frameworks/Python.framework/Versions/3.7",
         "fileHash": "50ced507c6647e46d4abd4a3172a62dfdac4ceaaba5144587a82d42f874bae04aa6d93895548fc1495d8ec722217c942707d028acc0ce74e7ea970433bf5c39d"
       },
-      "expiry": 1597019867453
+      "expiry": 1597116932754
     },
     "INTERPRETERS_CACHE_v3_CurrentPathService": [
       {
@@ -506,21 +506,21 @@
         "displayName": "Python 3.7.7 64-bit",
         "hash": "7430f13caf30a54cfea72898962ed0cc04a28a60cde008d5d171a6b5b260be8a3b12405eae39d96abe362fc9fcd2e21028a6ff7dbba32e88f272c3133408e937-1c0362b6c7db43f5695ad2c95d7bbff1"
       },
-      "expiry": 1597019867527
+      "expiry": 1597116932834
     },
     "/usr/bin/python.interpreter.displayName.v7": {
       "data": {
         "displayName": "Python 2.7.10 64-bit",
         "hash": "88598a1e44f6283870d54852c59ba25b1c60b4f6e97b1a33bbff69ea71b0c51f3d9ce4822c67d573cc9bd632d8f7013e51db339880c0fe94d420664c7fb9b856-2c59fe0ddbb75978ff3d92709ea741ff"
       },
-      "expiry": 1597019867528
+      "expiry": 1597116932835
     },
     "/usr/local/opt/python/bin/python3.7.interpreter.displayName.v7": {
       "data": {
         "displayName": "Python 3.7.7 64-bit",
         "hash": "50ced507c6647e46d4abd4a3172a62dfdac4ceaaba5144587a82d42f874bae04aa6d93895548fc1495d8ec722217c942707d028acc0ce74e7ea970433bf5c39d-2d90e72512c10a192af60af16c948c74"
       },
-      "expiry": 1597019867469
+      "expiry": 1597116932817
     },
     "InterpreterAutoSeletionRule-system": {
       "architecture": 3,
@@ -574,7 +574,7 @@
           "displayName": "Python 3.7.7 64-bit"
         }
       },
-      "expiry": 1597019867538
+      "expiry": 1597116932840
     },
     "/usr/bin/python.interpreter.Details.v7": {
       "data": {
@@ -604,7 +604,7 @@
           "displayName": "Python 2.7.10 64-bit"
         }
       },
-      "expiry": 1597019867539
+      "expiry": 1597116932843
     },
     "/usr/local/opt/python/bin/python3.7.interpreter.Details.v7": {
       "data": {
@@ -634,7 +634,7 @@
           "displayName": "Python 3.7.7 64-bit"
         }
       },
-      "expiry": 1597019867530
+      "expiry": 1597116932837
     },
     "InterpreterAutoSeletionRule-cachedInterpreters": {
       "architecture": 3,
@@ -831,5 +831,34 @@
   "coc-python|/Users/mei": {
     "INTERPRETERS_CACHE_v3_WorkspaceVirtualEnvService": [],
     "INTERPRETERS_CACHE_v3_PipEnvService": []
+  },
+  "coc-python|/Users/mei/Documents/Deeesign_patteeern": {
+    "INTERPRETERS_CACHE_v3_PipEnvService:eecd47cd9792c6796ebd73d31848d1c9": [],
+    "INTERPRETERS_CACHE_v3_WorkspaceVirtualEnvService:eecd47cd9792c6796ebd73d31848d1c9": [],
+    "autoSelectedWorkspacePythonInterpreter-/Users/mei/Documents/Deeesign_patteeern": {
+      "architecture": 3,
+      "path": "/usr/local/opt/python/bin/python3.7",
+      "version": {
+        "options": {
+          "loose": false,
+          "includePrerelease": false
+        },
+        "loose": false,
+        "raw": "3.7.7-final",
+        "major": 3,
+        "minor": 7,
+        "patch": 7,
+        "prerelease": [
+          "final"
+        ],
+        "build": [],
+        "version": "3.7.7-final"
+      },
+      "sysPrefix": "/usr/local/Cellar/python/3.7.7/Frameworks/Python.framework/Versions/3.7",
+      "fileHash": "50ced507c6647e46d4abd4a3172a62dfdac4ceaaba5144587a82d42f874bae04aa6d93895548fc1495d8ec722217c942707d028acc0ce74e7ea970433bf5c39d",
+      "type": "Unknown"
+    },
+    "INTERPRETERS_CACHE_v3_PipEnvService": [],
+    "INTERPRETERS_CACHE_v3_WorkspaceVirtualEnvService": []
   }
 }

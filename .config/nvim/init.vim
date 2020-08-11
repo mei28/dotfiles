@@ -20,6 +20,12 @@ endif
 filetype plugin indent on
 syntax enable
 
+" ターミナルの分割を行う
+if has('nvim')
+  command! -nargs=* Term split | terminal <args>
+  command! -nargs=* Termv vsplit | terminal <args>
+endif
+
 set number "行番号表示
 set expandtab "tabをスペースで
 set tabstop=2 "tabで半角2文字
@@ -88,7 +94,7 @@ nnoremap <CR> i<CR><ESC>
 " 分割ウィンドウの移動
 nnoremap <Leader>j <C-w>j
 nnoremap <Leader>k <C-w>k
-nnoremap <Leader>h <C-w>h
+nnoremap <Leader>hh <C-w>h
 nnoremap <Leader>l <C-w>l
 
 " 補完表示時のEnterで改行をしない

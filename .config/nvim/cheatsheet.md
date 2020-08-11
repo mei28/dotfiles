@@ -12,14 +12,15 @@
 - <leader> p 前のエラーに移動
 - <leader> b ファイルツリーを表示
 - <ESC><ESC> :nohとおなじ
-- <leader> gd 定義に移動
-- <leader> gy 型を確認
-- <leader> gi 実装に移動
-- <leader> gr 参照に移動
+-  gd 定義に移動
+-  gy 型を確認
+-  gi 実装に移動
+-  gr 参照に移動
 - <leader><TAB> 表示するバッファを切り替える
 - <leader>om マークダウンを開く
 - <C-w><C-w> ウィンドウの移動
 - <C-T> ウィンドウのリサイズ
+
 ## command line mode
 
 - :new {file} 上下に分割
@@ -36,7 +37,8 @@
 - :tabdo e 全タブの再読み込み
 - :b [数字] バッファの移動
 - :bd [数字] バッファの削除
-
+- :Term ターミナルを上下に分割して起動する
+- :Termv ターミナルを左右に分割して起動する
 ## NERDTree
 
 - o <CR> ファイルを開く
