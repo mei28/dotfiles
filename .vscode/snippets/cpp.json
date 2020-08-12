@@ -1,0 +1,47 @@
+{
+	"main function": {
+		"prefix": "ma",
+		"body": [
+			"#include <bits/stdc++.h>",
+			"",
+			"using namespace std;",
+			"",
+			"int main() {",
+			"",
+			"    return 0;",
+			"}"
+		],
+		"description": "basic main function"
+	},
+	// "while true": {
+	// 	"prefix": "while",
+	// 	"body": [
+	// 		"while(true) {",
+	// 		"}"
+	// 	],
+	// 	"description": "while(true) loop"
+	// },
+	// "basic for": {
+	// 	"prefix": "for",
+	// 	"body": [
+	// 		"for(int ${1:i} = 0; ${1:i} < ${2:max}; ${1:i}++) {",
+	// 		"\t${3:/* code */}",
+	// 		"}"
+	// 	],
+	// 	"description": "basic for loop"
+	// },
+	// "basic cout": {
+	// 	"prefix": "cout",
+	// 	"body": [
+	// 		"cout << ${1:/* code */} << endl;"
+	// 	],
+	// 	"description": "basic cout"
+	// },
+	// "basic vector": {
+	// 	"prefix": "vec",
+	// 	"body": [
+	// 		"vector<${1:int}> ${2:A}(${3:N});"
+	// 	],
+	// 	"description": "basic vector"
+	// }
+}
