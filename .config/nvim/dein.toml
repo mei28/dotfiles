@@ -3,39 +3,34 @@ repo = 'Shougo/dein.vim'
 
 [[plugins]]
 repo = 'cocopon/iceberg.vim'
-hook_add='''
-  colorscheme iceberg
-  set t_Co=256
-  syntax on
-'''
 
+# status line
 [[plugins]]
-repo = 'vim-airline/vim-airline'
-hook_add='''
-  nmap <Leader><TAB> <Plug>AirlineSelectNextTab
-
-  set t_Co=256
+repo = 'itchyny/lightline.vim'
+hook_add = '''
+  let g:lightline = {
+    \ 'colorscheme': 'wombat',
+    \ 'active': {
+      \ 'left': [ ['mode', 'paste'], ['readonly', 'branchName', 'filepath', 'modified'] ]
+      \ },
+    \ 'component_function':{
+    \ 'filepath': 'FilePath',
+    \ },
+  \ }
+  function! FilePath()
+  if winwidth(0) > 90
+    return expand("%:s")
+  else
+    return expand("%:t")
+  endif
+  endfunction
+  " # show statusbar
   set laststatus=2
+  " # show tabline 
   set showtabline=2
-  let g:airline_theme='violet'
-  let g:airline#extensions#tabline#enabled=1
-  let g:airline#extensions#branch#enabled=1
-  let g:airline#extensions#wordcount#enabled=0
-  let g:airline#extensions#tabline#buffer_nr_show=1
-
-  let g:airline#extensions#default#layout = [['a', 'b', 'c'], ['x', 'y', 'z']]
-  let g:airline_section_c = '%t'
-  let g:airline_section_x = '%{&filetype}'
-  let g:airline_section_z = '%3l:%2v %{airline#extensions#ale#get_warning()} %{airline#extensions#ale#get_error()}'
-  let g:airline#extensions#ale#error_symbol ='W:'
-  let g:airline#extensions#ale#warning_symbol = 'E:'
-  let g:airline#extensions#default#section_truncate_width = {}
-  let g:airline#extensions#whitespace#enabled = 1
-
+  " # hide --INSERT--
+  set noshowmode
 '''
-
-[[plugins]]
-repo = 'vim-airline/vim-airline-themes'
 
 [[plugins]]
 repo = 'Yggdroot/indentLine'

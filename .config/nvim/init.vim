@@ -26,6 +26,10 @@ if has('nvim')
   command! -nargs=* Termv vsplit | terminal <args>
 endif
 
+colorscheme iceberg
+set bg=dark
+
+set belloff=all "ベルの音をミュート
 set number "行番号表示
 set expandtab "tabをスペースで
 set tabstop=2 "tabで半角2文字
@@ -34,6 +38,10 @@ set mouse=a "マウスの有効化
 set ignorecase "大文字小文字を区別しない
 set smartcase "大文字があるときはignorecaseを無視
 set cursorline "カーソル行をハイライト
+" 行番号のみハイライト
+if !has('nvim')
+  set cursorlineopt=number
+endif
 set incsearch "検索を移動
 set wrapscan "検索をループ
 set inccommand=split "置換のとき可視化
@@ -50,6 +58,12 @@ set undofile "undoの永続化
 "下に分割 右に分割
 set splitbelow
 set splitright
+set scrolloff=100 "カーソルが常に真ん中に
+set autoread "外部に変更があった時に読み込む
+let g:go_def_reuse_buffer = 1 " 開いているバッファに定義ジャンプをする
+
+" *でカーソル移動させない
+noremap * *N
 "" jjでnormal modeに，そして保存
 inoremap <silent> jj <ESC>
 " キーマップを設定
@@ -109,3 +123,5 @@ inoremap <expr><S-TAB> pumvisible() ? "<Up>" : "<S-TAB>"
 " ターミナルモードでコマンドに戻るようにする
 tnoremap <Esc> <C-\><C-n>
 
+" バッファの表示
+nnoremap gb :Buffers<CR>

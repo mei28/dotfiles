@@ -42,3 +42,8 @@ hook_source = '''
   let g:auto_save_no_updatetime = 1
   let g:auto_save_in_insert_mode = 0
 ''' 
+
+# syntax file type toml
+[[plugins]]
+repo = 'cespare/vim-toml'
+on_ft = ['toml']
