@@ -11,6 +11,7 @@
     "editor.insertSpaces": true,
     "editor.quickSuggestionsDelay": 0,
     "editor.snippetSuggestions": "top",
+    "editor.fontFamily": "Source Han Code JP",
     "[jsonc]": {
         "editor.defaultFormatter": "vscode.json-language-features"
     },

@@ -1,6 +1,7 @@
 let g:python3_host_prog = '/Users/mei/.venv/neovim3/bin/python3'
 let mapleader = "\<Space>"
 set encoding=UTF-8 "文字コード
+set fileencoding=utf-8
 
 " dein plugin manager
 if &compatible
