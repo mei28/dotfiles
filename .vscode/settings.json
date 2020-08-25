@@ -306,19 +306,20 @@
             ]
         }
     ],
-    "workbench.colorCustomizations": {
-        "statusBar.background": "#5f0000",
-        "statusBar.noFolderBackground": "#5f0000",
-        "statusBar.debuggingBackground": "#5f0000"
-    },
     "workbench.iconTheme": "vscode-icons",
     "tabnine.experimentalAutoImports": true,
     "python.languageServer": "Microsoft",
     "python.dataScience.alwaysTrustNotebooks": true,
-    "workbench.colorTheme": "Iceberg",
     "C_Cpp.updateChannel": "Insiders",
     "clang.executable": "clang++",
     "clang.cxxflags": [
         "-std=c++14"
     ],
+    "workbench.colorTheme": "Iceberg",
+    "workbench.colorCustomizations": {
+        "editorGutter.background": "#1e2132",
+        "statusBar.background": "#5f0000",
+        "statusBar.noFolderBackground": "#5f0000",
+        "statusBar.debuggingBackground": "#5f0000"
+    }
 }
