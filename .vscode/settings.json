@@ -203,7 +203,7 @@
         },
     ],
     ///----------window----------///
-    "window.zoomLevel": 0,
+    "window.zoomLevel": 1,
     ///----------python----------///
     "python.dataScience.sendSelectionToInteractiveWindow": true,
     "python.autoComplete.addBrackets": true,
@@ -318,8 +318,9 @@
     "workbench.colorTheme": "Iceberg",
     "workbench.colorCustomizations": {
         "editorGutter.background": "#1e2132",
-        "statusBar.background": "#5f0000",
-        "statusBar.noFolderBackground": "#5f0000",
-        "statusBar.debuggingBackground": "#5f0000"
-    }
+        "statusBar.background": "#005f5f",
+        "statusBar.noFolderBackground": "#005f5f",
+        "statusBar.debuggingBackground": "#005f5f"
+    },
+    "C_Cpp.clang_format_style": "{BasedOnStyle: Google, IndentWidth: 4}"
 }
