@@ -69,7 +69,7 @@
         "cpp": "cd $dir && g++ -O2 -std=c++14 $fileName && ./a.out",
         "objective-c": "cd $dir && gcc -framework Cocoa $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
         "php": "php",
-        "python": "python -u",
+        "python": "cd $dir && python3 $fileName",
         "perl": "perl",
         "perl6": "perl6",
         "ruby": "ruby",
