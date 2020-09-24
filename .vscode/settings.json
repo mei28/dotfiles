@@ -306,6 +306,8 @@
             ]
         }
     ],
+    "vim.easymotion": true,
+    "vim.leader": "<SPACE>",
     "workbench.iconTheme": "vscode-icons",
     "tabnine.experimentalAutoImports": true,
     "python.languageServer": "Microsoft",
