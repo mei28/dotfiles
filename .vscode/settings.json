@@ -203,7 +203,7 @@
         },
     ],
     ///----------window----------///
-    "window.zoomLevel": 0,
+    "window.zoomLevel": 1,
     ///----------python----------///
     "python.dataScience.sendSelectionToInteractiveWindow": true,
     "python.autoComplete.addBrackets": true,
@@ -275,7 +275,7 @@
     "vim.cursorStylePerMode.insert": "line-thin",
     "vim.cursorStylePerMode.replace": "block-outline",
     "vim.statusBarColorControl": true,
-    "vim.normalModeKeyBindings": [
+    "vim.normalModeKeyBindingsNonRecursive": [
         {
             "before": [
                 "j"
@@ -295,17 +295,17 @@
             ]
         }
     ],
-    "vim.insertModeKeyBindings": [
-        {
-            "before": [
-                "j",
-                "j"
-            ],
-            "after": [
-                "<Esc>"
-            ]
-        }
-    ],
+    // "vim.insertModeKeyBindingsNonRecursive": [
+    //     {
+    //         "before": [
+    //             "j",
+    //             "j"
+    //         ],
+    //         "after": [
+    //             "<Esc>"
+    //         ]
+    //     }
+    // ],
     "vim.easymotion": true,
     "vim.leader": "<SPACE>",
     "workbench.iconTheme": "vscode-icons",
