@@ -203,7 +203,7 @@
         },
     ],
     ///----------window----------///
-    "window.zoomLevel": 1,
+    "window.zoomLevel": 0,
     ///----------python----------///
     "python.dataScience.sendSelectionToInteractiveWindow": true,
     "python.autoComplete.addBrackets": true,
