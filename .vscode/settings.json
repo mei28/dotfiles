@@ -19,7 +19,8 @@
         "editor.defaultFormatter": "vscode.json-language-features"
     },
     "[cpp]": {
-        "editor.tabSize": 4
+        "editor.tabSize": 4,
+        "editor.defaultFormatter": "ms-vscode.cpptools"
     },
     "[python]": {
         "editor.tabSize": 4,
