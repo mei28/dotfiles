@@ -26,5 +26,5 @@ export NVM_DIR="$HOME/.nvm"
 # mkdir and change directory
 
 mkcd(){
-  mkdir $1 && cd $1 && pwd
+  mkdir -p $1 && cd $1 && pwd
 }
