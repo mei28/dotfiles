@@ -17,22 +17,6 @@ hook_add = '''
   nmap  <leader>ip  :Ipython<CR>
   vmap  <leader>ip  :VIpython<CR>
 '''
-[[plugins]]
-repo = 'plasticboy/vim-markdown'
-on_ft = ['markdown']
-[[plugins]]
-repo = 'previm/previm'
-on_ft = ['markdown']
-hook_add = '''
-    autocmd BufRead,BufNewFile *.md  set filetype=markdown
-    nnoremap <silent> <Leader>om :PrevimOpen<CR>
-    let g:vim_markdown_folding_disabled=1
-    let g:previm_enable_realtime=1
-'''
-
-[[plugins]]
-repo = 'tyru/open-browser.vim'
-on_ft = ['markdown']
 
 [[plugins]]
 repo = 'vim-scripts/vim-auto-save'
