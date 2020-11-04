@@ -1,0 +1,9 @@
+{
+	"html_img": {
+		"prefix": "img",
+		"body": [
+			"<img alt=\"\" src=\"\" width=\"\" height=\"\">"
+		],
+		"description": "html img snippet"
+	}
+}
