@@ -71,6 +71,7 @@
         "objective-c": "cd $dir && gcc -framework Cocoa $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
         "php": "php",
         "python": "cd $dir && python3 $fileName",
+        // "python": "cd $dir && cd .. &&source .competitive-programing/bin/activate &&cd $dir && python $fileName",
         "perl": "perl",
         "perl6": "perl6",
         "ruby": "ruby",
@@ -205,10 +206,7 @@
     ],
     ///----------window----------///
     "window.zoomLevel": 0,
-    ///----------python----------///
-    "python.dataScience.sendSelectionToInteractiveWindow": true,
     "python.autoComplete.addBrackets": true,
-    "python.dataScience.askForKernelRestart": false,
     ///----------vsicons---------///
     "vsicons.dontShowNewVersionMessage": true,
     ///----------cSpell--------///
@@ -294,25 +292,23 @@
                 "g",
                 "k"
             ]
+        },
+        {
+            "before": [
+                "x"
+            ],
+            "after": [
+                "\"",
+                "_",
+                "x"
+            ]
         }
     ],
-    // "vim.insertModeKeyBindingsNonRecursive": [
-    //     {
-    //         "before": [
-    //             "j",
-    //             "j"
-    //         ],
-    //         "after": [
-    //             "<Esc>"
-    //         ]
-    //     }
-    // ],
     "vim.easymotion": true,
     "vim.leader": "<SPACE>",
     "workbench.iconTheme": "vscode-icons",
     "tabnine.experimentalAutoImports": true,
     "python.languageServer": "Microsoft",
-    "python.dataScience.alwaysTrustNotebooks": true,
     "C_Cpp.updateChannel": "Insiders",
     "clang.executable": "clang++",
     "clang.cxxflags": [
@@ -326,6 +322,12 @@
         "statusBar.debuggingBackground": "#005f5f"
     },
     "C_Cpp.clang_format_style": "{BasedOnStyle: Google, IndentWidth: 4}",
-    "python.dataScience.interactiveWindowMode": "perFile",
-    "python.showStartPage": false
+    "python.showStartPage": false,
+    "jupyter.sendSelectionToInteractiveWindow": true,
+    "jupyter.askForKernelRestart": false,
+    "jupyter.alwaysTrustNotebooks": true,
+    "jupyter.interactiveWindowMode": "perFile",
+    "[html]": {
+        "editor.defaultFormatter": "vscode.html-language-features"
+    }
 }

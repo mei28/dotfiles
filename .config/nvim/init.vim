@@ -97,6 +97,9 @@ cnoremap <C-;> <F10>
 nnoremap <C-a> <Home>
 nnoremap <C-e> <End>
 
+" xで削除してもコピーさせない
+nnoremap x "_x
+
 " ESC連打で:nohを行う
 nnoremap <silent> <Esc><Esc> :noh<CR>
 " 表示行単位で上下移動を行う
