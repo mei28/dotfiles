@@ -59,7 +59,7 @@ set undofile "undoの永続化
 "下に分割 右に分割
 set splitbelow
 set splitright
-set scrolloff=100 "カーソルが常に真ん中に
+set scrolloff=20 "カーソルが常に真ん中に
 set autoread "外部に変更があった時に読み込む
 let g:go_def_reuse_buffer = 1 " 開いているバッファに定義ジャンプをする
 
