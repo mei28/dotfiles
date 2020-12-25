@@ -21,6 +21,8 @@
 - <leader>om マークダウンを開く
 - <C-w><C-w> ウィンドウの移動
 - <C-T> ウィンドウのリサイズ
+- <C-w> vimを一時中断する
+- fg 一時中断したvimに復帰する
 
 ## command line mode
 
@@ -62,3 +64,5 @@
 ## IPython
 
 - ヴィジュアルモード で<leader>ip  IPythonを起動する
+
+

@@ -107,8 +107,6 @@ nnoremap j gj
 nnoremap k gk
 nnoremap gj j
 nnoremap gk k
-" エンターを押したときに改行
-nnoremap <CR> i<CR><ESC>
 " 分割ウィンドウの移動
 nnoremap <Leader>j <C-w>j
 nnoremap <Leader>k <C-w>k
