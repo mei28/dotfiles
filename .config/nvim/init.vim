@@ -27,7 +27,11 @@ if has('nvim')
   command! -nargs=* Termv vsplit | terminal <args>
 endif
 
+" カラースキーム {{{
 colorscheme iceberg
+" let g:tokyonight_disable_italic_comment = 1
+" colorscheme tokyonight
+" }}}
 set bg=dark
 
 set belloff=all "ベルの音をミュート
@@ -47,7 +51,8 @@ set incsearch "検索を移動
 set wrapscan "検索をループ
 set inccommand=split "置換のとき可視化
 set clipboard+=unnamed "clipboardをOSのものと同じに
-set list "改行，タブとかを可視化 set smartindent "スマートインデント
+set list "改行，タブとかを可視化 
+set smartindent "スマートインデント
 set autoindent "オートインデント
 set showmatch "対応するかっこ
 set hls "検索のハイライト
@@ -103,10 +108,10 @@ nnoremap x "_x
 " ESC連打で:nohを行う
 nnoremap <silent> <Esc><Esc> :noh<CR>
 " 表示行単位で上下移動を行う
-nnoremap j gj
-nnoremap k gk
-nnoremap gj j
-nnoremap gk k
+nnoremap <silent> j gj
+nnoremap <silent> k gk
+nnoremap <silent> gj j
+nnoremap <silent> gk k
 " 分割ウィンドウの移動
 nnoremap <Leader>j <C-w>j
 nnoremap <Leader>k <C-w>k

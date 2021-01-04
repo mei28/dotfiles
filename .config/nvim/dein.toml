@@ -4,6 +4,9 @@ repo = 'Shougo/dein.vim'
 [[plugins]]
 repo = 'cocopon/iceberg.vim'
 
+[[plugins]]
+repo = 'ghifarit53/tokyonight-vim'
+
 # status line
 [[plugins]]
 repo = 'itchyny/lightline.vim'
