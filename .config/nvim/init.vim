@@ -69,7 +69,9 @@ let g:go_def_reuse_buffer = 1 " 開いているバッファに定義ジャンプ
 
 " *でカーソル移動させない
 noremap * *N
-"" jjでnormal modeに，そして保存
+" #でカーソル移動させない
+noremap # #N
+" jjでnormal modeに，そして保存
 inoremap <silent> jj <ESC>
 " キーマップを設定
 inoremap <silent> <C-f> <Right>
