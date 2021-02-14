@@ -28,3 +28,9 @@ export NVM_DIR="$HOME/.nvm"
 mkcd(){
   mkdir -p $1 && cd $1 && pwd
 }
+
+# pbcopy for macOS
+
+pbc(){
+  cat $1 | pbcopy
+}
