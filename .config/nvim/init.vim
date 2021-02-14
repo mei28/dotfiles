@@ -1,4 +1,6 @@
-let g:python3_host_prog = '/Users/mei/.venv/neovim3/bin/python3'
+let g:python3_host_prog = '/Users/mei/.venv/neovim/bin/python'
+
+" リーダキーの設定
 let mapleader = "\<Space>"
 set encoding=UTF-8 "文字コード
 set fileencoding=utf-8
@@ -29,9 +31,6 @@ endif
 
 " カラースキーム {{{
 colorscheme iceberg
-" let g:tokyonight_disable_italic_comment = 1
-" colorscheme tokyonight
-" }}}
 set bg=dark
 
 set belloff=all "ベルの音をミュート

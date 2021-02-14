@@ -48,8 +48,7 @@ repo = 'tpope/vim-fugitive'
 repo = 'neoclide/coc.nvim'
 merged = 0
 'rev' = 'release'
-hook_add='''
-  inoremap <silent><expr> <TAB>
+hook_add=''' inoremap <silent><expr> <TAB>
         \ pumvisible() ? "\<C-n>" :
         \ <SID>check_back_space() ? "\<TAB>" :
         \ coc#refresh()
@@ -82,71 +81,14 @@ hook_add='''
 '''
 
 [[plugins]]
-repo = 'dense-analysis/ale'
-hook_add='''
-  let g:airline#extensions#ale#open_lnum_symbol = '('
-  let g:airline#extensions#ale#close_lnum_symbol = ')'
-  " エラー行にカーソルをあわせた際に表示されるメッセージフォーマット
-  let g:ale_echo_msg_format = '[%linter%]%code: %%s'
-  " エラー表示の列を常時表示
-
-  let g:ale_sign_column_always = 1
-  " ファイルを開いたときにlint実行
-  let g:ale_lint_on_enter = 1
-  " ファイルを保存したときにlint実行
-  let g:ale_lint_on_save = 1
-  " 編集中のlintはしない
-  let g:ale_lint_on_text_changed = 'never'
-
-  " lint結果をロケーションリストとQuickFixには表示しない
-  " 出てると結構うざいしQuickFixを書き換えられるのは困る
-  let g:ale_set_loclist = 0
-  let g:ale_set_quickfix = 0
-  let g:ale_open_list = 0
-  let g:ale_keep_list_window_open = 0
-  nmap <silent> <Leader>p <Plug>(ale_previous_wrap)
-  nmap <silent> <Leader>n <Plug>(ale_next_wrap)
-  nmap <silent> <Leader>f <Plug>(ale_fix)
-  let g:ale_fix_on_save=1
-
-  " flake8をLinterとして登録
-  let g:ale_linters = {
-      \ 'python': ['flake8'],
-      \ 'rust': ['rls'],
-      \ }
-
-  " 各ツールをFixerとして登録
-  let g:ale_fixers = {
-      \ 'python': ['autopep8', 'black', 'isort'],
-      \ 'rust': ['rustfmt'],
-      \ }
-
-  " 各ツールの実行オプションを変更してPythonパスを固定
-  let g:ale_python_flake8_executable = g:python3_host_prog
-  let g:ale_python_flake8_options = '-m flake8'
-  let g:ale_python_autopep8_executable = g:python3_host_prog
-  let g:ale_python_autopep8_options = '-m autopep8'
-  let g:ale_python_isort_executable = g:python3_host_prog
-  let g:ale_python_isort_options = '-m isort'
-  let g:ale_python_black_executable = g:python3_host_prog
-  let g:ale_python_black_options = '-m black'
-
-  " rustの設定
-  let g:ale_rust_rls_toolchain = 'stable'
-'''
-
-[[plugins]]
 repo = 'jiangmiao/auto-pairs'
 
-[[plugins]]
-repo = 'tpope/vim-commentary'
 
 [[plugins]]
 repo = 'preservim/nerdtree'
 hook_add='''
   map <Leader>b :NERDTreeToggle<CR>
 '''
-
 
 [[plugins]]
 repo = 'reireias/vim-cheatsheet'
@@ -163,3 +105,35 @@ hook_add='''
 
 [[plugins]]
 repo = 'easymotion/vim-easymotion'
+
+[[plugins]]
+repo = 'tpope/vim-surround'
+
+[[plugins]]
+repo = 'tpope/vim-commentary'
+
+[[plugins]]
+repo = 'dense-analysis/ale'
+hook_add='''
+
+"" linterとして指定
+let g:ale_linters = {
+    \ 'python': ['flake8'],
+    \ }
+"" formatterとして指定
+let g:ale_fixers = {
+    \ 'python': ['black', 'isort'],
+    \ }
+
+let g:ale_fix_on_save = 1
+
+"" パスを指定
+let g:ale_python_flake8_executable = g:python3_host_prog
+let g:ale_python_flake8_options = '-m flake8'
+let g:ale_python_autopep8_executable = g:python3_host_prog
+let g:ale_python_autopep8_options = '-m autopep8'
+let g:ale_python_isort_executable = g:python3_host_prog
+let g:ale_python_isort_options = '-m isort'
+let g:ale_python_black_executable = g:python3_host_prog
+let g:ale_python_black_options = '-m black'
+'''
