@@ -32,5 +32,5 @@ mkcd(){
 # pbcopy for macOS
 
 pbc(){
-  cat $1 | pbcopy
+  cat $1 | pbcopy && echo "Copied $1!!"
 }
