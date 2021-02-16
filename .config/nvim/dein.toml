@@ -136,4 +136,12 @@ let g:ale_python_isort_executable = g:python3_host_prog
 let g:ale_python_isort_options = '-m isort'
 let g:ale_python_black_executable = g:python3_host_prog
 let g:ale_python_black_options = '-m black'
+
+"" メッセージを表示
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+
+"" メッセージの移動
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
+
 '''
