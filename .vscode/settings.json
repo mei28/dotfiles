@@ -5,6 +5,9 @@
     "editor.formatOnSave": true, // ファイル保存時に自動でフォーマット
     "editor.formatOnType": true, // 入力した行を自動でフォーマット
     "editor.dragAndDrop": false, //ドラッグドロップを無効化
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": true
+    },
     "editor.wordWrapColumn": 80,
     "editor.wordWrap": "wordWrapColumn",
     "editor.tabSize": 2,
