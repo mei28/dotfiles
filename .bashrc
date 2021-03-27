@@ -34,3 +34,16 @@ mkcd(){
 pbc(){
   cat $1 | pbcopy && echo "Copied $1!!"
 }
+
+# ruby env
+export PATH="~/.rbenv/shims:/usr/local/bin:$PATH"
+eval "$(rbenv init -)"
+
+# rust env
+export PATH="$HOME/.cargo/bin:$PATH"
+
+# pyenv env
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv virtualenv-init -)"
+eval "$(pyenv init -)"
