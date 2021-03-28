@@ -4,14 +4,6 @@ repo = 'szkny/SplitTerm'
 on_ft = ['python']
 
 [[plugins]]
-repo = 'szkny/Ipython'
-on_ft = ['python']
-hook_add = '''
-  nmap  <leader>ip  :Ipython<CR>
-  vmap  <leader>ip  :VIpython<CR>
-'''
-
-[[plugins]]
 repo = 'vim-scripts/vim-auto-save'
 on_event = 'InsertLeave' 
 hook_source = '''
@@ -26,5 +18,10 @@ repo = 'cespare/vim-toml'
 on_ft = ['toml']
 
 [[plugins]]
+repo = 'pangloss/vim-javascript'
+on_ft = ['javascript']
+
+[[plugins]]
 repo = 'elzr/vim-json'
 on_ft = ['json']
+

@@ -119,6 +119,7 @@ hook_add='''
 "" linterとして指定
 let g:ale_linters = {
     \ 'python': ['flake8'],
+    \ 'javascript': ['eslint'],
     \ }
 "" formatterとして指定
 let g:ale_fixers = {
