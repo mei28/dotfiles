@@ -207,8 +207,6 @@
             ]
         },
     ],
-    ///----------window----------///
-    "window.zoomLevel": 0,
     "python.autoComplete.addBrackets": true,
     ///----------vsicons---------///
     "vsicons.dontShowNewVersionMessage": true,
@@ -317,7 +315,7 @@
     "clang.cxxflags": [
         "-std=c++14"
     ],
-    "workbench.colorTheme": "Iceberg",
+    "workbench.colorTheme": "Nord",
     "workbench.colorCustomizations": {
         "editorGutter.background": "#1e2132",
         "statusBar.background": "#005f5f",
@@ -332,5 +330,11 @@
     "jupyter.interactiveWindowMode": "perFile",
     "[html]": {
         "editor.defaultFormatter": "vscode.html-language-features"
-    }
+    },
+    "workbench.editorAssociations": [
+        {
+            "viewType": "jupyter.notebook.ipynb",
+            "filenamePattern": "*.ipynb"
+        }
+    ]
 }

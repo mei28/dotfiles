@@ -49,7 +49,7 @@ endif
 set incsearch "検索を移動
 set wrapscan "検索をループ
 set inccommand=split "置換のとき可視化
-set clipboard+=unnamed "clipboardをOSのものと同じに
+if has("mac") | set clipboard+=unnamed | else | set clipboard^=unnamedplus | endif " clipboardをOSのものと同じに
 set list "改行，タブとかを可視化 
 set smartindent "スマートインデント
 set autoindent "オートインデント
@@ -132,4 +132,4 @@ inoremap <expr><S-TAB> pumvisible() ? "<Up>" : "<S-TAB>"
 tnoremap <Esc> <C-\><C-n>
 
 " バッファの表示
-nnoremap gb :Buffers<CR>
+nnoremap gb :buffers<CR>
