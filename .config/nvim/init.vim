@@ -4,6 +4,7 @@ let g:python3_host_prog = '/Users/mei/.venv/neovim/bin/python'
 let mapleader = "\<Space>"
 set encoding=UTF-8 "文字コード
 set fileencoding=utf-8
+lang en_US.UTF-8
 
 " dein plugin manager
 if &compatible
@@ -30,7 +31,9 @@ if has('nvim')
 endif
 
 " カラースキーム {{{
-colorscheme iceberg
+" colorscheme iceberg
+colorscheme nord
+" colorscheme tokyonight
 set bg=dark
 
 set belloff=all "ベルの音をミュート
@@ -87,21 +90,21 @@ inoremap <silent> <C-k> <F7>
 inoremap <silent> <C-l> <F9>
 inoremap <silent> <C-;> <F10>
 
-cnoremap <C-f> <Right>
-cnoremap <C-b> <Left>
-cnoremap <C-p> <Up>
-cnoremap <C-n> <Down>
-cnoremap <C-a> <Home>
-cnoremap <C-e> <End>
-cnoremap <C-d> <Del>
-cnoremap <C-h> <BS>
-cnoremap <C-j> <F6>
-cnoremap <C-k> <F7>
-cnoremap <C-l> <F9>
-cnoremap <C-;> <F10>
+cnoremap <silent> <C-f> <Right>
+cnoremap <silent> <C-b> <Left>
+cnoremap <silent> <C-p> <Up>
+cnoremap <silent> <C-n> <Down>
+cnoremap <silent> <C-a> <Home>
+cnoremap <silent> <C-e> <End>
+cnoremap <silent> <C-d> <Del>
+cnoremap <silent> <C-h> <BS>
+cnoremap <silent> <C-j> <F6>
+cnoremap <silent> <C-k> <F7>
+cnoremap <silent> <C-l> <F9>
+cnoremap <silent> <C-;> <F10>
 
-nnoremap <C-a> <Home>
-nnoremap <C-e> <End>
+nnoremap <silent> <C-a> <Home>
+nnoremap <silent> <C-e> <End>
 
 " xで削除してもコピーさせない
 nnoremap x "_x
@@ -131,5 +134,3 @@ inoremap <expr><S-TAB> pumvisible() ? "<Up>" : "<S-TAB>"
 " ターミナルモードでコマンドに戻るようにする
 tnoremap <Esc> <C-\><C-n>
 
-" バッファの表示
-nnoremap gb :buffers<CR>

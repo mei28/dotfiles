@@ -5,6 +5,9 @@ repo = 'Shougo/dein.vim'
 repo = 'cocopon/iceberg.vim'
 
 [[plugins]]
+repo = 'arcticicestudio/nord-vim'
+
+[[plugins]]
 repo = 'ghifarit53/tokyonight-vim'
 
 # status line
@@ -29,8 +32,6 @@ hook_add = '''
   endfunction
   " # show statusbar
   set laststatus=2
-  " # show tabline 
-  set showtabline=2
   " # hide --INSERT--
   set noshowmode
 '''
