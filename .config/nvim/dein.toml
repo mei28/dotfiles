@@ -49,7 +49,8 @@ repo = 'tpope/vim-fugitive'
 repo = 'neoclide/coc.nvim'
 merged = 0
 'rev' = 'release'
-hook_add=''' inoremap <silent><expr> <TAB>
+hook_add='''
+  inoremap <silent><expr> <TAB>
         \ pumvisible() ? "\<C-n>" :
         \ <SID>check_back_space() ? "\<TAB>" :
         \ coc#refresh()
@@ -62,7 +63,7 @@ hook_add=''' inoremap <silent><expr> <TAB>
 
   inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
   " Use <C-space> to trigger completion.
-  inoremap <silent><expr> <c-space> coc#refresh()
+  inoremap <silent><expr> <C-space> coc#refresh()
 
   " Remap keys for gotos
   nmap <silent> gd <Plug>(coc-definition)
@@ -106,6 +107,10 @@ hook_add='''
 
 [[plugins]]
 repo = 'easymotion/vim-easymotion'
+hook_add='''
+" ホームポジションに近いキーを使う
+let g:EasyMotion_keys='hjklasdfgyuiopqwertnmzxcvbHJKLASDFGYUIOPQWERTNMZXCVB'
+'''
 
 [[plugins]]
 repo = 'tpope/vim-surround'

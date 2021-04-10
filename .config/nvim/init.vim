@@ -35,8 +35,8 @@ endif
 colorscheme nord
 " colorscheme tokyonight
 set bg=dark
-
 set belloff=all "ベルの音をミュート
+set relativenumber "行の相対番号を表示
 set number "行番号表示
 set expandtab "tabをスペースで
 set tabstop=2 "tabで半角2文字
@@ -66,7 +66,7 @@ set undofile "undoの永続化
 "下に分割 右に分割
 set splitbelow
 set splitright
-set scrolloff=20 "カーソルが常に真ん中に
+set scrolloff=42 "カーソルが常に真ん中に
 set autoread "外部に変更があった時に読み込む
 let g:go_def_reuse_buffer = 1 " 開いているバッファに定義ジャンプをする
 
@@ -105,6 +105,8 @@ cnoremap <silent> <C-;> <F10>
 
 nnoremap <silent> <C-a> <Home>
 nnoremap <silent> <C-e> <End>
+
+inoremap <silent> ww <Esc>viw "ww で単語選択
 
 " xで削除してもコピーさせない
 nnoremap x "_x
