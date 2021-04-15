@@ -7,9 +7,9 @@
 - <Leader>h,j,k,l ウィンドウの移動
 
 - <S-h> 定義をホバーして表示
-- <leader> f フォーマットする
-- <leader> n 次のエラーに移動
-- <leader> p 前のエラーに移動
+> - <leader> f フォーマットする
+> - <leader> n 次のエラーに移動
+> - <leader> p 前のエラーに移動
 - <leader> b ファイルツリーを表示
 - <ESC><ESC> :nohとおなじ
 - gd 定義に移動
@@ -20,9 +20,11 @@
 - <leader><TAB> 表示するバッファを切り替える
 - <leader>om マークダウンを開く
 - <C-w><C-w> ウィンドウの移動
-- <C-T> ウィンドウのリサイズ
-- <C-w> vimを一時中断する
+- <C-y> ウィンドウのリサイズ
+- <C-z> vimを一時中断する
 - fg 一時中断したvimに復帰する
+- <C-n> 次のバッファに移る
+- <C-p> 前のバッファに移る
 
 ## command line mode
 

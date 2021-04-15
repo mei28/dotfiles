@@ -34,6 +34,7 @@ endif
 " colorscheme iceberg
 colorscheme nord
 " colorscheme tokyonight
+
 set bg=dark
 set belloff=all "ベルの音をミュート
 set relativenumber "行の相対番号を表示
@@ -74,8 +75,6 @@ let g:go_def_reuse_buffer = 1 " 開いているバッファに定義ジャンプ
 noremap * *N
 " #でカーソル移動させない
 noremap # #N
-" jjでnormal modeに，そして保存
-inoremap <silent> jj <ESC>
 " キーマップを設定
 inoremap <silent> <C-f> <Right>
 inoremap <silent> <C-b> <Left>
@@ -105,14 +104,20 @@ cnoremap <silent> <C-;> <F10>
 
 nnoremap <silent> <C-a> <Home>
 nnoremap <silent> <C-e> <End>
+nnoremap <silent> <C-n> :bnext<CR>
+nnoremap <silent> <C-p> :bprev<CR>
 
 inoremap <silent> ww <Esc>viw "ww で単語選択
+inoremap <silent> <Esc> <Esc><C-l> "画面をクリアした後にノーマルモードに戻る
+
+nnoremap <silent> <C-o> <C-i> "以前いた場所に戻る
+nnoremap <silent> <C-i> <C-o> "元いた場所に進む
 
 " xで削除してもコピーさせない
 nnoremap x "_x
 
 " ESC連打で:nohを行う
-nnoremap <silent> <Esc><Esc> :noh<CR>
+nnoremap <silent> <Esc><Esc> :noh<CR><C-l>
 " 表示行単位で上下移動を行う
 nnoremap <silent> j gj
 nnoremap <silent> k gk
