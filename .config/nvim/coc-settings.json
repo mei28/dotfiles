@@ -3,6 +3,7 @@
   "python.linting.enabled": false,
   "python.jediEnabled": false,
   "suggest.noselect": false,
+  "signature.target": "echo",
   "languageserver": {
     "clangd": {
       "command": "clangd",

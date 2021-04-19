@@ -108,7 +108,7 @@ nnoremap <silent> <C-n> :bnext<CR>
 nnoremap <silent> <C-p> :bprev<CR>
 
 inoremap <silent> ww <Esc>viw "ww で単語選択
-inoremap <silent> <Esc> <Esc><C-l> "画面をクリアした後にノーマルモードに戻る
+" inoremap <silent> <Esc> <Esc><C-l> "画面をクリアした後にノーマルモードに戻る
 
 nnoremap <silent> <C-o> <C-i> "以前いた場所に戻る
 nnoremap <silent> <C-i> <C-o> "元いた場所に進む
