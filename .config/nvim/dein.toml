@@ -154,3 +154,15 @@ let g:ale_fix_on_save = 1
 let g:ale_sign_column_always = 1
 let g:ale_use_global_executables = 1
 '''
+
+[[plugins]]
+repo = 'luochen1990/rainbow'
+hook_add = '''
+    let g:rainbow_active = 1
+'''
+
+[[plugins]]
+repo = 'JuliaEditorSupport/julia-vim'
+
+[[plugins]]
+repo = 'tpope/vim-repeat'

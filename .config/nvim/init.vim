@@ -31,8 +31,8 @@ if has('nvim')
 endif
 
 " カラースキーム {{{
-" colorscheme iceberg
-colorscheme nord
+colorscheme iceberg
+" colorscheme nord
 " colorscheme tokyonight
 
 set bg=dark
@@ -70,6 +70,7 @@ set splitright
 set scrolloff=42 "カーソルが常に真ん中に
 set autoread "外部に変更があった時に読み込む
 let g:go_def_reuse_buffer = 1 " 開いているバッファに定義ジャンプをする
+filetype plugin indent on " filetypeによって設定を変える
 
 " *でカーソル移動させない
 noremap * *N
