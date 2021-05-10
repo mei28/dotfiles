@@ -71,6 +71,8 @@ set scrolloff=42 "カーソルが常に真ん中に
 set autoread "外部に変更があった時に読み込む
 let g:go_def_reuse_buffer = 1 " 開いているバッファに定義ジャンプをする
 filetype plugin indent on " filetypeによって設定を変える
+au FileType * set fo-=c fo-=r fo-=o " 改行時にコメントアウトさせない
+
 
 " *でカーソル移動させない
 noremap * *N
@@ -108,7 +110,6 @@ nnoremap <silent> <C-e> <End>
 nnoremap <silent> <C-n> :bnext<CR>
 nnoremap <silent> <C-p> :bprev<CR>
 
-inoremap <silent> ww <Esc>viw "ww で単語選択
 " inoremap <silent> <Esc> <Esc><C-l> "画面をクリアした後にノーマルモードに戻る
 
 nnoremap <silent> <C-o> <C-i> "以前いた場所に戻る
