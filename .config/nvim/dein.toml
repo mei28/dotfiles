@@ -5,8 +5,7 @@ repo = 'Shougo/dein.vim'
 repo = 'cocopon/iceberg.vim'
 
 [[plugins]]
-repo = 'arcticicestudio/nord-vim'
-
+repo = 'arcticicestudio/nord-vim' 
 [[plugins]]
 repo = 'ghifarit53/tokyonight-vim'
 
@@ -166,3 +165,28 @@ repo = 'JuliaEditorSupport/julia-vim'
 
 [[plugins]]
 repo = 'tpope/vim-repeat'
+
+[[plugins]]
+repo = 'junegunn/fzf'
+build = './install --bin'
+merged = '0'
+hook_add='''
+  let g:fzf_preview_window = []
+'''
+
+[[plugins]]
+repo = 'junegunn/fzf.vim'
+depends = 'fzf'
+
+[[plugins]]
+repo = 'SirVer/ultisnips'
+hook_add = '''
+  let g:UltiSnipsExpandTrigger="<C-g><C-g>"
+  let g:UltiSnipsJumpForwardTrigger="<c-f>"
+  let g:UltiSnipsJumpBackwardTrigger="<c-b>"
+  " If you want :UltiSnipsEdit to split your window.
+  let g:UltiSnipsEditSplit="vertical"
+'''
+
+[[plugins]]
+repo = 'honza/vim-snippets'
