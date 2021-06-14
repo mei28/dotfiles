@@ -182,11 +182,9 @@ depends = 'fzf'
 repo = 'SirVer/ultisnips'
 hook_add = '''
   let g:UltiSnipsExpandTrigger="<C-g><C-g>"
-  let g:UltiSnipsJumpForwardTrigger="<c-f>"
-  let g:UltiSnipsJumpBackwardTrigger="<c-b>"
+""  let g:UltiSnipsJumpForwardTrigger="<c-f>"
+""  let g:UltiSnipsJumpBackwardTrigger="<c-b>"
   " If you want :UltiSnipsEdit to split your window.
   let g:UltiSnipsEditSplit="vertical"
 '''
 
-[[plugins]]
-repo = 'honza/vim-snippets'
