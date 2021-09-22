@@ -1,0 +1,104 @@
+[[plugins]]
+repo = 'Shougo/ddc.vim'
+on_event = 'InsertEnter'
+hook_source = '''
+  " Use around source.
+  call ddc#custom#patch_global('sources', ['around','nvimlsp','file','buffer','omni'])
+
+  " Change source options
+  call ddc#custom#patch_global('sourceOptions', {
+      \ '_': {
+      \   'matchers': ['matcher_fuzzy','matcher_head','matcher_length'],
+      \   'sorters': ['sorter_rank'],
+      \ },
+      \ 'around': {'mark': 'A'},
+      \ 'nvimlsp': {'mark': 'lsp','forceCompletionPattern': '\.\w*|:\w*|->\w*' },
+      \ 'file': {'mark': 'F', 'isVolatile': v:true,'forceCompletionPattern': '\S/\S*'},
+      \ 'buffer': {'mark': 'B'},
+      \ 'omni': {'mark': 'O'},
+      \ })
+  call ddc#custom#patch_global('sourceParams', {
+      \ 'around': {'maxSize': 500},
+      \ 'nvimlsp': { 'kindLabels': { 'Class': 'c' } },
+      \ 'buffer': {'requireSameFiletype': v:false},
+      \ })
+
+  call ddc#custom#patch_global('filterParams', {
+      \ 'matcher_fuzzy': {'camelcase': v:true},
+      \ })
+
+  " Mappings
+  " <TAB>: completion.
+  inoremap <silent><expr> <TAB>
+  \ pumvisible() ? '<C-n>' :
+  \ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?
+  \ '<TAB>' : ddc#manual_complete()
+
+  " <S-TAB>: completion back.
+  inoremap <expr><S-TAB>  pumvisible() ? '<C-p>' : '<C-h>'
+
+  " Use ddc.
+  call ddc#enable()
+'''
+
+
+[[plugins]]
+repo = 'vim-denops/denops.vim'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc-nvim-lsp'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'matsui54/ddc-nvim-lsp-doc'
+on_source = 'ddc-nvim-lsp'
+hook_source = '''
+  let g:ddc_nvim_lsp_doc_config = {
+        \ 'documentation': {
+        \   'enable': v:false,
+        \   'border': 'rounded',
+        \   'maxWidth': 100,
+        \   'winblend': 0,
+        \ },
+        \ 'signature': {
+        \   'border': 'rounded',
+        \ },
+        \ }
+  call ddc_nvim_lsp_doc#enable()
+'''
+
+[[plugins]]
+repo = 'Shougo/ddc-around'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'LumaKernel/ddc-file'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'matsui54/ddc-buffer'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc-sorter_rank'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc-omni'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'matsui54/ddc-matcher_fuzzy'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc-matcher_head'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc-matcher_length'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'ray-x/lsp_signature.nvim'

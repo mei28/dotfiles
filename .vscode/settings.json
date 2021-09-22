@@ -9,7 +9,7 @@
         "source.organizeImports": true
     },
     "editor.wordWrapColumn": 80,
-    "editor.wordWrap": "wordWrapColumn",
+    // "editor.wordWrap": "wordWrapColumn",
     "editor.tabSize": 2,
     "editor.insertSpaces": true,
     "editor.quickSuggestionsDelay": 0,
@@ -309,13 +309,13 @@
     "vim.leader": "<SPACE>",
     "workbench.iconTheme": "vscode-icons",
     "tabnine.experimentalAutoImports": true,
-    "python.languageServer": "Microsoft",
+    "python.languageServer": "Pylance",
     "C_Cpp.updateChannel": "Insiders",
     "clang.executable": "clang++",
     "clang.cxxflags": [
         "-std=c++14"
     ],
-    "workbench.colorTheme": "Nord",
+    "workbench.colorTheme": "Iceberg",
     "workbench.colorCustomizations": {
         "editorGutter.background": "#1e2132",
         "statusBar.background": "#005f5f",
@@ -331,10 +331,26 @@
     "[html]": {
         "editor.defaultFormatter": "vscode.html-language-features"
     },
-    "workbench.editorAssociations": [
-        {
-            "viewType": "jupyter.notebook.ipynb",
-            "filenamePattern": "*.ipynb"
-        }
-    ]
+    "workbench.editorAssociations": {
+        "*.ipynb": "jupyter-notebook"
+    },
+    "hediet.vscode-drawio.local-storage": "eyIuZHJhd2lvLWNvbmZpZyI6IntcImxhbmd1YWdlXCI6XCJcIixcImN1c3RvbUZvbnRzXCI6W10sXCJsaWJyYXJpZXNcIjpcImdlbmVyYWxcIixcImN1c3RvbUxpYnJhcmllc1wiOltcIkwuc2NyYXRjaHBhZFwiXSxcInBsdWdpbnNcIjpbXSxcInJlY2VudENvbG9yc1wiOltcIjY2QjJGRlwiXSxcImZvcm1hdFdpZHRoXCI6MCxcImNyZWF0ZVRhcmdldFwiOmZhbHNlLFwicGFnZUZvcm1hdFwiOntcInhcIjowLFwieVwiOjAsXCJ3aWR0aFwiOjg1MCxcImhlaWdodFwiOjExMDB9LFwic2VhcmNoXCI6dHJ1ZSxcInNob3dTdGFydFNjcmVlblwiOnRydWUsXCJncmlkQ29sb3JcIjpcIiNkMGQwZDBcIixcImRhcmtHcmlkQ29sb3JcIjpcIiM2ZTZlNmVcIixcImF1dG9zYXZlXCI6dHJ1ZSxcInJlc2l6ZUltYWdlc1wiOm51bGwsXCJvcGVuQ291bnRlclwiOjAsXCJ2ZXJzaW9uXCI6MTgsXCJ1bml0XCI6MSxcImlzUnVsZXJPblwiOmZhbHNlLFwidWlcIjpcIlwifSJ9",
+    "python.defaultInterpreterPath": "/usr/local/bin/python3",
+    "python.formatting.provider": "black",
+    "python.analysis.completeFunctionParens": true,
+    "[vue]": {
+        "editor.defaultFormatter": "octref.vetur"
+    },
+    "notebook.cellToolbarLocation": {
+        "default": "right",
+        "jupyter-notebook": "left"
+    },
+    "editor.inlineSuggest.enabled": true,
+    "github.copilot.enable": {
+        "*": true,
+        "yaml": false,
+        "plaintext": true,
+        "markdown": false
+    },
+    "editor.autoClosingBrackets": "always"
 }

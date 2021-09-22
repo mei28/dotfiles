@@ -1,3 +1,9 @@
+" activateしている仮想環境があればそっちにはいる
+" if exists("$VIRTUAL_ENV")
+"   let g:python3_host_prog = $VIRTUAL_ENV . '/bin/python'
+" else
+"   let g:python3_host_prog = '/Users/mei/.venv/neovim/bin/python'
+" endif
 let g:python3_host_prog = '/Users/mei/.venv/neovim/bin/python'
 
 " リーダキーの設定
@@ -14,6 +20,7 @@ set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
 if dein#load_state('~/.cache/dein')
  call dein#begin('~/.cache/dein')
  call dein#load_toml('~/.config/nvim/dein.toml', {'lazy': 0})
+ " call dein#load_toml('~/.config/nvim/dein_ddc.toml', {'lazy': 1})
  call dein#load_toml('~/.config/nvim/dein_lazy.toml', {'lazy': 1})
  call dein#end()
  call dein#save_state()
@@ -72,6 +79,7 @@ set autoread "外部に変更があった時に読み込む
 let g:go_def_reuse_buffer = 1 " 開いているバッファに定義ジャンプをする
 filetype plugin indent on " filetypeによって設定を変える
 au FileType * set fo-=c fo-=r fo-=o " 改行時にコメントアウトさせない
+
 
 
 " *でカーソル移動させない
@@ -142,4 +150,5 @@ inoremap <expr><S-TAB> pumvisible() ? "<Up>" : "<S-TAB>"
 
 " ターミナルモードでコマンドに戻るようにする
 tnoremap <Esc> <C-\><C-n>
+
 

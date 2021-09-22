@@ -14,3 +14,5 @@
 	template = /Users/mei/.stCommitMsg
 [init]
 	defaultBranch = main
+[mergetool]
+	keepBackup = false
