@@ -3,7 +3,7 @@ repo = 'Shougo/ddc.vim'
 on_event = 'InsertEnter'
 hook_source = '''
   " Use around source.
-  call ddc#custom#patch_global('sources', ['around','nvimlsp','file','buffer','omni'])
+  call ddc#custom#patch_global('sources', ['around','nvimlsp','file','buffer'])
 
   " Change source options
   call ddc#custom#patch_global('sourceOptions', {
@@ -15,7 +15,6 @@ hook_source = '''
       \ 'nvimlsp': {'mark': 'lsp','forceCompletionPattern': '\.\w*|:\w*|->\w*' },
       \ 'file': {'mark': 'F', 'isVolatile': v:true,'forceCompletionPattern': '\S/\S*'},
       \ 'buffer': {'mark': 'B'},
-      \ 'omni': {'mark': 'O'},
       \ })
   call ddc#custom#patch_global('sourceParams', {
       \ 'around': {'maxSize': 500},
@@ -85,10 +84,6 @@ repo = 'Shougo/ddc-sorter_rank'
 on_source = 'ddc.vim'
 
 [[plugins]]
-repo = 'Shougo/ddc-omni'
-on_source = 'ddc.vim'
-
-[[plugins]]
 repo = 'matsui54/ddc-matcher_fuzzy'
 on_source = 'ddc.vim'
 
@@ -100,5 +95,75 @@ on_source = 'ddc.vim'
 repo = 'Shougo/ddc-matcher_length'
 on_source = 'ddc.vim'
 
+# [[plugins]]
+# repo = 'ray-x/lsp_signature.nvim'
+# hook_source = """
+# lua require "lsp_signature".setup()
+# """
+
 [[plugins]]
-repo = 'ray-x/lsp_signature.nvim'
+repo = 'neovim/nvim-lspconfig' #LSPの設定を行うプラグイン。
+on_event = 'BufEnter' #バッファが立ち上がったらプラグインを読み込む。
+hook_source = '''
+lua << EOF
+local nvim_lsp = require('lspconfig')
+
+-- Use an on_attach function to only map the following keys
+-- after the language server attaches to the current buffer
+local on_attach = function(client, bufnr)
+  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+
+  -- Enable completion triggered by <c-x><c-o>
+  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+  -- Mappings.
+  local opts = { noremap=true, silent=true }
+
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+  buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  buf_set_keymap('n', 'H', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  buf_set_keymap('n', '<Leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+  buf_set_keymap('n', '<Leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  buf_set_keymap('n', '<Leader>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+  buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+  buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+  buf_set_keymap('n', '<Leader>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+  buf_set_keymap('n', '<Leader>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+end
+
+on_attach()
+
+ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+     vim.lsp.diagnostic.on_publish_diagnostics, { virtual_text = false }
+ )
+
+local function setup_servers()
+  require'lspinstall'.setup()
+  local servers = require'lspinstall'.installed_servers()
+  for _, server in pairs(servers) do
+    require'lspconfig'[server].setup{}
+  end
+end
+
+setup_servers()
+
+-- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
+require'lspinstall'.post_install_hook = function ()
+  setup_servers() -- reload installed servers
+  vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
+end
+EOF
+
+'''
+
+[[plugins]]
+repo = 'kabouzeid/nvim-lspinstall' #vim-lspにおけるvim-lsp-settingsのようなプラグイン。
+on_source = 'nvim-lspconfig'
+hook_source = '''
+  lua require'lspinstall'.setup()
+'''
