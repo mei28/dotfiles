@@ -16,6 +16,7 @@ lang en_US.UTF-8
 if &compatible
  set nocompatible
 endif
+
 set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
 if dein#load_state('~/.cache/dein')
  call dein#begin('~/.cache/dein')
@@ -37,12 +38,16 @@ if has('nvim')
   command! -nargs=* Termv vsplit | terminal <args>
 endif
 
-" カラースキーム {{{
-colorscheme iceberg
-" colorscheme nord
-" colorscheme tokyonight
 
+" カラースキーム {{{
+set termguicolors
+" colorscheme iceberg
+colorscheme nord
+" colorscheme tokyonight
 set bg=dark
+set pumblend=1
+
+set ambiwidth=single
 set belloff=all "ベルの音をミュート
 set relativenumber "行の相対番号を表示
 set number "行番号表示
@@ -79,7 +84,7 @@ set autoread "外部に変更があった時に読み込む
 let g:go_def_reuse_buffer = 1 " 開いているバッファに定義ジャンプをする
 filetype plugin indent on " filetypeによって設定を変える
 au FileType * set fo-=c fo-=r fo-=o " 改行時にコメントアウトさせない
-
+set wildoptions=pum " コマンドラインの補完をpopupにする
 
 
 " *でカーソル移動させない
