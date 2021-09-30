@@ -45,7 +45,8 @@ set termguicolors
 colorscheme nord
 " colorscheme tokyonight
 set bg=dark
-set pumblend=1
+set pumblend=10
+set winblend=10
 
 set ambiwidth=single
 set belloff=all "ベルの音をミュート
@@ -156,4 +157,5 @@ inoremap <expr><S-TAB> pumvisible() ? "<Up>" : "<S-TAB>"
 " ターミナルモードでコマンドに戻るようにする
 tnoremap <Esc> <C-\><C-n>
 
-
+" pysen用の設定
+set makeprg=pysen\ run_files\ --error-format\ gnu\ lint\ %
