@@ -1,5 +1,6 @@
 [[plugins]]
 repo = 'Shougo/ddc.vim'
+on_event = 'InsertEnter'
 hook_source = '''
   " Use around source.
   call ddc#custom#patch_global('sources', ['around','nvimlsp','omni','file','buffer'])
