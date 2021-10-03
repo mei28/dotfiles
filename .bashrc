@@ -3,7 +3,6 @@
 # set alias
 
 # ls(color)
-
 alias ls='ls -G'
 alias ll='ls -lG'
 alias la='ls -laG'
@@ -74,3 +73,13 @@ fi
 if [[ -n $VIRTUAL_ENV && -e "${VIRTUAL_ENV}/bin/activate" ]]; then
   source "${VIRTUAL_ENV}/bin/activate"
 fi
+
+
+## activate_virtual env
+actvenv(){
+  if [[ -n $VIRTUAL_ENV && -e "${VIRTUAL_ENV}/bin/activate" ]]; then
+    source "${VIRTUAL_ENV}/bin/activate"
+    echo "activate ${VIRTUAL_ENV}!!"
+  fi
+}
+
