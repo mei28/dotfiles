@@ -1,9 +1,8 @@
 [[plugins]]
 repo = 'Shougo/ddc.vim'
-on_event = 'InsertEnter'
 hook_source = '''
   " Use around source.
-  call ddc#custom#patch_global('sources', ['around','nvimlsp','file','buffer'])
+  call ddc#custom#patch_global('sources', ['around','nvimlsp','omni','file','buffer'])
 
   " Change source options
   call ddc#custom#patch_global('sourceOptions', {
@@ -15,6 +14,7 @@ hook_source = '''
       \ 'nvimlsp': {'mark': 'lsp','forceCompletionPattern': '\.\w*|:\w*|->\w*' },
       \ 'file': {'mark': 'F', 'isVolatile': v:true,'forceCompletionPattern': '\S/\S*'},
       \ 'buffer': {'mark': 'B'},
+      \ 'omni': {'mark': 'O'},
       \ })
   call ddc#custom#patch_global('sourceParams', {
       \ 'around': {'maxSize': 500},
@@ -93,6 +93,10 @@ on_source = 'ddc.vim'
 
 [[plugins]]
 repo = 'Shougo/ddc-matcher_length'
+on_source = 'ddc.vim'
+
+[[plugins]]
+repo = 'Shougo/ddc-omni'
 on_source = 'ddc.vim'
 
 # [[plugins]]
