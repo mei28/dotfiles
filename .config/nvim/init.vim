@@ -41,9 +41,9 @@ endif
 
 " カラースキーム {{{
 set termguicolors
-" colorscheme iceberg
+colorscheme iceberg
 " colorscheme nord
-colorscheme tokyonight
+" colorscheme tokyonight
 set bg=dark
 set pumblend=10
 set winblend=10
