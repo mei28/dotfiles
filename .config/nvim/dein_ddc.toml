@@ -111,7 +111,8 @@ repo = 'neovim/nvim-lspconfig' #LSPの設定を行うプラグイン。
 on_event = 'BufEnter' #バッファが立ち上がったらプラグインを読み込む。
 hook_source = '''
 lua << EOF
-local nvim_lsp = require('lspconfig')
+
+-- local nvim_lsp = require('lspconfig')
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -143,32 +144,51 @@ end
 
 on_attach()
 
- vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-     vim.lsp.diagnostic.on_publish_diagnostics, { virtual_text = false }
- )
+local lsp_installer = require("nvim-lsp-installer")
 
-local function setup_servers()
-  require'lspinstall'.setup()
-  local servers = require'lspinstall'.installed_servers()
-  for _, server in pairs(servers) do
-    require'lspconfig'[server].setup{}
-  end
-end
+lsp_installer.on_server_ready(function(server)
+    local opts = {}
 
-setup_servers()
+    -- (optional) Customize the options passed to the server
+    -- if server.name == "tsserver" then
+    --     opts.root_dir = function() ... end
+    -- end
 
--- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
-require'lspinstall'.post_install_hook = function ()
-  setup_servers() -- reload installed servers
-  vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
-end
+    -- This setup() function is exactly the same as lspconfig's setup function (:help lspconfig-quickstart)
+    server:setup(opts)
+    vim.cmd [[ do User LspAttachBuffers ]]
+end)
+
+--  vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+--      vim.lsp.diagnostic.on_publish_diagnostics, { virtual_text = false }
+--  )
+-- 
+--  local function setup_servers()
+--    require'lspinstall'.setup()
+--    local servers = require'lspinstall'.installed_servers()
+--    for _, server in pairs(servers) do
+--      require'lspconfig'[server].setup{}
+--    end
+--  end
+-- 
+--  setup_servers()
+-- 
+-- -- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
+-- require'lspinstall'.post_install_hook = function ()
+--   setup_servers() -- reload installed servers
+--   vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
+-- end
 EOF
 
 '''
 
+# [[plugins]]
+# repo = 'kabouzeid/nvim-lspinstall' #vim-lspにおけるvim-lsp-settingsのようなプラグイン。
+# on_source = 'nvim-lspconfig'
+# hook_source = '''
+#   lua require'lspinstall'.setup()
+# '''
+
 [[plugins]]
-repo = 'kabouzeid/nvim-lspinstall' #vim-lspにおけるvim-lsp-settingsのようなプラグイン。
+repo = 'williamboman/nvim-lsp-installer'
 on_source = 'nvim-lspconfig'
-hook_source = '''
-  lua require'lspinstall'.setup()
-'''

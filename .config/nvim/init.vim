@@ -41,10 +41,10 @@ endif
 
 " カラースキーム {{{
 set termguicolors
-colorscheme iceberg
+" colorscheme iceberg
 " colorscheme nord
-" colorscheme tokyonight
-set bg=dark
+colorscheme tokyonight
+" set bg=dark
 set pumblend=10
 set winblend=10
 
@@ -128,6 +128,8 @@ nnoremap <silent> <C-p> :bprev<CR>
 
 nnoremap <silent> <C-o> <C-i> "以前いた場所に戻る
 nnoremap <silent> <C-i> <C-o> "元いた場所に進む
+nnoremap <Tab> gt " 次のタブ
+nnoremap <S-Tab> gT " 前のタブ
 
 " xで削除してもコピーさせない
 nnoremap x "_x

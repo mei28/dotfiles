@@ -32,3 +32,10 @@ hook_add = '''
   let g:previm_open_cmd = 'open -a Google\ Chrome'
 '''
 
+[[plugins]]
+repo = 'alvan/vim-closetag'
+on_ft = ['html']
+hook_add = '''
+  let g:closetag_filenames = '*.html,*.xhtml'
+'''
+
