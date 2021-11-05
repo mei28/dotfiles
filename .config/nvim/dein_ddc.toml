@@ -9,7 +9,8 @@ hook_source = '''
   call ddc#custom#patch_global('sourceOptions', {
       \ '_': {
       \   'matchers': ['matcher_fuzzy','matcher_head','matcher_length'],
-      \   'sorters': ['sorter_rank'],
+      \   'sorters': ['sorter_fuzzy','sorter_rank'],
+      \   'converters': ['converter_fuzzy']
       \ },
       \ 'around': {'mark': 'A'},
       \ 'nvimlsp': {'mark': 'lsp','forceCompletionPattern': '\.\w*|:\w*|->\w*' },
@@ -23,9 +24,6 @@ hook_source = '''
       \ 'buffer': {'requireSameFiletype': v:false},
       \ })
 
-  call ddc#custom#patch_global('filterParams', {
-      \ 'matcher_fuzzy': {'camelcase': v:true},
-      \ })
 
   " Mappings
   " <TAB>: completion.
@@ -85,7 +83,7 @@ repo = 'Shougo/ddc-sorter_rank'
 on_source = 'ddc.vim'
 
 [[plugins]]
-repo = 'matsui54/ddc-matcher_fuzzy'
+repo = 'tani/ddc-fuzzy'
 on_source = 'ddc.vim'
 
 [[plugins]]
@@ -99,12 +97,6 @@ on_source = 'ddc.vim'
 [[plugins]]
 repo = 'Shougo/ddc-omni'
 on_source = 'ddc.vim'
-
-# [[plugins]]
-# repo = 'ray-x/lsp_signature.nvim'
-# hook_source = """
-# lua require "lsp_signature".setup()
-# """
 
 [[plugins]]
 repo = 'neovim/nvim-lspconfig' #LSPの設定を行うプラグイン。

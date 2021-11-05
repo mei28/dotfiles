@@ -124,12 +124,8 @@ nnoremap <silent> <C-e> <End>
 nnoremap <silent> <C-n> :bnext<CR>
 nnoremap <silent> <C-p> :bprev<CR>
 
-" inoremap <silent> <Esc> <Esc><C-l> "画面をクリアした後にノーマルモードに戻る
-
-nnoremap <silent> <C-o> <C-i> "以前いた場所に戻る
-nnoremap <silent> <C-i> <C-o> "元いた場所に進む
-nnoremap <Tab> gt " 次のタブ
-nnoremap <S-Tab> gT " 前のタブ
+nnoremap <silent> <C-o> <C-i>
+nnoremap <silent> <C-i> <C-o>
 
 " xで削除してもコピーさせない
 nnoremap x "_x
