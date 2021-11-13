@@ -3,7 +3,7 @@ repo = 'Shougo/ddc.vim'
 on_event = 'InsertEnter'
 hook_source = '''
   " Use around source.
-  call ddc#custom#patch_global('sources', ['around','nvimlsp','omni','file','buffer'])
+  call ddc#custom#patch_global('sources', ['around','nvimlsp','file','buffer'])
 
   " Change source options
   call ddc#custom#patch_global('sourceOptions', {
@@ -16,13 +16,13 @@ hook_source = '''
       \ 'nvimlsp': {'mark': 'lsp','forceCompletionPattern': '\.\w*|:\w*|->\w*' },
       \ 'file': {'mark': 'F', 'isVolatile': v:true,'forceCompletionPattern': '\S/\S*'},
       \ 'buffer': {'mark': 'B'},
-      \ 'omni': {'mark': 'O'},
       \ })
   call ddc#custom#patch_global('sourceParams', {
       \ 'around': {'maxSize': 500},
       \ 'nvimlsp': { 'kindLabels': { 'Class': 'c' } },
       \ 'buffer': {'requireSameFiletype': v:false},
       \ })
+
 
 
   " Mappings
@@ -94,9 +94,9 @@ on_source = 'ddc.vim'
 repo = 'Shougo/ddc-matcher_length'
 on_source = 'ddc.vim'
 
-[[plugins]]
-repo = 'Shougo/ddc-omni'
-on_source = 'ddc.vim'
+# [[plugins]]
+# repo = 'Shougo/ddc-omni'
+# on_source = 'ddc.vim'
 
 [[plugins]]
 repo = 'neovim/nvim-lspconfig' #LSPの設定を行うプラグイン。
@@ -150,10 +150,11 @@ lsp_installer.on_server_ready(function(server)
     server:setup(opts)
     vim.cmd [[ do User LspAttachBuffers ]]
 end)
+  -- disable virtual message (e.g. error, warning)
+  vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+    vim.lsp.diagnostic.on_publish_diagnostics, { virtual_text = false }
+  )
 
---  vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
---      vim.lsp.diagnostic.on_publish_diagnostics, { virtual_text = false }
---  )
 -- 
 --  local function setup_servers()
 --    require'lspinstall'.setup()

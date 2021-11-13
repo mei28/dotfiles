@@ -40,11 +40,15 @@ endif
 
 
 " カラースキーム {{{
-set termguicolors
+" set termguicolors
 " colorscheme iceberg
 " colorscheme nord
-colorscheme tokyonight
+" colorscheme tokyonight
+colorscheme jellybeans
+" colorscheme lucario
+
 " set bg=dark
+
 set pumblend=10
 set winblend=10
 
