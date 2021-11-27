@@ -44,13 +44,14 @@ endif
 " colorscheme iceberg
 " colorscheme nord
 " colorscheme tokyonight
-colorscheme jellybeans
+" colorscheme jellybeans
 " colorscheme lucario
+colorscheme hybrid
 
 " set bg=dark
 
-set pumblend=10
-set winblend=10
+" set pumblend=10
+" set winblend=10
 
 set ambiwidth=single
 set belloff=all "ベルの音をミュート
