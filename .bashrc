@@ -58,7 +58,7 @@ eval "$(pyenv init --path)"
 eval "$(pyenv virtualenv-init -)"
 
 
-# cland for nvim, c++
+# clang for nvim, c++
 # brew install llvm
 export PATH="/usr/local/opt/llvm/bin:$PATH"
 

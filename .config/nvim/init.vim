@@ -44,9 +44,9 @@ endif
 " colorscheme iceberg
 " colorscheme nord
 " colorscheme tokyonight
-" colorscheme jellybeans
+colorscheme jellybeans
 " colorscheme lucario
-colorscheme hybrid
+" colorscheme hybrid
 
 " set bg=dark
 
@@ -159,6 +159,24 @@ inoremap <expr><S-TAB> pumvisible() ? "<Up>" : "<S-TAB>"
 
 " ターミナルモードでコマンドに戻るようにする
 tnoremap <Esc> <C-\><C-n>
+
+
+" ===========
+" current buffer以外にもショートカットが適用されるようにキーマップを指定
+  nnoremap <silent> gD :lua vim.lsp.buf.declaration()<CR>
+  nnoremap <silent> gd :lua vim.lsp.buf.definition()<CR>
+  nnoremap <silent> gi :lua vim.lsp.buf.implementation()<CR>
+  nnoremap <silent> gr :lua vim.lsp.buf.references()<CR>
+  nnoremap <silent> H :lua vim.lsp.buf.hover()<CR>
+  nnoremap <silent> K :lua vim.lsp.buf.signature_help()<CR>
+  nnoremap <silent> <Leader>D :lua vim.lsp.buf.type_definition()<CR>
+  nnoremap <silent> <Leader>rn :lua vim.lsp.buf.rename()<CR>
+  nnoremap <silent> <Leader>e :lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
+  nnoremap <silent> [d :lua vim.lsp.diagnostic.goto_prev()<CR>
+  nnoremap <silent> ]d :lua vim.lsp.diagnostic.goto_next()<CR>
+  nnoremap <silent> <Leader>q :lua vim.lsp.diagnostic.set_loclist()<CR>
+  nnoremap <silent> <Leader>f :lua vim.lsp.buf.formatting()<CR>
+" ===========
 
 " pysen用の設定
 set makeprg=pysen\ run_files\ --error-format\ gnu\ lint\ %
