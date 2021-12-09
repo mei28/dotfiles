@@ -82,3 +82,18 @@ actvenv(){
   fi
 }
 
+
+## google key
+export GOOGLE_APPLICATION_CREDENTIALS="/Users/mei/gcloud/exmt-app-622421091860.json"
+
+
+## rm alias
+
+rm_zip(){
+  TIMESTAMP=`date +%Y%m%d_%H%M%S`
+  tar zcvf ${TIMESTAMP}".tar.gz" $@
+  mv ${TIMESTAMP}".tar.gz" /tmp
+  rm $@
+}
+
+alias rm='rm_zip'
