@@ -6,3 +6,5 @@ do
     echo $file
 done
 
+# 初回git-promptの認識
+source .git-prompt.sh
