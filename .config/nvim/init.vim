@@ -4,7 +4,7 @@
 " else
 "   let g:python3_host_prog = '/Users/mei/.venv/neovim/bin/python'
 " endif
-let g:python3_host_prog = '/Users/mei/.venv/neovim/bin/python'
+let g:python3_host_prog = '~/.venv/neovim/bin/python'
 
 " リーダキーの設定
 let mapleader = "\<Space>"
