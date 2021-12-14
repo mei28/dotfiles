@@ -70,5 +70,12 @@ cd .. && rm -rf trach-cli
 apt install bash_completion
 source /usr/share/bash-completion/bash_completion 
 
+# nodejs
+sudo apt install -y nodejs npm n
+sudo n stable -g
+sudo n stable
+sudo apt purge -y nodejs npm
+sudo npm install -g neovim
+
 sudo apt autoremove
 
