@@ -1,8 +1,15 @@
 ! .gitignore/*
 ! .git
+! .git-prompt.sh
 
 ! .bashrc/*
 ! .bashprofile/*
 ! .config/nvim
 
 ! .vscode
+.config/configstore
+.config/gatsby
+.config/gcloud
+.config/iterm2
+.config/nvim/node_modules
+.config/configstore/update-notifier-npm.json
