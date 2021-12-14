@@ -58,3 +58,17 @@ curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.li
 
 sudo apt-get update && sudo apt-get install -y nvidia-container-toolkit
 sudo systemctl restart docker
+
+# change rm
+cd
+git clone https://github.com/andreafrancia/trash-cli
+cd trash-cli
+sudo python3 setup.py install
+cd .. && rm -rf trach-cli
+
+# bash_completion
+apt install bash_completion
+source /usr/share/bash-completion/bash_completion 
+
+sudo apt autoremove
+
