@@ -47,3 +47,6 @@ gsettings set org.gnome.shell.extensions.dash-to-dock show-trash true
 
 # move application top
 gsettings set org.gnome.shell.extensions.dash-to-dock show-apps-at-top true 
+
+# docker
+sudo apt install docker docker-compose
