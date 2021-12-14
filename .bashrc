@@ -64,9 +64,6 @@ export PATH="/usr/local/opt/llvm/bin:$PATH"
 
 
 ## bash completion
-if [ -f $(brew --prefix)/etc/bash_completion ]; then
-  . $(brew --prefix)/etc/bash_completion
-fi
 
 ## activate virtualenv
 if [[ -n $VIRTUAL_ENV && -e "${VIRTUAL_ENV}/bin/activate" ]]; then
