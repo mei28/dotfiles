@@ -94,3 +94,11 @@ rm_zip(){
 }
 
 alias rm='rm_zip'
+
+# deno
+export DENO_INSTALL="/home/mei/.deno"
+export PATH="$DENO_INSTALL/bin:$PATH"
+
+# cuda
+export PATH="/usr/local/cuda/bin:$PATH"
+export LD_LIBRARY_PATH="/usr/local/cuda/lib64:$LD_LIBRARY_PATH"

@@ -13,3 +13,4 @@
 .config/iterm2
 .config/nvim/node_modules
 .config/configstore/update-notifier-npm.json
+.config/*
