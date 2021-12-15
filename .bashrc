@@ -69,8 +69,6 @@ actvenv(){
 }
 
 
-## google key
-export GOOGLE_APPLICATION_CREDENTIALS="/Users/mei/gcloud/exmt-app-622421091860.json"
 
 
 ## rm alias
@@ -113,6 +111,8 @@ case ${OSTYPE} in
     pbc(){
       cat $1 | pbcopy && echo "Copied $1!!"
     }
+    ## google key
+    export GOOGLE_APPLICATION_CREDENTIALS="/Users/mei/gcloud/exmt-app-622421091860.json"
 
    ;;
 #========#
@@ -134,6 +134,10 @@ case ${OSTYPE} in
     pbc(){
       cat $1 | xsel --clipboard --input && echo "Copied $1!!"
     }
+
+    ## google key
+    export GOOGLE_APPLICATION_CREDENTIALS="/home/mei/gcloud/exmt-app-622421091860.json"
+
     ;;
 esac
 

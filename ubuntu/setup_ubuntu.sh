@@ -80,5 +80,11 @@ sudo npm install -g neovim
 # pbcopy
 sudo apt-get install xsel
 
+# openssh
+sudo apt-get install openssh-server
+
+# ifconfig 
+sudo apt install net-tools
+
 sudo apt autoremove
 
