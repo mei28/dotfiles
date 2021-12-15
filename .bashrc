@@ -1,11 +1,7 @@
 # .bashrc
-
-# set alias
-
-# ls(color)
-alias ls='ls -G'
-alias ll='ls -lG'
-alias la='ls -laG'
+#========#
+# COMMON #
+#========#
 
 # prompt
 
@@ -37,11 +33,6 @@ mkcd(){
   mkdir -p $1 && cd $1 && pwd
 }
 
-# pbcopy for macOS
-
-pbc(){
-  cat $1 | pbcopy && echo "Copied $1!!"
-}
 
 # ruby env
 export PATH="~/.rbenv/shims:/usr/local/bin:$PATH"
@@ -62,8 +53,6 @@ eval "$(pyenv virtualenv-init -)"
 # brew install llvm
 export PATH="/usr/local/opt/llvm/bin:$PATH"
 
-
-## bash completion
 
 ## activate virtualenv
 if [[ -n $VIRTUAL_ENV && -e "${VIRTUAL_ENV}/bin/activate" ]]; then
@@ -98,3 +87,57 @@ export PATH="$DENO_INSTALL/bin:$PATH"
 # cuda
 export PATH="/usr/local/cuda/bin:$PATH"
 export LD_LIBRARY_PATH="/usr/local/cuda/lib64:$LD_LIBRARY_PATH"
+
+
+#=====================#
+# change config by OS #
+#=====================#
+
+#=====#
+# MAC #
+#=====#
+
+case ${OSTYPE} in
+  darwin*)
+    # ls(color)
+    alias ls='ls -G'
+    alias ll='ls -lG'
+    alias la='ls -laG'
+
+    # bash_completion
+    if [ -f $(brew --prefix)/etc/bash_completion ]; then
+    . $(brew --prefix)/etc/bash_completion
+    fi
+
+    # pbcopy for macOS
+    pbc(){
+      cat $1 | pbcopy && echo "Copied $1!!"
+    }
+
+   ;;
+#========#
+# ubuntu #
+#========#
+  linux*)
+    # ls(color)
+    alias ls='ls --color'
+    alias ll='ls -l --color'
+    alias la='ls -la --color'
+
+    # open alias
+    alias open='xdg-open'
+
+    # bash-completion
+    source /usr/share/bash-completion/bash_completion
+
+    # pbcopy for linux
+    pbc(){
+      cat $1 | xsel --clipboard --input && echo "Copied $1!!"
+    }
+    ;;
+esac
+
+#==========#
+
+
+

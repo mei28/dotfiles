@@ -77,5 +77,8 @@ sudo n stable
 sudo apt purge -y nodejs npm
 sudo npm install -g neovim
 
+# pbcopy
+sudo apt-get install xsel
+
 sudo apt autoremove
 
