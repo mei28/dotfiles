@@ -56,14 +56,14 @@ export PATH="/usr/local/opt/llvm/bin:$PATH"
 
 ## activate virtualenv
 if [[ -n $VIRTUAL_ENV && -e "${VIRTUAL_ENV}/bin/activate" ]]; then
-  source "${VIRTUAL_ENV}/bin/activate"
+  source "${VIRTUAL_ENV}/bin/activate"  
 fi
 
 
 ## activate_virtual env
 actvenv(){
   if [[ -n $VIRTUAL_ENV && -e "${VIRTUAL_ENV}/bin/activate" ]]; then
-    source "${VIRTUAL_ENV}/bin/activate"
+    source "${VIRTUAL_ENV}/bin/activate"  # commented out by conda initialize
     echo "activate ${VIRTUAL_ENV}!!"
   fi
 }
@@ -136,12 +136,14 @@ case ${OSTYPE} in
     }
 
     ## google key
-    export GOOGLE_APPLICATION_CREDENTIALS="/home/mei/gcloud/exmt-app-622421091860.json"
+   export GOOGLE_APPLICATION_CREDENTIALS="/home/mei/gcloud/exmt-app-622421091860.json"
 
     ;;
 esac
 
 #==========#
+
+
 
 
 

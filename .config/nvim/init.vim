@@ -180,3 +180,7 @@ tnoremap <Esc> <C-\><C-n>
 
 " pysen用の設定
 set makeprg=pysen\ run_files\ --error-format\ gnu\ lint\ %
+
+" insert, command modeでも<C-v>できるように
+inoremap <expr> <C-v> printf('<C-r><C-o>%s', has('linux') \|\| has('unix') ? '+' : '*')
+cnoremap <expr> <C-v> printf('<C-r><C-o>%s', has('linux') \|\| has('unix') ? '+' : '*')
