@@ -36,7 +36,7 @@ mkcd(){
 
 # ruby env
 export PATH="~/.rbenv/shims:/usr/local/bin:$PATH"
-eval "$(rbenv init -)"
+# eval "$(rbenv init -)"
 
 # rust env
 export PATH="$HOME/.cargo/bin:$PATH"
@@ -86,6 +86,8 @@ export PATH="$DENO_INSTALL/bin:$PATH"
 export PATH="/usr/local/cuda/bin:$PATH"
 export LD_LIBRARY_PATH="/usr/local/cuda/lib64:$LD_LIBRARY_PATH"
 
+# pytest
+alias pt='pytest'
 
 #=====================#
 # change config by OS #
