@@ -36,7 +36,7 @@ mkcd(){
 
 # ruby env
 export PATH="~/.rbenv/shims:/usr/local/bin:$PATH"
-# eval "$(rbenv init -)"
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 # rust env
 export PATH="$HOME/.cargo/bin:$PATH"
@@ -45,7 +45,8 @@ export PATH="$HOME/.cargo/bin:$PATH"
 
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init --path)"
+if which pyenv > /dev/null; then eval "$(pyenv init --path)"; fi
+# eval "$(pyenv init --path)"
 # eval "$(pyenv virtualenv-init -)"
 
 
@@ -145,7 +146,6 @@ case ${OSTYPE} in
 esac
 
 #==========#
-
 
 
 

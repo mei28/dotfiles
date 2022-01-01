@@ -86,5 +86,8 @@ sudo apt-get install openssh-server
 # ifconfig 
 sudo apt install net-tools
 
+# ffmpeg
+sudo apt install ffmpeg
+
 sudo apt autoremove
 
