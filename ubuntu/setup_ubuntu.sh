@@ -89,5 +89,8 @@ sudo apt install net-tools
 # ffmpeg
 sudo apt install ffmpeg
 
+# convert image
+sudo apt-get install imagemagick
+
 sudo apt autoremove
 
