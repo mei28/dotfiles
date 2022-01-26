@@ -117,7 +117,13 @@ case ${OSTYPE} in
     }
     ## google key
     export GOOGLE_APPLICATION_CREDENTIALS="/Users/mei/gcloud/exmt-app-622421091860.json"
-
+    
+    hideDesktopIcon(){
+      defaults write com.apple.finder CreateDesktop -boolean false && killall Finder
+    }
+     showDesktopIcon() {
+       defaults write com.apple.finder CreateDesktop -boolean true && killall Finder
+     }
    ;;
 #========#
 # ubuntu #
