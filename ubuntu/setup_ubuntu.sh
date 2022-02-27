@@ -92,5 +92,8 @@ sudo apt install ffmpeg
 # convert image
 sudo apt-get install imagemagick
 
+# screen capture
+sudo apt install simplescreenrecorder
+
 sudo apt autoremove
 
