@@ -84,9 +84,6 @@ fi
 export DENO_INSTALL="/home/mei/.deno"
 export PATH="$DENO_INSTALL/bin:$PATH"
 
-# cuda
-export PATH="/usr/local/cuda/bin:$PATH"
-export LD_LIBRARY_PATH="/usr/local/cuda/lib64:$LD_LIBRARY_PATH"
 
 # pytest
 alias pt='pytest'
@@ -107,8 +104,12 @@ case ${OSTYPE} in
     alias la='ls -laG'
 
     # bash_completion
-    if [ -f $(brew --prefix)/etc/bash_completion ]; then
-    . $(brew --prefix)/etc/bash_completion
+    # if [ -f $(brew --prefix)/etc/bash_completion ]; then
+    # . $(brew --prefix)/etc/bash_completion
+    # fi
+
+    if [ -f /usr/local/etc/bash_completion ]; then
+      . /usr/local/etc/bash_completion
     fi
 
     # pbcopy for macOS
@@ -147,6 +148,10 @@ case ${OSTYPE} in
 
     ## google key
    export GOOGLE_APPLICATION_CREDENTIALS="/home/mei/gcloud/exmt-app-622421091860.json"
+
+    # cuda
+    export PATH="/usr/local/cuda/bin:$PATH"
+    export LD_LIBRARY_PATH="/usr/local/cuda/lib64:$LD_LIBRARY_PATH"
 
     ;;
 esac
