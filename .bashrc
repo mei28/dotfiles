@@ -19,8 +19,8 @@ function add_line {
 }
 
 PROMPT_COMMAND='add_line'
-# nvim
 
+# nvim
 alias nv='nvim'
 
 export NVM_DIR="$HOME/.nvm"
@@ -28,7 +28,6 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # mkdir and change directory
-
 mkcd(){
   mkdir -p $1 && cd $1 && pwd
 }
@@ -88,6 +87,14 @@ export PATH="$DENO_INSTALL/bin:$PATH"
 # pytest
 alias pt='pytest'
 
+
+# compile c++
+
+cg++(){
+  g++ -std=gnu++17 -Wall -Wextra -O2 -o ./a.out $1 & ./a.out
+} 
+
+
 #=====================#
 # change config by OS #
 #=====================#
@@ -104,13 +111,8 @@ case ${OSTYPE} in
     alias la='ls -laG'
 
     # bash_completion
-    # if [ -f $(brew --prefix)/etc/bash_completion ]; then
-    # . $(brew --prefix)/etc/bash_completion
-    # fi
+    # Use bash-completion, if available
 
-    if [ -f /usr/local/etc/bash_completion ]; then
-      . /usr/local/etc/bash_completion
-    fi
 
     # pbcopy for macOS
     pbc(){
