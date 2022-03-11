@@ -94,6 +94,9 @@ cg++(){
   g++ -std=gnu++17 -Wall -Wextra -O2 -o ./a.out $1 && ./a.out
 } 
 
+# cd..
+
+alias cd..="cd .."
 
 #=====================#
 # change config by OS #
