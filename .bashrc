@@ -90,7 +90,7 @@ alias pt='pytest'
 
 # compile c++
 
-cg++(){
+cgpp(){
   g++ -std=gnu++17 -Wall -Wextra -O2 -o ./a.out $1 && ./a.out
 } 
 
