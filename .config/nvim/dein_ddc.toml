@@ -95,11 +95,6 @@ repo = 'Shougo/ddc-matcher_length'
 on_source = 'ddc.vim'
 
 
-
-# [[plugins]]
-# repo = 'Shougo/ddc-omni'
-# on_source = 'ddc.vim'
-
 [[plugins]]
 repo = 'neovim/nvim-lspconfig' #LSPの設定を行うプラグイン。
 on_event = 'BufEnter' #バッファが立ち上がったらプラグインを読み込む。

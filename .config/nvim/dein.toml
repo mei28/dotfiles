@@ -60,43 +60,6 @@ repo = 'airblade/vim-gitgutter'
 [[plugins]]
 repo = 'tpope/vim-fugitive'
 
-# [[plugins]]
-# repo = 'neoclide/coc.nvim'
-# merged = 0
-# 'rev' = 'release'
-# hook_add='''
-#   inoremap <silent><expr> <TAB>
-#         \ pumvisible() ? "\<C-n>" :
-#         \ <SID>check_back_space() ? "\<TAB>" :
-#         \ coc#refresh()
-#   inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-#   function! s:check_back_space() abort
-#     let col = col('.') - 1
-#     return !col || getline('.')[col - 1]  =~# '\s'
-#   endfunction
-
-#   inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-#   " Use <C-space> to trigger completion.
-#   inoremap <silent><expr> <C-space> coc#refresh()
-
-#   " Remap keys for gotos
-#   nmap <silent> gd <Plug>(coc-definition)
-#   nmap <silent> gy <Plug>(coc-type-definition)
-#   nmap <silent> gi <Plug>(coc-implementation)
-#   nmap <silent> gr <Plug>(coc-references)
-
-#   nnoremap <silent> H :call <SID>show_documentation()<CR>
-
-#   function! s:show_documentation()
-#     if (index(['vim','help'], &filetype) >= 0)
-#       execute 'h '.expand('<cword>')
-#     else
-#       call CocAction('doHover')
-#     endif
-#   endfunction
-# '''
-
 [[plugins]]
 repo = 'jiangmiao/auto-pairs'
 
@@ -132,43 +95,6 @@ repo = 'tpope/vim-surround'
 
 [[plugins]]
 repo = 'tpope/vim-commentary'
-
-[[plugins]]
-repo = 'dense-analysis/ale'
-hook_add='''
-
-"" linterとして指定
-let g:ale_linters = {
-    \ 'python': ['flake8'],
-    \ 'javascript': ['eslint'],
-    \ }
-"" formatterとして指定
-let g:ale_fixers = {
-    \ 'python': ['black', 'isort'],
-    \ }
-
-
-"" パスを指定
-  let g:ale_python_flake8_executable = g:python3_host_prog
-  let g:ale_python_flake8_options = '-m flake8'
-  let g:ale_python_autopep8_executable = g:python3_host_prog
-  let g:ale_python_autopep8_options = '-m autopep8'
-  let g:ale_python_isort_executable = g:python3_host_prog
-  let g:ale_python_isort_options = '-m isort'
-  let g:ale_python_black_executable = g:python3_host_prog
-  let g:ale_python_black_options = '-m black'
-
-"" メッセージを表示
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-
-" "" メッセージの移動
-" nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-" nmap <silent> <C-j> <Plug>(ale_next_wrap)
-
-let g:ale_fix_on_save = 1
-let g:ale_sign_column_always = 1
-"" let g:ale_use_global_executables = 1
-'''
 
 [[plugins]]
 repo = 'luochen1990/rainbow'
