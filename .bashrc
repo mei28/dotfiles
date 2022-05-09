@@ -48,6 +48,12 @@ if which pyenv > /dev/null; then eval "$(pyenv init --path)"; fi
 # eval "$(pyenv init --path)"
 # eval "$(pyenv virtualenv-init -)"
 
+actpyenv(){
+  eval "$(pyenv init --path)"
+  eval "$(pyenv virtualenv-init -)"
+  echo "activate pyenv!!"
+}
+
 
 
 # clang for nvim, c++
