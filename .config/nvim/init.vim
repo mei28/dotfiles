@@ -172,7 +172,7 @@ tnoremap <Esc> <C-\><C-n>
   nnoremap <silent> K :lua vim.lsp.buf.signature_help()<CR>
   nnoremap <silent> <Leader>D :lua vim.lsp.buf.type_definition()<CR>
   nnoremap <silent> <Leader>rn :lua vim.lsp.buf.rename()<CR>
-  nnoremap <silent> <Leader>e :lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
+  nnoremap <silent> <Leader>e :lua vim.diagnostic.open_float()<CR>
   nnoremap <silent> [d :lua vim.lsp.diagnostic.goto_prev()<CR>
   nnoremap <silent> ]d :lua vim.lsp.diagnostic.goto_next()<CR>
   nnoremap <silent> <Leader>q :lua vim.lsp.diagnostic.set_loclist()<CR>

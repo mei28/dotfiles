@@ -92,8 +92,15 @@ sudo apt install ffmpeg
 # convert image
 sudo apt-get install imagemagick
 
+# tmux
+sudo apt-get install tmux
+
 # screen capture
 sudo apt install simplescreenrecorder
+
+# powertop
+sudo apt install powertop
+sudo apt install tlp tlp-rdw
 
 sudo apt autoremove
 
