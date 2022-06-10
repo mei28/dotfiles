@@ -1,6 +1,5 @@
 { ///----------editor----------/// 
-    "editor.renderWhitespace": "all", //空白の可視化
-    "editor.renderIndentGuides": true, //インデントのガイド表示
+    "editor.renderWhitespace": "all", //インデントのガイド表示
     "editor.formatOnPaste": true, // ペースト時に自動でフォーマット
     "editor.formatOnSave": true, // ファイル保存時に自動でフォーマット
     "editor.formatOnType": true, // 入力した行を自動でフォーマット
@@ -352,5 +351,6 @@
         "plaintext": true,
         "markdown": true
     },
-    "editor.autoClosingBrackets": "always"
+    "editor.autoClosingBrackets": "always",
+    "editor.guides.indentation": true
 }

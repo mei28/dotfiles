@@ -161,6 +161,8 @@ inoremap <expr><S-TAB> pumvisible() ? "<Up>" : "<S-TAB>"
 " ターミナルモードでコマンドに戻るようにする
 tnoremap <Esc> <C-\><C-n>
 
+nnoremap <TAB> <ESC>
+
 
 " ===========
 " current buffer以外にもショートカットが適用されるようにキーマップを指定

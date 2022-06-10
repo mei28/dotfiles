@@ -144,6 +144,8 @@ hook_add = '''
       \ }
   let g:ale_fixers = {
         \ 'python': ['black', 'isort'],
+        \ 'html': ['prettier'],
+        \ 'css': ['prettier'],
         \ }
   let g:ale_sign_error = 'E'
   let g:ale_sign_warning = 'W'
