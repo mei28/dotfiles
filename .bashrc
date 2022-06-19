@@ -79,7 +79,6 @@ actvenv(){
 
 
 ## rm alias
-
 if type trash-put &> /dev/null
 then
     alias rm=trash-put
@@ -95,14 +94,18 @@ alias pt='pytest'
 
 
 # compile c++
-
 cgpp(){
   g++ -std=gnu++17 -Wall -Wextra -O2 -o ./a.out $1 && ./a.out
 } 
 
 # cd..
-
 alias cd..="cd .."
+
+# shutdown
+alias shutdownnow="sudo shutdown -h now"
+
+# restart
+alias shutdownnow="sudo shutdown -r now"
 
 #=====================#
 # change config by OS #
