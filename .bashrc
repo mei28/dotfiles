@@ -105,7 +105,7 @@ alias cd..="cd .."
 alias shutdownnow="sudo shutdown -h now"
 
 # restart
-alias shutdownnow="sudo shutdown -r now"
+alias restartnow="sudo shutdown -r now"
 
 #=====================#
 # change config by OS #
