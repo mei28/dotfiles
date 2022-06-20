@@ -170,6 +170,10 @@ case ${OSTYPE} in
     # suspend
     alias suspend='systemctl suspend'
 
+    # powertop auto tune
+    alias powtune='sudo powertop --auto-tune'
+
+
     ;;
 esac
 
