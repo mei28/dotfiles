@@ -172,8 +172,7 @@ case ${OSTYPE} in
 
     # powertop auto tune
     alias powtune='sudo powertop --auto-tune'
-
-
+    alias powtop='sudo powertop'
     ;;
 esac
 
