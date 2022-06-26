@@ -95,6 +95,17 @@ require'packer'.startup(
       vim.g.closetag_filenames='*.html,*.xthml'
     end
   }
+
+  --- lsp
+  use"neovim/nvim-lspconfig"
+  use"williamboman/nvim-lsp-installer"
+
+  use "Shougo/ddc.vim"
+  use'vim-denops/denops.vim'
+  use'Shougo/ddc-nvim-lsp'
+  use{
+    'matsui54/ddc-nvim-lsp-doc',
+  }
   
 end)
 
