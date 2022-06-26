@@ -69,6 +69,12 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
+  ale = {
+    loaded = true,
+    needs_bufread = true,
+    path = "/Users/mei/.local/share/nvim/site/pack/packer/opt/ale",
+    url = "https://github.com/dense-analysis/ale"
+  },
   ["auto-pairs"] = {
     loaded = true,
     path = "/Users/mei/.local/share/nvim/site/pack/packer/start/auto-pairs",
@@ -84,10 +90,72 @@ _G.packer_plugins = {
     path = "/Users/mei/.local/share/nvim/site/pack/packer/start/indentLine",
     url = "https://github.com/Yggdroot/indentLine"
   },
+  ["lualine.nvim"] = {
+    loaded = true,
+    path = "/Users/mei/.local/share/nvim/site/pack/packer/start/lualine.nvim",
+    url = "https://github.com/nvim-lualine/lualine.nvim"
+  },
+  nerdtree = {
+    loaded = true,
+    needs_bufread = false,
+    path = "/Users/mei/.local/share/nvim/site/pack/packer/opt/nerdtree",
+    url = "https://github.com/preservim/nerdtree"
+  },
   ["packer.nvim"] = {
     loaded = true,
     path = "/Users/mei/.local/share/nvim/site/pack/packer/start/packer.nvim",
     url = "https://github.com/wbthomason/packer.nvim"
+  },
+  previm = {
+    loaded = false,
+    needs_bufread = false,
+    only_cond = false,
+    path = "/Users/mei/.local/share/nvim/site/pack/packer/opt/previm",
+    url = "https://github.com/previm/previm"
+  },
+  rainbow = {
+    loaded = true,
+    needs_bufread = false,
+    path = "/Users/mei/.local/share/nvim/site/pack/packer/opt/rainbow",
+    url = "https://github.com/luochen1990/rainbow"
+  },
+  ["vim-buftabline"] = {
+    loaded = true,
+    path = "/Users/mei/.local/share/nvim/site/pack/packer/start/vim-buftabline",
+    url = "https://github.com/ap/vim-buftabline"
+  },
+  ["vim-closetag"] = {
+    loaded = false,
+    needs_bufread = true,
+    only_cond = false,
+    path = "/Users/mei/.local/share/nvim/site/pack/packer/opt/vim-closetag",
+    url = "https://github.com/alvan/vim-closetag"
+  },
+  ["vim-commentary"] = {
+    loaded = true,
+    path = "/Users/mei/.local/share/nvim/site/pack/packer/start/vim-commentary",
+    url = "https://github.com/tpope/vim-commentary"
+  },
+  ["vim-easymotion"] = {
+    loaded = true,
+    needs_bufread = false,
+    path = "/Users/mei/.local/share/nvim/site/pack/packer/opt/vim-easymotion",
+    url = "https://github.com/easymotion/vim-easymotion"
+  },
+  ["vim-fugitive"] = {
+    loaded = true,
+    path = "/Users/mei/.local/share/nvim/site/pack/packer/start/vim-fugitive",
+    url = "https://github.com/tpope/vim-fugitive"
+  },
+  ["vim-gitgutter"] = {
+    loaded = true,
+    path = "/Users/mei/.local/share/nvim/site/pack/packer/start/vim-gitgutter",
+    url = "https://github.com/airblade/vim-gitgutter"
+  },
+  ["vim-repeat"] = {
+    loaded = true,
+    path = "/Users/mei/.local/share/nvim/site/pack/packer/start/vim-repeat",
+    url = "https://github.com/tpope/vim-repeat"
   },
   ["vim-surround"] = {
     loaded = true,
@@ -97,6 +165,50 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
+-- Setup for: ale
+time([[Setup for ale]], true)
+try_loadstring("\27LJ\2\n«\2\0\0\2\0\f\0\0296\0\0\0009\0\1\0'\1\3\0=\1\2\0006\0\0\0009\0\1\0'\1\5\0=\1\4\0006\0\0\0009\0\1\0)\1\1\0=\1\6\0006\0\0\0009\0\1\0'\1\3\0=\1\a\0006\0\0\0009\0\1\0'\1\5\0=\1\b\0006\0\0\0009\0\1\0'\1\n\0=\1\t\0006\0\0\0009\0\1\0)\1\1\0=\1\v\0K\0\1\0\20ale_fix_on_save\31[%linter%] %s [%severity%]\24ale_echo_msg_format\29ale_echo_msg_warning_str\27ale_echo_msg_error_str\27ale_sign_column_always\6W\21ale_sign_warning\6E\19ale_sign_error\6g\bvim\0", "setup", "ale")
+time([[Setup for ale]], false)
+time([[packadd for ale]], true)
+vim.cmd [[packadd ale]]
+time([[packadd for ale]], false)
+-- Setup for: vim-closetag
+time([[Setup for vim-closetag]], true)
+try_loadstring("\27LJ\2\nC\0\0\2\0\4\0\0056\0\0\0009\0\1\0'\1\3\0=\1\2\0K\0\1\0\19*.html,*.xthml\23closetag_filenames\6g\bvim\0", "setup", "vim-closetag")
+time([[Setup for vim-closetag]], false)
+-- Setup for: nerdtree
+time([[Setup for nerdtree]], true)
+try_loadstring("\27LJ\2\nv\0\0\6\0\a\0\t6\0\0\0009\0\1\0009\0\2\0'\2\3\0'\3\4\0'\4\5\0005\5\6\0B\0\5\1K\0\1\0\1\0\2\fnoremap\2\vsilent\2\24:NERDTreeToggle<CR>\14<Leader>b\5\20nvim_set_keymap\bapi\bvim\0", "setup", "nerdtree")
+time([[Setup for nerdtree]], false)
+time([[packadd for nerdtree]], true)
+vim.cmd [[packadd nerdtree]]
+time([[packadd for nerdtree]], false)
+-- Setup for: rainbow
+time([[Setup for rainbow]], true)
+try_loadstring("\27LJ\2\n0\0\0\2\0\3\0\0056\0\0\0009\0\1\0)\1\1\0=\1\2\0K\0\1\0\19rainbow_active\6g\bvim\0", "setup", "rainbow")
+time([[Setup for rainbow]], false)
+time([[packadd for rainbow]], true)
+vim.cmd [[packadd rainbow]]
+time([[packadd for rainbow]], false)
+-- Setup for: vim-easymotion
+time([[Setup for vim-easymotion]], true)
+try_loadstring("\27LJ\2\nf\0\0\2\0\4\0\0056\0\0\0009\0\1\0'\1\3\0=\1\2\0K\0\1\0009hjklasdfgyuiopqwertnmzxcvbHJKLASDFGYUIOPQWERTNMZXCVB\20EasyMotion_keys\6g\bvim\0", "setup", "vim-easymotion")
+time([[Setup for vim-easymotion]], false)
+time([[packadd for vim-easymotion]], true)
+vim.cmd [[packadd vim-easymotion]]
+time([[packadd for vim-easymotion]], false)
+-- Setup for: previm
+time([[Setup for previm]], true)
+try_loadstring("\27LJ\2\nG\0\0\2\0\4\0\0056\0\0\0009\0\1\0'\1\3\0=\1\2\0K\0\1\0\26open -a Google Chrome\20previm_open_cmd\6g\bvim\0", "setup", "previm")
+time([[Setup for previm]], false)
+vim.cmd [[augroup packer_load_aucmds]]
+vim.cmd [[au!]]
+  -- Filetype lazy-loads
+time([[Defining lazy-load filetype autocommands]], true)
+vim.cmd [[au FileType markdown ++once lua require("packer.load")({'previm'}, { ft = "markdown" }, _G.packer_plugins)]]
+vim.cmd [[au FileType html ++once lua require("packer.load")({'vim-closetag'}, { ft = "html" }, _G.packer_plugins)]]
+time([[Defining lazy-load filetype autocommands]], false)
+vim.cmd("augroup END")
 if should_profile then save_profiles() end
 
 end)

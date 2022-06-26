@@ -27,6 +27,8 @@ vim.api.nvim_set_keymap('c', '<C-k>', '<F7>', {noremap=true, silent=true})
 vim.api.nvim_set_keymap('c', '<C-l>', '<F9>', {noremap=true, silent=true})
 vim.api.nvim_set_keymap('c', '<C-;>', '<F10>', {noremap=true, silent=true})
 
+vim.api.nvim_set_keymap('n', '<C-f>', '<Right>', {noremap=true, silent=true})
+vim.api.nvim_set_keymap('n', '<C-b>', '<Left>', {noremap=true, silent=true})
 vim.api.nvim_set_keymap('n', '<C-p>', ':bnext<CR>', {noremap=true, silent=true})
 vim.api.nvim_set_keymap('n', '<C-n>', ':bprev<CR>', {noremap=true, silent=true})
 vim.api.nvim_set_keymap('n', '<C-a>', '<Home>', {noremap=true, silent=true})
