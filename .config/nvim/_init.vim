@@ -190,3 +190,4 @@ cnoremap <expr> <C-v> printf('<C-r><C-o>%s', has('linux') \|\| has('unix') ? '+'
 
 " visualモードでの貼り付けをバッファに登録しないようにする
 xnoremap p "_dP
+

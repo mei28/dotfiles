@@ -1,17 +1,17 @@
-.config/*
 .config/configstore
 .config/gatsby
 .config/gcloud
 .config/iterm2
 .config/nvim/node_modules
 .config/configstore/update-notifier-npm.json
+
 ! .gitignore/*
 ! .git
 ! .git-prompt.sh
 
 ! .bashrc/*
 ! .bashprofile/*
-! .config/nvim
+! .config/nvim/*
 
 ! .vscode
-!.config/nvim/*
+! *.lua
