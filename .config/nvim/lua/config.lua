@@ -1,6 +1,8 @@
+vim.g.python3_host_prog='$HOME/.venv/neovim/bin/python'
 -- リーダーキーの設定
 vim.g.mapleader=' '
 vim.cmd[[lang en_US.UTF-8]]
+
 -- 文字コード
 vim.o.encoding='UTF-8'
 vim.o.fileencoding='UTF-8'
@@ -73,4 +75,11 @@ vim.o.autoread=true
 vim.o.wildoptions='pum'
 -- フォーマットオプション 改行の時コメントアウトさせない
 vim.cmd[[au FileType * set fo-=c fo-=r fo-=o]]
+
+-- ターミナルの分割を行う
+if vim.fn.has('nvim')==1 then
+  vim.cmd[[command! -nargs=* Term split | terminal <args>]]
+  vim.cmd[[command! -nargs=* Termv vsplit | terminal <args>]]
+end
+
 

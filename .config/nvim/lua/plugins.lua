@@ -14,10 +14,8 @@ require'packer'.startup(
   use'cocopon/iceberg.vim'
   vim.api.nvim_command[[colorscheme iceberg]]
 
-  use {
-    'nvim-lualine/lualine.nvim',
---    requires = { 'kyazdani42/nvim-web-devicons', opt = true },
-  }
+  use'nvim-lualine/lualine.nvim'
+
   use'Yggdroot/indentLine'
 
   use'jiangmiao/auto-pairs'
@@ -54,30 +52,17 @@ require'packer'.startup(
 
   use'ap/vim-buftabline'
 
-  ---use{
-  ---  'SirVer/ultisnips',
-  ---  setup = function()
-  ---    vim.g.UltiSnipsExpandTrigger="<C-g><C-g>"
-  ---    --  let g:UltiSnipsJumpForwardTrigger="<c-f>"
-  ---    --  let g:UltiSnipsJumpBackwardTrigger="<c-b>"
-  ---    -- If you want :UltiSnipsEdit to split your window.
-  ---    vim.g.UltiSnipsEditSplit="vertical"
-  ---  end
-  ---}
-
   use{
-    'dense-analysis/ale',
+    'SirVer/ultisnips',
     setup = function()
-      vim.g.ale_sign_error='E'
-      vim.g.ale_sign_warning='W'
-      vim.g.ale_sign_column_always=1
-      -- vim.g.ale_statusline_format=['⨉ %d', '⚠ %d', '⬥ ok']
-      vim.g.ale_echo_msg_error_str='E'
-      vim.g.ale_echo_msg_warning_str='W'
-      vim.g.ale_echo_msg_format='[%linter%] %s [%severity%]'
-      vim.g.ale_fix_on_save=1
+      vim.g.UltiSnipsExpandTrigger="<C-g><C-g>"
+      vim.g.UltiSnipsJumpForwardTrigger="<C-f>"
+      vim.g.UltiSnipsJumpBackwardTrigger="<C-b>"
+      vim.g.UltiSnipsEditSplit="vertical"
     end
   }
+
+  use'dense-analysis/ale'
 
   use{
     'previm/previm',

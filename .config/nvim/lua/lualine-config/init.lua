@@ -27,3 +27,6 @@ require('lualine').setup {
   tabline = {},
   extensions = {}
 }
+
+vim.o.laststatus=2
+vim.o.showmode=false

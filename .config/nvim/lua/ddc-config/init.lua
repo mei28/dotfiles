@@ -1,6 +1,7 @@
+
 vim.cmd[[
   " Use around source.
-  call ddc#custom#patch_global('sources', ['around','nvim-lsp','file','buffer'])
+  " call ddc#custom#patch_global('sources', ['around','nvim-lsp','file','buffer'])
 
   " Change source options
   call ddc#custom#patch_global('sourceOptions', {
