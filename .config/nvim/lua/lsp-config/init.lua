@@ -1,4 +1,6 @@
-local opts = { noremap=true, silent=true }
+require("nvim-lsp-installer").setup {}
+
+local opts = { noremap = true, silent = true }
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
@@ -12,21 +14,20 @@ local on_attach = function(client, bufnr)
 
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
-  local bufopts = { noremap=true, silent=true, buffer=bufnr }
+  local bufopts = { noremap = true, silent = true, buffer = bufnr }
   vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
   vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
   vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
   vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
   vim.keymap.set('n', 'H', vim.lsp.buf.hover, bufopts)
   vim.keymap.set('n', 'K', vim.lsp.buf.signature_help, bufopts)
-
-  vim.keymap.set('n', '<Leader>D', vim.lsp.buf.type_definition, opts)
-  vim.keymap.set('n', '<Leader>rn', vim.lsp.buf.rename, opts)
-  vim.keymap.set('n', '<Leader>e', vim.diagnostic.open_float, opts)
-  vim.keymap.set('n', '[d', vim.lsp.diagnostic.goto_prev, opts)
-  vim.keymap.set('n', ']d', vim.lsp.diagnostic.goto_next, opts)
-  vim.keymap.set('n', '<Leader>q', vim.lsp.diagnostic.set_loclist, opts)
-  vim.keymap.set('n', '<Leader>f', vim.lsp.buf.formatting, opts)
+  vim.keymap.set('n', '<Leader>D', vim.lsp.buf.type_definition, bufopts)
+  vim.keymap.set('n', '<Leader>rn', vim.lsp.buf.rename, bufopts)
+  vim.keymap.set('n', '<Leader>e', vim.diagnostic.open_float, bufopts)
+  vim.keymap.set('n', '[d', vim.lsp.diagnostic.goto_prev, bufopts)
+  vim.keymap.set('n', ']d', vim.lsp.diagnostic.goto_next, bufopts)
+  vim.keymap.set('n', '<Leader>q', vim.lsp.diagnostic.set_loclist, bufopts)
+  vim.keymap.set('n', '<Leader>f', vim.lsp.buf.formatting, bufopts)
 end
 
 local lsp_flags = {
@@ -35,12 +36,11 @@ local lsp_flags = {
 }
 
 -- add lsp
-local servers={'pyright'}
+local servers = { 'pyright', 'sumneko_lua' }
 
-for _, lsp in ipairs(servers) do 
-  require('lspconfig')[lsp].setup{
-    on_attach=on_attach,
-    lsp_flags=lsp_flags
+for _, lsp in ipairs(servers) do
+  require('lspconfig')[lsp].setup {
+    on_attach = on_attach,
+    lsp_flags = lsp_flags
   }
 end
-

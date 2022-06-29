@@ -1,6 +1,5 @@
 
 -- This file can be loaded by calling `lua require('plugins')` from your init.vim
-
 -- Only required if you have packer configured as `opt`
 vim.cmd [[packadd packer.nvim]]
 
@@ -95,7 +94,6 @@ require'packer'.startup(
   use'tani/ddc-fuzzy'
   use'Shougo/ddc-matcher_head'
   use'Shougo/ddc-matcher_length'
-  use'tani/ddc-path'
   use'matsui54/denops-signature_help'
   use'matsui54/denops-popup-preview.vim'
   use'Shougo/pum.vim'
