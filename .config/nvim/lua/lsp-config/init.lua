@@ -35,7 +35,11 @@ local lsp_flags = {
 }
 
 -- add lsp
-require('lspconfig')['pyright'].setup{
-    on_attach = on_attach,
-    flags = lsp_flags,
-}
+local servers={'pyright'}
+
+for _, lsp in ipairs(servers) do 
+  require('lspconfig')[lsp].setup{
+    on_attach=on_attach,
+    lsp_flags=lsp_flags
+  }
+end
