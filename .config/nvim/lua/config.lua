@@ -14,6 +14,7 @@ vim.o.belloff=all
 vim.o.relativenumber=true
 -- 行番号の表示
 vim.o.number=true
+
 -- tabをスペース
 vim.o.expandtab=true
 -- tabを半角スペース2コ
@@ -68,7 +69,7 @@ vim.bo.undofile=true
 vim.o.splitbelow=true
 vim.o.splitright=true
 -- カーソルを真ん中に
-vim.scrolloff=42
+vim.o.scrolloff=42
 -- 自動外部読み込み
 vim.o.autoread=true
 -- popupオプション
@@ -82,4 +83,5 @@ if vim.fn.has('nvim')==1 then
   vim.cmd[[command! -nargs=* Termv vsplit | terminal <args>]]
 end
 
-
+-- 一番上を選択
+vim.o.completeopt = 'menuone,noinsert'

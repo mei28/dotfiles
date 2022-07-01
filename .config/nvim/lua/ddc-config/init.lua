@@ -36,3 +36,19 @@ vim.fn['signature_help#enable']()
 -- use pop up preview
 vim.fn['popup_preview#enable']()
 
+
+vim.cmd[[
+" <TAB>: completion.
+inoremap <silent><expr> <TAB>
+\ ddc#map#pum_visible() ? '<C-n>' :
+\ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?
+\ '<TAB>' : ddc#map#manual_complete()
+
+]]
+
+
+vim.keymap.set('i','<S-TAB>', function()
+  return vim.fn.pumvisible()==1 and '<C-p>' or '<C-h>' end
+,{expr=true, noremap=true})
+
+
