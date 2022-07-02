@@ -27,7 +27,7 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '[d', vim.lsp.diagnostic.goto_prev, bufopts)
   vim.keymap.set('n', ']d', vim.lsp.diagnostic.goto_next, bufopts)
   vim.keymap.set('n', '<Leader>q', vim.lsp.diagnostic.set_loclist, bufopts)
-  vim.keymap.set('n', '<Leader>f', vim.lsp.buf.formatting, bufopts)
+  -- vim.keymap.set('n', '<Leader>f', vim.lsp.buf.formatting, bufopts)
 end
 
 local lsp_flags = {
