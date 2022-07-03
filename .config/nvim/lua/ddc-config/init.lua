@@ -36,19 +36,40 @@ vim.fn['signature_help#enable']()
 -- use pop up preview
 vim.fn['popup_preview#enable']()
 
+-- define keymap
+vim.keymap.set('i','<Tab>',function()
+  if vim.fn['pum#visible']() == 1 then
+    vim.fn['pum#map#insert_relative'](1)
+    return ''
+  end
+  local col = vim.fn.col "."
+  if col<=1 or vim.fn.getline('.'):sub(col-1):match '%s' then
+    return '<Tab>'
+  end
+  vim.fn['ddc#manual_complete']()
+  return ""
+end,{expr=true,noremap=true})
 
-vim.cmd[[
-" <TAB>: completion.
-inoremap <silent><expr> <TAB>
-\ ddc#map#pum_visible() ? '<C-n>' :
-\ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?
-\ '<TAB>' : ddc#map#manual_complete()
+local function pum_insert(key, line)
+  return function()
+    if vim.fn['pum#visible']() then
+      vim.fn['pum#map#insert_relative'](line)
+      return ''
+    end
+    return key
+  end
+end
 
-]]
+vim.keymap.set('i','<S-Tab>', pum_insert("<S-Tab>",-1),{expr=true})
+vim.keymap.set('i','<C-n>', pum_insert("<S-Tab>", 1),{expr=true})
+vim.keymap.set('i','<C-p>', pum_insert("<S-Tab>",-1),{expr=true})
 
 
-vim.keymap.set('i','<S-TAB>', function()
-  return vim.fn.pumvisible()==1 and '<C-p>' or '<C-h>' end
-,{expr=true, noremap=true})
-
-
+vim.g.AutoPairsMapCR=0
+vim.keymap.set('i','<CR>', function()
+  if vim.fn['pum#visible']()==1 then
+    vim.fn['pum#map#confirm']()
+    return ''
+  end
+  return '<CR>'
+end,{expr=true})

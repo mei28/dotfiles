@@ -61,19 +61,19 @@ vim.cmd[[inoremap <expr><CR>  pumvisible() ? "<C-y>" : "<CR>"]]
 
 
 -- 上下を決める
-vim.keymap.set('i', '<TAB>', function()
-    return vim.fn.pumvisible() == 1 and '<Down>' or '<TAB>'
-end, {expr = true, noremap=true})
-vim.keymap.set('i', '<S-TAB>', function()
-    return vim.fn.pumvisible() == 1 and '<Up>' or '<S-TAB>'
-end, {expr = true, noremap=true})
+-- vim.keymap.set('i', '<TAB>', function()
+--     return vim.fn.pumvisible() == 1 and '<Down>' or '<TAB>'
+-- end, {expr = true, noremap=true})
+-- vim.keymap.set('i', '<S-TAB>', function()
+--     return vim.fn.pumvisible() == 1 and '<Up>' or '<S-TAB>'
+-- end, {expr = true, noremap=true})
 
-vim.keymap.set('i', '<C-n>', function()
-    return vim.fn.pumvisible() == 1 and '<Down>' or '<C-n>'
-end, {expr = true, noremap=true})
-vim.keymap.set('i', '<C-p>', function()
-    return vim.fn.pumvisible() == 1 and '<Up>' or '<C-p>'
-end, {expr = true, noremap=true})
+-- vim.keymap.set('i', '<C-n>', function()
+--     return vim.fn.pumvisible() == 1 and '<Down>' or '<C-n>'
+-- end, {expr = true, noremap=true})
+-- vim.keymap.set('i', '<C-p>', function()
+--     return vim.fn.pumvisible() == 1 and '<Up>' or '<C-p>'
+-- end, {expr = true, noremap=true})
 
 -- ターミナルモードでコマンドを戻る
 vim.api.nvim_set_keymap('t', '<Esc>', [[<C-\><C-n>]], {noremap=true, silent=true})
