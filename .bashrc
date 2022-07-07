@@ -107,6 +107,29 @@ alias shutdownnow="sudo shutdown -h now"
 # restart
 alias restartnow="sudo shutdown -r now"
 
+# ssh tmux
+
+function ssh() {
+  # tmux起動時
+  if [[ -n $(printenv TMUX) ]] ; then
+    # 現在のペインIDの退避と背景色の書き換え
+    local pane_id=`tmux display -p '#{pane_id}'`
+    # 接続先ホスト名に応じて背景色、文字色を切り替え
+    if [[ `echo ${!#} | grep -E 'localhost|127\.0\.0\.1'` ]] ; then
+        tmux select-pane -P 'fg=#00BCD4,bg=#263238'
+    else
+        tmux select-pane -P 'fg=#CDDC39,bg=#263238'
+    fi
+    tmux select-pane -T "${!#}"
+
+    # 通常通りコマンド続行
+    command ssh $@
+    # デフォルトの色設定に戻す
+    tmux select-pane -t $pane_id -P 'default'
+  else
+    command ssh $@
+  fi
+}
 #=====================#
 # change config by OS #
 #=====================#
