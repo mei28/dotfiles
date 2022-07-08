@@ -4,22 +4,7 @@
         "key": "ctrl+k ctrl+i",
         "command": "latex-workshop.recipes"
     },
-    {
-        "key": "ctrl+i",
-        "command": "code-runner.run"
-    },
-    {
-        "key": "ctrl+alt+n",
-        "command": "-code-runner.run"
-    },
-    {
-        "key": "ctrl+u",
-        "command": "code-runner.stop"
-    },
-    {
-        "key": "ctrl+alt+m",
-        "command": "-code-runner.stop"
-    },
+
     {
         "key": "ctrl+shift+p",
         "command": "cursorUpSelect",

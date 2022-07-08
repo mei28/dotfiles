@@ -352,5 +352,8 @@
         "markdown": true
     },
     "editor.autoClosingBrackets": "always",
-    "editor.guides.indentation": true
+    "editor.guides.indentation": true,
+    // neovim
+    "vscode-neovim.neovimExecutablePaths.darwin": "/usr/local/bin/nvim",
+    "vscode-neovim.neovimInitVimPaths.darwin": "~/dotfiles/.config/nvim/init.lua"
 }
