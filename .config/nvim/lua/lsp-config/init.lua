@@ -36,7 +36,7 @@ local lsp_flags = {
 }
 
 -- add lsp
-local servers = { 'pyright', 'sumneko_lua', 'bashls' }
+local servers = { 'pyright', 'sumneko_lua', 'bashls', 'html'}
 
 for _, lsp in ipairs(servers) do
   require('lspconfig')[lsp].setup {
