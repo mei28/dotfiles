@@ -75,6 +75,16 @@ actvenv(){
   fi
 }
 
+# actenv
+actenv(){
+  eval "$(pyenv init --path)"
+  eval "$(pyenv virtualenv-init -)"
+  echo "activate pyenv!!"
+  if [[ -n $VIRTUAL_ENV && -e "${VIRTUAL_ENV}/bin/activate" ]]; then
+    source "${VIRTUAL_ENV}/bin/activate"  # commented out by conda initialize
+    echo "activate ${VIRTUAL_ENV}!!"
+  fi
+}
 
 
 
