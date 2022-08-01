@@ -58,7 +58,9 @@ vim.api.nvim_set_keymap('n', 'gk', 'k', {noremap=true, silent=true})
 -- 補完時に改行しない
 vim.cmd[[inoremap <expr><CR>  pumvisible() ? "<C-y>" : "<CR>"]]
 
-
+-- jkでインサートモードを抜ける
+vim.api.nvim_set_keymap('i', 'jk', '<Esc>', {noremap=true, silent=true})
+vim.api.nvim_set_keymap('v', 'jk', '<Esc>', {noremap=true, silent=true})
 
 -- 上下を決める
 -- vim.keymap.set('i', '<TAB>', function()
