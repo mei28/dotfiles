@@ -63,6 +63,8 @@ end
 vim.keymap.set('i','<S-Tab>', pum_insert("<S-Tab>",-1),{expr=true})
 vim.keymap.set('i','<C-n>', pum_insert("<S-Tab>", 1),{expr=true})
 vim.keymap.set('i','<C-p>', pum_insert("<S-Tab>",-1),{expr=true})
+vim.keymap.set('i','<Up>', pum_insert("<S-Tab>", -1),{expr=true})
+vim.keymap.set('i','<Down>', pum_insert("<S-Tab>",1),{expr=true})
 
 
 vim.g.AutoPairsMapCR=0

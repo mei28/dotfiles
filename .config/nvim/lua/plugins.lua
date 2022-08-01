@@ -19,9 +19,9 @@ require'packer'.startup(
   use'w0ng/vim-hybrid'
   use'nanotech/jellybeans.vim'
   -- vim.api.nvim_command[[colorscheme iceberg]]
-  -- vim.api.nvim_command[[colorscheme nord]]
+  vim.api.nvim_command[[colorscheme nord]]
   -- vim.api.nvim_command[[colorscheme edge]]
-  vim.api.nvim_command[[colorscheme tokyonight]]
+  -- vim.api.nvim_command[[colorscheme tokyonight]]
   -- vim.api.nvim_command[[colorscheme lucario]]
   -- vim.api.nvim_command[[colorscheme hybrid]]
   -- vim.api.nvim_command[[colorscheme jellybeans]]
