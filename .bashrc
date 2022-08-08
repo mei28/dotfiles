@@ -112,10 +112,10 @@ cgpp(){
 alias cd..="cd .."
 
 # shutdown
-alias shutdownnow="sudo shutdown -h now"
+alias shutdownnow="sudo shutdown -h +1"
 
 # restart
-alias restartnow="sudo shutdown -r now"
+alias restartnow="sudo shutdown -r +1"
 
 # ssh tmux
 
