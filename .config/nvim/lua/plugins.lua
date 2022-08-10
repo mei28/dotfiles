@@ -1,4 +1,3 @@
-
 -- This file can be loaded by calling `lua require('plugins')` from your init.vim
 -- Only required if you have packer configured as `opt`
 vim.cmd [[packadd packer.nvim]]
@@ -8,23 +7,6 @@ require'packer'.startup(
   -- opt オプションを付けると遅延読み込みになります。 この場合は opt だけで読み込む契機を指定していないため、
   -- `packadd` コマンドを叩かない限り読み込まれることはありません。
   use'wbthomason/packer.nvim'
-
-  -- color scheme
-  use'cocopon/iceberg.vim'
-  use'arcticicestudio/nord-vim'
-  use'sainnhe/edge'
-  use'FrenzyExists/aquarium-vim'
-  use'folke/tokyonight.nvim'
-  use'raphamorim/lucario'
-  use'w0ng/vim-hybrid'
-  use'nanotech/jellybeans.vim'
-  -- vim.api.nvim_command[[colorscheme iceberg]]
-  vim.api.nvim_command[[colorscheme nord]]
-  -- vim.api.nvim_command[[colorscheme edge]]
-  -- vim.api.nvim_command[[colorscheme tokyonight]]
-  -- vim.api.nvim_command[[colorscheme lucario]]
-  -- vim.api.nvim_command[[colorscheme hybrid]]
-  -- vim.api.nvim_command[[colorscheme jellybeans]]
 
   use'nvim-lualine/lualine.nvim'
 

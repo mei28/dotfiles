@@ -1,4 +1,5 @@
 -- load plugins.lua
+require'colorscheme'
 require'plugins'
 require'config'
 require'keymap'
