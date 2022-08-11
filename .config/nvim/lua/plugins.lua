@@ -12,7 +12,7 @@ require'packer'.startup(
 
   use'Yggdroot/indentLine'
 
-  use'jiangmiao/auto-pairs'
+  use 'windwp/nvim-autopairs'
 
   use'tpope/vim-surround'
   
@@ -75,6 +75,8 @@ require'packer'.startup(
     end
   }
 
+  use 'kyazdani42/nvim-web-devicons' -- File icons
+
   --- lsp
   use"neovim/nvim-lspconfig"
   use"williamboman/nvim-lsp-installer"
@@ -92,6 +94,7 @@ require'packer'.startup(
   use'matsui54/denops-signature_help'
   use'matsui54/denops-popup-preview.vim'
   use'Shougo/pum.vim'
+
 
 end)
 
