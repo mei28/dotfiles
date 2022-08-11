@@ -8,6 +8,16 @@ require'packer'.startup(
   -- `packadd` コマンドを叩かない限り読み込まれることはありません。
   use'wbthomason/packer.nvim'
 
+  -- color scheme
+  use'cocopon/iceberg.vim'
+  use'arcticicestudio/nord-vim'
+  use'sainnhe/edge'
+  use'EdenEast/nightfox.nvim'
+  use'folke/tokyonight.nvim'
+  use'raphamorim/lucario'
+  use'w0ng/vim-hybrid'
+  use'nanotech/jellybeans.vim'
+
   use'nvim-lualine/lualine.nvim'
 
   use'Yggdroot/indentLine'
@@ -15,51 +25,26 @@ require'packer'.startup(
   use 'windwp/nvim-autopairs'
 
   use'tpope/vim-surround'
-  
+
   use'airblade/vim-gitgutter'
 
   use'tpope/vim-fugitive'
-  use{
-    'preservim/nerdtree',
-    setup = function()
-      vim.api.nvim_set_keymap('', '<Leader>b', ':NERDTreeToggle<CR>', {noremap=true, silent=true})
-    end
-  }
 
-  use{
-    'easymotion/vim-easymotion',
-    setup = function()
-      vim.g.EasyMotion_keys="hjklasdfgyuiopqwertnmzxcvbHJKLASDFGYUIOPQWERTNMZXCVB"
-    end
-  }
-  
+  use'easymotion/vim-easymotion'
+
   use'tpope/vim-commentary'
-  
-  use{
-    'luochen1990/rainbow',
-    setup = function()
-      vim.g.rainbow_active=1
-    end
-  }
+
+  use'luochen1990/rainbow'
 
   use'tpope/vim-repeat'
 
-  use'ap/vim-buftabline'
+  use"jose-elias-alvarez/buftabline.nvim"
 
-  use{
-    'SirVer/ultisnips',
-    setup = function()
-      vim.g.UltiSnipsExpandTrigger="<C-g><C-g>"
-      vim.g.UltiSnipsJumpForwardTrigger="<C-f>"
-      vim.g.UltiSnipsJumpBackwardTrigger="<C-b>"
-      vim.g.UltiSnipsEditSplit="vertical"
-    end
-  }
+  use'SirVer/ultisnips'
 
   use'dense-analysis/ale'
 
-  use{
-    'previm/previm',
+  use{'previm/previm',
     opt=true,
     ft={'markdown'},
     setup = function()
@@ -75,25 +60,36 @@ require'packer'.startup(
     end
   }
 
-  use 'kyazdani42/nvim-web-devicons' -- File icons
+  use'nvim-lua/plenary.nvim'
+  use'nvim-telescope/telescope.nvim'
+  use'nvim-telescope/telescope-file-browser.nvim'
+
+  use'kyazdani42/nvim-web-devicons' -- File icons
+
+  use{
+    'nvim-treesitter/nvim-treesitter',
+    run = ':TSUpdate'
+  }
+
+  use 'akinsho/nvim-bufferline.lua'
 
   --- lsp
   use"neovim/nvim-lspconfig"
   use"williamboman/nvim-lsp-installer"
 
-  use "Shougo/ddc.vim"
-  use'vim-denops/denops.vim'
-  use'Shougo/ddc-nvim-lsp'
-  use'Shougo/ddc-around'
-  use'LumaKernel/ddc-file'
-  use'matsui54/ddc-buffer'
-  use'Shougo/ddc-sorter_rank'
-  use'tani/ddc-fuzzy'
-  use'Shougo/ddc-matcher_head'
-  use'Shougo/ddc-matcher_length'
-  use'matsui54/denops-signature_help'
-  use'matsui54/denops-popup-preview.vim'
-  use'Shougo/pum.vim'
+  use"Shougo/ddc.vim"
+  use"vim-denops/denops.vim"
+  use"Shougo/ddc-nvim-lsp"
+  use"Shougo/ddc-around"
+  use"LumaKernel/ddc-file"
+  use"matsui54/ddc-buffer"
+  use"Shougo/ddc-sorter_rank"
+  use"tani/ddc-fuzzy"
+  use"Shougo/ddc-matcher_head"
+  use"Shougo/ddc-matcher_length"
+  use"matsui54/denops-signature_help"
+  use"matsui54/denops-popup-preview.vim"
+  use"Shougo/pum.vim"
 
 
 end)

@@ -29,9 +29,9 @@ vim.api.nvim_set_keymap('c', '<C-;>', '<F10>', {noremap=true, silent=true})
 
 vim.api.nvim_set_keymap('n', '<C-f>', '<Right>', {noremap=true, silent=true})
 vim.api.nvim_set_keymap('n', '<C-b>', '<Left>', {noremap=true, silent=true})
+vim.api.nvim_set_keymap('n', '<C-a>', '<Home>', {noremap=true, silent=true})
 vim.api.nvim_set_keymap('n', '<C-p>', ':bnext<CR>', {noremap=true, silent=true})
 vim.api.nvim_set_keymap('n', '<C-n>', ':bprev<CR>', {noremap=true, silent=true})
-vim.api.nvim_set_keymap('n', '<C-a>', '<Home>', {noremap=true, silent=true})
 vim.api.nvim_set_keymap('n', '<C-e>', '<End>', {noremap=true, silent=true})
 
 -- vim.api.nvim_set_keymap('n', '<C-o>', '<C-i>', {noremap=true, silent=true})
@@ -82,4 +82,8 @@ vim.api.nvim_set_keymap('c', '<C-v>', '<C-r><C-o>0', {noremap=true, silent=true,
 
 -- visualモードでの貼り付けをバッファに登録しないようにする
 vim.api.nvim_set_keymap('x', 'p', '"_dP', {noremap=true, silent=true})
+
+-- 新しいタブを作る,消す
+vim.api.nvim_set_keymap('n', 'te', ':tabedit<CR>' ,{noremap=true, silent=true})
+vim.api.nvim_set_keymap('n', 'tc', ':tabclose<CR>' ,{noremap=true, silent=true})
 

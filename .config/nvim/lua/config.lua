@@ -76,6 +76,7 @@ end
 
 -- 一番上を選択
 vim.o.completeopt = 'menuone,noinsert'
+vim.opt.path:append { '**' }
 
 -- ファイルを開いた時に、カーソルの場所を復元する
 -- vim.api.nvim_create_autocmd({ "BufReadPost" }, {

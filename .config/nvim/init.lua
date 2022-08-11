@@ -1,12 +1,8 @@
 -- load plugins.lua
-require'colorscheme'
 require'plugins'
 require'config'
 require'keymap'
-require'lualine-config'
-require'lsp-config'
-require'ddc-config'
-require'ale-config'
+require'colorscheme'
 
 local has = function(x)
   return vim.fn.has(x) == 1
