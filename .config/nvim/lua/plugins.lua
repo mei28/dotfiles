@@ -26,9 +26,8 @@ require'packer'.startup(
 
   use'tpope/vim-surround'
 
+  use'dinhhuy258/git.nvim' 
   use'airblade/vim-gitgutter'
-
-  use'tpope/vim-fugitive'
 
   use'easymotion/vim-easymotion'
 
@@ -71,7 +70,9 @@ require'packer'.startup(
     run = ':TSUpdate'
   }
 
-  use 'akinsho/nvim-bufferline.lua'
+  use'akinsho/nvim-bufferline.lua'
+
+  use'norcalli/nvim-colorizer.lua'
 
   --- lsp
   use"neovim/nvim-lspconfig"
