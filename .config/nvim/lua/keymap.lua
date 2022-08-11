@@ -84,6 +84,6 @@ vim.api.nvim_set_keymap('c', '<C-v>', '<C-r><C-o>0', {noremap=true, silent=true,
 vim.api.nvim_set_keymap('x', 'p', '"_dP', {noremap=true, silent=true})
 
 -- 新しいタブを作る,消す
-vim.api.nvim_set_keymap('n', 'te', ':tabedit<CR>' ,{noremap=true, silent=true})
+vim.keymap.set('n', 'te', ':tabedit ')
 vim.api.nvim_set_keymap('n', 'tc', ':tabclose<CR>' ,{noremap=true, silent=true})
 
