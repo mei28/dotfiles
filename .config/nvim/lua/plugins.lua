@@ -18,57 +18,73 @@ require'packer'.startup(
   use'w0ng/vim-hybrid'
   use'nanotech/jellybeans.vim'
 
+  -- status line
   use'nvim-lualine/lualine.nvim'
-
+  
+  -- indent
   use"lukas-reineke/indent-blankline.nvim"
 
+  -- auto pair and tag close
   use'windwp/nvim-autopairs'
   use'windwp/nvim-ts-autotag'
 
-  use'tpope/vim-surround'
+  -- surround
+  use"kylechui/nvim-surround"
 
+  -- git
   use'dinhhuy258/git.nvim' 
   use'airblade/vim-gitgutter'
 
+  -- easymotion
   use'easymotion/vim-easymotion'
 
-  -- use'tpope/vim-commentary'
   use'numToStr/Comment.nvim'
 
   use'luochen1990/rainbow'
 
+  -- dot repeat
   use'tpope/vim-repeat'
-
-  use"jose-elias-alvarez/buftabline.nvim"
-
+  
+  -- snipetts
   use'SirVer/ultisnips'
 
+  -- linter, formatter
   use'dense-analysis/ale'
 
-
+  -- markdown
   use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install", setup = function() vim.g.mkdp_filetypes = { "markdown" } end, ft = { "markdown" }, })
 
+  -- utility
   use'nvim-lua/plenary.nvim'
+
+  -- fuzzy finder
   use'nvim-telescope/telescope.nvim'
   use'nvim-telescope/telescope-file-browser.nvim'
 
-  use'kyazdani42/nvim-web-devicons' -- File icons
-
+  -- File icons
+  use'kyazdani42/nvim-web-devicons'
+  
+  -- treesitter
   use{
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate'
   }
   use({ "yioneko/nvim-yati", requires = "nvim-treesitter/nvim-treesitter" })
 
+  -- bufferline
   use'akinsho/nvim-bufferline.lua'
 
+  -- show color
   use'norcalli/nvim-colorizer.lua'
 
+  -- csv
   use'Decodetalkers/csv-tools.lua'
 
+  -- comment
   use'folke/todo-comments.nvim'
 
-  use("petertriho/nvim-scrollbar")
+  use'petertriho/nvim-scrollbar'
+  use'kevinhwang91/nvim-hlslens'
 
 
   --- lsp
