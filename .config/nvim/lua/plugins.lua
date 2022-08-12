@@ -74,6 +74,8 @@ require'packer'.startup(
 
   use'norcalli/nvim-colorizer.lua'
 
+  use'Decodetalkers/csv-tools.lua'
+
   --- lsp
   use"neovim/nvim-lspconfig"
   use"williamboman/nvim-lsp-installer"

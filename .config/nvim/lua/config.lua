@@ -41,10 +41,10 @@ vim.o.wrapscan=true
 vim.o.inccommand='split'
 -- 改行，タブの可視化
 vim.o.list=true
--- スマートインデント
-vim.o.smartindent=true
 -- オートインデント
 vim.o.autoindent=true
+-- スマートインデント
+vim.o.smartindent=true
 -- かっこの対応
 vim.o.showmatch=true
 -- 検索のハイライト
