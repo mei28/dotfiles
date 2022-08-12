@@ -20,9 +20,10 @@ require'packer'.startup(
 
   use'nvim-lualine/lualine.nvim'
 
-  use'Yggdroot/indentLine'
+  use"lukas-reineke/indent-blankline.nvim"
 
-  use 'windwp/nvim-autopairs'
+  use'windwp/nvim-autopairs'
+  use'windwp/nvim-ts-autotag'
 
   use'tpope/vim-surround'
 
@@ -31,7 +32,8 @@ require'packer'.startup(
 
   use'easymotion/vim-easymotion'
 
-  use'tpope/vim-commentary'
+  -- use'tpope/vim-commentary'
+  use'numToStr/Comment.nvim'
 
   use'luochen1990/rainbow'
 
@@ -43,21 +45,8 @@ require'packer'.startup(
 
   use'dense-analysis/ale'
 
-  use{'previm/previm',
-    opt=true,
-    ft={'markdown'},
-    setup = function()
-      vim.g.previm_open_cmd='open -a Google Chrome'
-    end
-  }
 
-  use{
-    'alvan/vim-closetag',
-    ft={'html'},
-    setup = function()
-      vim.g.closetag_filenames='*.html,*.xthml'
-    end
-  }
+  use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install", setup = function() vim.g.mkdp_filetypes = { "markdown" } end, ft = { "markdown" }, })
 
   use'nvim-lua/plenary.nvim'
   use'nvim-telescope/telescope.nvim'
@@ -69,12 +58,18 @@ require'packer'.startup(
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate'
   }
+  use({ "yioneko/nvim-yati", requires = "nvim-treesitter/nvim-treesitter" })
 
   use'akinsho/nvim-bufferline.lua'
 
   use'norcalli/nvim-colorizer.lua'
 
   use'Decodetalkers/csv-tools.lua'
+
+  use'folke/todo-comments.nvim'
+
+  use("petertriho/nvim-scrollbar")
+
 
   --- lsp
   use"neovim/nvim-lspconfig"

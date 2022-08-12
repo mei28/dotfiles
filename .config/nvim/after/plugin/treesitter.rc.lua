@@ -29,6 +29,7 @@ ts.setup {
   autotag = {
     enable = true,
   },
+  yati = { enable=true }
 }
 
 local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
