@@ -30,6 +30,7 @@ require'packer'.startup(
 
   -- surround
   use"kylechui/nvim-surround"
+  -- use"tpope/vim-surround"
 
   -- git
   use'dinhhuy258/git.nvim' 
