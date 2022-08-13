@@ -5,7 +5,9 @@
 .config/nvim/node_modules
 .config/configstore/update-notifier-npm.json
 .config/nvim/plugin/packer_compiled.lua
+.config/*
 
+! .config/nvim
 ! .gitignore/*
 ! .git
 ! .git-prompt.sh
