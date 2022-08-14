@@ -1,8 +1,13 @@
+local status, packer = pcall(require, "packer")
+if not status then
+  print("Packer is not installed")
+  return
+end
 -- This file can be loaded by calling `lua require('plugins')` from your init.vim
 -- Only required if you have packer configured as `opt`
 vim.cmd [[packadd packer.nvim]]
 
-require'packer'.startup(
+packer.startup(
   function()
   -- opt オプションを付けると遅延読み込みになります。 この場合は opt だけで読み込む契機を指定していないため、
   -- `packadd` コマンドを叩かない限り読み込まれることはありません。
@@ -33,7 +38,8 @@ require'packer'.startup(
   -- use"tpope/vim-surround"
 
   -- git
-  use'dinhhuy258/git.nvim' 
+  use'dinhhuy258/git.nvim'
+  use'lewis6991/gitsigns.nvim'
   use'airblade/vim-gitgutter'
 
   -- easymotion
@@ -45,7 +51,6 @@ require'packer'.startup(
 
   -- dot repeat
   use'tpope/vim-repeat'
-  
   -- snipetts
   use'SirVer/ultisnips'
 
