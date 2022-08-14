@@ -162,6 +162,9 @@ case ${OSTYPE} in
      showDesktopIcon() {
        defaults write com.apple.finder CreateDesktop -boolean true && killall Finder
      }
+
+    ## add cmake
+    export PATH="/Applications/CMake.app/Contents/bin:$PATH"
    ;;
 #========#
 # ubuntu #
