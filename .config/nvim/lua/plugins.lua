@@ -50,8 +50,6 @@ packer.startup(function()
 
     -- dot repeat
     use 'tpope/vim-repeat'
-    -- snipetts
-    use 'SirVer/ultisnips'
 
     -- linter, formatter
     use 'jose-elias-alvarez/null-ls.nvim'
