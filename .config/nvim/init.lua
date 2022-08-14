@@ -1,7 +1,6 @@
 -- load plugins.lua
 require'plugins'
-require'config'
-require'keymap'
+require'config' require'keymap'
 require'colorscheme'
 
 local has = function(x)

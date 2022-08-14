@@ -1,8 +1,18 @@
-require("nvim-lsp-installer").setup {}
-local state, lsp = pcall(require, 'nvim-lsp-installer')
-if not state then
+local status, mason = pcall(require, 'mason')
+if not status then
   return
 end
+
+mason.setup({
+   ui = {
+     icons = {
+       package_installed = "✓",
+       package_pending = "➜",
+       package_uninstalled = "✗"
+     }
+   }
+ }
+)
 
 local opts = { noremap = true, silent = true }
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
@@ -42,9 +52,20 @@ local lsp_flags = {
 -- add lsp
 local servers = { 'pyright', 'sumneko_lua', 'bashls', 'html'}
 
+local status, mason_lspconfig = pcall(require, 'mason-lspconfig')
+if not status then 
+  return
+end
+
+mason_lspconfig.setup({
+    ensure_installed = servers
+})
+
+local status, lspconfig = pcall(require, 'lspconfig')
+if not status then 
+  return
+end
+
 for _, lsp in ipairs(servers) do
-  require('lspconfig')[lsp].setup {
-    on_attach = on_attach,
-    lsp_flags = lsp_flags
-  }
+  lspconfig[lsp].setup({on_attach = on_attach})
 end
