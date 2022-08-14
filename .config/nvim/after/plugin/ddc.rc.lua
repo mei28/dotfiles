@@ -28,7 +28,7 @@ vim.fn['ddc#custom#patch_global']('filterParams',{
 
 
 -- -- Use ddc.
-vim.fn['ddc#enable']() 
+vim.fn['ddc#enable']()
 
 -- Use signature help
 vim.fn['signature_help#enable']()
