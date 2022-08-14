@@ -14,4 +14,3 @@ null_ls.setup({
 })
 
 local bufopts = {noremap = true, silent = true}
-vim.keymap.set('n', '<Leader>f', vim.lsp.buf.formatting, bufopts)
