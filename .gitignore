@@ -7,6 +7,46 @@
 .config/configstore/update-notifier-npm.json
 .config/nvim/plugin/packer_compiled.lua
 
+.config/Code
+.config/NVIDIA\ Corporation
+.config/QtProject.conf
+.config/Slack
+.config/TabNine
+.config/Unknown\ Organization
+.config/dconf
+.config/discord
+.config/enchant
+.config/eog
+.config/enchant
+.config/eog
+.config/evolution
+.config/fcitx
+.config/gedit
+.config/gnome-control-center
+.config/gnome-initial-setup-done
+.config/goa-1.0
+.config/google-chrome
+.config/gtk-3.0
+.config/gtk-4.0
+.config/ibus
+.config/inkscape
+.config/label-studio
+.config/libreoffice
+.config/menus
+.config/mimeapps.list
+.config/nautilus
+node-gyp
+package-lock.json
+package.json
+.config/pulse
+.config/totem
+.config/update-notifier
+.config/user-dirs.dirs
+.config/user-dirs.locale
+.config/vidcutter
+.config/zoomus.conf
+tree-sitter-cli@0.13.10
+
 ! .config/nvim/*
 ! .gitignore/*
 ! .git
