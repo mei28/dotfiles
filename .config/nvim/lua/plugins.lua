@@ -88,8 +88,12 @@ packer.startup(function()
     -- comment
     use 'folke/todo-comments.nvim'
 
+    -- views
     use 'petertriho/nvim-scrollbar'
     use 'kevinhwang91/nvim-hlslens'
+
+    -- keep lastest cursor position
+    use 'ethanholz/nvim-lastplace'
 
     --- lsp
     use "neovim/nvim-lspconfig"
