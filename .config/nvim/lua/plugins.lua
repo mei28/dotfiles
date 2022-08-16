@@ -95,6 +95,9 @@ packer.startup(function()
     -- keep lastest cursor position
     use 'ethanholz/nvim-lastplace'
 
+    -- sidebar-nvim
+    use 'sidebar-nvim/sidebar.nvim'
+
     --- lsp
     use "neovim/nvim-lspconfig"
     use 'williamboman/mason.nvim'
