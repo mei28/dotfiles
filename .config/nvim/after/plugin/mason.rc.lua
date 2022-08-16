@@ -38,7 +38,8 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, bufopts)
     vim.keymap.set('n', ']d', vim.diagnostic.goto_next, bufopts)
     vim.keymap.set('n', '<Leader>q', vim.diagnostic.setloclist, bufopts)
-    vim.keymap.set('n', '<Leader>f', vim.lsp.buf.formatting, bufopts)
+    vim.keymap.set('n', '<Leader>f',
+                   "<cmd>lua vim.lsp.buf.format({async=true})<CR>", bufopts)
 end
 
 local lsp_flags = {
