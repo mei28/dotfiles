@@ -44,5 +44,3 @@ lualine.setup {
   extensions = { 'fugitive' }
 }
 
-vim.o.laststatus=3
-vim.o.showmode=false
