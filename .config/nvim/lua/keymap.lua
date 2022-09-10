@@ -100,3 +100,4 @@ vim.api.nvim_set_keymap('x', 'p', '"_dP', {noremap = true, silent = true})
 vim.keymap.set('n', 'te', ':tabedit ')
 vim.api.nvim_set_keymap('n', 'tc', ':tabclose<CR>',
                         {noremap = true, silent = true})
+

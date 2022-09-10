@@ -1,121 +1,131 @@
 local status, packer = pcall(require, "packer")
 if not status then
-    print("Packer is not installed")
-    return
+  print("Packer is not installed")
+  return
 end
 -- This file can be loaded by calling `lua require('plugins')` from your init.vim
 -- Only required if you have packer configured as `opt`
 vim.cmd [[packadd packer.nvim]]
 
 packer.startup(function()
-    -- opt オプションを付けると遅延読み込みになります。 この場合は opt だけで読み込む契機を指定していないため、
-    -- `packadd` コマンドを叩かない限り読み込まれることはありません。
-    use 'wbthomason/packer.nvim'
+  -- opt オプションを付けると遅延読み込みになります。 この場合は opt だけで読み込む契機を指定していないため、
+  -- `packadd` コマンドを叩かない限り読み込まれることはありません。
+  use 'wbthomason/packer.nvim'
 
-    -- color scheme
-    use 'cocopon/iceberg.vim'
-    use 'arcticicestudio/nord-vim'
-    use 'sainnhe/edge'
-    use 'EdenEast/nightfox.nvim'
-    use 'folke/tokyonight.nvim'
-    use 'raphamorim/lucario'
-    use 'w0ng/vim-hybrid'
-    use 'nanotech/jellybeans.vim'
+  -- color scheme
+  use 'cocopon/iceberg.vim'
+  use 'arcticicestudio/nord-vim'
+  use 'sainnhe/edge'
+  use 'EdenEast/nightfox.nvim'
+  use 'folke/tokyonight.nvim'
+  use 'raphamorim/lucario'
+  use 'w0ng/vim-hybrid'
+  use 'nanotech/jellybeans.vim'
 
-    -- status line
-    use 'nvim-lualine/lualine.nvim'
+  -- status line
+  use 'nvim-lualine/lualine.nvim'
 
-    -- indent
-    use "lukas-reineke/indent-blankline.nvim"
+  -- indent
+  use "lukas-reineke/indent-blankline.nvim"
 
-    -- auto pair and tag close
-    use 'windwp/nvim-autopairs'
-    use 'windwp/nvim-ts-autotag'
+  -- auto pair and tag close
+  use 'windwp/nvim-autopairs'
+  use 'windwp/nvim-ts-autotag'
 
-    -- surround
-    use "kylechui/nvim-surround"
-    -- use"tpope/vim-surround"
+  -- surround
+  use "kylechui/nvim-surround"
+  -- use"tpope/vim-surround"
 
-    -- git
-    use 'dinhhuy258/git.nvim'
-    use 'lewis6991/gitsigns.nvim'
-    use 'airblade/vim-gitgutter'
+  -- git
+  use 'dinhhuy258/git.nvim'
+  use 'lewis6991/gitsigns.nvim'
+  use 'airblade/vim-gitgutter'
 
 
-    use 'numToStr/Comment.nvim'
+  use 'numToStr/Comment.nvim'
 
-    use 'luochen1990/rainbow'
+  use 'luochen1990/rainbow'
 
-    -- dot repeat
-    use 'tpope/vim-repeat'
+  -- dot repeat
+  use 'tpope/vim-repeat'
 
-    -- linter, formatter
-    use 'jose-elias-alvarez/null-ls.nvim'
+  -- linter, formatter
+  use 'jose-elias-alvarez/null-ls.nvim'
 
-    -- markdown
-    use({
-        "iamcco/markdown-preview.nvim",
-        run = "cd app && npm install",
-        setup = function() vim.g.mkdp_filetypes = {"markdown"} end,
-        ft = {"markdown"}
-    })
+  -- markdown
+  use({
+    "iamcco/markdown-preview.nvim",
+    run = "cd app && npm install",
+    setup = function() vim.g.mkdp_filetypes = { "markdown" } end,
+    ft = { "markdown" }
+  })
 
-    -- utility
-    use 'nvim-lua/plenary.nvim'
+  -- utility
+  use 'nvim-lua/plenary.nvim'
 
-    -- fuzzy finder
-    use 'nvim-telescope/telescope.nvim'
-    use 'nvim-telescope/telescope-file-browser.nvim'
+  -- fuzzy finder
+  use 'nvim-telescope/telescope.nvim'
+  use 'nvim-telescope/telescope-file-browser.nvim'
 
-    -- File icons
-    use 'kyazdani42/nvim-web-devicons'
+  -- File icons
+  use 'kyazdani42/nvim-web-devicons'
 
-    -- treesitter
-    use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
-    use({"yioneko/nvim-yati", requires = "nvim-treesitter/nvim-treesitter"})
+  -- treesitter
+  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+  use({ "yioneko/nvim-yati", requires = "nvim-treesitter/nvim-treesitter" })
 
-    -- bufferline
-    use 'akinsho/nvim-bufferline.lua'
+  -- bufferline
+  use 'akinsho/nvim-bufferline.lua'
 
-    -- show color
-    use 'norcalli/nvim-colorizer.lua'
+  -- show color
+  use 'norcalli/nvim-colorizer.lua'
 
-    -- csv
-    use 'Decodetalkers/csv-tools.lua'
+  -- csv
+  use 'Decodetalkers/csv-tools.lua'
 
-    -- comment
-    use 'folke/todo-comments.nvim'
+  -- comment
+  use 'folke/todo-comments.nvim'
 
-    -- views
-    use 'petertriho/nvim-scrollbar'
-    use 'kevinhwang91/nvim-hlslens'
+  -- views
+  use 'petertriho/nvim-scrollbar'
+  use 'kevinhwang91/nvim-hlslens'
 
-    -- keep lastest cursor position
-    use 'ethanholz/nvim-lastplace'
+  -- keep lastest cursor position
+  use 'ethanholz/nvim-lastplace'
 
-    -- sidebar-nvim
-    use 'sidebar-nvim/sidebar.nvim'
+  -- sidebar-nvim
+  use 'sidebar-nvim/sidebar.nvim'
 
-    -- hop
-    use 'phaazon/hop.nvim'
+  -- hop
+  use 'phaazon/hop.nvim'
 
-    --- lsp
-    use "neovim/nvim-lspconfig"
-    use 'williamboman/mason.nvim'
-    use 'williamboman/mason-lspconfig.nvim'
+  --- lsp
+  use "neovim/nvim-lspconfig"
+  use 'williamboman/mason.nvim'
+  use 'williamboman/mason-lspconfig.nvim'
 
-    use "Shougo/ddc.vim"
-    use "vim-denops/denops.vim"
-    use "Shougo/ddc-nvim-lsp"
-    use "Shougo/ddc-around"
-    use "LumaKernel/ddc-file"
-    use "matsui54/ddc-buffer"
-    use "Shougo/ddc-sorter_rank"
-    use "tani/ddc-fuzzy"
-    use "Shougo/ddc-matcher_head"
-    use "Shougo/ddc-matcher_length"
-    use "matsui54/denops-signature_help"
-    use "matsui54/denops-popup-preview.vim"
-    use "Shougo/pum.vim"
+  --- cmp
+  use 'onsails/lspkind-nvim' -- vscode-like pictograms
+  use 'L3MON4D3/LuaSnip'
+  use 'hrsh7th/cmp-nvim-lsp'
+  use 'hrsh7th/cmp-buffer'
+  use 'hrsh7th/cmp-path'
+  use 'hrsh7th/nvim-cmp'
+  use 'hrsh7th/cmp-nvim-lsp-signature-help'
+
+  --- ddc
+  -- use "Shougo/ddc.vim"
+  -- use "vim-denops/denops.vim"
+  -- use "Shougo/ddc-nvim-lsp"
+  -- use "Shougo/ddc-around"
+  -- use "LumaKernel/ddc-file"
+  -- use "matsui54/ddc-buffer"
+  -- use "Shougo/ddc-sorter_rank"
+  -- use "tani/ddc-fuzzy"
+  -- use "Shougo/ddc-matcher_head"
+  -- use "Shougo/ddc-matcher_length"
+  -- use "matsui54/denops-signature_help"
+  -- use "matsui54/denops-popup-preview.vim"
+  -- use "Shougo/pum.vim"
 
 end)
