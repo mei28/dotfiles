@@ -41,8 +41,6 @@ packer.startup(function()
     use 'lewis6991/gitsigns.nvim'
     use 'airblade/vim-gitgutter'
 
-    -- easymotion
-    use 'easymotion/vim-easymotion'
 
     use 'numToStr/Comment.nvim'
 
@@ -97,6 +95,9 @@ packer.startup(function()
 
     -- sidebar-nvim
     use 'sidebar-nvim/sidebar.nvim'
+
+    -- hop
+    use 'phaazon/hop.nvim'
 
     --- lsp
     use "neovim/nvim-lspconfig"
