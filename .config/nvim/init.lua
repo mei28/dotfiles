@@ -16,7 +16,7 @@ if is_win then require 'windows' end
 
 -- auto compile plugins
 vim.cmd [[
-  set completeopt=menuone,noinsert,noselect
   autocmd BufWritePost plugins.lua PackerCompile
 ]]
+
 

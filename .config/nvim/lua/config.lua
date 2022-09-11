@@ -75,7 +75,7 @@ if vim.fn.has('nvim')==1 then
 end
 
 -- 一番上を選択
-vim.o.completeopt = 'menuone,noinsert'
+vim.o.completeopt = 'menuone,noinsert,noselect'
 vim.opt.path:append { '**' }
 
 -- remove cmd height

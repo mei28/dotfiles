@@ -12,10 +12,9 @@ cmp.setup({
     ["<C-p>"] = cmp.mapping.select_prev_item(),
     ["<C-n>"] = cmp.mapping.select_next_item(),
     ['<C-l>'] = cmp.mapping.complete(),
-    ['<C-e>'] = cmp.mapping.abort(),
-    ['<Esc>'] = cmp.mapping.abort(),
+    ['<C-e>'] = cmp.mapping.close(),
+    ['<Esc>'] = cmp.mapping.close(),
     ['<CR>'] = cmp.mapping.confirm({
-      behavior = cmp.ConfirmBehavior.Replace,
       select = true
     }),
     ['<Tab>'] = function(fallback)
@@ -34,11 +33,11 @@ cmp.setup({
     end,
   }),
   sources = cmp.config.sources({
-    { name = 'nvim_lsp' },
     { name = 'buffer' },
+    { name = "mocword" },
+    { name = 'nvim_lsp' },
     { name = "path" },
     { name = "nvim_lsp_signature_help" },
-    { name = "mocword" },
     { name = "treesitter" },
   }),
   formatting = {
