@@ -99,6 +99,12 @@ packer.startup(function()
   -- hop
   use 'phaazon/hop.nvim'
 
+  -- mkdir
+  use 'jghauser/mkdir.nvim'
+
+  --- 
+  use "tversteeg/registers.nvim"
+
   --- lsp
   use "neovim/nvim-lspconfig"
   use 'williamboman/mason.nvim'
@@ -112,6 +118,8 @@ packer.startup(function()
   use 'hrsh7th/cmp-path'
   use 'hrsh7th/nvim-cmp'
   use 'hrsh7th/cmp-nvim-lsp-signature-help'
+  use 'yutkat/cmp-mocword' 
+  use 'ray-x/cmp-treesitter'
 
   --- ddc
   -- use "Shougo/ddc.vim"

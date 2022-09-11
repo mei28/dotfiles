@@ -38,6 +38,8 @@ cmp.setup({
     { name = 'buffer' },
     { name = "path" },
     { name = "nvim_lsp_signature_help" },
+    { name = "mocword" },
+    { name = "treesitter" },
   }),
   formatting = {
     format = lspkind.cmp_format({ with_text = false, maxwidth = 50 })
