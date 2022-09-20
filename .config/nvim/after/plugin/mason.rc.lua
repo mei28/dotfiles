@@ -42,7 +42,7 @@ local on_attach = function(client, bufnr)
 end
 
 -- add lsp
-local servers = { 'pyright', 'sumneko_lua', 'bashls', 'html' }
+local servers = { 'pyright', 'sumneko_lua', 'bashls', 'html' ,'clangd'}
 
 local status, mason_lspconfig = pcall(require, 'mason-lspconfig')
 if not status then return end
