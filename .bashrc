@@ -63,7 +63,7 @@ export PATH="/usr/local/opt/llvm/bin:$PATH"
 
 ## activate virtualenv
 if [[ -n $VIRTUAL_ENV && -e "${VIRTUAL_ENV}/bin/activate" ]]; then
-  source "${VIRTUAL_ENV}/bin/activate"  
+  source "${VIRTUAL_ENV}/bin/activate"
 fi
 
 
@@ -95,8 +95,10 @@ alias pt='pytest'
 
 # compile c++
 cgpp(){
-  g++ -std=gnu++17 -Wall -Wextra -O2 -o ./a.out $1 && ./a.out
-} 
+  g++ -std=gnu++17 -Wall -Wextra -O2 -o ./a.out $1
+  echo '----------'
+  ./a.out
+}
 
 # cd..
 alias cd..="cd .."
@@ -155,7 +157,7 @@ case ${OSTYPE} in
     }
     ## google key
     export GOOGLE_APPLICATION_CREDENTIALS="/Users/mei/gcloud/exmt-app-622421091860.json"
-    
+
     hideDesktopIcon(){
       defaults write com.apple.finder CreateDesktop -boolean false && killall Finder
     }
@@ -203,7 +205,3 @@ case ${OSTYPE} in
 esac
 
 #==========#
-
-
-
-

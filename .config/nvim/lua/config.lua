@@ -80,5 +80,5 @@ vim.opt.path:append { '**' }
 
 -- remove cmd height
 vim.o.cmdheight=0
-vim.o.laststatus=3
+vim.o.laststatus=2
 vim.o.showmode=false
