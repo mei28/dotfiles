@@ -1,3 +1,4 @@
+---@diagnostic disable: redefined-local
 local status, mason = pcall(require, 'mason')
 if not status then return end
 
@@ -39,7 +40,6 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', ']d', vim.diagnostic.goto_next, bufopts)
   vim.keymap.set('n', '<Leader>q', vim.diagnostic.setloclist, bufopts)
   vim.keymap.set('n', '<Leader>lf', "<cmd>lua vim.lsp.buf.format({async=true})<CR>", bufopts)
-  vim.keymap.set('n', '<Leader>,', vim.lsp.buf.code_action, bufopts)
 end
 
 -- add lsp

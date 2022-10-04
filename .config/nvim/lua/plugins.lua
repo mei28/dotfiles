@@ -102,8 +102,11 @@ packer.startup(function()
   -- mkdir
   use 'jghauser/mkdir.nvim'
 
-  --- 
+  ---
   use "tversteeg/registers.nvim"
+
+  --- code action list
+  use "aznhe21/actions-preview.nvim"
 
   --- lsp
   use "neovim/nvim-lspconfig"
@@ -118,7 +121,7 @@ packer.startup(function()
   use 'hrsh7th/cmp-path'
   use 'hrsh7th/nvim-cmp'
   use 'hrsh7th/cmp-nvim-lsp-signature-help'
-  use 'yutkat/cmp-mocword' 
+  use 'yutkat/cmp-mocword'
   use 'ray-x/cmp-treesitter'
 
   --- ddc
