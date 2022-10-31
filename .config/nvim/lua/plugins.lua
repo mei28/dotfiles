@@ -124,6 +124,13 @@ packer.startup(function()
   use 'yutkat/cmp-mocword'
   use 'ray-x/cmp-treesitter'
 
+  --- docstring
+  use 'pixelneo/vim-python-docstring'
+
+  --- noice
+  use 'folke/noice.nvim'
+  use 'MunifTanjim/nui.nvim'
+
   --- ddc
   -- use "Shougo/ddc.vim"
   -- use "vim-denops/denops.vim"
