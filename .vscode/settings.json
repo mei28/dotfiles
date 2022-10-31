@@ -1,4 +1,4 @@
-{ ///----------editor----------/// 
+{ ///----------editor----------///
     "editor.renderWhitespace": "all", //インデントのガイド表示
     "editor.formatOnPaste": true, // ペースト時に自動でフォーマット
     "editor.formatOnSave": true, // ファイル保存時に自動でフォーマット
@@ -355,5 +355,6 @@
     "editor.guides.indentation": true,
     // neovim
     "vscode-neovim.neovimExecutablePaths.darwin": "/usr/local/bin/nvim",
-    "vscode-neovim.neovimInitVimPaths.darwin": "~/dotfiles/.config/nvim/init.lua"
+    "vscode-neovim.neovimInitVimPaths.darwin": "~/dotfiles/.config/nvim/init.lua",
+    "markdown-pdf.headerTemplate": "<div></div>"
 }
