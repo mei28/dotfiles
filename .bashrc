@@ -22,13 +22,16 @@ then
 fi
 
 # git jump
+# git highlight
 if [ -e $HOME/git/contrib ]
 then
   export GIT_CONTRIB_PATH=$HOME/git/contrib
   export PATH="$PATH:$GIT_CONTRIB_PATH/git-jump"
+  export PATH="$PATH:$GIT_CONTRIB_PATH/diff-highlight"
 fi
 
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+export PATH="$HOME/.y/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 # export PATH="/usr/local/bin/git:$PATH"
 
 
