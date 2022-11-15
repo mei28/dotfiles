@@ -4,11 +4,33 @@
 #========#
 
 # prompt
+if [ -e $HOME/.git-prompt.bash ]
+then
+  GIT_PS1_SHOWDIRTYSTATE=true
+	GIT_PS1_SHOWUNTRACKEDFILES=true
+	GIT_PS1_SHOWSTASHSTATE=true
+	GIT_PS1_SHOWUPSTREAM=auto
 
-source ~/.git-prompt.sh
-PS1='\[\e[34m\]\w \[\e[0;32m\]$(__git_ps1 "(%s)")\[\e[0;37m\]\$\[\e[0m\] '
+  source $HOME/.git-prompt.sh
+  PS1='\[\e[34m\]\w \[\e[0;32m\]$(__git_ps1 "(%s)")\[\e[0;37m\]\$\[\e[0m\] '
+fi
+
+# git completion
+if [ -e $HOME/.git-completion.bash ]
+then
+	source $HOME/.git-completion.bash
+fi
+
+# git jump
+if [ -e $HOME/git/contrib ]
+then
+  export GIT_CONTRIB_PATH=$HOME/git/contrib
+  export PATH="$PATH:$GIT_CONTRIB_PATH/git-jump"
+fi
+
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-export PATH="/usr/local/bin/git:$PATH"
+# export PATH="/usr/local/bin/git:$PATH"
+
 
 function add_line {
   if [[ -z "${PS1_NEWLINE_LOGIN}" ]]; then
