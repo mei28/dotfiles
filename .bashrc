@@ -9,7 +9,10 @@ if [ -e /usr/local/share/git-core/contrib ]; then
   export GIT_CONTRIB_PATH=/usr/local/share/git-core/contrib
 elif [ -e /opt/homebrew/share/git-core/contrib ]; then
   export GIT_CONTRIB_PATH=/opt/homebrew/share/git-core/contrib
+elif [ -e /usr/share/doc/git/contrib ]; then
+  export GIT_CONTRIB_PATH=/usr/share/doc/git/contrib
 fi
+
 export PATH="$PATH:$GIT_CONTRIB_PATH/git-jump"
 export PATH="$PATH:$GIT_CONTRIB_PATH/diff-highlight"
 
