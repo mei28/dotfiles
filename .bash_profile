@@ -1,4 +1,4 @@
-#to process .bashrc                                                                                                                                           
+#to process .bashrc
 if [ -f ~/dotfiles/.bashrc ]; then
     . ~/dotfiles/.bashrc
 fi
@@ -11,4 +11,7 @@ fi
 # if [ -f '~/Downloads/google-cloud-sdk/completion.bash.inc' ]; then . '~/Downloads/google-cloud-sdk/completion.bash.inc'; fi
 
 # Set PATH, MANPATH, etc., for Homebrew.
-eval "$(/opt/homebrew/bin/brew shellenv)"
+if [ -e /opt/homebrew/bin/brew ]
+then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi

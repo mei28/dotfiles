@@ -45,6 +45,7 @@ package.json
 .config/user-dirs.locale
 .config/vidcutter
 .config/zoomus.conf
+.config/wandb
 tree-sitter-cli@0.13.10
 
 ! .config/nvim/*

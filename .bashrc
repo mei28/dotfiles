@@ -3,13 +3,26 @@
 # COMMON #
 #========#
 
+# git jump
+# git highlight
+if [ -e /usr/local/share/git-core/contrib ]; then
+  export GIT_CONTRIB_PATH=/usr/local/share/git-core/contrib
+elif [ -e /opt/homebrew/share/git-core/contrib ]; then
+  export GIT_CONTRIB_PATH=/opt/homebrew/share/git-core/contrib
+elif [ -e /usr/share/doc/git/contrib ]; then
+  export GIT_CONTRIB_PATH=/usr/share/doc/git/contrib
+fi
+
+export PATH="$PATH:$GIT_CONTRIB_PATH/git-jump"
+export PATH="$PATH:$GIT_CONTRIB_PATH/diff-highlight"
+
 # prompt
-if [ -e $HOME/.git-prompt.bash ]
+if [ -e $HOME/.git-prompt.sh ]
 then
   GIT_PS1_SHOWDIRTYSTATE=true
 	GIT_PS1_SHOWUNTRACKEDFILES=true
 	GIT_PS1_SHOWSTASHSTATE=true
-	GIT_PS1_SHOWUPSTREAM=auto
+	# GIT_PS1_SHOWUPSTREAM=auto
 
   source $HOME/.git-prompt.sh
   PS1='\[\e[34m\]\w \[\e[0;32m\]$(__git_ps1 "(%s)")\[\e[0;37m\]\$\[\e[0m\] '
@@ -21,14 +34,7 @@ then
 	source $HOME/.git-completion.bash
 fi
 
-# git jump
-# git highlight
-if [ -e $HOME/git/contrib ]
-then
-  export GIT_CONTRIB_PATH=$HOME/git/contrib
-  export PATH="$PATH:$GIT_CONTRIB_PATH/git-jump"
-  export PATH="$PATH:$GIT_CONTRIB_PATH/diff-highlight"
-fi
+
 
 
 export PATH="$HOME/.y/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
