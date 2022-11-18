@@ -133,6 +133,8 @@ cgpp(){
 
 # cd..
 alias cd..="cd .."
+# cd-
+alias cd-="cd -"
 
 # shutdown
 alias shutdownnow="sudo shutdown -h +1"
@@ -212,6 +214,9 @@ case ${OSTYPE} in
     alias open='xdg-open'
 
     # bash-completion
+    # if [ -f $(brew --prefix)/etc/bash_completion ]; then
+    #   source $(brew --prefix)/etc/bash_completion
+    # fi
     source /usr/share/bash-completion/bash_completion
 
     # pbcopy for linux
