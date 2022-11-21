@@ -58,6 +58,27 @@ local keys = {
     mods = 'CMD',
     action = wezterm.action.CloseCurrentPane { confirm = true },
   },
+  {
+    key = 'b',
+    mods = 'LEADER',
+    action = act.RotatePanes 'CounterClockwise',
+  },
+  { key = 'n', mods = 'LEADER', action = act.RotatePanes 'Clockwise' },
+  -- activate pane selection mode with numeric labels
+  {
+    key = '0',
+    mods = 'LEADER',
+    action = act.PaneSelect {
+    },
+  },
+  -- show the pane selection mode, but have it swap the active and selected panes
+  {
+    key = '9',
+    mods = 'LEADER',
+    action = act.PaneSelect {
+      mode = 'SwapWithActive',
+    },
+  },
 }
 
 local hyperlink_rules = {
@@ -115,8 +136,9 @@ return {
   color_scheme = "nordfox",
   -- turn off beep
   audible_bell = 'Disabled',
-  -- completion
-  quick_select_patterns = { "\\w-+" },
+  hide_tab_bar_if_only_one_tab = true,
+  -- not to resize window
+  adjust_window_size_when_changing_font_size = false,
   -- like tmux key bind
   leader = { key = 'q', mods = 'CTRL', timeout_milliseconds = 1000 },
   -- tmux like key bind
@@ -124,4 +146,12 @@ return {
 
   -- hyperlink
   hyperlink_rules = hyperlink_rules,
+  -- window padding
+  window_padding = {
+    left = 0,
+    right = 0,
+    top = 0,
+    bottom = 0,
+  },
+
 }
