@@ -139,6 +139,8 @@ return {
   hide_tab_bar_if_only_one_tab = true,
   -- not to resize window
   adjust_window_size_when_changing_font_size = false,
+  -- ime
+  use_ime = true,
   -- like tmux key bind
   leader = { key = 'q', mods = 'CTRL', timeout_milliseconds = 1000 },
   -- tmux like key bind
