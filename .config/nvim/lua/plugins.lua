@@ -62,6 +62,7 @@ packer.startup(function()
 
   -- utility
   use 'nvim-lua/plenary.nvim'
+  use 'nvim-lua/popup.nvim'
 
   -- fuzzy finder
   use 'nvim-telescope/telescope.nvim'

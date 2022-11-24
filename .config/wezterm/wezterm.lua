@@ -127,6 +127,25 @@ local hyperlink_rules = {
     format = 'https://www.github.com/$1/$3',
   },
 }
+local window_padding = {
+  left = 0,
+  right = 0,
+  top = 0,
+  bottom = 0,
+}
+local skip_close_confirmation_for_processes_named = {
+  'bash',
+  'sh',
+  'zsh',
+  'fish',
+  'tmux',
+}
+
+local inactive_pane_hsb = {
+  saturation = 0.5,
+  brightness = 0.5,
+}
+
 return {
   -- init shell
   default_prog = { '/bin/bash', '-l' },
@@ -149,11 +168,11 @@ return {
   -- hyperlink
   hyperlink_rules = hyperlink_rules,
   -- window padding
-  window_padding = {
-    left = 0,
-    right = 0,
-    top = 0,
-    bottom = 0,
-  },
+  window_padding = window_padding,
+  -- skip confirm when clone
+  skip_close_confirmation_for_processes_named = skip_close_confirmation_for_processes_named,
+  -- inactive_pane_hsb
+  inactive_pane_hsb = inactive_pane_hsb,
+  check_for_updates = false,
 
 }
