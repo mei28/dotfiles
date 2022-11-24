@@ -237,6 +237,10 @@ case ${OSTYPE} in
     # powertop auto tune
     alias powtune='sudo powertop --auto-tune'
     alias powtop='sudo powertop'
+
+    # wezterm
+    alias wezterm='flatpak run org.wezfurlong.wezterm'
+
     ;;
 esac
 

@@ -106,5 +106,11 @@ sudo apt install tlp tlp-rdw
 sudo npm install -g tree-sitter-cli
 sudo npm install -g tree-sitter
 
+# flat  hub for wezterm
+sudo apt install flatpak
+sudo apt install gnome-software-plugin-flatpak
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
+
 sudo apt autoremove
 

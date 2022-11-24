@@ -1,8 +1,21 @@
 local status, wezterm = pcall(require, 'wezterm')
-
 if not status then return end
+local gon = require 'get_os_name'
+
 
 local act = wezterm.action
+
+local function switchFonts()
+  local _name, _ = gon:get_os_name()
+  if _name == 'Linux' then
+    return  'Ubuntu Mono Nerd Font'
+  elseif _name == 'Mac' then
+    return  'Hack Nerd Font Mono'
+  else
+    return  'Hack Nerd Font Mono'
+  end
+end
+
 local keys = {
 
   {
@@ -150,7 +163,8 @@ return {
   -- init shell
   default_prog = { '/bin/bash', '-l' },
   -- font
-  font = wezterm.font 'Hack Nerd Font Mono',
+  font = wezterm.font(switchFonts()),
+  font_size = 12,
   -- color scheme
   color_scheme = "nordfox",
   -- turn off beep
@@ -164,7 +178,6 @@ return {
   leader = { key = 'q', mods = 'CTRL', timeout_milliseconds = 1000 },
   -- tmux like key bind
   keys = keys,
-
   -- hyperlink
   hyperlink_rules = hyperlink_rules,
   -- window padding
