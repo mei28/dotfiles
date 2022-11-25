@@ -89,7 +89,7 @@ local function get_os_name()
 end
 
 -- heuristic for detecting standalone script
-if (... ~= 'get_os_name') then
+if (... ~= 'utils') then
   -- main
   print(("%q %q"):format(M.get_os_name()))
 end
