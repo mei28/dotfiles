@@ -1,20 +1,10 @@
 local status, wezterm = pcall(require, 'wezterm')
 if not status then return end
-local gon = require 'get_os_name'
+local gon = require 'utils'
 
 
 local act = wezterm.action
 
-local function switchFonts()
-  local _name, _ = gon:get_os_name()
-  if _name == 'Linux' then
-    return  'Ubuntu Mono Nerd Font'
-  elseif _name == 'Mac' then
-    return  'Hack Nerd Font Mono'
-  else
-    return  'Hack Nerd Font Mono'
-  end
-end
 
 local keys = {
 
@@ -159,14 +149,26 @@ local inactive_pane_hsb = {
   brightness = 0.5,
 }
 
+local switchColorScheme = function()
+  -- return 'nordfox'
+  -- return "BlulocoDark"
+  return "Catppuccin Frappe"
+  -- return 'Dracula'
+  -- return 'duskfox'
+  -- return 'terafox'
+  -- return 'tokyonight'
+  -- return 'tokyonight'
+end
+
+
 return {
   -- init shell
   default_prog = { '/bin/bash', '-l' },
   -- font
-  font = wezterm.font(switchFonts()),
+  font = wezterm.font(gon:switchFonts()),
   font_size = 12,
   -- color scheme
-  color_scheme = "nordfox",
+  color_scheme = switchColorScheme(),
   -- turn off beep
   audible_bell = 'Disabled',
   hide_tab_bar_if_only_one_tab = true,

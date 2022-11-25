@@ -7,7 +7,7 @@
 
 local M = {}
 
-function M.get_os_name()
+local function get_os_name()
   -- Return two strings describing the OS name and OS architecture.
   -- For Windows, the OS identification is based on environment variables
   -- On unix, a call to uname is used.
@@ -92,6 +92,17 @@ end
 if (... ~= 'get_os_name') then
   -- main
   print(("%q %q"):format(M.get_os_name()))
+end
+
+function M.switchFonts()
+  local _name, _ = get_os_name()
+  if _name == 'Linux' then
+    return 'Ubuntu Mono Nerd Font'
+  elseif _name == 'Mac' then
+    return 'Hack Nerd Font Mono'
+  else
+    return 'Hack Nerd Font Mono'
+  end
 end
 
 return M
