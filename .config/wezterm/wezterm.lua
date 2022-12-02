@@ -166,7 +166,7 @@ return {
   default_prog = { '/bin/bash', '-l' },
   -- font
   font = wezterm.font(gon:switchFonts()),
-  font_size = 12,
+  font_size = 13,
   -- color scheme
   color_scheme = switchColorScheme(),
   -- turn off beep
