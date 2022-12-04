@@ -29,8 +29,8 @@ packer.startup(function()
   use "lukas-reineke/indent-blankline.nvim"
 
   -- auto pair and tag close
-  use 'windwp/nvim-autopairs'
-  use 'windwp/nvim-ts-autotag'
+  use { 'windwp/nvim-autopairs', event = 'InsertEnter' }
+  use { 'windwp/nvim-ts-autotag', event = 'InsertEnter' }
 
   -- surround
   use "kylechui/nvim-surround"
