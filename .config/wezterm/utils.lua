@@ -97,7 +97,8 @@ end
 function M.switchFonts()
   local _name, _ = get_os_name()
   if _name == 'Linux' then
-    return 'Ubuntu Mono Nerd Font'
+    -- return 'Ubuntu Mono Nerd Font'
+    return { 'Ubuntu Mono Nerd Font', 'Source Han Code JP' }
   elseif _name == 'Mac' then
     return 'Hack Nerd Font Mono'
   else
@@ -106,4 +107,3 @@ function M.switchFonts()
 end
 
 return M
-
