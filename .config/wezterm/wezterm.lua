@@ -165,7 +165,7 @@ return {
   -- init shell
   default_prog = { '/bin/bash', '-l' },
   -- font
-  font = wezterm.font_with_fallback{gon:switchFonts()},
+  font = wezterm.font_with_fallback(gon:switchFonts()),
   font_size = 13,
   -- color scheme
   color_scheme = switchColorScheme(),
