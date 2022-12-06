@@ -100,9 +100,9 @@ function M.switchFonts()
     -- return 'Ubuntu Mono Nerd Font'
     return { 'Ubuntu Mono Nerd Font', 'Source Han Code JP' }
   elseif _name == 'Mac' then
-    return 'Hack Nerd Font Mono'
+    return { 'Hack Nerd Font Mono', 'Source Han Code JP' }
   else
-    return 'Hack Nerd Font Mono'
+    return { 'Hack Nerd Font Mono' }
   end
 end
 
