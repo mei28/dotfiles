@@ -12,9 +12,9 @@ units = {
   center33 = { x = 0.33, y = 0.00, w = 0.33, h = 1.00 },
 
   -- 4分割
-  lefttop  = { x = 0.00, y = 0.00, w = 0.50, h = 0.50 },
-  righttop = { x = 0.50, y = 0.00, w = 0.50, h = 0.50 },
-  leftdown = { x = 0.00, y = 0.50, w = 0.50, h = 0.50 },
+  lefttop   = { x = 0.00, y = 0.00, w = 0.50, h = 0.50 },
+  righttop  = { x = 0.50, y = 0.00, w = 0.50, h = 0.50 },
+  leftdown  = { x = 0.00, y = 0.50, w = 0.50, h = 0.50 },
   rightdown = { x = 0.50, y = 0.50, w = 0.50, h = 0.50 },
 
   -- max,min
@@ -99,3 +99,29 @@ end
 
 hs.hotkey.bind(mash, "n", moveToNextScreen)
 hs.hotkey.bind(mash, "p", moveToPrevScreen)
+
+-- like karabiner
+local simpleCmd = false
+local map = hs.keycodes.map
+local function eikanaEvent(event)
+  local c = event:getKeyCode()
+  local f = event:getFlags()
+  if event:getType() == hs.eventtap.event.types.keyDown then
+    if f['cmd'] then
+      simpleCmd = true
+    end
+  elseif event:getType() == hs.eventtap.event.types.flagsChanged then
+    if not f['cmd'] then
+      if simpleCmd == false then
+        if c == map['cmd'] then
+          hs.keycodes.setMethod('Romaji')
+        elseif c == map['rightcmd'] then
+          hs.keycodes.setMethod('Hiragana')
+        end
+      end
+      simpleCmd = false
+    end
+  end
+end
+eikana = hs.eventtap.new({ hs.eventtap.event.types.keyDown, hs.eventtap.event.types.flagsChanged }, eikanaEvent)
+eikana:start()
