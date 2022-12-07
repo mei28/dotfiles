@@ -1,19 +1,24 @@
-
-  -- vim.api.nvim_command[[colorscheme iceberg]]
-
-  -- vim.api.nvim_command[[colorscheme nord]]
-
-  -- vim.api.nvim_command[[colorscheme edge]]
-
-  -- vim.api.nvim_command[[colorscheme nightfox]]
-  vim.api.nvim_command[[colorscheme nordfox]]
-  -- vim.api.nvim_command[[colorscheme terafox]]
-  -- vim.api.nvim_command[[colorscheme duskfox]]
-
-  -- vim.api.nvim_command[[colorscheme tokyonight]]
-
-  -- vim.api.nvim_command[[colorscheme lucario]]
-
-  -- vim.api.nvim_command[[colorscheme hybrid]]
-
-  -- vim.api.nvim_command[[colorscheme jellybeans]]
+  -- vim.cmd.colorscheme "iceberg"
+  --
+  -- vim.cmd.colorscheme "nord"
+  --
+  -- vim.cmd.colorscheme "edge"
+  --
+  -- vim.cmd.colorscheme "nightfox"
+  -- vim.cmd.colorscheme "nordfox"
+  -- vim.cmd.colorscheme "terafox"
+  -- vim.cmd.colorscheme "duskfox"
+  --
+  -- vim.cmd.colorscheme "tokyonight"
+  --
+  -- vim.cmd.colorscheme "lucario"
+  --
+  -- vim.cmd.colorscheme "hybrid"
+  --
+  -- vim.cmd.colorscheme "jellybeans"
+  --
+  -- vim.cmd.colorscheme "pinkmare"
+  --
+  vim.cmd.colorscheme "hatsunemiku"
+  --
+  -- vim.cmd.colorscheme "catppuccin"

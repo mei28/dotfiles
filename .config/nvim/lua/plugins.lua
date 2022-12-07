@@ -21,6 +21,10 @@ packer.startup(function()
   use 'raphamorim/lucario'
   use 'w0ng/vim-hybrid'
   use 'nanotech/jellybeans.vim'
+  use 'matsuuu/pinkmare'
+  use '4513ECHO/vim-colors-hatsunemiku'
+  use 'catppuccin/nvim'
+
 
   -- status line
   use 'nvim-lualine/lualine.nvim'
