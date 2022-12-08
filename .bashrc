@@ -218,7 +218,7 @@ case ${OSTYPE} in
     #   source $(brew --prefix)/etc/bash_completion
     # fi
 
-    if [ -e /usr/local/share/bash-completion/bash_completion ]; then
+    if [ -f /usr/local/share/bash-completion/bash_completion ]; then
       source /usr/share/bash-completion/bash_completion
     fi
 
