@@ -24,6 +24,7 @@ packer.startup(function()
   use 'matsuuu/pinkmare'
   use '4513ECHO/vim-colors-hatsunemiku'
   use 'catppuccin/nvim'
+  use 'rebelot/kanagawa.nvim'
 
 
   -- status line
