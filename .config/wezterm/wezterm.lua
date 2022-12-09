@@ -1,6 +1,6 @@
 local status, wezterm = pcall(require, 'wezterm')
 if not status then return end
-local gon = require 'utils'
+local utils = require 'utils'
 
 
 local act = wezterm.action
@@ -149,26 +149,16 @@ local inactive_pane_hsb = {
   brightness = 0.5,
 }
 
-local switchColorScheme = function()
-  return 'nordfox'
-  -- return "BlulocoDark"
-  -- return "Catppuccin Frappe"
-  -- return 'Dracula'
-  -- return 'duskfox'
-  -- return 'terafox'
-  -- return 'tokyonight'
-  -- return 'edge'
-end
 
 
 return {
   -- init shell
   default_prog = { '/bin/bash', '-l' },
   -- font
-  font = wezterm.font_with_fallback(gon:switchFonts()),
+  font = wezterm.font_with_fallback(utils:switchFonts()),
   font_size = 13,
   -- color scheme
-  color_scheme = switchColorScheme(),
+  color_scheme = utils:randomColorScheme(),
   -- turn off beep
   audible_bell = 'Disabled',
   hide_tab_bar_if_only_one_tab = true,
