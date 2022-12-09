@@ -13,18 +13,22 @@ packer.startup(function()
   use 'wbthomason/packer.nvim'
 
   -- color scheme
-  use 'cocopon/iceberg.vim'
-  use 'arcticicestudio/nord-vim'
-  use 'sainnhe/edge'
-  use 'EdenEast/nightfox.nvim'
-  use 'folke/tokyonight.nvim'
-  use 'raphamorim/lucario'
-  use 'w0ng/vim-hybrid'
-  use 'nanotech/jellybeans.vim'
-  use 'matsuuu/pinkmare'
-  use '4513ECHO/vim-colors-hatsunemiku'
-  use 'catppuccin/nvim'
-  use 'rebelot/kanagawa.nvim'
+  use { 'cocopon/iceberg.vim', opt = true }
+  use { 'arcticicestudio/nord-vim', opt = true }
+  use { 'sainnhe/edge', opt = true }
+  use { 'EdenEast/nightfox.nvim', opt = true }
+  use { 'folke/tokyonight.nvim', opt = true }
+  use { 'raphamorim/lucario', opt = true }
+  use { 'w0ng/vim-hybrid', opt = true }
+  use { 'nanotech/jellybeans.vim', opt = true }
+  use { 'matsuuu/pinkmare', opt = true }
+  use { '4513ECHO/vim-colors-hatsunemiku', opt = true }
+  use { 'catppuccin/nvim', opt = true }
+  use { 'rebelot/kanagawa.nvim', opt = true }
+  use { 'laniusone/kyotonight.vim', opt = true }
+  use { 'sainnhe/everforest', opt = true }
+  use { 'ayu-theme/ayu-vim', opt = true }
+  use { 'catppuccin/catppuccin', opt = true }
 
 
   -- status line

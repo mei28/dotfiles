@@ -150,13 +150,13 @@ local inactive_pane_hsb = {
 }
 
 local switchColorScheme = function()
-  -- return 'nordfox'
+  return 'nordfox'
   -- return "BlulocoDark"
   -- return "Catppuccin Frappe"
   -- return 'Dracula'
   -- return 'duskfox'
   -- return 'terafox'
-  return 'tokyonight'
+  -- return 'tokyonight'
   -- return 'edge'
 end
 
