@@ -94,6 +94,13 @@ M.randColorScheme = function()
     vim.notify(msg)
   end
   M[colorscheme]()
+
+  if vim.g.loggin_level == 'debug' then
+    local msg = "colorscheme: ".. colorscheme
+    vim.notify(msg)
+  end
+
 end
 
+-- vim.g.loggin_level = 'debug'
 M.randColorScheme()

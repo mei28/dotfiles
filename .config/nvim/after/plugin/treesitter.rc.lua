@@ -3,12 +3,14 @@ if not status then return end
 
 ts.setup {
   highlight = { enable = true, disable = {} },
-  indent = { enable = true, disable = {'python'} },
+  indent = { enable = false, disable = { 'python' } },
   ensure_installed = {
     "tsx", "toml", "php", "json", "yaml", "css", "html", "lua", "python",
     "cpp"
-  }, autotag = { enable = true },
-  yati = { enable = true }
+  },
+  autotag = { enable = true },
+  yati = { enable = true,
+    indent = { enable = false } }
 }
 
 local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
