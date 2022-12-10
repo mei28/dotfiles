@@ -19,6 +19,7 @@ M.colorscheme2dir = {
   kyotonight = 'kyotonight.vim',
   everforest = 'everforest',
   ayu = 'ayu-vim',
+  gruvobx='gruvobx',
 }
 
 
@@ -77,6 +78,10 @@ end
 
 M.ayu = function()
   vim.cmd.colorscheme 'ayu'
+end
+
+M.gruvobx = function ()
+  vim.cmd.colorscheme 'gruvobx'
 end
 
 M.randColorScheme = function()

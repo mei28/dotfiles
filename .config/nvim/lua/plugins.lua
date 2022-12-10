@@ -29,6 +29,7 @@ packer.startup(function()
   use { 'sainnhe/everforest', opt = true }
   use { 'ayu-theme/ayu-vim', opt = true }
   use { 'catppuccin/catppuccin', opt = true }
+  use { 'morhetz/gruvbox', opt = true }
 
 
   -- status line
