@@ -68,8 +68,14 @@ mkcd(){
 export PATH="~/.rbenv/shims:/usr/local/bin:$PATH"
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
-# rust env
-export PATH="$HOME/.cargo/bin:$PATH"
+# rust env  for rust
+
+
+if [[ -e $HOME/.cargo/env ]]; then
+  source $HOME/.cargo/env
+  export PATH="$HOME/.cargo/bin:$PATH"
+  # export PATH="$HOME/.rustup/toolchains/nightly-aarch64-apple-darwin/bin:$PATH"
+fi
 
 # pyenv env
 
@@ -165,6 +171,8 @@ function ssh() {
     command ssh $@
   fi
 }
+
+
 #=====================#
 # change config by OS #
 #=====================#

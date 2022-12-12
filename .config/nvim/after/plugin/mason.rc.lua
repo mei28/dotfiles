@@ -43,7 +43,7 @@ local on_attach = function(client, bufnr)
 end
 
 -- add lsp
-local servers = { 'pyright', 'sumneko_lua', 'bashls', 'html', 'clangd' }
+local servers = { 'pyright', 'sumneko_lua', 'bashls', 'html', 'clangd', 'rust_analyzer' }
 
 local status, mason_lspconfig = pcall(require, 'mason-lspconfig')
 if not status then return end
@@ -54,3 +54,4 @@ local status, lspconfig = pcall(require, 'lspconfig')
 if not status then return end
 
 for _, lsp in ipairs(servers) do lspconfig[lsp].setup({ on_attach = on_attach }) end
+

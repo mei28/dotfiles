@@ -81,7 +81,7 @@ M.ayu = function()
 end
 
 M.gruvobx = function ()
-  vim.cmd.colorscheme 'gruvobx'
+  vim.cmd.colorscheme 'gruvbox'
 end
 
 M.randColorScheme = function()
