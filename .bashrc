@@ -65,15 +65,15 @@ mkcd(){
 
 
 # ruby env
-export PATH="~/.rbenv/shims:/usr/local/bin:$PATH"
+if [ -e ~/.rbenv/shims ]; then
+  export PATH="~/.rbenv/shims:/usr/local/bin:$PATH"
+fi 
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 # rust env  for rust
-
-
-if [[ -e $HOME/.cargo/env ]]; then
+if [[ -d $HOME/.cargo/env ]]; then
   source $HOME/.cargo/env
-  export PATH="$HOME/.cargo/bin:$PATH"
+  # export PATH="$HOME/.cargo/bin:$PATH"
   # export PATH="$HOME/.rustup/toolchains/nightly-aarch64-apple-darwin/bin:$PATH"
 fi
 
@@ -95,7 +95,9 @@ actpyenv(){
 
 # clang for nvim, c++
 # brew install llvm
-export PATH="/usr/local/opt/llvm/bin:$PATH"
+if [ -d /usr/local/opt/llvm ]; then
+  export PATH="/usr/local/opt/llvm/bin:$PATH"
+fi
 
 
 ## activate virtualenv
@@ -207,7 +209,9 @@ case ${OSTYPE} in
      }
 
     ## add cmake
-    export PATH="/Applications/CMake.app/Contents/bin:$PATH"
+    if [ -e /Applications/CMake.app/Contents/bin ]; then
+      export PATH="/Applications/CMake.app/Contents/bin:$PATH"
+    fi
    ;;
 #========#
 # ubuntu #
