@@ -29,7 +29,8 @@ packer.startup(function()
   use { 'sainnhe/everforest', opt = true }
   use { 'ayu-theme/ayu-vim', opt = true }
   use { 'catppuccin/catppuccin', opt = true }
-
+  use { 'is-hoku/sakura', opt = true }
+  use { 'navarasu/onedark.nvim', opt = true }
 
   -- status line
   use 'nvim-lualine/lualine.nvim'

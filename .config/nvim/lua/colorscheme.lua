@@ -19,6 +19,8 @@ M.colorscheme2dir = {
   kyotonight = 'kyotonight.vim',
   everforest = 'everforest',
   ayu = 'ayu-vim',
+  sakura = 'sakura',
+  onedark = 'onedark.nvim',
 }
 
 
@@ -48,6 +50,7 @@ end
 M.hybrid = function()
   vim.cmd.colorscheme "hybrid"
 end
+
 M.jellybeans = function()
   vim.cmd.colorscheme "jellybeans"
 end
@@ -79,6 +82,15 @@ M.ayu = function()
   vim.cmd.colorscheme 'ayu'
 end
 
+M.sakura = function()
+  vim.cmd.colorscheme 'sakura'
+end
+
+M.onedark = function()
+  vim.cmd.colorscheme 'onedark'
+end
+
+
 M.randColorScheme = function()
   local colorscheme = utils.rand_element(vim.tbl_keys(M.colorscheme2dir))
 
@@ -96,7 +108,7 @@ M.randColorScheme = function()
   M[colorscheme]()
 
   if vim.g.loggin_level == 'debug' then
-    local msg = "colorscheme: ".. colorscheme
+    local msg = "colorscheme: " .. colorscheme
     vim.notify(msg)
   end
 
