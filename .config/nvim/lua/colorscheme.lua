@@ -19,8 +19,12 @@ M.colorscheme2dir = {
   kyotonight = 'kyotonight.vim',
   everforest = 'everforest',
   ayu = 'ayu-vim',
+<<<<<<< HEAD
   sakura = 'sakura',
   onedark = 'onedark.nvim',
+=======
+  gruvobx='gruvobx',
+>>>>>>> 3905f04a8ac7d70fa2d63a99a12cebb63bd68b04
 }
 
 
@@ -82,6 +86,7 @@ M.ayu = function()
   vim.cmd.colorscheme 'ayu'
 end
 
+<<<<<<< HEAD
 M.sakura = function()
   vim.cmd.colorscheme 'sakura'
 end
@@ -91,6 +96,12 @@ M.onedark = function()
 end
 
 
+=======
+M.gruvobx = function ()
+  vim.cmd.colorscheme 'gruvbox'
+end
+
+>>>>>>> 3905f04a8ac7d70fa2d63a99a12cebb63bd68b04
 M.randColorScheme = function()
   local colorscheme = utils.rand_element(vim.tbl_keys(M.colorscheme2dir))
 
