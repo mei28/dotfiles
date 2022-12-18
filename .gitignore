@@ -48,6 +48,7 @@ package.json
 .config/wandb
 tree-sitter-cli@0.13.10
 .config/neofetch
+.config/monitors.xml~
 
 ! .config/nvim/*
 ! .gitignore/*
