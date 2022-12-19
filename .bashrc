@@ -174,6 +174,11 @@ function ssh() {
   fi
 }
 
+# z command
+if [ -e ~/z/z.sh ]; then
+  . ~/z/z.sh
+fi
+
 
 #=====================#
 # change config by OS #
