@@ -49,6 +49,7 @@ package.json
 tree-sitter-cli@0.13.10
 .config/neofetch
 .config/monitors.xml~
+.config/karabiner
 
 ! .config/nvim/*
 ! .gitignore/*
