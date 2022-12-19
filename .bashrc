@@ -256,6 +256,14 @@ case ${OSTYPE} in
     # wezterm
     alias wezterm='flatpak run org.wezfurlong.wezterm'
 
+    # quicktile 
+    if [ -f ~/.config/quicktile.cfg ]; then
+      ret=`ps aux | grep "quicktile --daemonize" | grep -v grep | wc -l`
+      if [ $ret == 0 ]; then
+        nohup ~/quicktile/quicktile.sh --daemonize >/dev/null 2>&1 &
+      fi
+    fi
+
     ;;
 esac
 
