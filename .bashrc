@@ -71,7 +71,7 @@ fi
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 # rust env  for rust
-if [[ -d $HOME/.cargo/env ]]; then
+if [[ -f $HOME/.cargo/env ]]; then
   source $HOME/.cargo/env
   # export PATH="$HOME/.cargo/bin:$PATH"
   # export PATH="$HOME/.rustup/toolchains/nightly-aarch64-apple-darwin/bin:$PATH"

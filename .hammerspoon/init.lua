@@ -27,6 +27,8 @@ units = {
 mash = { 'command', 'option' }
 hs.hotkey.bind(mash, 'right', function() hs.window.focusedWindow():move(units.right50, nil, true) end)
 hs.hotkey.bind(mash, 'left', function() hs.window.focusedWindow():move(units.left50, nil, true) end)
+hs.hotkey.bind(mash, 'up', function() hs.window.focusedWindow():move(units.top50, nil, true) end)
+hs.hotkey.bind(mash, 'down', function() hs.window.focusedWindow():move(units.bot50, nil, true) end)
 -- 4分割
 hs.hotkey.bind(mash, '1', function() hs.window.focusedWindow():move(units.lefttop, nil, true) end)
 hs.hotkey.bind(mash, '2', function() hs.window.focusedWindow():move(units.righttop, nil, true) end)
