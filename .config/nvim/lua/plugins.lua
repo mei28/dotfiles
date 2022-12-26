@@ -52,6 +52,7 @@ packer.startup(function()
   use 'dinhhuy258/git.nvim'
   use 'lewis6991/gitsigns.nvim'
   use 'airblade/vim-gitgutter'
+  use 'akinsho/git-conflict.nvim'
 
 
   use 'numToStr/Comment.nvim'
