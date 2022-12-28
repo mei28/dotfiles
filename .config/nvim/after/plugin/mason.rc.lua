@@ -40,6 +40,26 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', ']d', vim.diagnostic.goto_next, bufopts)
   vim.keymap.set('n', '<Leader>q', vim.diagnostic.setloclist, bufopts)
   vim.keymap.set('n', '<Leader>lf', "<cmd>lua vim.lsp.buf.format({async=true})<CR>", bufopts)
+  vim.keymap.set('n', 'cc', vim.lsp.buf.incoming_calls, bufopts)
+
+
+  -- Reference highlight
+  vim.cmd [[
+    highlight LspReferenceText  cterm=underline ctermbg=8 gui=underline guibg=#104040
+    highlight LspReferenceRead  cterm=underline ctermbg=8 gui=underline guibg=#104040
+    highlight LspReferenceWrite cterm=underline ctermbg=8 gui=underline guibg=#104040
+    set updatetime=100
+    augroup lsp_document_highlight
+      autocmd! * <buffer>
+      autocmd CursorHold,CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()
+      autocmd CursorMoved,CursorMovedI <buffer> lua vim.lsp.buf.clear_references()
+    augroup END
+  ]]
+
+  -- LSP handlers
+  vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+    vim.lsp.diagnostic.on_publish_diagnostics, { virtual_text = true }
+  )
 end
 
 -- add lsp

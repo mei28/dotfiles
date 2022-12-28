@@ -37,7 +37,15 @@ fi
 
 
 
-export PATH="$HOME/.y/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+if [ -e $HOME/.y/bin ]; then
+  export PATH="$HOME/.y/bin:$PATH"
+  echo 'H'
+fi
+if [ -e $HOME/.config/yarn/global/node_modules/.bin ]; then
+  export PATH="$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+  echo 'H'
+fi
+# export PATH="$HOME/.y/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 # export PATH="/usr/local/bin/git:$PATH"
 
 
@@ -54,9 +62,11 @@ PROMPT_COMMAND='add_line'
 # nvim
 alias nv='nvim'
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+if [ -e $HOME/.nvm ]; then
+  export NVM_DIR="$HOME/.nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+fi
 
 # mkdir and change directory
 mkcd(){
@@ -78,9 +88,11 @@ if [[ -f $HOME/.cargo/env ]]; then
 fi
 
 # pyenv env
+if [ -e $HOME/.pyenv ]; then
+  export PYENV_ROOT="$HOME/.pyenv"
+  export PATH="$PYENV_ROOT/bin:$PATH"
+fi
 
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
 if which pyenv > /dev/null; then eval "$(pyenv init --path)"; fi
 # eval "$(pyenv init --path)"
 # eval "$(pyenv virtualenv-init -)"
@@ -124,8 +136,10 @@ then
 fi
 
 # deno
-export DENO_INSTALL="/home/mei/.deno"
-export PATH="$DENO_INSTALL/bin:$PATH"
+if [ -e $HOME/.deno ]; then
+  export DENO_INSTALL="/home/mei/.deno"
+  export PATH="$DENO_INSTALL/bin:$PATH"
+fi
 
 
 # pytest
@@ -179,6 +193,9 @@ if [ -e ~/z/z.sh ]; then
   . ~/z/z.sh
 fi
 
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 #=====================#
 # change config by OS #
@@ -245,7 +262,7 @@ case ${OSTYPE} in
     }
 
     ## google key
-   export GOOGLE_APPLICATION_CREDENTIALS="/home/mei/gcloud/exmt-app-622421091860.json"
+    export GOOGLE_APPLICATION_CREDENTIALS="/home/mei/gcloud/exmt-app-622421091860.json"
 
     # cuda
     export PATH="/usr/local/cuda/bin:$PATH"
