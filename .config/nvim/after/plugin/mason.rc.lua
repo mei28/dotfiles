@@ -56,14 +56,10 @@ local on_attach = function(client, bufnr)
     augroup END
   ]]
 
-  -- LSP handlers
-  vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-    vim.lsp.diagnostic.on_publish_diagnostics, { virtual_text = true }
-  )
 end
 
 -- add lsp
-local servers = { 'pyright', 'sumneko_lua', 'bashls', 'html', 'clangd', 'rust_analyzer' }
+local servers = { 'pyright', 'sumneko_lua', 'bashls', 'html', 'clangd', 'rust_analyzer', 'quick_lint_js', 'tsserver' }
 
 local status, mason_lspconfig = pcall(require, 'mason-lspconfig')
 if not status then return end
@@ -75,3 +71,7 @@ if not status then return end
 
 for _, lsp in ipairs(servers) do lspconfig[lsp].setup({ on_attach = on_attach }) end
 
+-- LSP handlers
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+  vim.lsp.diagnostic.on_publish_diagnostics, { virtual_text = true }
+)
