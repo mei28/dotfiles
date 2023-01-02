@@ -223,12 +223,16 @@ case ${OSTYPE} in
     ## google key
     export GOOGLE_APPLICATION_CREDENTIALS="/Users/mei/gcloud/exmt-app-622421091860.json"
 
-    hideDesktopIcon(){
-      defaults write com.apple.finder CreateDesktop -boolean false && killall Finder
+
+    alias tdi='_toggle_desktop_icon'
+    _toggle_desktop_icon(){
+     local isDisplay=$(defaults read com.apple.finder CreateDesktop)
+     if [ $isDisplay -eq 1 ]; then
+       defaults write com.apple.finder CreateDesktop -boolean false && killall Finder
+     else
+      defaults write com.apple.finder CreateDesktop -boolean true && killall Finder
+     fi
     }
-     showDesktopIcon() {
-       defaults write com.apple.finder CreateDesktop -boolean true && killall Finder
-     }
 
     ## add cmake
     if [ -e /Applications/CMake.app/Contents/bin ]; then
