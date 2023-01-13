@@ -145,8 +145,8 @@ packer.startup(function()
   use 'folke/noice.nvim'
   use 'MunifTanjim/nui.nvim'
 
-  -- status line
-  use "luukvbaal/statuscol.nvim"
+  -- -- status line
+  -- use "luukvbaal/statuscol.nvim"
 
   --- ddc
   -- use "Shougo/ddc.vim"
