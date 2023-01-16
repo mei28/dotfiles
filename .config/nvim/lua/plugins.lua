@@ -18,7 +18,6 @@ packer.startup(function()
   use { 'sainnhe/edge', opt = true }
   use { 'EdenEast/nightfox.nvim', opt = true }
   use { 'folke/tokyonight.nvim', opt = true }
-  use { 'raphamorim/lucario', opt = true }
   use { 'w0ng/vim-hybrid', opt = true }
   use { 'nanotech/jellybeans.vim', opt = true }
   use { 'matsuuu/pinkmare', opt = true }

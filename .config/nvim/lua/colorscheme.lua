@@ -9,7 +9,6 @@ M.colorscheme2dir = {
   edge = 'edge',
   nightfox = 'nightfox.nvim',
   tokyonight = 'tokyonight.nvim',
-  lucario = 'lucario',
   hybrid = 'vim-hybrid',
   jellybeans = 'jellybeans.vim',
   pinkmare = 'pinkmare',
@@ -42,10 +41,6 @@ end
 
 M.tokyonight = function()
   vim.cmd.colorscheme "tokyonight"
-end
-
-M.lucario = function()
-  vim.cmd.colorscheme "lucario"
 end
 
 M.hybrid = function()
