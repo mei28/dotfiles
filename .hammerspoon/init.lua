@@ -128,3 +128,56 @@ end
 
 eikana = hs.eventtap.new({ hs.eventtap.event.types.keyDown, hs.eventtap.event.types.flagsChanged }, eikanaEvent)
 eikana:start()
+
+-- Sends "escape" if "caps lock" is held for less than .2 seconds, and no other keys are pressed.
+
+local ctrl2escape = function()
+  local send_escape = false
+  local last_mods = {}
+  local control_key_timer = hs.timer.delayed.new(0.2, function()
+    send_escape = false
+  end)
+
+  hs.eventtap.new({ hs.eventtap.event.types.flagsChanged }, function(evt)
+    local new_mods = evt:getFlags()
+    if last_mods["ctrl"] == new_mods["ctrl"] then
+      return false
+    end
+    if not last_mods["ctrl"] then
+      last_mods = new_mods
+      send_escape = true
+      control_key_timer:start()
+    else
+      if send_escape then
+        hs.eventtap.keyStroke({}, "escape")
+      end
+      last_mods = new_mods
+      control_key_timer:stop()
+    end
+    return false
+  end):start()
+
+  hs.eventtap.new({ hs.eventtap.event.types.keyDown }, function(evt)
+    send_escape = false
+    return false
+  end):start()
+end
+
+ctrl2escape()
+
+
+hs.eventtap.new({ hs.eventtap.event.types.keyDown, hs.eventtap.event.types.systemDefined },
+  function(event)
+    local type = event:getType()
+    if type == hs.eventtap.event.types.keyDown then
+      print(hs.keycodes.map[event:getKeyCode()])
+    elseif type == hs.eventtap.event.types.systemDefined then
+      local t = event:systemKey()
+      if t.down then
+        print("System key: " .. t.key)
+      end
+    end
+  end):start()
+
+
+
