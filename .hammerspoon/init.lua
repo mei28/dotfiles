@@ -105,19 +105,19 @@ hs.hotkey.bind(Mash, "p", MoveToPrevScreen)
 -- like karabiner
 SimpleCmd = false
 function EikanaEvent(event)
-  local map = hs.keycodes.map
-  local c = event:getKeyCode()
-  local f = event:getFlags()
+  Map = hs.keycodes.map
+  KeyCode = event:getKeyCode()
+  Flag = event:getFlags()
   if event:getType() == hs.eventtap.event.types.keyDown then
-    if f['cmd'] then
+    if Flag['cmd'] then
       SimpleCmd = true
     end
   elseif event:getType() == hs.eventtap.event.types.flagsChanged then
-    if not f['cmd'] then
+    if not Flag['cmd'] then
       if SimpleCmd == false then
-        if c == map['cmd'] then
+        if KeyCode == Map['cmd'] then
           hs.keycodes.setMethod('Romaji')
-        elseif c == map['rightcmd'] then
+        elseif KeyCode == Map['rightcmd'] then
           hs.keycodes.setMethod('Hiragana')
         else
           hs.keycodes.setMethod('Romaji')
@@ -144,4 +144,3 @@ Eikana:start()
 --       end
 --     end
 --   end):start()
-
