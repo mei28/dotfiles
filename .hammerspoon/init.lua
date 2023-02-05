@@ -1,5 +1,5 @@
 hs.window.animationDuration = 0
-units = {
+Units = {
   -- 半分分割
   right50 = { x = 0.50, y = 0.00, w = 0.50, h = 1.00 },
   left50  = { x = 0.00, y = 0.00, w = 0.50, h = 1.00 },
@@ -7,7 +7,7 @@ units = {
   bot50   = { x = 0.00, y = 0.50, w = 1.00, h = 0.50 },
 
   -- 画面3分割設定
-  right33  = { x = 0.66, y = 0.00, w = 0.34, h = 1.00 },
+  right33  = { x = 0.66, y = 0.00, w = 0.33, h = 1.00 },
   left33   = { x = 0.00, y = 0.00, w = 0.33, h = 1.00 },
   center33 = { x = 0.33, y = 0.00, w = 0.33, h = 1.00 },
 
@@ -24,43 +24,43 @@ units = {
 }
 
 -- 半分分割
-mash = { 'command', 'option' }
-hs.hotkey.bind(mash, 'right', function() hs.window.focusedWindow():move(units.right50, nil, true) end)
-hs.hotkey.bind(mash, 'left', function() hs.window.focusedWindow():move(units.left50, nil, true) end)
-hs.hotkey.bind(mash, 'up', function() hs.window.focusedWindow():move(units.top50, nil, true) end)
-hs.hotkey.bind(mash, 'down', function() hs.window.focusedWindow():move(units.bot50, nil, true) end)
+Mash = { 'command', 'option' }
+hs.hotkey.bind(Mash, 'right', function() hs.window.focusedWindow():move(Units.right50, nil, true) end)
+hs.hotkey.bind(Mash, 'left', function() hs.window.focusedWindow():move(Units.left50, nil, true) end)
+hs.hotkey.bind(Mash, 'up', function() hs.window.focusedWindow():move(Units.top50, nil, true) end)
+hs.hotkey.bind(Mash, 'down', function() hs.window.focusedWindow():move(Units.bot50, nil, true) end)
 -- 4分割
-hs.hotkey.bind(mash, '1', function() hs.window.focusedWindow():move(units.lefttop, nil, true) end)
-hs.hotkey.bind(mash, '2', function() hs.window.focusedWindow():move(units.righttop, nil, true) end)
-hs.hotkey.bind(mash, '3', function() hs.window.focusedWindow():move(units.leftdown, nil, true) end)
-hs.hotkey.bind(mash, '4', function() hs.window.focusedWindow():move(units.rightdown, nil, true) end)
+hs.hotkey.bind(Mash, '1', function() hs.window.focusedWindow():move(Units.lefttop, nil, true) end)
+hs.hotkey.bind(Mash, '2', function() hs.window.focusedWindow():move(Units.righttop, nil, true) end)
+hs.hotkey.bind(Mash, '3', function() hs.window.focusedWindow():move(Units.leftdown, nil, true) end)
+hs.hotkey.bind(Mash, '4', function() hs.window.focusedWindow():move(Units.rightdown, nil, true) end)
 -- max
-hs.hotkey.bind(mash, 'm', function() hs.window.focusedWindow():move(units.max, nil, true) end)
+hs.hotkey.bind(Mash, 'm', function() hs.window.focusedWindow():move(Units.max, nil, true) end)
 -- min
-hs.hotkey.bind(mash, 'c', function() hs.window.focusedWindow():move(units.min, nil, true) end)
+hs.hotkey.bind(Mash, 'c', function() hs.window.focusedWindow():move(Units.min, nil, true) end)
 -- ３分割
-mash = { 'command', 'option', 'shift' }
-hs.hotkey.bind(mash, 'down', function() hs.window.focusedWindow():move(units.center33, nil, true) end)
-hs.hotkey.bind(mash, 'left', function() hs.window.focusedWindow():move(units.left33, nil, true) end)
-hs.hotkey.bind(mash, 'right', function() hs.window.focusedWindow():move(units.right33, nil, true) end)
+Mash = { 'command', 'option', 'shift' }
+hs.hotkey.bind(Mash, 'down', function() hs.window.focusedWindow():move(Units.center33, nil, true) end)
+hs.hotkey.bind(Mash, 'left', function() hs.window.focusedWindow():move(Units.left33, nil, true) end)
+hs.hotkey.bind(Mash, 'right', function() hs.window.focusedWindow():move(Units.right33, nil, true) end)
 
 -- {next, prev} window
-mash = { 'command', 'option' }
+Mash = { 'command', 'option' }
 
-function getScreenWindowInfo()
+function GetScreenWindowInfo()
   local focusedWindow = hs.window.focusedWindow()
   local focusedScreenFrame = focusedWindow:screen():frame()
   return focusedWindow, focusedScreenFrame
 
 end
 
-function moveToNextScreen()
-  local focusedWindow, focusedScreenFrame = getScreenWindowInfo()
+function MoveToNextScreen()
+  local focusedWindow, focusedScreenFrame = GetScreenWindowInfo()
   local nextScreenFrame = focusedWindow:screen():next():frame()
   local windowFrame = focusedWindow:frame()
 
   -- Calculate the coordinates of the window frame in the next screen and retain aspect ratio
-  x, y, h, w = calcNextWindowRatio(windowFrame, focusedScreenFrame, nextScreenFrame)
+  local x, y, h, w = CalcNextWindowRatio(windowFrame, focusedScreenFrame, nextScreenFrame)
   windowFrame.x = x
   windowFrame.y = y
   windowFrame.w = w
@@ -70,7 +70,7 @@ function moveToNextScreen()
   focusedWindow:setFrame(windowFrame)
 end
 
-function calcNextWindowRatio(windowFrame, focusedScreenFrame, nextScreenFrame)
+function CalcNextWindowRatio(windowFrame, focusedScreenFrame, nextScreenFrame)
   local x = (
       (((windowFrame.x - focusedScreenFrame.x) / focusedScreenFrame.w) * nextScreenFrame.w) + nextScreenFrame.x)
   local y = (
@@ -81,7 +81,7 @@ function calcNextWindowRatio(windowFrame, focusedScreenFrame, nextScreenFrame)
   return x, y, h, w
 end
 
-function moveToPrevScreen()
+function MoveToPrevScreen()
   -- Get the focused window, its window frame dimensions, its screen frame dimensions,
   -- and the next screen's frame dimensions.
   local focusedWindow, focusedScreenFrame = getScreenWindowInfo()
@@ -89,7 +89,7 @@ function moveToPrevScreen()
   local windowFrame = focusedWindow:frame()
 
   -- Calculate the coordinates of the window frame in the next screen and retain aspect ratio
-  x, y, h, w = calcNextWindowRatio(windowFrame, focusedScreenFrame, nextScreenFrame)
+  local x, y, h, w = CalcNextWindowRatio(windowFrame, focusedScreenFrame, nextScreenFrame)
   windowFrame.x = x
   windowFrame.y = y
   windowFrame.w = w
@@ -99,37 +99,39 @@ function moveToPrevScreen()
   focusedWindow:setFrame(windowFrame)
 end
 
-hs.hotkey.bind(mash, "n", moveToNextScreen)
-hs.hotkey.bind(mash, "p", moveToPrevScreen)
+hs.hotkey.bind(Mash, "n", MoveToNextScreen)
+hs.hotkey.bind(Mash, "p", MoveToPrevScreen)
 
 -- like karabiner
-local function eikanaEvent(event)
-  local simpleCmd = false
+SimpleCmd = false
+function EikanaEvent(event)
   local map = hs.keycodes.map
   local c = event:getKeyCode()
   local f = event:getFlags()
   if event:getType() == hs.eventtap.event.types.keyDown then
     if f['cmd'] then
-      simpleCmd = true
+      SimpleCmd = true
     end
   elseif event:getType() == hs.eventtap.event.types.flagsChanged then
     if not f['cmd'] then
-      if simpleCmd == false then
+      if SimpleCmd == false then
         if c == map['cmd'] then
           hs.keycodes.setMethod('Romaji')
         elseif c == map['rightcmd'] then
           hs.keycodes.setMethod('Hiragana')
+        else
+          hs.keycodes.setMethod('Romaji')
         end
       end
-      simpleCmd = false
+      SimpleCmd = false
     end
   end
 end
 
-eikana = hs.eventtap.new({ hs.eventtap.event.types.keyDown, hs.eventtap.event.types.flagsChanged }, eikanaEvent)
-eikana:start()
+Eikana = hs.eventtap.new({ hs.eventtap.event.types.keyDown, hs.eventtap.event.types.flagsChanged }, EikanaEvent)
+Eikana:start()
 
--- visible key 
+-- visible key
 -- hs.eventtap.new({ hs.eventtap.event.types.keyDown, hs.eventtap.event.types.systemDefined },
 --   function(event)
 --     local type = event:getType()
@@ -142,3 +144,35 @@ eikana:start()
 --       end
 --     end
 --   end):start()
+
+--  Sends "escape" if "caps lock" is held for less than .2 seconds, and no other keys are pressed.
+Send_escape = false
+Last_mods = {}
+Control_key_timer = hs.timer.delayed.new(0.2, function()
+  Send_escape = false
+end)
+
+hs.eventtap.new({ hs.eventtap.event.types.flagsChanged }, function(evt)
+  local new_mods = evt:getFlags()
+  if Last_mods["ctrl"] == new_mods["ctrl"] then
+    return false
+  end
+  if not Last_mods["ctrl"] then
+    Last_mods = new_mods
+    Send_escape = true
+    Control_key_timer:start()
+  else
+    if Send_escape then
+      hs.eventtap.keyStroke({}, "escape")
+    end
+    Last_mods = new_mods
+    Control_key_timer:stop()
+  end
+  return false
+end):start()
+
+
+hs.eventtap.new({ hs.eventtap.event.types.keyDown }, function(evt)
+  Send_escape = false
+  return false
+end):start()
