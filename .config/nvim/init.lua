@@ -14,9 +14,9 @@ if is_mac then require 'macos' end
 if is_ubuntu then require 'macos' end
 if is_win then require 'windows' end
 
--- auto compile plugins
-vim.cmd [[
-  autocmd BufWritePost plugins.lua PackerCompile
-]]
+-- -- auto compile plugins
+-- vim.cmd [[
+--   autocmd BufWritePost plugins.lua PackerCompile
+-- ]]
 
 

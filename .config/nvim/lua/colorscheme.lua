@@ -100,11 +100,11 @@ M.randColorScheme = function()
     return
   end
 
-  local status = utils.add_pack(M.colorscheme2dir[colorscheme])
-  if not status then
-    local msg = string.format("colorscheme %s is not installed. Run PackerSync to install", colorscheme)
-    vim.notify(msg)
-  end
+  -- local status = utils.add_pack(M.colorscheme2dir[colorscheme])
+  -- if not status then
+  --   local msg = string.format("colorscheme %s is not installed. Run PackerSync to install", colorscheme)
+  --   vim.notify(msg)
+  -- end
   M[colorscheme]()
 
   if vim.g.loggin_level == 'debug' then

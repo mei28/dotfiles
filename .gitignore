@@ -51,6 +51,8 @@ tree-sitter-cli@0.13.10
 .config/monitors.xml~
 .config/karabiner
 
+lazy-lock.json
+
 ! .config/nvim/*
 ! .gitignore/*
 ! .git
