@@ -119,8 +119,6 @@ function EikanaEvent(event)
           hs.keycodes.setMethod('Romaji')
         elseif KeyCode == Map['rightcmd'] then
           hs.keycodes.setMethod('Hiragana')
-        else
-          hs.keycodes.setMethod('Romaji')
         end
       end
       SimpleCmd = false
