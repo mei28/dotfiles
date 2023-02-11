@@ -152,6 +152,7 @@ lazy.setup({
   --- noice
   'folke/noice.nvim',
   'MunifTanjim/nui.nvim',
+  {'folke/trouble.nvim'}
 
   -- -- status line
   -- use "luukvbaal/statuscol.nvim"
