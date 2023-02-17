@@ -77,7 +77,7 @@ lazy.setup({
   {
     "iamcco/markdown-preview.nvim",
     build = "cd app && npm install",
-    setup = function() vim.g.mkdp_filetypes = { "markdown" } end,
+    init = function() vim.g.mkdp_filetypes = { "markdown" } end,
     ft = { "markdown" }
   },
 
@@ -152,7 +152,8 @@ lazy.setup({
   --- noice
   'folke/noice.nvim',
   'MunifTanjim/nui.nvim',
-  {'folke/trouble.nvim'}
+  'folke/trouble.nvim',
+  'rcarriga/nvim-notify',
 
   -- -- status line
   -- use "luukvbaal/statuscol.nvim"
