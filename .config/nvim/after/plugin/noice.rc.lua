@@ -4,12 +4,20 @@ if not status then return end
 
 noice.setup(
   {
+    messages = {
+      view = 'mini'
+    },
     lsp = {
       signature = {
         auto_open = {
           enabled = false,
           -- throttle = 0, -- Debounce lsp signature help request by 50ms
         },
+      },
+      override = {
+        ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+        ["vim.lsp.util.stylize_markdown"] = true,
+        ["cmp.entry.get_documentation"] = true,
       },
     },
     views = {

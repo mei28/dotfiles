@@ -81,7 +81,7 @@ lspconfig.lua_ls.setup {
   settings = {
     Lua = {
       diagnostics = {
-        globals = { 'vim','hs','wez' }
+        globals = { 'vim', 'hs', 'wez' }
       }
     }
   },
