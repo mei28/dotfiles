@@ -17,10 +17,6 @@ if not status then
 end
 
 lazy.setup({
-  -- opt オプションを付けると遅延読み込みになります。 この場合は opt だけで読み込む契機を指定していないため、
-  -- `packadd` コマンドを叩かない限り読み込まれることはありません。
-  'wbthomason/packer.nvim',
-
   -- color scheme
   { 'cocopon/iceberg.vim', lazy = true },
   { 'arcticicestudio/nord-vim', lazy = true },
@@ -152,7 +148,9 @@ lazy.setup({
   --- noice
   'folke/noice.nvim',
   'MunifTanjim/nui.nvim',
-  {'folke/trouble.nvim'}
+  'folke/trouble.nvim',
+  'rcarriga/nvim-notify',
+
 
   -- -- status line
   -- use "luukvbaal/statuscol.nvim"

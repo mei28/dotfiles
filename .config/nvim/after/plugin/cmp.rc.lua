@@ -42,7 +42,9 @@ cmp.setup({
   }),
   formatting = {
     format = lspkind.cmp_format({ with_text = false, maxwidth = 50 })
-  }
+  },
 })
+
+
 
 vim.cmd [[highlight! default link CmpItemKind CmpItemMenuDefault]]

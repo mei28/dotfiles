@@ -84,5 +84,6 @@ lspconfig.lua_ls.setup {
         globals = { 'vim','hs','wez' }
       }
     }
-  }
+  },
+  on_attach=on_attach
 }
