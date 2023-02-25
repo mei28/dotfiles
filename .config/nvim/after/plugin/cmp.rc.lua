@@ -39,6 +39,7 @@ cmp.setup({
     { name = "path" },
     { name = "nvim_lsp_signature_help" },
     { name = "treesitter" },
+    { name = 'obsidian' },
   }),
   formatting = {
     format = lspkind.cmp_format({ with_text = false, maxwidth = 50 })

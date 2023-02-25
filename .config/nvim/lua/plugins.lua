@@ -151,6 +151,10 @@ lazy.setup({
   'folke/trouble.nvim',
   'rcarriga/nvim-notify',
 
+  --- obsidian
+  'epwalsh/obsidian.nvim',
+  'BurntSushi/ripgrep',
+
   -- -- status line
   -- use "luukvbaal/statuscol.nvim"
 
