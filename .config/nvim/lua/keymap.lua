@@ -59,8 +59,7 @@ set('n', 'gj', 'j', opts)
 set('n', 'gk', 'k', opts)
 
 -- 補完時に改行しない
--- vim.cmd [[inoremap <expr><CR>  pumvisible() ? "<C-y>" : "<CR>"]]
-set('i', '<Tab>', function()
+set('i', '<CR>', function()
   return vim.fn.pumvisible() == 1 and '<C-y>' or '<CR>'
 end, { expr = true, noremap = true, silent = true })
 
