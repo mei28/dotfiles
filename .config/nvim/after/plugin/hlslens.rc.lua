@@ -12,4 +12,3 @@ set('n', '#', [[#<Cmd>lua require('hlslens').start()<CR>]], kopts)
 set('n', 'g*', [[g*<Cmd>lua require('hlslens').start()<CR>]], kopts)
 set('n', 'g#', [[g#<Cmd>lua require('hlslens').start()<CR>]], kopts)
 
--- set('n', '<Leader>l', ':noh<CR>', kopts)
