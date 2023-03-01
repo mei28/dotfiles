@@ -7,7 +7,6 @@ local act = wezterm.action
 
 
 local keys = {
-
   {
     key = '\\',
     mods = 'LEADER',
@@ -82,6 +81,8 @@ local keys = {
       mode = 'SwapWithActive',
     },
   },
+  { key = 'UpArrow', mods = 'SHIFT', action = act.ScrollByLine(-1) },
+  { key = 'DownArrow', mods = 'SHIFT', action = act.ScrollByLine(1) },
 }
 
 local hyperlink_rules = {
