@@ -140,6 +140,7 @@ lazy.setup({
   'hrsh7th/nvim-cmp',
   'hrsh7th/cmp-nvim-lsp-signature-help',
   'yutkat/cmp-mocword',
+  'hrsh7th/cmp-cmdline',
   'ray-x/cmp-treesitter',
 
   --- docstring
