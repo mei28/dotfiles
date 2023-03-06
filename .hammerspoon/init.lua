@@ -108,7 +108,7 @@ function EikanaEvent(event)
   Map = hs.keycodes.map
   KeyCode = event:getKeyCode()
   Flag = event:getFlags()
-  if event:getType() == hs.eventtap.event.types.keyDown then
+  if event:getType() == hs.eventtap.event.types.keyUp then
     if Flag['cmd'] then
       SimpleCmd = true
     end
@@ -117,8 +117,10 @@ function EikanaEvent(event)
       if SimpleCmd == false then
         if KeyCode == Map['cmd'] then
           hs.keycodes.setMethod('Romaji')
+          hs.alert.show("ABC", hs.styledtext, hs.screen.mainScreen(), 0.2)
         elseif KeyCode == Map['rightcmd'] then
           hs.keycodes.setMethod('Hiragana')
+          hs.alert.show("かな", hs.styledtext, hs.screen.mainScreen(), 0.2)
         end
       end
       SimpleCmd = false
@@ -126,8 +128,21 @@ function EikanaEvent(event)
   end
 end
 
-Eikana = hs.eventtap.new({ hs.eventtap.event.types.keyDown, hs.eventtap.event.types.flagsChanged }, EikanaEvent)
+Eikana = hs.eventtap.new({ hs.eventtap.event.types.keyUp, hs.eventtap.event.types.flagsChanged }, EikanaEvent)
 Eikana:start()
+
+local function Esc2Eng(event)
+    local c = event:getKeyCode()
+    if c == hs.keycodes.map['escape'] then
+        if hs.keycodes.currentMethod() ~= 'Romaji' then
+            hs.keycodes.setMethod('Romaji')
+            hs.alert.show("ABC", hs.styledtext, hs.screen.mainScreen(), 0.2)
+        end
+    end
+end
+
+Esc2EngEvent = hs.eventtap.new({hs.eventtap.event.types.keyUp},Esc2Eng)
+Esc2EngEvent:start()
 
 -- visible key
 -- hs.eventtap.new({ hs.eventtap.event.types.keyDown, hs.eventtap.event.types.systemDefined },
