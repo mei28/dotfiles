@@ -4,9 +4,9 @@ if not status then return end
 
 noice.setup(
   {
-    messages = {
-      view = 'mini'
-    },
+    -- messages = {
+    --   view = 'mini'
+    -- },
     lsp = {
       signature = {
         auto_open = {

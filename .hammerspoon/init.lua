@@ -21,6 +21,14 @@ Units = {
   max = { x = 0.00, y = 0.00, w = 1.00, h = 1.00 },
   min = { x = 0.33, y = 0.33, w = 0.33, h = 0.33 },
 
+  -- 6分割
+  right_up    = { x = 0.66, y = 0.00, w = 0.33, h = 0.50 },
+  left_up     = { x = 0.00, y = 0.00, w = 0.33, h = 0.50 },
+  center_up   = { x = 0.33, y = 0.00, w = 0.33, h = 0.50 },
+  right_down  = { x = 0.66, y = 0.50, w = 0.33, h = 0.50 },
+  left_down   = { x = 0.00, y = 0.50, w = 0.33, h = 0.50 },
+  center_down = { x = 0.33, y = 0.50, w = 0.33, h = 0.50 },
+
 }
 
 -- 半分分割
@@ -43,6 +51,14 @@ Mash = { 'command', 'option', 'shift' }
 hs.hotkey.bind(Mash, 'down', function() hs.window.focusedWindow():move(Units.center33, nil, true) end)
 hs.hotkey.bind(Mash, 'left', function() hs.window.focusedWindow():move(Units.left33, nil, true) end)
 hs.hotkey.bind(Mash, 'right', function() hs.window.focusedWindow():move(Units.right33, nil, true) end)
+-- ６分割
+Mash = { 'command', 'option', 'shift' }
+hs.hotkey.bind(Mash, '1', function() hs.window.focusedWindow():move(Units.left_up, nil, true) end)
+hs.hotkey.bind(Mash, '2', function() hs.window.focusedWindow():move(Units.center_up, nil, true) end)
+hs.hotkey.bind(Mash, '3', function() hs.window.focusedWindow():move(Units.right_up, nil, true) end)
+hs.hotkey.bind(Mash, '4', function() hs.window.focusedWindow():move(Units.left_down, nil, true) end)
+hs.hotkey.bind(Mash, '5', function() hs.window.focusedWindow():move(Units.center_down, nil, true) end)
+hs.hotkey.bind(Mash, '6', function() hs.window.focusedWindow():move(Units.right_down, nil, true) end)
 
 -- {next, prev} window
 Mash = { 'command', 'option' }
@@ -147,6 +163,16 @@ end
 
 Esc2EngEvent = hs.eventtap.new({ hs.eventtap.event.types.keyUp }, Esc2Eng)
 Esc2EngEvent:start()
+
+-- window swicher
+switcher = hs.window.switcher.new()
+switcher.ui.showTitles = false
+switcher.ui.showSelectedTitle = false
+switcher.ui.showSelectedThumbnail = false
+switcher.ui.thumbnailSize = 256
+switcher.ui.backgroundColor = {0.0,0.0,0.0,0.0}
+hs.hotkey.bind({'alt'},'tab', function()switcher:next()end)
+hs.hotkey.bind({'alt', 'shift'},'tab', function()switcher:previous()end)
 
 -- visible key
 -- hs.eventtap.new({ hs.eventtap.event.types.keyDown, hs.eventtap.event.types.systemDefined },
