@@ -6,7 +6,7 @@ obsidian.setup({
   completion = {
     nvim_cmp = true,
   },
-  daily_notes = { folder = 'daily' },
+  daily_notes = { folder = 'vault' },
   note_id_func = function(title)
     -- Create note IDs in a Zettelkasten format with a timestamp and a suffix.
     local suffix = ""
