@@ -89,7 +89,7 @@ lazy.setup({
   'kyazdani42/nvim-web-devicons',
 
   -- treesitter
-  { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
+  { 'nvim-treesitter/nvim-treesitter', build = { ':TSInstall! vim', ':TSUpdate' } },
   { "yioneko/nvim-yati", dependencies = "nvim-treesitter/nvim-treesitter" },
 
   -- bufferline
