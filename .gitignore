@@ -51,6 +51,7 @@ tree-sitter-cli@0.13.10
 .config/monitors.xml~
 .config/karabiner
 .config/python_keyring
+.config/htop
 
 lazy-lock.json
 
