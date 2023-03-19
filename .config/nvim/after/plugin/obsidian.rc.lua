@@ -35,3 +35,5 @@ vim.keymap.set(
   end,
   { noremap = false, expr = true }
 )
+
+vim.keymap.set('n', '<Leader>ot', ':ObsidianToday<CR>', { noremap = true, silent = true })
