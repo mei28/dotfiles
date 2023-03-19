@@ -1,4 +1,4 @@
-DOT_FILES=(.bashrc  .bash_profile  .config  .git-prompt.sh  .gitconfig  .tmux.conf  .hammerspoon)
+DOT_FILES=(.bashrc  .bash_profile  .config  .git-prompt.sh  .gitconfig  .tmux.conf  .hammerspoon .fzf.bash)
 
 for file in ${DOT_FILES[@]}
 do 
