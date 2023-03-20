@@ -52,6 +52,7 @@ tree-sitter-cli@0.13.10
 .config/karabiner
 .config/python_keyring
 .config/zed
+.config/gh
 
 lazy-lock.json
 
