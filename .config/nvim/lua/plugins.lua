@@ -156,6 +156,14 @@ lazy.setup({
   'epwalsh/obsidian.nvim',
   'BurntSushi/ripgrep',
 
+  -- table markdonw
+  'dhruvasagar/vim-table-mode',
+  'mattn/vim-maketable',
+
+  -- template
+  'mattn/vim-sonictemplate',
+
+
   -- -- status line
   -- use "luukvbaal/statuscol.nvim"
 

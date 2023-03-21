@@ -53,6 +53,7 @@ tree-sitter-cli@0.13.10
 .config/python_keyring
 .config/htop
 .config/zed
+.config/gh
 
 lazy-lock.json
 
