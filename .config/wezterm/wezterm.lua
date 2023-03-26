@@ -40,22 +40,6 @@ local keys = {
     action = act.ActivatePaneDirection 'Down',
   },
   {
-    key = 'H',
-    mods = 'LEADER',
-    action = act.AdjustPaneSize { 'Left', 5 },
-  },
-  {
-    key = 'J',
-    mods = 'LEADER',
-    action = act.AdjustPaneSize { 'Down', 5 },
-  },
-  { key = 'K', mods = 'LEADER', action = act.AdjustPaneSize { 'Up', 5 } },
-  {
-    key = 'L',
-    mods = 'LEADER',
-    action = act.AdjustPaneSize { 'Right', 5 },
-  },
-  {
     key = 'w',
     mods = 'CMD',
     action = wezterm.action.CloseCurrentPane { confirm = true },
@@ -83,6 +67,23 @@ local keys = {
   },
   { key = 'UpArrow', mods = 'SHIFT', action = act.ScrollByLine(-1) },
   { key = 'DownArrow', mods = 'SHIFT', action = act.ScrollByLine(1) },
+  -- resize
+  { key = 'r', mods = 'LEADER', action = act.ActivateKeyTable { name = 'resize_pane', one_shot = false } },
+}
+
+local key_tables = {
+  resize_pane = {
+    { key = 'h', action = act.AdjustPaneSize { "Left", 1 } },
+    { key = 'j', action = act.AdjustPaneSize { "Down", 1 } },
+    { key = 'k', action = act.AdjustPaneSize { "Up", 1 } },
+    { key = 'l', action = act.AdjustPaneSize { "Right", 1 } },
+    { key = 'LeftArrow', action = act.AdjustPaneSize { "Left", 1 } },
+    { key = 'DownArrow', action = act.AdjustPaneSize { "Down", 1 } },
+    { key = 'UpArrow', action = act.AdjustPaneSize { "Up", 1 } },
+    { key = 'RightArrow', action = act.AdjustPaneSize { "Right", 1 } },
+    { key = 'Escape', action = 'PopKeyTable' },
+    { key = 'q', action = 'PopKeyTable' },
+  },
 }
 
 local hyperlink_rules = {
@@ -150,35 +151,35 @@ local inactive_pane_hsb = {
   brightness = 0.5,
 }
 
+--- config ----
+local config = {}
 
+config.default_prog = { '/bin/bash', '-l' }
+-- font
+config.font = wezterm.font_with_fallback(utils:switchFonts())
+config.font_size = 13
+-- color scheme
+config.color_scheme = utils:randomColorScheme()
+-- turn off beep
+config.audible_bell = 'Disabled'
+config.hide_tab_bar_if_only_one_tab = true
+-- not to resize window
+config.adjust_window_size_when_changing_font_size = false
+-- ime
+config.use_ime = true
+-- like tmux key bind
+config.leader = { key = 'q', mods = 'CTRL', timeout_milliseconds = 1000 }
+-- tmux like key bind
+config.keys = keys
+config.key_tables = key_tables
+-- hyperlink
+config.hyperlink_rules = hyperlink_rules
+-- window padding
+config.window_padding = window_padding
+-- skip confirm when clone
+config.skip_close_confirmation_for_processes_named = skip_close_confirmation_for_processes_named
+-- inactive_pane_hsb
+config.inactive_pane_hsb = inactive_pane_hsb
+config.check_for_updates = false
 
-return {
-  -- init shell
-  default_prog = { '/bin/bash', '-l' },
-  -- font
-  font = wezterm.font_with_fallback(utils:switchFonts()),
-  font_size = 13,
-  -- color scheme
-  color_scheme = utils:randomColorScheme(),
-  -- turn off beep
-  audible_bell = 'Disabled',
-  hide_tab_bar_if_only_one_tab = true,
-  -- not to resize window
-  adjust_window_size_when_changing_font_size = false,
-  -- ime
-  use_ime = true,
-  -- like tmux key bind
-  leader = { key = 'q', mods = 'CTRL', timeout_milliseconds = 1000 },
-  -- tmux like key bind
-  keys = keys,
-  -- hyperlink
-  hyperlink_rules = hyperlink_rules,
-  -- window padding
-  window_padding = window_padding,
-  -- skip confirm when clone
-  skip_close_confirmation_for_processes_named = skip_close_confirmation_for_processes_named,
-  -- inactive_pane_hsb
-  inactive_pane_hsb = inactive_pane_hsb,
-  check_for_updates = false,
-
-}
+return config
