@@ -4,6 +4,8 @@ require 'config'
 require 'keymap'
 require 'colorscheme'
 
+if vim.loader then vim.loader.enable() end
+
 local has = function(x) return vim.fn.has(x) == 1 end
 
 local is_mac = has "macunix"
