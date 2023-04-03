@@ -69,6 +69,8 @@ local keys = {
   { key = 'DownArrow', mods = 'SHIFT', action = act.ScrollByLine(1) },
   -- resize
   { key = 'r', mods = 'LEADER', action = act.ActivateKeyTable { name = 'resize_pane', one_shot = false } },
+  -- toggle opacity
+  { key = 'u', mods = 'CTRL', action = wezterm.action.EmitEvent 'toggle-opacity' },
 }
 
 local key_tables = {
@@ -150,6 +152,18 @@ local inactive_pane_hsb = {
   saturation = 0.5,
   brightness = 0.5,
 }
+
+wezterm.on('toggle-opacity', function(window, pane)
+  local overrides = window:get_config_overrides() or {}
+  if not overrides.window_background_opacity then
+    overrides.window_background_opacity = 0.3
+    overrides.text_background_opacity = 0.3
+  else
+    overrides.window_background_opacity = nil
+    overrides.text_background_opacity = nil
+  end
+  window:set_config_overrides(overrides)
+end)
 
 --- config ----
 local config = {}
