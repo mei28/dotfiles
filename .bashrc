@@ -27,7 +27,7 @@ then
   source $HOME/.git-prompt.sh
   PS1='\[\e[34m\]\w \[\e[0;32m\]$(__git_ps1 "(%s)")\[\e[0;37m\]\$\[\e[0m\] '
 
-  if [ ! -n $SSH_CONNECTION ]; then
+  if [[ ! -z $SSH_CONNECTION ]]; then
     PS1='\[\e[1;30;43m\] SSH \[\e[0m\]'\ $PS1
   fi
 fi
