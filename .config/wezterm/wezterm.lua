@@ -197,4 +197,6 @@ config.inactive_pane_hsb = inactive_pane_hsb
 config.check_for_updates = false
 -- hide title bar
 config.window_decorations = "RESIZE"
+-- ime for mac
+config.macos_forward_to_ime_modifier_mask = "SHIFT|CTRL"
 return config
