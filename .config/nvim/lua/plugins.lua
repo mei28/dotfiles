@@ -36,6 +36,7 @@ lazy.setup({
   { 'is-hoku/sakura', lazy = true },
   { 'navarasu/onedark.nvim', lazy = true },
   { 'morhetz/gruvbox', lazy = true },
+  { 'eihigh/vim-aomi-grayscale', lazy = true },
 
   -- status line
   'nvim-lualine/lualine.nvim',

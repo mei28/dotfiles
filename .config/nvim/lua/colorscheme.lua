@@ -20,7 +20,8 @@ M.colorscheme2dir = {
   ayu = 'ayu-vim',
   sakura = 'sakura',
   onedark = 'onedark.nvim',
-  gruvobx='gruvobx',
+  gruvobx = 'gruvobx',
+  aomi = 'aomi-grayscale',
 }
 
 
@@ -86,9 +87,12 @@ M.onedark = function()
   vim.cmd.colorscheme 'onedark'
 end
 
-
-M.gruvobx = function ()
+M.gruvobx = function()
   vim.cmd.colorscheme 'gruvbox'
+end
+
+M.aomi = function()
+  vim.cmd.colorscheme 'aomi-grayscale'
 end
 
 M.randColorScheme = function()

@@ -179,8 +179,9 @@ config.audible_bell = 'Disabled'
 config.hide_tab_bar_if_only_one_tab = true
 -- not to resize window
 config.adjust_window_size_when_changing_font_size = false
--- ime
+-- ime ime for mac
 config.use_ime = true
+config.macos_forward_to_ime_modifier_mask = "SHIFT|CTRL"
 -- like tmux key bind
 config.leader = { key = 'q', mods = 'CTRL', timeout_milliseconds = 1000 }
 -- tmux like key bind
@@ -197,6 +198,5 @@ config.inactive_pane_hsb = inactive_pane_hsb
 config.check_for_updates = false
 -- hide title bar
 config.window_decorations = "RESIZE"
--- ime for mac
-config.macos_forward_to_ime_modifier_mask = "SHIFT|CTRL"
+
 return config
