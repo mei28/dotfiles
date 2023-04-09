@@ -14,19 +14,28 @@ lualine.setup {
   sections = {
     lualine_a = { 'mode' },
     lualine_b = { 'branch', 'diff' },
-    lualine_c = { {
-      'filename',
-      file_status = true, -- displays file status (readonly status, modified status)
-      path = 0 -- 0 = just filename, 1 = relative path, 2 = absolute path
-    } },
-    lualine_x = {
+    lualine_c = {
+      {
+        'filename',
+        path = 1,
+        file_status = true,
+        shorting_target = 40,
+        symbols = {
+          modified = '[+]',
+          readonly = '[RO]',
+          unnamed = 'Untitled',
+        }
+      }
+    }, lualine_x = {
       { 'diagnostics', sources = { "nvim_diagnostic" }, symbols = { error = ' ', warn = ' ', info = ' ',
         hint = ' ' } },
       'encoding',
       'filetype'
     },
-    lualine_y = { 'progress' },
-    lualine_z = { 'location' }
+    -- lualine_y = { 'progress' },
+    -- lualine_z = { 'location' }
+    lualine_y = { '' },
+    lualine_z = { '' }
   },
   inactive_sections = {
     lualine_a = {},
@@ -43,4 +52,3 @@ lualine.setup {
   tabline = {},
   extensions = { 'fugitive' }
 }
-
