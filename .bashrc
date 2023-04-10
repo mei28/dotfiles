@@ -209,6 +209,8 @@ if type gh &> /dev/null; then
   eval "$(gh completion -s bash)"
 fi
 
+
+
 #=====================#
 # change config by OS #
 #=====================#
@@ -302,6 +304,8 @@ case ${OSTYPE} in
         nohup ~/quicktile/quicktile.sh --daemonize >/dev/null 2>&1 &
       fi
     fi
+
+    export PATH=/home/mei/.local/bin:$PATH
 
     ;;
 esac
