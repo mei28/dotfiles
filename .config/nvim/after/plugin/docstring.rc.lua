@@ -1,2 +1,2 @@
--- vim.o.python_style = 'rest'
--- vim.o.python_indent = '    '
+-- vim.opt.python_style = 'rest'
+-- vim.opt.python_indent = '    '

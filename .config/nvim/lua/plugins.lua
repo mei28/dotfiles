@@ -166,7 +166,7 @@ lazy.setup({
 
 
   -- -- status line
-  -- use "luukvbaal/statuscol.nvim"
+  "luukvbaal/statuscol.nvim",
 
   --- ddc
   -- use "Shougo/ddc.vim"
