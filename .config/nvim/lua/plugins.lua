@@ -168,6 +168,9 @@ lazy.setup({
   -- -- status line
   "luukvbaal/statuscol.nvim",
 
+  -- dial
+  'monaqa/dial.nvim',
+
   --- ddc
   -- use "Shougo/ddc.vim"
   -- use "vim-denops/denops.vim"
