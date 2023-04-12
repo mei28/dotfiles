@@ -197,6 +197,6 @@ config.skip_close_confirmation_for_processes_named = skip_close_confirmation_for
 config.inactive_pane_hsb = inactive_pane_hsb
 config.check_for_updates = false
 -- hide title bar
-config.window_decorations = "RESIZE"
+config.window_decorations = "RESIZE|TITLE"
 
 return config
