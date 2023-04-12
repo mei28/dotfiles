@@ -209,7 +209,9 @@ if type gh &> /dev/null; then
   eval "$(gh completion -s bash)"
 fi
 
-
+if [ -e ~/.openai ]; then
+  export OPENAI_API_KEY=`cat ~/.openai`
+fi
 
 #=====================#
 # change config by OS #
@@ -312,3 +314,5 @@ esac
 
 #==========#
 
+
+export PATH="$PATH:/Users/mei/.bin"
