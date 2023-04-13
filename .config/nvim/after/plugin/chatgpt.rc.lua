@@ -1,9 +1,8 @@
 local status, chatgpt = pcall(require, 'chatgpt')
 if not status then return end
 
-chatgpt.setup()
 
-cfg = {
+local cfg = {
   openai_params = {
     model = "gpt-3.5-turbo",
     frequency_penalty = 0,
@@ -14,3 +13,5 @@ cfg = {
     n = 1,
   },
 }
+
+chatgpt.setup({cfg})

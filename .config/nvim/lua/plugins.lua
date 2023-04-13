@@ -143,6 +143,7 @@ lazy.setup({
   'yutkat/cmp-mocword',
   'hrsh7th/cmp-cmdline',
   'ray-x/cmp-treesitter',
+  'andersevenrud/cmp-tmux',
 
   --- docstring
   -- 'pixelneo/vim-python-docstring',
@@ -181,9 +182,6 @@ lazy.setup({
       "nvim-telescope/telescope.nvim"
     }
   },
-
-  -- which-key
-  "folke/which-key.nvim",
 
   -- copilot
   { "zbirenbaum/copilot.lua", event = 'InsertEnter', cmd = 'Copilot' },

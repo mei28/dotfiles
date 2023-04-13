@@ -41,6 +41,7 @@ cmp.setup({
     { name = "nvim_lsp_signature_help" },
     { name = "treesitter" },
     { name = 'obsidian' },
+    { name = 'tmux' },
   }),
   formatting = {
     format = lspkind.cmp_format({ with_text = false, maxwidth = 50 })
@@ -62,8 +63,8 @@ cmp.setup.cmdline(':', {
   })
 })
 
--- `/` cmdline setup.
-cmp.setup.cmdline('/', {
+-- `/` and `?` cmdline setup.
+cmp.setup.cmdline({ '/', '?' }, {
   mapping = cmp.mapping.preset.cmdline(),
   sources = {
     { name = 'buffer' }
@@ -78,5 +79,5 @@ end)
 cmp.event:on("menu_closed", function()
   vim.b.copilot_suggestion_hidden = false
 end)
-vim.cmd [[highlight! default link CmpItemKind CmpItemMenuDefault]]
 
+vim.cmd [[highlight! default link CmpItemKind CmpItemMenuDefault]]
