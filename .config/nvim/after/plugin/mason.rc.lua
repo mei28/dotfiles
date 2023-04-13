@@ -63,17 +63,24 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', 'cc', vim.lsp.buf.incoming_calls, bufopts)
 
     -- Reference highlight
-    vim.cmd [[
-      highlight LspReferenceText  cterm=underline ctermbg=8 gui=underline guibg=#104040
-      highlight LspReferenceRead  cterm=underline ctermbg=8 gui=underline guibg=#104040
-      highlight LspReferenceWrite cterm=underline ctermbg=8 gui=underline guibg=#104040
-      set updatetime=100
-      augroup lsp_document_highlight
-        autocmd! * <buffer>
-        autocmd CursorHold,CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()
-        autocmd CursorMoved,CursorMovedI <buffer> lua vim.lsp.buf.clear_references()
-      augroup END
-    ]]
+    vim.api.nvim_command("highlight LspReferenceText  cterm=underline ctermbg=8 gui=underline guibg=#104040")
+    vim.api.nvim_command("highlight LspReferenceRead  cterm=underline ctermbg=8 gui=underline guibg=#104040")
+    vim.api.nvim_command("highlight LspReferenceWrite cterm=underline ctermbg=8 gui=underline guibg=#104040")
+    vim.api.nvim_command("set updatetime=100")
+    vim.api.nvim_create_augroup("lsp_document_highlight", { clear = true })
+    vim.api.nvim_clear_autocmds { buffer = ev.buf, group = "lsp_document_highlight" }
+    vim.api.nvim_create_autocmd("CursorHold", {
+      callback = vim.lsp.buf.document_highlight,
+      buffer = ev.buf,
+      group = "lsp_document_highlight",
+      desc = "Document Highlight",
+    })
+    vim.api.nvim_create_autocmd("CursorMoved", {
+      callback = vim.lsp.buf.clear_references,
+      buffer = ev.buf,
+      group = "lsp_document_highlight",
+      desc = "Clear All the References",
+    })
   end
 })
 
