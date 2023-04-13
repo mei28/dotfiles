@@ -183,7 +183,11 @@ lazy.setup({
   },
 
   -- which-key
-  { "folke/which-key.nvim", }
+  "folke/which-key.nvim",
+
+  -- copilot
+  { "zbirenbaum/copilot.lua", event = 'InsertEnter', cmd = 'Copilot' },
+  { "zbirenbaum/copilot-cmp", dependencies = { "copilot.lua" }, },
 
   --- ddc
   -- use "Shougo/ddc.vim"

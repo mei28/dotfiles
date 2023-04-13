@@ -33,6 +33,7 @@ cmp.setup({
     end,
   }),
   sources = cmp.config.sources({
+    { name = 'copilot' },
     { name = 'buffer' },
     { name = "mocword" },
     { name = 'nvim_lsp' },
@@ -69,5 +70,13 @@ cmp.setup.cmdline('/', {
   }
 })
 
+-- for copilot
+cmp.event:on("menu_opened", function()
+  vim.b.copilot_suggestion_hidden = true
+end)
 
+cmp.event:on("menu_closed", function()
+  vim.b.copilot_suggestion_hidden = false
+end)
 vim.cmd [[highlight! default link CmpItemKind CmpItemMenuDefault]]
+
