@@ -43,6 +43,7 @@ lazy.setup({
 
   -- indent
   "lukas-reineke/indent-blankline.nvim",
+  "atusy/tsnode-marker.nvim",
 
   -- auto pair and tag close
   'windwp/nvim-autopairs',
@@ -186,6 +187,7 @@ lazy.setup({
   -- copilot
   { "zbirenbaum/copilot.lua", event = 'InsertEnter', cmd = 'Copilot' },
   { "zbirenbaum/copilot-cmp", dependencies = { "copilot.lua" }, },
+  
 
   --- ddc
   -- use "Shougo/ddc.vim"
