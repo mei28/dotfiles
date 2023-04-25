@@ -76,3 +76,13 @@ vim.opt.path:append { '**' }
 vim.opt.cmdheight = 0
 vim.opt.laststatus = 2
 vim.opt.showmode = false
+
+-- remember folds
+vim.api.nvim_exec([[
+  augroup remember_folds
+    autocmd!
+    autocmd BufWinLeave *.* mkview
+    autocmd BufWinEnter *.* silent! loadview
+  augroup END
+]], false)
+

@@ -10,8 +10,6 @@
 [user]
 	name = mei
 	email = mei28aquarius@gmail.com
-[commit]
-	template = /Users/mei/.stCommitMsg
 [init]
 	defaultBranch = main
 [mergetool]
