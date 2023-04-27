@@ -28,11 +28,15 @@ telescope.setup {
           ["/"] = function() vim.cmd('startinsert') end
         }
       }
+    },
+    ['ui-select'] = {
+      require('telescope.themes').get_dropdown {}
     }
   }
 }
 
 telescope.load_extension("file_browser")
+telescope.load_extension("ui-select")
 
 vim.keymap.set('n', ';f', function()
   builtin.find_files({

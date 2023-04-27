@@ -86,6 +86,7 @@ lazy.setup({
   -- fuzzy finder
   'nvim-telescope/telescope.nvim',
   'nvim-telescope/telescope-file-browser.nvim',
+  'nvim-telescope/telescope-ui-select.nvim',
 
   -- File icons
   'kyazdani42/nvim-web-devicons',
@@ -145,6 +146,7 @@ lazy.setup({
   'hrsh7th/cmp-cmdline',
   'ray-x/cmp-treesitter',
   'andersevenrud/cmp-tmux',
+  'j-hui/fidget.nvim',
 
   --- docstring
   -- 'pixelneo/vim-python-docstring',
@@ -187,7 +189,7 @@ lazy.setup({
   -- copilot
   { "zbirenbaum/copilot.lua", event = 'InsertEnter', cmd = 'Copilot' },
   { "zbirenbaum/copilot-cmp", dependencies = { "copilot.lua" }, },
-  
+
 
   --- ddc
   -- use "Shougo/ddc.vim"
