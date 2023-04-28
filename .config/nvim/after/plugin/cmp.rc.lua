@@ -20,7 +20,8 @@ cmp.setup({
     ['<Esc>'] = cmp.mapping.close(),
     ['<C-{>'] = cmp.mapping.close(),
     ['<CR>'] = cmp.mapping.confirm({
-      select = true
+      select = true,
+      behavior = cmp.ConfirmBehavior.Replace,
     }),
     ["<Tab>"] = vim.schedule_wrap(function(fallback)
       if cmp.visible() and has_words_before() then
@@ -44,7 +45,7 @@ cmp.setup({
     { name = "path" },
     { name = "nvim_lsp_signature_help" },
     { name = "treesitter" },
-    -- { name = 'copilot' },
+    { name = 'copilot' },
     -- { name = 'obsidian' },
     { name = 'tmux' },
   }),
