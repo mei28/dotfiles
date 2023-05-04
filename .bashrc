@@ -123,11 +123,23 @@ fi
 
 
 ## activate_virtual env
-actvenv(){
-  if [[ -n $VIRTUAL_ENV && -e "${VIRTUAL_ENV}/bin/activate" ]]; then
-    source "${VIRTUAL_ENV}/bin/activate"  # commented out by conda initialize
-    echo "activate ${VIRTUAL_ENV}!!"
-  fi
+# actvenv(){
+#   if [[ -n $VIRTUAL_ENV && -e "${VIRTUAL_ENV}/bin/activate" ]]; then
+#     source "${VIRTUAL_ENV}/bin/activate"  # commented out by conda initialize
+#     echo "activate ${VIRTUAL_ENV}!!"
+#   fi
+# }
+
+## activate virtualenv
+## suggest the function name below
+function actvenv() {
+    venv_path=$(find . -maxdepth 2 -type d -name "bin" -exec test -e '{}/activate' ';' -print -quit | sed 's/\/bin//g')
+    if [ -z "$venv_path" ]; then
+        echo "No Python virtual environment found in the current directory."
+    else
+        echo "Activating $venv_path"
+        source "$venv_path/bin/activate"
+    fi
 }
 
 
