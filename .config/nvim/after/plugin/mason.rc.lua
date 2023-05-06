@@ -38,10 +38,11 @@ lspconfig.lua_ls.setup {
 
 -- Global mappings
 local opts = { noremap = true, silent = true }
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
-vim.keymap.set('n', '<Leader>e', vim.diagnostic.open_float, opts)
-vim.keymap.set('n', '<Leader>q', vim.diagnostic.setloclist, opts)
+local set = vim.keymap.set
+set('n', '[d', vim.diagnostic.goto_prev, opts)
+set('n', ']d', vim.diagnostic.goto_next, opts)
+set('n', '<Leader>e', vim.diagnostic.open_float, opts)
+set('n', '<Leader>q', vim.diagnostic.setloclist, opts)
 
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('UserLspConfig', {}),
@@ -51,16 +52,16 @@ vim.api.nvim_create_autocmd('LspAttach', {
     local bufopts = { noremap = true, silent = true, buffer = ev.buf }
     -- Mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
-    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-    vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-    vim.keymap.set('n', 'H', vim.lsp.buf.hover, bufopts)
-    vim.keymap.set('n', 'K', vim.lsp.buf.signature_help, bufopts)
-    vim.keymap.set('n', '<Leader>D', vim.lsp.buf.type_definition, bufopts)
-    vim.keymap.set('n', '<Leader>rn', vim.lsp.buf.rename, bufopts)
-    vim.keymap.set('n', '<Leader>lf', "<cmd>lua vim.lsp.buf.format({async=true})<CR>", bufopts)
-    vim.keymap.set('n', 'cc', vim.lsp.buf.incoming_calls, bufopts)
+    set('n', 'gD', vim.lsp.buf.declaration, bufopts)
+    set('n', 'gd', vim.lsp.buf.definition, bufopts)
+    set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+    set('n', 'gr', vim.lsp.buf.references, bufopts)
+    set('n', 'H', vim.lsp.buf.hover, bufopts)
+    set('n', 'K', vim.lsp.buf.signature_help, bufopts)
+    set('n', '<Leader>D', vim.lsp.buf.type_definition, bufopts)
+    set('n', '<Leader>rn', vim.lsp.buf.rename, bufopts)
+    set('n', '<Leader>lf', "<cmd>lua vim.lsp.buf.format({async=true})<CR>", bufopts)
+    set('n', 'cc', vim.lsp.buf.incoming_calls, bufopts)
 
     -- Reference highlight
     local client = vim.lsp.get_client_by_id(ev.data.client_id)
