@@ -2,7 +2,7 @@ local status, sidebar = pcall(require, "sidebar-nvim")
 if not status then return end
 vim.g.mapleader=' '
 sidebar.setup({
-  sections = { 'git', 'files', 'buffers', 'diagnostics' },
+  sections = { 'git', 'files', 'buffers', 'diagnostics' ,"todos"},
   files = { icon = "", show_hidden = false, ignored_paths = { "%.git$" } },
   buffers = {
     icon = "",
@@ -15,3 +15,4 @@ sidebar.setup({
 })
 
 vim.keymap.set('n', '<Leader>b', sidebar.toggle, { noremap = true, silent = true })
+
