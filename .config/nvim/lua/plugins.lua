@@ -148,8 +148,6 @@ lazy.setup({
   'andersevenrud/cmp-tmux',
   'j-hui/fidget.nvim',
 
-  --- docstring
-  -- 'pixelneo/vim-python-docstring',
 
   --- noice
   'folke/noice.nvim',
