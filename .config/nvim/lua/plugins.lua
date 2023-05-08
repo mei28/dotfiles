@@ -18,25 +18,25 @@ end
 
 lazy.setup({
   -- color scheme
-  { 'cocopon/iceberg.vim', lazy = true },
-  { 'arcticicestudio/nord-vim', lazy = true },
-  { 'sainnhe/edge', lazy = true },
-  { 'EdenEast/nightfox.nvim', lazy = true },
-  { 'folke/tokyonight.nvim', lazy = true },
-  { 'w0ng/vim-hybrid', lazy = true },
-  { 'nanotech/jellybeans.vim', lazy = true },
-  { 'matsuuu/pinkmare', lazy = true },
+  { 'cocopon/iceberg.vim',             lazy = true },
+  { 'arcticicestudio/nord-vim',        lazy = true },
+  { 'sainnhe/edge',                    lazy = true },
+  { 'EdenEast/nightfox.nvim',          lazy = true },
+  { 'folke/tokyonight.nvim',           lazy = true },
+  { 'w0ng/vim-hybrid',                 lazy = true },
+  { 'nanotech/jellybeans.vim',         lazy = true },
+  { 'matsuuu/pinkmare',                lazy = true },
   { '4513ECHO/vim-colors-hatsunemiku', lazy = true },
-  { 'catppuccin/nvim', lazy = true },
-  { 'rebelot/kanagawa.nvim', lazy = true },
-  { 'laniusone/kyotonight.vim', lazy = true },
-  { 'sainnhe/everforest', lazy = true },
-  { 'ayu-theme/ayu-vim', lazy = true },
-  { 'catppuccin/catppuccin', lazy = true },
-  { 'is-hoku/sakura', lazy = true },
-  { 'navarasu/onedark.nvim', lazy = true },
-  { 'morhetz/gruvbox', lazy = true },
-  { 'eihigh/vim-aomi-grayscale', lazy = true },
+  { 'catppuccin/nvim',                 lazy = true },
+  { 'rebelot/kanagawa.nvim',           lazy = true },
+  { 'laniusone/kyotonight.vim',        lazy = true },
+  { 'sainnhe/everforest',              lazy = true },
+  { 'ayu-theme/ayu-vim',               lazy = true },
+  { 'catppuccin/catppuccin',           lazy = true },
+  { 'is-hoku/sakura',                  lazy = true },
+  { 'navarasu/onedark.nvim',           lazy = true },
+  { 'morhetz/gruvbox',                 lazy = true },
+  { 'eihigh/vim-aomi-grayscale',       lazy = true },
 
   -- status line
   'nvim-lualine/lualine.nvim',
@@ -59,7 +59,8 @@ lazy.setup({
   'lewis6991/gitsigns.nvim',
   'airblade/vim-gitgutter',
   'akinsho/git-conflict.nvim',
-
+  'sindrets/diffview.nvim',
+  'rhysd/git-messenger.vim',
 
   'numToStr/Comment.nvim',
 
@@ -93,7 +94,7 @@ lazy.setup({
 
   -- treesitter
   { 'nvim-treesitter/nvim-treesitter', build = { ':TSInstall! vim', ':TSUpdate' } },
-  { "yioneko/nvim-yati", dependencies = "nvim-treesitter/nvim-treesitter" },
+  { "yioneko/nvim-yati",               dependencies = "nvim-treesitter/nvim-treesitter" },
 
   -- bufferline
   'akinsho/nvim-bufferline.lua',
@@ -185,7 +186,7 @@ lazy.setup({
   },
 
   -- copilot
-  { "zbirenbaum/copilot.lua", event = 'InsertEnter', cmd = 'Copilot' },
+  { "zbirenbaum/copilot.lua", event = 'InsertEnter',            cmd = 'Copilot' },
   { "zbirenbaum/copilot-cmp", dependencies = { "copilot.lua" }, },
 
 

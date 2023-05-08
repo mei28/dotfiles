@@ -40,6 +40,7 @@ vim.opt.wrapscan       = true
 vim.opt.inccommand     = 'split'
 -- 改行，タブの可視化
 vim.opt.list           = true
+vim.opt.listchars = { tab = '>>', trail = '-', nbsp = '+' }
 -- オートインデント
 vim.opt.autoindent     = true
 -- スマートインデント
