@@ -10,7 +10,7 @@ local set = vim.keymap.set
 optl.comments = 'nb:>'
 
 -- リスト（- / - [ ] / * / 1.）
-optl.comments:append('b:- [ ],b:- [x],b:-')
+optl.comments:append('b:-')
 optl.comments:append('b:*')
 optl.comments:append('b:1.')
 

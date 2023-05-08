@@ -101,6 +101,7 @@ lazy.setup({
 
   -- show color
   'norcalli/nvim-colorizer.lua',
+  'uga-rosa/ccc.nvim',
 
   -- csv
   'Decodetalkers/csv-tools.lua',
@@ -188,6 +189,9 @@ lazy.setup({
   -- copilot
   { "zbirenbaum/copilot.lua", event = 'InsertEnter',            cmd = 'Copilot' },
   { "zbirenbaum/copilot-cmp", dependencies = { "copilot.lua" }, },
+
+  -- fold
+  'anuvyklack/pretty-fold.nvim',
 
 
   --- ddc
