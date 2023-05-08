@@ -1,21 +1,11 @@
 local status, trouble = pcall(require, 'trouble')
 
-if not status then  return end
+if not status then return end
 
+local set = vim.keymap.set
 trouble.setup()
-vim.keymap.set("n", "tt", "<cmd>TroubleToggle<cr>",
-  { silent = true, noremap = true }
-)
-vim.keymap.set("n", "tw", "<cmd>TroubleToggle workspace_diagnostics<cr>",
-  { silent = true, noremap = true }
-)
-vim.keymap.set("n", "td", "<cmd>TroubleToggle document_diagnostics<cr>",
-  { silent = true, noremap = true }
-)
-vim.keymap.set("n", "tl", "<cmd>TroubleToggle loclist<cr>",
-  { silent = true, noremap = true }
-)
-vim.keymap.set("n", "tq", "<cmd>TroubleToggle quickfix<cr>",
-  { silent = true, noremap = true }
-)
-
+set("n", "tt", "<cmd>TroubleToggle<cr>", { silent = true, noremap = true })
+set("n", "tw", "<cmd>TroubleToggle workspace_diagnostics<cr>", { silent = true, noremap = true })
+set("n", "td", "<cmd>TroubleToggle document_diagnostics<cr>", { silent = true, noremap = true })
+set("n", "tl", "<cmd>TroubleToggle loclist<cr>", { silent = true, noremap = true })
+set("n", "tq", "<cmd>TroubleToggle quickfix<cr>", { silent = true, noremap = true })

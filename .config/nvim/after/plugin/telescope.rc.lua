@@ -5,6 +5,7 @@ local actions = require('telescope.actions')
 local builtin = require("telescope.builtin")
 
 local function telescope_buffer_dir() return vim.fn.expand('%:p:h') end
+local set = vim.keymap.set
 
 local fb_actions = require "telescope".extensions.file_browser.actions
 
@@ -38,20 +39,20 @@ telescope.setup {
 telescope.load_extension("file_browser")
 telescope.load_extension("ui-select")
 
-vim.keymap.set('n', ';f', function()
+set('n', ';f', function()
   builtin.find_files({
     hidden = true,
     initial_mode = "normal",
   })
 end)
-vim.keymap.set('n', ';r', function() builtin.live_grep() end)
-vim.keymap.set('n', ';b', function() builtin.buffers() end)
-vim.keymap.set('n', ';t', function() builtin.help_tags() end)
--- vim.keymap.set('n', ';;', function()
+set('n', ';r', function() builtin.live_grep() end)
+set('n', ';b', function() builtin.buffers() end)
+set('n', ';t', function() builtin.help_tags() end)
+-- set('n', ';;', function()
 --   builtin.resume()
 -- end)
-vim.keymap.set('n', ';e', function() builtin.diagnostics() end)
-vim.keymap.set("n", "sf", function()
+set('n', ';e', function() builtin.diagnostics() end)
+set("n", "fs", function()
   telescope.extensions.file_browser.file_browser({
     path = "%:p:h",
     cwd = telescope_buffer_dir(),
@@ -64,4 +65,4 @@ vim.keymap.set("n", "sf", function()
   })
 end)
 
-vim.keymap.set('n', ';k', function() builtin.keymaps() end)
+set('n', ';k', function() builtin.keymaps() end)

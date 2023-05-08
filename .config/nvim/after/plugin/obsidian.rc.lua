@@ -1,5 +1,6 @@
 local status, obsidian = pcall(require, 'obsidian')
 if not status then return end
+local set = vim.keymap.set
 
 obsidian.setup({
   dir = '~/Documents/ovault/',
@@ -24,7 +25,7 @@ obsidian.setup({
   end
 })
 
-vim.keymap.set(
+set(
   "n",
   "gf",
   function()
@@ -37,4 +38,4 @@ vim.keymap.set(
   { noremap = false, expr = true }
 )
 
-vim.keymap.set('n', '<Leader>ot', ':ObsidianToday<CR>', { noremap = true, silent = true })
+set('n', '<Leader>ot', ':ObsidianToday<CR>', { noremap = true, silent = true })
