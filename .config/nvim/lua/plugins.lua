@@ -38,6 +38,7 @@ lazy.setup({
   { 'morhetz/gruvbox',                 lazy = true },
   { 'eihigh/vim-aomi-grayscale',       lazy = true },
   { 'haxibami/urara.vim',              lazy = true },
+
   -- status line
   'nvim-lualine/lualine.nvim',
 
@@ -52,13 +53,12 @@ lazy.setup({
 
   -- surround
   "kylechui/nvim-surround",
-  -- "tpope/vim-surround"
 
   -- git
   'dinhhuy258/git.nvim',
   'lewis6991/gitsigns.nvim',
   'airblade/vim-gitgutter',
-  'akinsho/git-conflict.nvim',
+  { 'akinsho/git-conflict.nvim',       version = "*",                                   config = true },
   'sindrets/diffview.nvim',
   'rhysd/git-messenger.vim',
 
@@ -99,9 +99,11 @@ lazy.setup({
   -- bufferline
   'akinsho/nvim-bufferline.lua',
 
-  -- show color
+  -- color
   'norcalli/nvim-colorizer.lua',
   'uga-rosa/ccc.nvim',
+  'RRethy/vim-illuminate',
+  'fei6409/log-highlight.nvim',
 
   -- csv
   'Decodetalkers/csv-tools.lua',
@@ -195,9 +197,17 @@ lazy.setup({
   'anuvyklack/pretty-fold.nvim',
 
   -- toggle term
-  'uga-rosa/ugaterm.nvim'
+  'uga-rosa/ugaterm.nvim',
 
-
+  -- code out line
+  {
+    'stevearc/aerial.nvim',
+    opts = {},
+    -- Optional dependencies
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+    },
+  }
   --- ddc
   -- use "Shougo/ddc.vim"
   -- use "vim-denops/denops.vim"
