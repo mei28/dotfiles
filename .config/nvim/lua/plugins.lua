@@ -38,6 +38,7 @@ lazy.setup({
   { 'morhetz/gruvbox',                 lazy = true },
   { 'eihigh/vim-aomi-grayscale',       lazy = true },
   { 'haxibami/urara.vim',              lazy = true },
+  { "bluz71/vim-nightfly-colors",      lazy = true },
 
   -- status line
   'nvim-lualine/lualine.nvim',

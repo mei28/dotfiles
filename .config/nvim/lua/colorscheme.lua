@@ -23,6 +23,7 @@ M.colorscheme2dir = {
   gruvobx = 'gruvobx',
   aomi = 'aomi-grayscale',
   urara = 'urara',
+  nightfly = 'nightfly',
 }
 
 
@@ -96,8 +97,12 @@ M.aomi = function()
   vim.cmd.colorscheme 'aomi-grayscale'
 end
 
-M.urara = function ()
+M.urara = function()
   vim.cmd.colorscheme 'urara'
+end
+
+M.nightfly = function()
+  vim.cmd.colorscheme 'nightfly'
 end
 
 M.randColorScheme = function()
