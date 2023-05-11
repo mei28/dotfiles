@@ -194,6 +194,9 @@ lazy.setup({
   -- fold
   'anuvyklack/pretty-fold.nvim',
 
+  -- toggle term
+  'uga-rosa/ugaterm.nvim'
+
 
   --- ddc
   -- use "Shougo/ddc.vim"
