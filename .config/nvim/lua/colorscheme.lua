@@ -22,6 +22,7 @@ M.colorscheme2dir = {
   onedark = 'onedark.nvim',
   gruvobx = 'gruvobx',
   aomi = 'aomi-grayscale',
+  urara = 'urara',
 }
 
 
@@ -95,6 +96,10 @@ M.aomi = function()
   vim.cmd.colorscheme 'aomi-grayscale'
 end
 
+M.urara = function ()
+  vim.cmd.colorscheme 'urara'
+end
+
 M.randColorScheme = function()
   local colorscheme = utils.rand_element(vim.tbl_keys(M.colorscheme2dir))
 
@@ -115,7 +120,6 @@ M.randColorScheme = function()
     local msg = "colorscheme: " .. colorscheme
     vim.notify(msg)
   end
-
 end
 
 -- vim.g.loggin_level = 'debug'
