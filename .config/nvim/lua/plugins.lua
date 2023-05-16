@@ -63,8 +63,10 @@ lazy.setup({
   'sindrets/diffview.nvim',
   'rhysd/git-messenger.vim',
 
+  -- comment
   'numToStr/Comment.nvim',
 
+  -- rainbow
   'luochen1990/rainbow',
 
   -- dot repeat
@@ -208,7 +210,11 @@ lazy.setup({
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
     },
-  }
+  },
+
+  -- diff
+  'AndrewRadev/linediff.vim',
+
   --- ddc
   -- use "Shougo/ddc.vim"
   -- use "vim-denops/denops.vim"
