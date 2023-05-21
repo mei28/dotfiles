@@ -40,7 +40,7 @@ vim.opt.wrapscan       = true
 vim.opt.inccommand     = 'split'
 -- 改行，タブの可視化
 vim.opt.list           = true
-vim.opt.listchars      = { tab = '>>', trail = '-', nbsp = '+' }
+vim.opt.listchars      = { tab = '>>', trail = '·', nbsp = '+' }
 -- オートインデント
 vim.opt.autoindent     = true
 -- スマートインデント
@@ -64,7 +64,6 @@ vim.opt.autoread       = true
 -- popupオプション
 vim.opt.wildoptions    = 'pum'
 -- フォーマットオプション 改行の時コメントアウトさせない
--- vim.api.nvim_exec([[ au FileType * set fo-=c fo-=r fo-=o ]], false)
 vim.api.nvim_exec([[
   au FileType * if match(&ft, 'markdown\|markdown') == -1 | set fo-=c fo-=r fo-=o | endif
 ]], false)

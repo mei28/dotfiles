@@ -35,6 +35,10 @@ lspconfig.lua_ls.setup {
   },
 }
 
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.offsetEncoding = { "utf-16" }
+lspconfig.clangd.setup({ capabilities = capabilities })
+
 
 -- Global mappings
 local opts = { noremap = true, silent = true }
