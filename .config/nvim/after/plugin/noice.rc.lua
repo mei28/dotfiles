@@ -20,7 +20,7 @@ noice.setup(
     views = {
       cmdline_popup = {
         position = {
-          row = 5,
+          row = "10%",
           col = "50%",
         },
         size = {
@@ -31,7 +31,7 @@ noice.setup(
       popupmenu = {
         relative = "editor",
         position = {
-          row = 8,
+          row = "10%",
           col = "50%",
         },
         size = {
@@ -44,6 +44,12 @@ noice.setup(
         },
         win_options = {
           winhighlight = { Normal = "Normal", FloatBorder = "DiagnosticInfo" },
+        },
+      },
+      confirm = {
+        position = {
+          row = "10%",
+          col = "50%",
         },
       },
     },

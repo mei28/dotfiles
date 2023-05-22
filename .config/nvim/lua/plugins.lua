@@ -203,14 +203,7 @@ lazy.setup({
   'uga-rosa/ugaterm.nvim',
 
   -- code out line
-  {
-    'stevearc/aerial.nvim',
-    opts = {},
-    -- Optional dependencies
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-    },
-  },
+  'simrat39/symbols-outline.nvim',
 
   -- diff
   'AndrewRadev/linediff.vim',
