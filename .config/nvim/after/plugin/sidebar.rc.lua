@@ -14,5 +14,5 @@ sidebar.setup({
   }
 })
 
-vim.keymap.set('n', '<Leader>b', sidebar.toggle, { noremap = true, silent = true })
+vim.keymap.set('n', '<Leader>b', sidebar.toggle)
 

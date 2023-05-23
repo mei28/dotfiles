@@ -38,4 +38,4 @@ set(
   { noremap = false, expr = true }
 )
 
-set('n', '<Leader>ot', ':ObsidianToday<CR>', { noremap = true, silent = true })
+set('n', '<Leader>ot', ':ObsidianToday<CR>')

@@ -41,19 +41,18 @@ lspconfig.clangd.setup({ capabilities = capabilities })
 
 
 -- Global mappings
-local opts = { noremap = true, silent = true }
 local set = vim.keymap.set
-set('n', '[d', vim.diagnostic.goto_prev, opts)
-set('n', ']d', vim.diagnostic.goto_next, opts)
-set('n', '<Leader>e', vim.diagnostic.open_float, opts)
-set('n', '<Leader>q', vim.diagnostic.setloclist, opts)
+set('n', '[d', vim.diagnostic.goto_prev)
+set('n', ']d', vim.diagnostic.goto_next)
+set('n', '<Leader>e', vim.diagnostic.open_float)
+set('n', '<Leader>q', vim.diagnostic.setloclist)
 
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('UserLspConfig', {}),
   callback = function(ev)
     -- Enable completion triggered by <c-x><c-o>
     vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
-    local bufopts = { noremap = true, silent = true, buffer = ev.buf }
+    local bufopts = { buffer = ev.buf }
     -- Mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     set('n', 'gD', vim.lsp.buf.declaration, bufopts)
