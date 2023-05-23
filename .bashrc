@@ -22,7 +22,7 @@ then
     GIT_PS1_SHOWDIRTYSTATE=true
     GIT_PS1_SHOWUNTRACKEDFILES=true
     GIT_PS1_SHOWSTASHSTATE=true
-    # GIT_PS1_SHOWUPSTREAM=auto
+    GIT_PS1_SHOWUPSTREAM=auto
 
     source $HOME/.git-prompt.sh
     PS1='\[\e[34m\]\w \[\e[0;32m\]$(__git_ps1 "(%s)")\[\e[0;37m\]\$\[\e[0m\] '
