@@ -208,19 +208,4 @@ lazy.setup({
   -- diff
   'AndrewRadev/linediff.vim',
 
-  --- ddc
-  -- use "Shougo/ddc.vim"
-  -- use "vim-denops/denops.vim"
-  -- use "Shougo/ddc-nvim-lsp"
-  -- use "Shougo/ddc-around"
-  -- use "LumaKernel/ddc-file"
-  -- use "matsui54/ddc-buffer"
-  -- use "Shougo/ddc-sorter_rank"
-  -- use "tani/ddc-fuzzy"
-  -- use "Shougo/ddc-matcher_head"
-  -- use "Shougo/ddc-matcher_length"
-  -- use "matsui54/denops-signature_help"
-  -- use "matsui54/denops-popup-preview.vim"
-  -- use "Shougo/pum.vim"
-
 })
