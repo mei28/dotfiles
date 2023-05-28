@@ -1,22 +1,23 @@
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
+    'git',
+    'clone',
+    '--filter=blob:none',
+    'https://github.com/folke/lazy.nvim.git',
+    '--branch=stable', -- latest stable release
     lazypath,
   })
 end
 vim.opt.rtp:prepend(lazypath)
-local status, lazy = pcall(require, "lazy")
+local status, lazy = pcall(require, 'lazy')
 if not status then
-  print("lazy is not installed")
+  print('lazy is not installed')
   return
 end
 
 lazy.setup({
+
   -- color scheme
   { 'cocopon/iceberg.vim',             lazy = true },
   { 'arcticicestudio/nord-vim',        lazy = true },
@@ -38,28 +39,33 @@ lazy.setup({
   { 'morhetz/gruvbox',                 lazy = true },
   { 'eihigh/vim-aomi-grayscale',       lazy = true },
   { 'haxibami/urara.vim',              lazy = true },
-  { "bluz71/vim-nightfly-colors",      lazy = true },
+  { 'bluz71/vim-nightfly-colors',      lazy = true },
 
   -- status line
   'nvim-lualine/lualine.nvim',
 
   -- indent
-  "lukas-reineke/indent-blankline.nvim",
-  "atusy/tsnode-marker.nvim",
+  'lukas-reineke/indent-blankline.nvim',
+  'atusy/tsnode-marker.nvim',
 
   -- auto pair and tag close
   'windwp/nvim-autopairs',
-  'windwp/nvim-ts-autotag',
+  {
+    'windwp/nvim-ts-autotag',
+    config = function()
+      require 'nvim-ts-autotag'.setup()
+    end
+  },
 
 
   -- surround
-  "kylechui/nvim-surround",
+  { 'kylechui/nvim-surround',  config = function() require 'nvim-surround'.setup {} end },
 
   -- git
   'dinhhuy258/git.nvim',
-  'lewis6991/gitsigns.nvim',
+  { 'lewis6991/gitsigns.nvim', config = function() require 'gitsigns'.setup() end },
   'airblade/vim-gitgutter',
-  { 'akinsho/git-conflict.nvim',       version = "*",                                   config = true },
+  { 'akinsho/git-conflict.nvim',  version = '*',                          config = true },
   'sindrets/diffview.nvim',
   'rhysd/git-messenger.vim',
 
@@ -77,11 +83,16 @@ lazy.setup({
 
   -- markdown
   {
-    "iamcco/markdown-preview.nvim",
-    build = "cd app && npm install",
-    init = function() vim.g.mkdp_filetypes = { "markdown" } end,
-    ft = { "markdown" }
+    'iamcco/markdown-preview.nvim',
+    build = 'cd app && npm install',
+    init = function() vim.g.mkdp_filetypes = { 'markdown' } end,
+    ft = { 'markdown' }
   },
+  { 'toppair/peek.nvim',          build = 'deno task --quiet build:fast', ft = { 'markdown' } },
+  -- table markdonw
+  { 'dhruvasagar/vim-table-mode', ft = { 'markdown' } },
+  { 'mattn/vim-maketable',        ft = { 'markdown' } },
+
 
   -- utility
   'nvim-lua/plenary.nvim',
@@ -97,7 +108,7 @@ lazy.setup({
 
   -- treesitter
   { 'nvim-treesitter/nvim-treesitter', build = { ':TSInstall! vim', ':TSUpdate' } },
-  { "yioneko/nvim-yati",               dependencies = "nvim-treesitter/nvim-treesitter" },
+  { 'yioneko/nvim-yati',               dependencies = 'nvim-treesitter/nvim-treesitter' },
 
   -- bufferline
   'akinsho/nvim-bufferline.lua',
@@ -112,10 +123,16 @@ lazy.setup({
   'Decodetalkers/csv-tools.lua',
 
   -- comment
-  'folke/todo-comments.nvim',
+  { 'folke/todo-comments.nvim', config = function() require 'todo-comments'.setup() end },
 
   -- views
-  'petertriho/nvim-scrollbar',
+  {
+    'petertriho/nvim-scrollbar',
+    config = function()
+      require 'scrollbar'.setup()
+      require 'scrollbar.handlers.search'.setup()
+    end
+  },
   'kevinhwang91/nvim-hlslens',
 
   -- keep lastest cursor position
@@ -131,14 +148,14 @@ lazy.setup({
   -- mkdir
   'jghauser/mkdir.nvim',
 
-  ---
-  "tversteeg/registers.nvim",
+  ---register
+  { 'tversteeg/registers.nvim', config = function() require 'registers'.setup() end },
 
   --- code action list
-  "aznhe21/actions-preview.nvim",
+  'aznhe21/actions-preview.nvim',
 
   --- lsp
-  "neovim/nvim-lspconfig",
+  'neovim/nvim-lspconfig',
   'williamboman/mason.nvim',
   'williamboman/mason-lspconfig.nvim',
 
@@ -154,7 +171,12 @@ lazy.setup({
   'hrsh7th/cmp-cmdline',
   'ray-x/cmp-treesitter',
   'andersevenrud/cmp-tmux',
-  'j-hui/fidget.nvim',
+  {
+    'j-hui/fidget.nvim',
+    config = function()
+      require 'fidget'.setup({})
+    end
+  },
 
 
   --- noice
@@ -167,37 +189,35 @@ lazy.setup({
   'epwalsh/obsidian.nvim',
   'BurntSushi/ripgrep',
 
-  -- table markdonw
-  'dhruvasagar/vim-table-mode',
-  'mattn/vim-maketable',
 
   -- template
   'mattn/vim-sonictemplate',
-
-
-  -- -- status line
-  "luukvbaal/statuscol.nvim",
 
   -- dial
   'monaqa/dial.nvim',
 
   -- chatgpt
   {
-    "jackMort/ChatGPT.nvim",
-    event = "VeryLazy",
+    'jackMort/ChatGPT.nvim',
+    event = 'VeryLazy',
     dependencies = {
-      "MunifTanjim/nui.nvim",
-      "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope.nvim"
+      'MunifTanjim/nui.nvim',
+      'nvim-lua/plenary.nvim',
+      'nvim-telescope/telescope.nvim'
     }
   },
 
   -- copilot
-  { "zbirenbaum/copilot.lua", event = 'InsertEnter',            cmd = 'Copilot' },
-  { "zbirenbaum/copilot-cmp", dependencies = { "copilot.lua" }, },
+  { 'zbirenbaum/copilot.lua', event = 'InsertEnter',            cmd = 'Copilot' },
+  { 'zbirenbaum/copilot-cmp', dependencies = { 'copilot.lua' }, },
 
   -- fold
-  'anuvyklack/pretty-fold.nvim',
+  {
+    'anuvyklack/pretty-fold.nvim',
+    config = function()
+      require 'pretty-fold'.setup()
+    end
+  },
 
   -- toggle term
   'uga-rosa/ugaterm.nvim',
@@ -207,5 +227,34 @@ lazy.setup({
 
   -- diff
   'AndrewRadev/linediff.vim',
+
+  -- navigation
+  'SmiteshP/nvim-navic',
+  {
+    'utilyre/barbecue.nvim',
+    version = '*',
+    dependencies = {
+      'SmiteshP/nvim-navic',
+    },
+  },
+  -- annotaion comment
+  {
+    'danymat/neogen',
+    dependencies = 'nvim-treesitter/nvim-treesitter',
+    config = true,
+    -- Uncomment next line if you want to follow only stable versions
+    -- version = '*'
+  },
+
+  -- start up
+  {
+    'goolord/alpha-nvim',
+    config = function()
+      require 'alpha'.setup(require 'alpha.themes.startify'.config)
+    end
+  },
+
+  -- preview to jump
+  { 'nacro90/numb.nvim', config = function() require 'numb'.setup() end }
 
 })

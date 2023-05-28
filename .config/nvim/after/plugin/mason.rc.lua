@@ -22,6 +22,9 @@ mason_lspconfig.setup({ ensure_installed = servers })
 local status, lspconfig = pcall(require, 'lspconfig')
 if not status then return end
 
+local status, navic = pcall(require, 'nvim-navic')
+if not status then return end
+
 for _, lsp in ipairs(servers) do lspconfig[lsp].setup({}) end
 
 -- settings for specific LSP
@@ -87,6 +90,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
         group = "lsp_document_highlight",
         desc = "Clear All the References",
       })
+    end
+    if client.server_capabilities.documentSymbolProvider then
+      navic.attach(client, ev.buf)
     end
   end
 })
