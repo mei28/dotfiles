@@ -223,6 +223,10 @@ alias ruge="cargo generate --git https://github.com/mei28/rust-comp-template"
 
 export PATH="$PATH:/Users/mei/.bin"
 
+if [ -e $HOME/.rye  ]; then
+  source "$HOME/.rye/env"
+fi
+
 #=====================#
 # change config by OS #
 #=====================#
@@ -335,5 +339,3 @@ case ${OSTYPE} in
 esac
 
 #==========#
-
-
