@@ -237,6 +237,8 @@ lazy.setup({
       'SmiteshP/nvim-navic',
     },
   },
+  { 'Bekaboo/dropbar.nvim' },
+
   -- annotaion comment
   {
     'danymat/neogen',
@@ -255,6 +257,13 @@ lazy.setup({
   },
 
   -- preview to jump
-  { 'nacro90/numb.nvim', config = function() require 'numb'.setup() end }
+  { 'nacro90/numb.nvim',   config = function() require 'numb'.setup() end },
+
+  -- google excutor
+  {
+    'google/executor.nvim',
+    dependencies = { 'MunifTanjim/nui.nvim' },
+  },
+
 
 })

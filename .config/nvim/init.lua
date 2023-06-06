@@ -1,7 +1,7 @@
 -- load plugins.lua
-require 'plugins'
 require 'config'
 require 'keymap'
+require 'plugins'
 require 'colorscheme'
 
 if vim.loader then vim.loader.enable() end
