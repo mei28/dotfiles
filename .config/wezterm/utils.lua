@@ -125,10 +125,29 @@ function M.rand_element(seq)
   return seq[idx]
 end
 
-local color_table = { 'nordfox', "Catppuccin Frappe", 'Dracula', 'tokyonight' }
+local color_table = { 'nordfox', 'Dracula', 'tokyonight' }
 function M.randomColorScheme()
   local theme = M.rand_element(color_table)
   return theme
+end
+
+local function selectRandomFile(directory)
+  -- ディレクトリ内のファイルリストを取得
+  local files = {}
+  for file in io.popen('ls "' .. directory .. '"'):lines() do
+    table.insert(files, file)
+  end
+  -- ランダムなインデックスを生成
+  local randomIndex = math.random(1, #files)
+  -- ランダムに選択されたファイル名を返す
+  return files[randomIndex]
+end
+
+function M.randomBackgroundImage()
+  local home_dir = os.getenv("HOME")
+  local pic_dir = home_dir .. '/dotfiles/.config/wezterm/pic'
+  local bgi_path = pic_dir .. '/' .. selectRandomFile(pic_dir)
+  return bgi_path
 end
 
 return M

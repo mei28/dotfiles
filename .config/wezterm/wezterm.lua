@@ -65,26 +65,26 @@ local keys = {
       mode = 'SwapWithActive',
     },
   },
-  { key = 'UpArrow', mods = 'SHIFT', action = act.ScrollByLine(-1) },
-  { key = 'DownArrow', mods = 'SHIFT', action = act.ScrollByLine(1) },
+  { key = 'UpArrow',   mods = 'SHIFT',  action = act.ScrollByLine(-1) },
+  { key = 'DownArrow', mods = 'SHIFT',  action = act.ScrollByLine(1) },
   -- resize
-  { key = 'r', mods = 'LEADER', action = act.ActivateKeyTable { name = 'resize_pane', one_shot = false } },
+  { key = 'r',         mods = 'LEADER', action = act.ActivateKeyTable { name = 'resize_pane', one_shot = false } },
   -- toggle opacity
-  { key = 'u', mods = 'CTRL', action = wezterm.action.EmitEvent 'toggle-opacity' },
+  { key = 'u',         mods = 'CTRL',   action = wezterm.action.EmitEvent 'toggle-opacity' },
 }
 
 local key_tables = {
   resize_pane = {
-    { key = 'h', action = act.AdjustPaneSize { "Left", 1 } },
-    { key = 'j', action = act.AdjustPaneSize { "Down", 1 } },
-    { key = 'k', action = act.AdjustPaneSize { "Up", 1 } },
-    { key = 'l', action = act.AdjustPaneSize { "Right", 1 } },
-    { key = 'LeftArrow', action = act.AdjustPaneSize { "Left", 1 } },
-    { key = 'DownArrow', action = act.AdjustPaneSize { "Down", 1 } },
-    { key = 'UpArrow', action = act.AdjustPaneSize { "Up", 1 } },
+    { key = 'h',          action = act.AdjustPaneSize { "Left", 1 } },
+    { key = 'j',          action = act.AdjustPaneSize { "Down", 1 } },
+    { key = 'k',          action = act.AdjustPaneSize { "Up", 1 } },
+    { key = 'l',          action = act.AdjustPaneSize { "Right", 1 } },
+    { key = 'LeftArrow',  action = act.AdjustPaneSize { "Left", 1 } },
+    { key = 'DownArrow',  action = act.AdjustPaneSize { "Down", 1 } },
+    { key = 'UpArrow',    action = act.AdjustPaneSize { "Up", 1 } },
     { key = 'RightArrow', action = act.AdjustPaneSize { "Right", 1 } },
-    { key = 'Escape', action = 'PopKeyTable' },
-    { key = 'q', action = 'PopKeyTable' },
+    { key = 'Escape',     action = 'PopKeyTable' },
+    { key = 'q',          action = 'PopKeyTable' },
   },
 }
 
@@ -198,5 +198,18 @@ config.inactive_pane_hsb = inactive_pane_hsb
 config.check_for_updates = false
 -- hide title bar
 config.window_decorations = "RESIZE|TITLE"
+-- background image
+config.window_background_image = utils:randomBackgroundImage()
+config.window_background_image_hsb = {
+  -- Darken the background image by reducing it to 1/3rd
+  brightness = 0.05,
+
+  -- -- You can adjust the hue by scaling its value.
+  -- -- a multiplier of 1.0 leaves the value unchanged.
+  hue = 1.0,
+  --
+  -- -- You can adjust the saturation also.
+  saturation = 1.0,
+}
 
 return config
