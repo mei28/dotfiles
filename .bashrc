@@ -120,14 +120,6 @@ if [[ -n $VIRTUAL_ENV && -e "${VIRTUAL_ENV}/bin/activate" ]]; then
 fi
 
 
-## activate_virtual env
-# actvenv(){
-#   if [[ -n $VIRTUAL_ENV && -e "${VIRTUAL_ENV}/bin/activate" ]]; then
-#     source "${VIRTUAL_ENV}/bin/activate"  # commented out by conda initialize
-#     echo "activate ${VIRTUAL_ENV}!!"
-#   fi
-# }
-
 ## activate virtualenv
 ## suggest the function name below
 function actvenv() {
@@ -140,7 +132,7 @@ function actvenv() {
     fi
 }
 
-
+# toggle virtualenv
 function toggle_virtualenv(){
     if [[ "$VIRTUAL_ENV" != "" ]]; then
         echo "Deactivating virtual environment..."
@@ -155,6 +147,7 @@ function toggle_virtualenv(){
       fi
     fi
 }
+
 alias tv="toggle_virtualenv"
 
 
@@ -196,7 +189,6 @@ alias shutdownnow="sudo shutdown -h +1"
 alias restartnow="sudo shutdown -r +1"
 
 # ssh tmux
-
 function ssh() {
     # tmux起動時
     if [[ -n $(printenv TMUX) ]] ; then
