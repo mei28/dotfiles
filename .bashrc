@@ -141,6 +141,23 @@ function actvenv() {
 }
 
 
+function toggle_virtualenv(){
+    if [[ "$VIRTUAL_ENV" != "" ]]; then
+        echo "Deactivating virtual environment..."
+        deactivate
+    else
+      venv_path=$(find . -maxdepth 2 -type d -name "bin" -exec test -e '{}/activate' ';' -print -quit | sed 's/\/bin//g')
+      if [ -z "$venv_path" ]; then
+          echo "No Python virtual environment found in the current directory."
+      else
+          echo "Activating $venv_path"
+          source "$venv_path/bin/activate"
+      fi
+    fi
+}
+alias tv="toggle_virtualenv"
+
+
 
 
 ## rm alias

@@ -203,7 +203,6 @@ config.window_background_image = utils:randomBackgroundImage()
 config.window_background_image_hsb = {
   -- Darken the background image by reducing it to 1/3rd
   brightness = 0.05,
-
   -- -- You can adjust the hue by scaling its value.
   -- -- a multiplier of 1.0 leaves the value unchanged.
   hue = 1.0,
