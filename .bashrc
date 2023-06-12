@@ -246,14 +246,9 @@ if [[ ! -e ~/.tmux/plugins/tpm ]]; then
   git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 fi
 
-# Check if tmux is available and if we're not already in a tmux session
-if type tmux &> /dev/null && [[ -z "$TMUX" ]]; then
-    tmux attach -t default || tmux new -s default
-fi
-
 function tmux() {
     if [ $# -eq 0 ]; then
-        command tmux attach || command tmux new-session
+        tmux attach -t default || tmux new -s default
     else
         command tmux "$@"
     fi
