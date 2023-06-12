@@ -86,12 +86,12 @@ lazy.setup({
     'iamcco/markdown-preview.nvim',
     build = 'cd app && npm install',
     init = function() vim.g.mkdp_filetypes = { 'markdown' } end,
-    ft = { 'markdown' }
+    ft = { 'markdown', 'text' }
   },
-  { 'toppair/peek.nvim',          build = 'deno task --quiet build:fast', ft = { 'markdown' } },
+  { 'toppair/peek.nvim',          build = 'deno task --quiet build:fast', ft = { 'markdown', 'text' } },
   -- table markdonw
-  { 'dhruvasagar/vim-table-mode', ft = { 'markdown' } },
-  { 'mattn/vim-maketable',        ft = { 'markdown' } },
+  { 'dhruvasagar/vim-table-mode', ft = { 'markdown', 'text' } },
+  { 'mattn/vim-maketable',        ft = { 'markdown', 'text' } },
 
 
   -- utility
