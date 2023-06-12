@@ -1,6 +1,7 @@
 local status, cmp = pcall(require, "cmp")
 if (not status) then return end
 local lspkind = require 'lspkind'
+local luasnip = require 'luasnip'
 
 local has_words_before = function()
   if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then return false end
@@ -10,35 +11,52 @@ end
 cmp.setup({
   snippet = {
     expand = function(args)
-      require('luasnip').lsp_expand(args.body)
+      luasnip.lsp_expand(args.body)
     end,
   },
   mapping = cmp.mapping.preset.insert({
     ["<C-p>"] = cmp.mapping.select_prev_item(),
     ["<C-n>"] = cmp.mapping.select_next_item(),
-    ['<C-l>'] = cmp.mapping.complete(),
+    -- ['<C-l>'] = cmp.mapping.complete(),
+    ["<C-l>"] = cmp.mapping {
+      i = function(fallback)
+        if luasnip.choice_active() then
+          luasnip.change_choice(1)
+        else
+          fallback()
+        end
+      end,
+    },
     ['<Esc>'] = cmp.mapping.close(),
     ['<C-{>'] = cmp.mapping.close(),
     ['<CR>'] = cmp.mapping.confirm({
       select = true,
       behavior = cmp.ConfirmBehavior.Replace,
     }),
-    ["<Tab>"] = vim.schedule_wrap(function(fallback)
-      if cmp.visible() and has_words_before() then
+    ["<Tab>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
         cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+      elseif luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+      elseif has_words_before() then
+        cmp.complete()
       else
         fallback()
       end
-    end),
-    ["<S-Tab>"] = vim.schedule_wrap(function(fallback)
-      if cmp.visible() and has_words_before() then
+    end, { "i", "s" }),
+
+    ["<S-Tab>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
         cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
+      elseif luasnip.jumpable(-1) then
+        luasnip.jump(-1)
       else
         fallback()
       end
-    end),
+    end, { "i", "s" }),
   }),
   sources = cmp.config.sources({
+    { name = 'luasnip', option = { show_autosnippets = true } },
     { name = 'buffer' },
     { name = "mocword" },
     { name = 'nvim_lsp' },

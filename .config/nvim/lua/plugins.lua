@@ -161,7 +161,11 @@ lazy.setup({
 
   --- cmp
   'onsails/lspkind-nvim', -- vscode-like pictograms
-  'L3MON4D3/LuaSnip',
+  {
+    "L3MON4D3/LuaSnip",
+    -- install jsregexp (optional!).
+    build = "make install_jsregexp"
+  },
   'hrsh7th/cmp-nvim-lsp',
   'hrsh7th/cmp-buffer',
   'hrsh7th/cmp-path',
@@ -170,6 +174,7 @@ lazy.setup({
   'yutkat/cmp-mocword',
   'hrsh7th/cmp-cmdline',
   'ray-x/cmp-treesitter',
+  'saadparwaiz1/cmp_luasnip',
   'andersevenrud/cmp-tmux',
   {
     'j-hui/fidget.nvim',
