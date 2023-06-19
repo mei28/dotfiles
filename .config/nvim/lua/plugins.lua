@@ -142,8 +142,7 @@ lazy.setup({
   'sidebar-nvim/sidebar.nvim',
 
   -- hop
-  -- 'phaazon/hop.nvim',
-  'ggandor/leap.nvim',
+  'rlane/pounce.nvim',
 
   -- mkdir
   'jghauser/mkdir.nvim',
