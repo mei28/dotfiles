@@ -127,10 +127,9 @@ lazy.setup({
 
   -- views
   {
-    'petertriho/nvim-scrollbar',
+    'lewis6991/satellite.nvim',
     config = function()
-      require 'scrollbar'.setup()
-      require 'scrollbar.handlers.search'.setup()
+      require('satellite').setup()
     end
   },
   'kevinhwang91/nvim-hlslens',

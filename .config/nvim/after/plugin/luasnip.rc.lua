@@ -77,5 +77,5 @@ ls.add_snippets(
 
 -- set keybinds for both INSERT and VISUAL.
 local set = vim.keymap.set
-set({ "i", "s" }, "<C-n>", "<Plug>luasnip-next-choice")
-set({ "i", "s" }, "<C-p>", "<Plug>luasnip-prev-choice")
+set({ "i", "s" }, "<C-e>", "<Plug>luasnip-next-choice")
+-- set({ "i", "s" }, "<C-p>", "<Plug>luasnip-prev-choice")
