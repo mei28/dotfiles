@@ -141,7 +141,29 @@ lazy.setup({
   'sidebar-nvim/sidebar.nvim',
 
   -- hop
-  'rlane/pounce.nvim',
+  -- 'rlane/pounce.nvim',
+  {
+    "folke/flash.nvim",
+    event = "VeryLazy",
+    opts = {},
+    keys = {
+      {
+        "s",
+        mode = { "n", "x", "o" },
+        function()
+          -- default options: exact mode, multi window, all directions, with a backdrop
+          require("flash").jump()
+        end,
+      },
+      {
+        "s",
+        mode = { "o", "x" },
+        function()
+          require("flash").treesitter()
+        end,
+      },
+    },
+  },
 
   -- mkdir
   'jghauser/mkdir.nvim',
@@ -153,7 +175,6 @@ lazy.setup({
   'aznhe21/actions-preview.nvim',
 
   --- lsp
-  'neovim/nvim-lspconfig',
   'williamboman/mason.nvim',
   'williamboman/mason-lspconfig.nvim',
 
