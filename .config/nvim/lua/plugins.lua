@@ -177,6 +177,7 @@ lazy.setup({
   --- lsp
   'williamboman/mason.nvim',
   'williamboman/mason-lspconfig.nvim',
+  "neovim/nvim-lspconfig",
 
   --- cmp
   'onsails/lspkind-nvim', -- vscode-like pictograms

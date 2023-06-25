@@ -1,3 +1,7 @@
+local status, hlslens = pcall(require, 'hlslens')
+if not status then return end
+hlslens.setup()
+
 local set = vim.keymap.set
 
 set('n', 'n',
