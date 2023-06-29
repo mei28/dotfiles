@@ -296,8 +296,10 @@ case ${OSTYPE} in
             local isDisplay=$(defaults read com.apple.finder CreateDesktop)
             if [ $isDisplay -eq 1 ]; then
                 defaults write com.apple.finder CreateDesktop -boolean false && killall Finder
+                echo "Hide Desktop Icon"
             else
                 defaults write com.apple.finder CreateDesktop -boolean true && killall Finder
+                echo "Show Desktop Icon"
             fi
         }
 
