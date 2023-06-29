@@ -64,7 +64,10 @@ end
 
 ls.add_snippets(
   'all', {
-    s('@Today', c(1, { t(today(1)), t(today(2)), t(today(3)) })) }
+    s('@Today', c(1, { t(today(1)), t(today(2)), t(today(3)) })),
+    s('TSU', { t('TSUNDOKU') }),
+    s('HCO', { t('HCOMP') }),
+  }
 )
 
 ls.add_snippets(
@@ -77,5 +80,5 @@ ls.add_snippets(
 
 -- set keybinds for both INSERT and VISUAL.
 local set = vim.keymap.set
-set({ "i", "s" }, "<C-e>", "<Plug>luasnip-next-choice")
--- set({ "i", "s" }, "<C-p>", "<Plug>luasnip-prev-choice")
+set({ "i", "s" }, "<C-m>", "<Plug>luasnip-next-choice")
+set({ "i", "s" }, "<C-k>", "<Plug>luasnip-prev-choice")
