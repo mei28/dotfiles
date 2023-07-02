@@ -39,6 +39,7 @@ lspconfig.lua_ls.setup {
 }
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
+
 capabilities.offsetEncoding = { "utf-16" }
 lspconfig.clangd.setup({ capabilities = capabilities })
 
@@ -85,12 +86,16 @@ vim.api.nvim_create_autocmd('LspAttach', {
         desc = "Document Highlight",
       })
       vim.api.nvim_create_autocmd("CursorMoved", {
-        callback = vim.lsp.buf.clear_references,
+        callback = function()
+          local bufnr = vim.api.nvim_get_current_buf()
+          vim.lsp.buf.clear_references(bufnr)
+        end,
         buffer = ev.buf,
         group = "lsp_document_highlight",
         desc = "Clear All the References",
       })
     end
+
     if client.server_capabilities.documentSymbolProvider then
       navic.attach(client, ev.buf)
     end
