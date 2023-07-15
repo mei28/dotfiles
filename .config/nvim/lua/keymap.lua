@@ -32,10 +32,10 @@ set('n', '<Leader>l', '<C-w>l')
 set('n', '<Leader>hh', '<C-w>h')
 
 -- 行単位の移動
-set('n', 'j', 'gj')
-set('n', 'k', 'gk')
-set('n', 'gj', 'j')
-set('n', 'gk', 'k')
+set({ "n", 'v' }, 'j', 'gj')
+set({ "n", 'v' }, 'k', 'gk')
+set({ "n", 'v' }, 'gj', 'j')
+set({ "n", 'v' }, 'gk', 'k')
 
 -- 補完時に改行しない
 set('i', '<CR>', function()
