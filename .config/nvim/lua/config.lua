@@ -76,7 +76,7 @@ end
 vim.opt.completeopt = 'menuone,noinsert,noselect'
 vim.opt.path:append { '**' }
 -- remove cmd height
-vim.opt.cmdheight = 0
+-- vim.opt.cmdheight = 0
 vim.opt.laststatus = 2
 vim.opt.showmode = false
 

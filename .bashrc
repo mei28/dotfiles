@@ -138,13 +138,13 @@ function toggle_virtualenv(){
         echo "Deactivating virtual environment..."
         deactivate
     else
-      venv_path=$(find . -maxdepth 2 -type d -name "bin" -exec test -e '{}/activate' ';' -print -quit | sed 's/\/bin//g')
-      if [ -z "$venv_path" ]; then
-          echo "No Python virtual environment found in the current directory."
-      else
-          echo "Activating $venv_path"
-          source "$venv_path/bin/activate"
-      fi
+        venv_path=$(find . -maxdepth 2 -type d -name "bin" -exec test -e '{}/activate' ';' -print -quit | sed 's/\/bin//g')
+        if [ -z "$venv_path" ]; then
+            echo "No Python virtual environment found in the current directory."
+        else
+            echo "Activating $venv_path"
+            source "$venv_path/bin/activate"
+        fi
     fi
 }
 
@@ -233,7 +233,7 @@ alias ruge="cargo generate --git https://github.com/mei28/rust-comp-template"
 export PATH="$PATH:/Users/mei/.bin"
 
 if [ -e $HOME/.rye  ]; then
-  source "$HOME/.rye/env"
+    source "$HOME/.rye/env"
 fi
 
 # show completion
@@ -243,7 +243,7 @@ bind 'set show-all-if-ambiguous on'
 
 
 if [[ ! -e ~/.tmux/plugins/tpm ]]; then
-  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 fi
 
 function tmux() {
@@ -287,9 +287,6 @@ case ${OSTYPE} in
         pbc(){
             cat $1 | pbcopy && echo "Copied $1!!"
         }
-        ## google key
-        # export GOOGLE_APPLICATION_CREDENTIALS="/Users/mei/gcloud/exmt-app-622421091860.json"
-
 
         alias tdi='_toggle_desktop_icon'
         _toggle_desktop_icon(){
@@ -334,9 +331,6 @@ case ${OSTYPE} in
         pbc(){
             cat $1 | xsel --clipboard --input && echo "Copied $1!!"
         }
-
-        ## google key
-        # export GOOGLE_APPLICATION_CREDENTIALS="/home/mei/gcloud/exmt-app-622421091860.json"
 
         # cuda
         export PATH="/usr/local/cuda/bin:$PATH"
