@@ -92,6 +92,13 @@ lazy.setup({
   -- table markdonw
   { 'dhruvasagar/vim-table-mode', ft = { 'markdown', 'text' } },
   { 'mattn/vim-maketable',        ft = { 'markdown', 'text' } },
+  {
+    'richardbizik/nvim-toc',
+    ft = { 'markdown', 'text' },
+    config = function()
+      require('nvim-toc').setup()
+    end
+  },
 
 
   -- utility
