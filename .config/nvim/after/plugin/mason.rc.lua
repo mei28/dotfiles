@@ -107,3 +107,12 @@ vim.api.nvim_create_autocmd('LspAttach', {
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics, { virtual_text = true }
 )
+
+
+-- ef
+lspconfig.efm.setup {
+  init_options = { documentFormatting = true },
+  settings = {
+    rootMarkers = { ".git/" },
+  }
+}
