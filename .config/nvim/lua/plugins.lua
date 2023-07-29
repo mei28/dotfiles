@@ -80,11 +80,6 @@ lazy.setup({
 
   -- linter, formatter
   -- 'jose-elias-alvarez/null-ls.nvim',
-  {
-    'creativenull/efmls-configs-nvim',
-    tag = 'v0.1.3',                                      -- tag is optional
-    dependencies = { 'neovim/nvim-lspconfig' }
-  },
 
   -- markdown
   {
