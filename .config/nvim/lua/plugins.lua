@@ -15,7 +15,6 @@ if not status then
   print('lazy is not installed')
   return
 end
-
 lazy.setup({
 
   -- color scheme
@@ -49,9 +48,10 @@ lazy.setup({
   'atusy/tsnode-marker.nvim',
 
   -- auto pair and tag close
-  'windwp/nvim-autopairs',
+  { 'windwp/nvim-autopairs',   event = 'InsertEnter' },
   {
     'windwp/nvim-ts-autotag',
+    event = 'InsertEnter',
     config = function()
       require 'nvim-ts-autotag'.setup()
     end
@@ -59,7 +59,10 @@ lazy.setup({
 
 
   -- surround
-  { 'kylechui/nvim-surround',  config = function() require 'nvim-surround'.setup {} end },
+  {
+    'kylechui/nvim-surround',
+    config = function() require 'nvim-surround'.setup {} end
+  },
 
   -- git
   'dinhhuy258/git.nvim',
@@ -127,10 +130,10 @@ lazy.setup({
   'fei6409/log-highlight.nvim',
 
   -- csv
-  'Decodetalkers/csv-tools.lua',
+  { 'Decodetalkers/csv-tools.lua', ft = 'csv' },
 
   -- comment
-  { 'folke/todo-comments.nvim', config = function() require 'todo-comments'.setup() end },
+  { 'folke/todo-comments.nvim',    config = function() require 'todo-comments'.setup() end },
 
   -- views
   {
@@ -193,10 +196,10 @@ lazy.setup({
     -- install jsregexp (optional!).
     build = "make install_jsregexp"
   },
+  'hrsh7th/nvim-cmp',
   'hrsh7th/cmp-nvim-lsp',
   'hrsh7th/cmp-buffer',
   'hrsh7th/cmp-path',
-  'hrsh7th/nvim-cmp',
   'hrsh7th/cmp-nvim-lsp-signature-help',
   'yutkat/cmp-mocword',
   'hrsh7th/cmp-cmdline',
@@ -219,7 +222,7 @@ lazy.setup({
   'rcarriga/nvim-notify',
 
   --- obsidian
-  'epwalsh/obsidian.nvim',
+  { 'epwalsh/obsidian.nvim',    ft = { 'markdown', 'text' } },
   'BurntSushi/ripgrep',
 
 
@@ -230,15 +233,15 @@ lazy.setup({
   'monaqa/dial.nvim',
 
   -- chatgpt
-  {
-    'jackMort/ChatGPT.nvim',
-    event = 'VeryLazy',
-    dependencies = {
-      'MunifTanjim/nui.nvim',
-      'nvim-lua/plenary.nvim',
-      'nvim-telescope/telescope.nvim'
-    }
-  },
+  -- {
+  --   'jackMort/ChatGPT.nvim',
+  --   event = 'VeryLazy',
+  --   dependencies = {
+  --     'MunifTanjim/nui.nvim',
+  --     'nvim-lua/plenary.nvim',
+  --     'nvim-telescope/telescope.nvim'
+  --   }
+  -- },
 
   -- copilot
   { 'zbirenbaum/copilot.lua', event = 'InsertEnter',            cmd = 'Copilot' },
@@ -284,6 +287,7 @@ lazy.setup({
   -- start up
   {
     'goolord/alpha-nvim',
+    event = 'VimEnter',
     config = function()
       require 'alpha'.setup(require 'alpha.themes.startify'.config)
     end
@@ -292,11 +296,13 @@ lazy.setup({
   -- preview to jump
   { 'nacro90/numb.nvim',   config = function() require 'numb'.setup() end },
 
-  -- google excutor
-  {
-    'google/executor.nvim',
-    dependencies = { 'MunifTanjim/nui.nvim' },
+}, {
+  defaults = {
+    lazy = false,
   },
-
-
+  performance = {
+    cache = {
+      enabled = true,
+    },
+  },
 })
