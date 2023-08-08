@@ -206,6 +206,7 @@ lazy.setup({
   'ray-x/cmp-treesitter',
   'saadparwaiz1/cmp_luasnip',
   'andersevenrud/cmp-tmux',
+  'bydlw98/cmp-env',
   {
     'j-hui/fidget.nvim',
     tag = 'legacy',

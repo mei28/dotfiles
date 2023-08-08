@@ -56,7 +56,7 @@ cmp.setup({
     end, { "i", "s" }),
   }),
   sources = cmp.config.sources({
-    { name = 'luasnip', option = { show_autosnippets = true } },
+    { name = 'luasnip',                option = { show_autosnippets = true } },
     { name = 'buffer' },
     { name = "mocword" },
     { name = 'nvim_lsp' },
@@ -66,6 +66,7 @@ cmp.setup({
     { name = 'copilot' },
     -- { name = 'obsidian' },
     { name = 'tmux' },
+    { name = 'env' },
   }),
   formatting = {
     format = lspkind.cmp_format({ with_text = false, maxwidth = 50 })
