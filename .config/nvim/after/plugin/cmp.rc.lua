@@ -106,5 +106,4 @@ cmp.event:on("menu_closed", function()
 end)
 
 
-
 vim.cmd [[highlight! default link CmpItemKind CmpItemMenuDefault]]

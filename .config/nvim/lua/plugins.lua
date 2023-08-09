@@ -48,7 +48,13 @@ lazy.setup({
   'atusy/tsnode-marker.nvim',
 
   -- auto pair and tag close
-  { 'windwp/nvim-autopairs',   event = 'InsertEnter' },
+  {
+    'windwp/nvim-autopairs',
+    event = 'InsertEnter',
+    config = function()
+      require('nvim-autopairs').setup {}
+    end
+  },
   {
     'windwp/nvim-ts-autotag',
     event = 'InsertEnter',
@@ -66,9 +72,9 @@ lazy.setup({
 
   -- git
   'dinhhuy258/git.nvim',
-  { 'lewis6991/gitsigns.nvim', config = function() require 'gitsigns'.setup() end },
+  { 'lewis6991/gitsigns.nvim',   config = function() require 'gitsigns'.setup() end },
   'airblade/vim-gitgutter',
-  { 'akinsho/git-conflict.nvim',  version = '*',                          config = true },
+  { 'akinsho/git-conflict.nvim', version = '*',                                     config = true },
   'sindrets/diffview.nvim',
   'rhysd/git-messenger.vim',
 
