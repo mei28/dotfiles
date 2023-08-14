@@ -257,6 +257,9 @@ lazy.setup({
   { 'zbirenbaum/copilot.lua', event = 'InsertEnter',            cmd = 'Copilot' },
   { 'zbirenbaum/copilot-cmp', dependencies = { 'copilot.lua' }, },
 
+  "dstein64/vim-startuptime",
+
+
   -- fold
   {
     'anuvyklack/pretty-fold.nvim',
