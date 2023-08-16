@@ -3,66 +3,66 @@ vim.g.python3_host_prog = '$HOME/.venv/neovim/bin/python'
 vim.g.mapleader = ' '
 vim.cmd [[lang en_US.UTF-8]]
 -- 文字コード
-vim.scriptencoding     = 'UTF-8'
-vim.opt.encoding       = 'UTF-8'
-vim.opt.fileencoding   = 'UTF-8'
+vim.scriptencoding = 'UTF-8'
+vim.opt.encoding = 'UTF-8'
+vim.opt.fileencoding = 'UTF-8'
 -- 文字幅
-vim.opt.ambiwidth      = 'single'
+vim.opt.ambiwidth = 'single'
 -- ベルの音をミュート
-vim.opt.belloff        = 'all'
+vim.opt.belloff = 'all'
 -- 相対行番号の表示
 vim.opt.relativenumber = true
 -- 行番号の表示
-vim.opt.number         = true
+vim.opt.number = true
 -- 背景色
-vim.opt.background     = 'dark'
+vim.opt.background = 'dark'
 -- tabをスペース
-vim.opt.expandtab      = true
+vim.opt.expandtab = true
 -- tabを半角スペース2コ
-vim.opt.tabstop        = 2
+vim.opt.tabstop = 2
 -- tabの幅
-vim.opt.shiftwidth     = 2
+vim.opt.shiftwidth = 2
 -- マウスの有効化
-vim.opt.mouse          = 'a'
+vim.opt.mouse = 'a'
 -- 大小文字を区別しない
-vim.opt.ignorecase     = true
+vim.opt.ignorecase = true
 -- 大文字がある時はignorecaseを無視
-vim.opt.smartcase      = true
+vim.opt.smartcase = true
 -- カーソル行をハイライト
-vim.opt.cursorline     = true
+vim.opt.cursorline = true
 -- 行番号のみハイライト
-vim.opt.cursorlineopt  = 'number'
+vim.opt.cursorlineopt = 'number'
 -- 検索移動
-vim.opt.incsearch      = true
+vim.opt.incsearch = true
 -- 検索ループ
-vim.opt.wrapscan       = true
+vim.opt.wrapscan = true
 -- 置換を可視化
-vim.opt.inccommand     = 'split'
+vim.opt.inccommand = 'split'
 -- 改行，タブの可視化
-vim.opt.list           = true
-vim.opt.listchars      = { tab = '>>', trail = '·', nbsp = '+' }
+vim.opt.list = true
+vim.opt.listchars = { tab = '>>', trail = '·', nbsp = '+' }
 -- オートインデント
-vim.opt.autoindent     = true
+vim.opt.autoindent = true
 -- スマートインデント
-vim.opt.smartindent    = true
+vim.opt.smartindent = true
 -- かっこの対応
-vim.opt.showmatch      = true
+vim.opt.showmatch = true
 -- 検索のハイライト
-vim.opt.hls            = true
+vim.opt.hls = true
 -- バックアップファイルの削除
-vim.opt.swapfile       = false
-vim.opt.backup         = false
+vim.opt.swapfile = false
+vim.opt.backup = false
 -- undoの永続化
-vim.opt.undofile       = true
+vim.opt.undofile = true
 -- 下，右に分割
-vim.opt.splitbelow     = true
-vim.opt.splitright     = true
+vim.opt.splitbelow = true
+vim.opt.splitright = true
 -- カーソルを真ん中に
-vim.opt.scrolloff      = 42
+vim.opt.scrolloff = 42
 -- 自動外部読み込み
-vim.opt.autoread       = true
+vim.opt.autoread = true
 -- popupオプション
-vim.opt.wildoptions    = 'pum'
+vim.opt.wildoptions = 'pum'
 -- フォーマットオプション 改行の時コメントアウトさせない
 vim.api.nvim_exec([[
   au FileType * if match(&ft, 'markdown\|markdown') == -1 | set fo-=c fo-=r fo-=o | endif
@@ -76,7 +76,7 @@ end
 vim.opt.completeopt = 'menuone,noinsert,noselect'
 vim.opt.path:append { '**' }
 -- remove cmd height
--- vim.opt.cmdheight = 0
+vim.opt.cmdheight = 0
 vim.opt.laststatus = 2
 vim.opt.showmode = false
 

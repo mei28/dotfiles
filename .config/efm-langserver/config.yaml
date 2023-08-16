@@ -227,8 +227,8 @@ languages:
     - <<: *json-jq
     # - <<: *json-prettier
 
-  lua:
-    - <<: *lua-lua-format
+  # lua:
+  #   - <<: *lua-lua-format
 
   make:
     - <<: *make-checkmake
