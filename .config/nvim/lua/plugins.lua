@@ -40,7 +40,7 @@ lazy.setup({
   { 'haxibami/urara.vim',              lazy = true },
   { 'bluz71/vim-nightfly-colors',      lazy = true },
 
-  { "typicode/bg.nvim",                lazy = false },
+  { "typicode/bg.nvim", },
 
 
   -- status line
@@ -83,9 +83,6 @@ lazy.setup({
 
   -- comment
   'numToStr/Comment.nvim',
-
-  -- rainbow
-  'luochen1990/rainbow',
 
   -- dot repeat
   'tpope/vim-repeat',
@@ -267,9 +264,6 @@ lazy.setup({
       require 'pretty-fold'.setup()
     end
   },
-
-  -- toggle term
-  'uga-rosa/ugaterm.nvim',
 
   -- code out line
   'simrat39/symbols-outline.nvim',
