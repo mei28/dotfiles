@@ -237,7 +237,9 @@ if [ -e $HOME/.rye  ]; then
 fi
 
 # show completion
-bind 'set show-all-if-ambiguous on'
+if [[ -t 1 ]]; then 
+  bind 'set show-all-if-ambiguous on'
+fi
 
 # tmux
 
