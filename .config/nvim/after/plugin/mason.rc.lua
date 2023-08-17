@@ -13,7 +13,8 @@ mason.setup({
 })
 
 -- add lsp
-local servers = { 'pyright', 'lua_ls', 'bashls', 'html', 'clangd', 'rust_analyzer', 'quick_lint_js', 'tsserver', 'jsonls' }
+local servers = { 'lua_ls', 'bashls', 'html', 'clangd', 'rust_analyzer', 'quick_lint_js', 'tsserver',
+  'jsonls', 'efm', 'pyright' }
 
 local status, mason_lspconfig = pcall(require, 'mason-lspconfig')
 if not status then return end
@@ -24,6 +25,18 @@ if not status then return end
 
 local status, navic = pcall(require, 'nvim-navic')
 if not status then return end
+
+-- https://github.com/neovim/neovim/issues/23291#issuecomment-1523243069
+-- https://github.com/neovim/neovim/pull/23500#issuecomment-1585986913
+-- pyright asks for every file in every directory to be watched,
+-- so for large projects that will necessarily turn into a lot of polling handles being created.
+-- sigh
+local ok, wf = pcall(require, "vim.lsp._watchfiles")
+    if ok then
+        wf._watchfunc = function()
+    return function() end
+    end
+end
 
 for _, lsp in ipairs(servers) do lspconfig[lsp].setup({}) end
 
