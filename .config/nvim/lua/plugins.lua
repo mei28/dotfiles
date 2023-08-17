@@ -39,7 +39,7 @@ lazy.setup({
   { 'eihigh/vim-aomi-grayscale',       lazy = true },
   { 'haxibami/urara.vim',              lazy = true },
   { 'bluz71/vim-nightfly-colors',      lazy = true },
-  { "typicode/bg.nvim", },
+  -- { "typicode/bg.nvim",                lazy = false },
 
 
   -- status line
@@ -66,13 +66,13 @@ lazy.setup({
   },
 
 
-  -- surround
+  -- -- surround
   {
     'kylechui/nvim-surround',
     config = function() require 'nvim-surround'.setup {} end
   },
-
-  -- git
+  --
+  -- -- git
   'dinhhuy258/git.nvim',
   { 'lewis6991/gitsigns.nvim',   config = function() require 'gitsigns'.setup() end },
   'airblade/vim-gitgutter',
@@ -318,13 +318,4 @@ lazy.setup({
     config = function() require('remote-nvim').setup() end,
   }
 
-}, {
-  defaults = {
-    lazy = false,
-  },
-  performance = {
-    cache = {
-      enabled = true,
-    },
-  },
 })
