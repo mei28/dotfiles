@@ -194,6 +194,17 @@ lazy.setup({
   'williamboman/mason-lspconfig.nvim',
   "neovim/nvim-lspconfig",
 
+  -- rename
+  {
+    "smjonas/inc-rename.nvim",
+    config = function()
+      require("inc_rename").setup()
+      vim.keymap.set("n", "<leader>rn", function()
+        return ":IncRename " .. vim.fn.expand("<cword>")
+      end, { expr = true })
+    end,
+  },
+
   --- cmp
   'onsails/lspkind-nvim', -- vscode-like pictograms
   {
@@ -316,6 +327,7 @@ lazy.setup({
       "nvim-telescope/telescope.nvim",
     },
     config = function() require('remote-nvim').setup() end,
-  }
+  },
+
 
 })
