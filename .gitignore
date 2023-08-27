@@ -61,6 +61,7 @@ tree-sitter-cli@0.13.10
 lazy-lock.json
 
 .DS_STORE
+*/.DS_STORE
 
 ! .config/nvim/*
 ! .gitignore/*
