@@ -10,8 +10,10 @@ ts.setup {
     "cpp", "markdown", "markdown_inline",
   },
   autotag = { enable = true },
-  yati = { enable = true,
-    indent = { enable = false } }
+  yati = {
+    enable = true,
+    indent = { enable = false }
+  }
 }
 
 local parser_config = require "nvim-treesitter.parsers".get_parser_configs()

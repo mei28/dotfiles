@@ -53,7 +53,7 @@ set('n', ';q', function() builtin.quickfix() end)
 --   builtin.resume()
 -- end)
 set('n', ';e', function() builtin.diagnostics() end)
-set("n", "fs", function()
+set("n", ";s", function()
   telescope.extensions.file_browser.file_browser({
     path = "%:p:h",
     cwd = telescope_buffer_dir(),
@@ -67,3 +67,5 @@ set("n", "fs", function()
 end)
 
 set('n', ';k', function() builtin.keymaps() end)
+
+telescope.load_extension("dap")

@@ -232,6 +232,25 @@ lazy.setup({
   },
 
 
+  --- dap
+  'mfussenegger/nvim-dap',
+  {
+    "rcarriga/nvim-dap-ui",
+    dependencies = { "mfussenegger/nvim-dap" },
+    config = function()
+      require("dapui").setup()
+    end
+  },
+  {
+    'theHamsta/nvim-dap-virtual-text',
+    dependencies = { 'mfussenegger/nvim-dap', 'nvim-treesitter' },
+    config = function()
+      require("nvim-dap-virtual-text").setup()
+    end
+  },
+  "nvim-telescope/telescope-dap.nvim",
+  'simrat39/rust-tools.nvim',
+
   --- noice
   'folke/noice.nvim',
   'MunifTanjim/nui.nvim',

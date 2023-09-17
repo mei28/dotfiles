@@ -32,10 +32,10 @@ if not status then return end
 -- so for large projects that will necessarily turn into a lot of polling handles being created.
 -- sigh
 local ok, wf = pcall(require, "vim.lsp._watchfiles")
-    if ok then
-        wf._watchfunc = function()
+if ok then
+  wf._watchfunc = function()
     return function() end
-    end
+  end
 end
 
 for _, lsp in ipairs(servers) do lspconfig[lsp].setup({}) end
@@ -55,6 +55,18 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 
 capabilities.offsetEncoding = { "utf-16" }
 lspconfig.clangd.setup({ capabilities = capabilities })
+
+lspconfig.rust_analyzer.setup {
+  filetypes = { "rust" },
+  root_dir = lspconfig.util.root_pattern("Cargo.toml", "rust-project.json"),
+  settings = {
+    ['rust_analyzer'] = {
+      cargo = {
+        allFeatures = true,
+      }
+    }
+  }
+}
 
 
 -- Global mappings
