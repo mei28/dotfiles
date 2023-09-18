@@ -266,6 +266,9 @@ function dmux() {
     echo "detach tmux client"
 }
 
+# ヒストリーの削除
+export HISTCONTROL=ignoreboth
+
 #=====================#
 # change config by OS #
 #=====================#
