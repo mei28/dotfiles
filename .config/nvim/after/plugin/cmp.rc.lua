@@ -105,5 +105,13 @@ cmp.event:on("menu_closed", function()
   vim.b.copilot_suggestion_hidden = false
 end)
 
+-- for cmp + autopairs: https://github.com/windwp/nvim-autopairs#mapping-cr
+-- and it needs to come after lsp-zero is configured: https://github.com/VonHeikemen/lsp-zero.nvim/discussions/119
+local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+cmp.event:on(
+  'confirm_done',
+  cmp_autopairs.on_confirm_done()
+)
+
 
 vim.cmd [[highlight! default link CmpItemKind CmpItemMenuDefault]]

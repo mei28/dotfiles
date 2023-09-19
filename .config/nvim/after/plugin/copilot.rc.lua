@@ -3,6 +3,9 @@ if not status then return end
 local status, cop_cmp = pcall(require, 'copilot_cmp')
 if not status then return end
 
-copilot.setup({ suggestion = { enabled = false },
-  panel = { enabled = false }, })
+copilot.setup({
+  suggestion = { enabled = false },
+  panel = { enabled = false },
+  fix_pairs = true,
+})
 cop_cmp.setup({})
