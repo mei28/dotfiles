@@ -4,7 +4,8 @@ local utils = require 'utils'
 local status = require 'status'
 local event = require 'event'
 local keys = require 'keys'
-local mousebinds = require('mousebinds')
+local mousebinds = require 'mousebinds'
+local window = require 'window'
 
 local act = wezterm.action
 
@@ -54,12 +55,6 @@ local hyperlink_rules = {
     format = 'https://www.github.com/$1/$3',
   },
 }
-local window_padding = {
-  left = 0,
-  right = 0,
-  top = 0,
-  bottom = 0,
-}
 local skip_close_confirmation_for_processes_named = {
   'bash',
   'sh',
@@ -68,22 +63,6 @@ local skip_close_confirmation_for_processes_named = {
   'tmux',
 }
 
-local inactive_pane_hsb = {
-  saturation = 0.5,
-  brightness = 0.5,
-}
-
-wezterm.on('toggle-opacity', function(window, pane)
-  local overrides = window:get_config_overrides() or {}
-  if not overrides.window_background_opacity then
-    overrides.window_background_opacity = 0.3
-    overrides.text_background_opacity = 0.3
-  else
-    overrides.window_background_opacity = nil
-    overrides.text_background_opacity = nil
-  end
-  window:set_config_overrides(overrides)
-end)
 
 --- config ----
 local config = {}
@@ -110,7 +89,7 @@ config.key_tables = keys.key_tables
 -- hyperlink
 config.hyperlink_rules = hyperlink_rules
 -- window padding
-config.window_padding = window_padding
+config.window_padding = window.window_padding
 -- skip confirm when clone
 config.skip_close_confirmation_for_processes_named = skip_close_confirmation_for_processes_named
 -- inactive_pane_hsb

@@ -17,7 +17,7 @@ function DisableWindowDecorations(window, interval)
     wezterm.sleep_ms(interval)
   end
   local overrides = window:get_config_overrides() or {}
-  overrides.window_decorations = "NONE"
+  overrides.window_decorations = "RESIZE"
   window:set_config_overrides(overrides)
 end
 
