@@ -38,10 +38,9 @@ set({ "n", 'v' }, 'gj', 'j')
 set({ "n", 'v' }, 'gk', 'k')
 
 -- 補完時に改行しない
-set('i', '<CR>', function()
-  return vim.fn.pumvisible() == 1 and '<C-y>' or '<CR>'
-end, { expr = true })
-
+-- set('i', '<CR>', function()
+--   return vim.fn.pumvisible() == 1 and '<C-y>' or '<CR>'
+-- end, { expr = true })
 
 -- 上下を決める
 -- vim.keymap.set('i', '<TAB>', function()
