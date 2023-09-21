@@ -98,7 +98,7 @@ config.check_for_updates = false
 -- hide title bar
 config.mouse_bindings = mousebinds.mouse_bindings
 -- config.window_decorations = "RESIZE|TITLE"
--- config.window_decorations = "NONE"
+config.window_decorations = "RESIZE"
 -- background image
 config.window_background_image = utils:randomBackgroundImage()
 config.window_background_image_hsb = {
