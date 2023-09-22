@@ -258,7 +258,7 @@ lazy.setup({
   'rcarriga/nvim-notify',
 
   --- obsidian
-  { 'epwalsh/obsidian.nvim', commit='1c6a28b2936f87d6a1f8d7832f2af1b3b9bd26f3'},
+  { 'epwalsh/obsidian.nvim'},
   'BurntSushi/ripgrep',
 
 
