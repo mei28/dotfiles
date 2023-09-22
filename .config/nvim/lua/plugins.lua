@@ -39,7 +39,7 @@ lazy.setup({
   { 'eihigh/vim-aomi-grayscale',       lazy = true },
   { 'haxibami/urara.vim',              lazy = true },
   { 'bluz71/vim-nightfly-colors',      lazy = true },
-  -- { "typicode/bg.nvim",                lazy = false },
+  { "typicode/bg.nvim",                lazy = false },
 
 
   -- status line
@@ -258,7 +258,7 @@ lazy.setup({
   'rcarriga/nvim-notify',
 
   --- obsidian
-  { 'epwalsh/obsidian.nvim' },
+  { 'epwalsh/obsidian.nvim', commit='1c6a28b2936f87d6a1f8d7832f2af1b3b9bd26f3'},
   'BurntSushi/ripgrep',
 
 
