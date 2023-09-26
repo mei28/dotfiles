@@ -134,10 +134,32 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 )
 
 
--- ef
-lspconfig.efm.setup {
-  init_options = { documentFormatting = true },
-  settings = {
-    rootMarkers = { ".git/" },
-  }
+-- efm
+-- Register linters and formatters per language
+local eslint       = require('efmls-configs.linters.eslint')
+local prettier     = require('efmls-configs.formatters.prettier')
+local stylua       = require('efmls-configs.formatters.stylua')
+
+local black        = require('efmls-configs.formatters.black')
+local mypy         = require('efmls-configs.linters.mypy')
+local isort        = require('efmls-configs.formatters.isort')
+local flake8       = require('efmls-configs.linters.flake8')
+
+local languages    = {
+  typescript = { eslint, prettier },
+  python = { black, mypy, isort, flake8 },
 }
+
+local efmls_config = {
+  filetypes = vim.tbl_keys(languages),
+  settings = {
+    rootMarkers = { '.git/' },
+    languages = languages,
+  },
+  init_options = {
+    documentFormatting = true,
+    documentRangeFormatting = true,
+  },
+}
+lspconfig.efm.setup(vim.tbl_extend('force', efmls_config, {
+}))
