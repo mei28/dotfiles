@@ -258,7 +258,7 @@ lazy.setup({
   'rcarriga/nvim-notify',
 
   --- obsidian
-  { 'epwalsh/obsidian.nvim'},
+  { 'epwalsh/obsidian.nvim' },
   'BurntSushi/ripgrep',
 
 
@@ -347,6 +347,8 @@ lazy.setup({
     },
     config = function() require('remote-nvim').setup() end,
   },
+
+  -- terminal
   {
     "akinsho/toggleterm.nvim",
     config = function()
@@ -360,4 +362,26 @@ lazy.setup({
       vim.keymap.set({ "i", "n" }, "<C-t>", "<cmd>exe v:count1 . 'ToggleTerm'<cr>")
     end
   },
+
+  -- f-string
+  {
+    "chrisgrieser/nvim-puppeteer",
+    dependencies = "nvim-treesitter/nvim-treesitter",
+    lazy = false, -- plugin lazy-loads itself
+  },
+
+  -- url open
+  {
+    "sontungexpt/url-open",
+    event = "VeryLazy",
+    cmd = "URLOpenUnderCursor",
+    config = function()
+      local status_ok, url_open = pcall(require, "url-open")
+      if not status_ok then
+        return
+      end
+      url_open.setup({})
+    end,
+  },
+
 })
