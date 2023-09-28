@@ -70,7 +70,7 @@ local config = {}
 config.default_prog = { '/bin/bash', '-l' }
 -- font
 config.font = wezterm.font_with_fallback(utils:switchFonts())
-config.font_size = 13
+config.font_size = 16
 -- color scheme
 config.color_scheme = utils:randomColorScheme()
 -- turn off beep
