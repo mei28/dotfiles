@@ -46,7 +46,7 @@ lazy.setup({
   'nvim-lualine/lualine.nvim',
 
   -- indent
-  'lukas-reineke/indent-blankline.nvim',
+  { "lukas-reineke/indent-blankline.nvim", main = "ibl",                                      opts = {} },
   'atusy/tsnode-marker.nvim',
 
   -- auto pair and tag close
@@ -74,9 +74,9 @@ lazy.setup({
   --
   -- -- git
   'dinhhuy258/git.nvim',
-  { 'lewis6991/gitsigns.nvim',   config = function() require 'gitsigns'.setup() end },
+  { 'lewis6991/gitsigns.nvim',             config = function() require 'gitsigns'.setup() end },
   'airblade/vim-gitgutter',
-  { 'akinsho/git-conflict.nvim', version = '*',                                     config = true },
+  { 'akinsho/git-conflict.nvim',  version = '*',                          config = true },
   'sindrets/diffview.nvim',
   'rhysd/git-messenger.vim',
 
