@@ -112,6 +112,7 @@ lazy.setup({
   -- utility
   'nvim-lua/plenary.nvim',
   'nvim-lua/popup.nvim',
+  "MunifTanjim/nui.nvim",
 
   -- fuzzy finder
   'nvim-telescope/telescope.nvim',
@@ -252,10 +253,15 @@ lazy.setup({
   'simrat39/rust-tools.nvim',
 
   --- noice
-  'folke/noice.nvim',
-  'MunifTanjim/nui.nvim',
+  -- {
+  --   "folke/noice.nvim",
+  --   event = "VeryLazy",
+  --   dependencies = {
+  --     "MunifTanjim/nui.nvim",
+  --     -- "rcarriga/nvim-notify",
+  --   }
+  -- },
   'folke/trouble.nvim',
-  -- 'rcarriga/nvim-notify',
 
   --- obsidian
   { 'epwalsh/obsidian.nvim' },
