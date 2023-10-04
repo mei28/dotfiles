@@ -142,12 +142,14 @@ lazy.setup({
   { 'folke/todo-comments.nvim',    config = function() require 'todo-comments'.setup() end },
 
   -- views
-  {
-    'lewis6991/satellite.nvim',
-    config = function()
-      require('satellite').setup()
-    end
-  },
+  -- {
+  --   'lewis6991/satellite.nvim',
+  --   config = function()
+  --     require('satellite').setup()
+  --   end
+  -- },
+  { "petertriho/nvim-scrollbar",   config = function() require('scrollbar').setup() end },
+
   'kevinhwang91/nvim-hlslens',
 
   -- keep lastest cursor position
@@ -253,14 +255,14 @@ lazy.setup({
   'simrat39/rust-tools.nvim',
 
   --- noice
-  -- {
-  --   "folke/noice.nvim",
-  --   event = "VeryLazy",
-  --   dependencies = {
-  --     "MunifTanjim/nui.nvim",
-  --     -- "rcarriga/nvim-notify",
-  --   }
-  -- },
+  {
+    "folke/noice.nvim",
+    event = "VeryLazy",
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      -- "rcarriga/nvim-notify",
+    }
+  },
   'folke/trouble.nvim',
 
   --- obsidian
