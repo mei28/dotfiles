@@ -30,6 +30,10 @@ then
     if [[ ! -z $SSH_CONNECTION ]]; then
         PS1='\[\e[1;30;43m\] SSH \[\e[0m\]'\ $PS1
     fi
+
+    if [ -f /.dockerenv ]; then
+        PS1='\[\e[1;34m\]🐳\[\e[0m\] '$PS1
+    fi
 fi
 
 # git completion
