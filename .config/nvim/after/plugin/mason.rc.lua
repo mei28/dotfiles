@@ -148,18 +148,22 @@ ensure_installed_linter_formatter = {
 local status, mti                 = pcall(require, 'mason-tool-installer')
 mti.setup({ ensure_installed = ensure_installed_linter_formatter })
 -- Register linters and formatters per language
-local eslint       = require('efmls-configs.linters.eslint')
-local prettier     = require('efmls-configs.formatters.prettier')
-local stylua       = require('efmls-configs.formatters.stylua')
+local eslint   = require('efmls-configs.linters.eslint')
+local prettier = require('efmls-configs.formatters.prettier')
+local stylua   = require('efmls-configs.formatters.stylua')
 
-local black        = require('efmls-configs.formatters.black')
-local mypy         = require('efmls-configs.linters.mypy')
-local isort        = require('efmls-configs.formatters.isort')
-local flake8       = require('efmls-configs.linters.flake8')
+local black    = require('efmls-configs.formatters.black')
+local mypy     = require('efmls-configs.linters.mypy')
+local isort    = require('efmls-configs.formatters.isort')
+local flake8   = require('efmls-configs.linters.flake8')
+
+local yamllint = require('efmls-configs.linters.yamllint')
+
 
 local languages    = {
   typescript = { eslint, prettier },
   python = { black, mypy, isort, flake8 },
+  yaml = { yamllint, prettier },
 }
 
 local efmls_config = {
