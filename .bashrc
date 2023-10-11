@@ -216,8 +216,8 @@ function ssh() {
 }
 
 # z command
-if [ -e ~/z/z.sh ]; then
-    . ~/z/z.sh
+if type zoxide &> /dev/null; then
+    eval "$(zoxide init bash)"
 fi
 
 if [ -f ~/.fzf.bash ]; then
