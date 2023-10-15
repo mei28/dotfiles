@@ -137,6 +137,21 @@ lazy.setup({
 
   -- csv
   { 'Decodetalkers/csv-tools.lua', ft = 'csv' },
+  {
+    'vidocqh/data-viewer.nvim',
+    opts = {
+      view = {
+        width = 0.95,  -- Less than 1 means ratio to screen width
+        height = 0.95, -- Less than 1 means ratio to screen height
+        zindex = 50,
+      },
+    },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "kkharji/sqlite.lua", -- Optional, sqlite support
+    },
+    ft = { 'csv', 'tsv' }
+  },
 
   -- comment
   { 'folke/todo-comments.nvim',    config = function() require 'todo-comments'.setup() end },
