@@ -3,6 +3,8 @@ if not status then
   return
 end
 
-treesj.setup({})
+treesj.setup({
+  use_default_keymaps = false,
+})
 
 vim.keymap.set('n', '<leader>m', require('treesj').toggle)
