@@ -28,18 +28,17 @@ lazy.setup({
   { 'matsuuu/pinkmare',                lazy = true },
   { '4513ECHO/vim-colors-hatsunemiku', lazy = true },
   { 'catppuccin/nvim',                 lazy = true },
-  { 'rebelot/kanagawa.nvim',           lazy = true },
-  { 'laniusone/kyotonight.vim',        lazy = true },
-  { 'sainnhe/everforest',              lazy = true },
-  { 'ayu-theme/ayu-vim',               lazy = true },
-  { 'catppuccin/catppuccin',           lazy = true },
-  { 'is-hoku/sakura',                  lazy = true },
-  { 'navarasu/onedark.nvim',           lazy = true },
-  { 'morhetz/gruvbox',                 lazy = true },
-  { 'eihigh/vim-aomi-grayscale',       lazy = true },
-  { 'haxibami/urara.vim',              lazy = true },
-  { 'bluz71/vim-nightfly-colors',      lazy = true },
-  { "typicode/bg.nvim",                lazy = false },
+  { 'rebelot/kanagawa.nvim',           lazy = true }, { 'laniusone/kyotonight.vim', lazy = true },
+  { 'sainnhe/everforest',         lazy = true },
+  { 'ayu-theme/ayu-vim',          lazy = true },
+  { 'catppuccin/catppuccin',      lazy = true },
+  { 'is-hoku/sakura',             lazy = true },
+  { 'navarasu/onedark.nvim',      lazy = true },
+  { 'morhetz/gruvbox',            lazy = true },
+  { 'eihigh/vim-aomi-grayscale',  lazy = true },
+  { 'haxibami/urara.vim',         lazy = true },
+  { 'bluz71/vim-nightfly-colors', lazy = true },
+  { "typicode/bg.nvim",           lazy = false },
 
 
   -- status line
@@ -79,6 +78,20 @@ lazy.setup({
   { 'akinsho/git-conflict.nvim',  version = '*',                          config = true },
   'sindrets/diffview.nvim',
   'rhysd/git-messenger.vim',
+  {
+    'niuiic/git-log.nvim',
+    dependencies = { 'niuiic/core.nvim' },
+    keys = {
+      {
+        "gL",
+        function()
+          require("git-log").check_log()
+        end,
+        mode = { "v", "n" },
+        desc = "Git: show log",
+      },
+    },
+  },
 
   -- comment
   'numToStr/Comment.nvim',
@@ -387,13 +400,6 @@ lazy.setup({
     end
   },
 
-  -- f-string
-  -- {
-  --   "chrisgrieser/nvim-puppeteer",
-  --   dependencies = "nvim-treesitter/nvim-treesitter",
-  --   lazy = false, -- plugin lazy-loads itself
-  -- },
-
   -- url open
   {
     "sontungexpt/url-open",
@@ -413,6 +419,12 @@ lazy.setup({
     'creativenull/efmls-configs-nvim',
     version = 'v1.x.x', -- version is optional, but recommended
     dependencies = { 'neovim/nvim-lspconfig' },
-  }
+  },
+
+  -- treesj
+  {
+    'Wansmer/treesj',
+    dependencies = { 'nvim-treesitter/nvim-treesitter' },
+  },
 
 })
