@@ -238,6 +238,7 @@ export PATH="$PATH:/Users/mei/.bin"
 
 if [ -e $HOME/.rye  ]; then
     source "$HOME/.rye/env"
+    eval "$(rye self completion -s bash)"
 fi
 
 # show completion
