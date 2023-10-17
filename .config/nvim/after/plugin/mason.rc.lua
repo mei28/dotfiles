@@ -156,13 +156,14 @@ local black    = require('efmls-configs.formatters.black')
 local mypy     = require('efmls-configs.linters.mypy')
 local isort    = require('efmls-configs.formatters.isort')
 local flake8   = require('efmls-configs.linters.flake8')
+local ruff     = require('efmls-configs.linters.ruff')
 
 local yamllint = require('efmls-configs.linters.yamllint')
 
 
 local languages    = {
   typescript = { eslint, prettier },
-  python = { black, mypy, isort, flake8 },
+  python = { black, mypy, isort, flake8, ruff },
   yaml = { yamllint, prettier },
 }
 
