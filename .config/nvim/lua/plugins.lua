@@ -28,17 +28,18 @@ lazy.setup({
   { 'matsuuu/pinkmare',                lazy = true },
   { '4513ECHO/vim-colors-hatsunemiku', lazy = true },
   { 'catppuccin/nvim',                 lazy = true },
-  { 'rebelot/kanagawa.nvim',           lazy = true }, { 'laniusone/kyotonight.vim', lazy = true },
-  { 'sainnhe/everforest',         lazy = true },
-  { 'ayu-theme/ayu-vim',          lazy = true },
-  { 'catppuccin/catppuccin',      lazy = true },
-  { 'is-hoku/sakura',             lazy = true },
-  { 'navarasu/onedark.nvim',      lazy = true },
-  { 'morhetz/gruvbox',            lazy = true },
-  { 'eihigh/vim-aomi-grayscale',  lazy = true },
-  { 'haxibami/urara.vim',         lazy = true },
-  { 'bluz71/vim-nightfly-colors', lazy = true },
-  { "typicode/bg.nvim",           lazy = false },
+  { 'rebelot/kanagawa.nvim',           lazy = true },
+  { 'laniusone/kyotonight.vim',        lazy = true },
+  { 'sainnhe/everforest',              lazy = true },
+  { 'ayu-theme/ayu-vim',               lazy = true },
+  { 'catppuccin/catppuccin',           lazy = true },
+  { 'is-hoku/sakura',                  lazy = true },
+  { 'navarasu/onedark.nvim',           lazy = true },
+  { 'morhetz/gruvbox',                 lazy = true },
+  { 'eihigh/vim-aomi-grayscale',       lazy = true },
+  { 'haxibami/urara.vim',              lazy = true },
+  { 'bluz71/vim-nightfly-colors',      lazy = true },
+  { "typicode/bg.nvim",                lazy = false },
 
 
   -- status line
@@ -138,6 +139,19 @@ lazy.setup({
   -- treesitter
   { 'nvim-treesitter/nvim-treesitter', build = { ':TSInstall! vim', ':TSUpdate' } },
   { 'yioneko/nvim-yati',               dependencies = 'nvim-treesitter/nvim-treesitter' },
+  {
+    'AckslD/nvim-anywise-reg.lua',
+    config = function()
+      require("anywise_reg").setup(
+        {
+          paste_keys = {
+            ['p'] = 'p',
+            ['P'] = 'P'
+          },
+        }
+      )
+    end
+  },
 
   -- bufferline
   'akinsho/nvim-bufferline.lua',
@@ -215,7 +229,22 @@ lazy.setup({
   'jghauser/mkdir.nvim',
 
   ---register
-  { 'tversteeg/registers.nvim', config = function() require 'registers'.setup() end },
+  {
+    'tversteeg/registers.nvim',
+    config = function()
+      require 'registers'.setup()
+    end
+  },
+
+  {
+    "jiaoshijie/undotree",
+    dependencies = "nvim-lua/plenary.nvim",
+    config = true,
+    lazy = 'VeryLazy',
+    keys = { -- load the plugin only when using it's keybinding:
+      { "<leader>u", "<cmd>lua require('undotree').toggle()<cr>" },
+    },
+  },
 
   --- code action list
   'aznhe21/actions-preview.nvim',
