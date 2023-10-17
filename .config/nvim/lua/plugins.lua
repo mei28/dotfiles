@@ -76,7 +76,7 @@ lazy.setup({
   'dinhhuy258/git.nvim',
   { 'lewis6991/gitsigns.nvim',             config = function() require 'gitsigns'.setup() end },
   'airblade/vim-gitgutter',
-  { 'akinsho/git-conflict.nvim',  version = '*',                          config = true },
+  { 'akinsho/git-conflict.nvim',       version = '*',                                   config = true },
   'sindrets/diffview.nvim',
   'rhysd/git-messenger.vim',
   {
@@ -110,10 +110,23 @@ lazy.setup({
     init = function() vim.g.mkdp_filetypes = { 'markdown' } end,
     ft = { 'markdown', 'text' }
   },
-  { 'toppair/peek.nvim',          build = 'deno task --quiet build:fast', ft = { 'markdown', 'text' } },
+  {
+    'toppair/peek.nvim',
+    build = 'deno task --quiet build:fast',
+    ft = { 'markdown', 'text' },
+    event = "VeryLazy",
+  },
   -- table markdonw
-  { 'dhruvasagar/vim-table-mode', ft = { 'markdown', 'text' } },
-  { 'mattn/vim-maketable',        ft = { 'markdown', 'text' } },
+  {
+    'dhruvasagar/vim-table-mode',
+    ft = { 'markdown', 'text' },
+    event = "VeryLazy",
+  },
+  {
+    'mattn/vim-maketable',
+    ft = { 'markdown', 'text' },
+    event = "VeryLazy",
+  },
   {
     'richardbizik/nvim-toc',
     ft = { 'markdown', 'text' },
@@ -158,7 +171,7 @@ lazy.setup({
 
   -- color
   'norcalli/nvim-colorizer.lua',
-  'uga-rosa/ccc.nvim',
+  { 'uga-rosa/ccc.nvim',           event = 'VeryLazy' },
   'RRethy/vim-illuminate',
   'fei6409/log-highlight.nvim',
 
@@ -166,6 +179,8 @@ lazy.setup({
   { 'Decodetalkers/csv-tools.lua', ft = 'csv' },
   {
     'vidocqh/data-viewer.nvim',
+    event = "VeryLazy",
+
     opts = {
       view = {
         width = 0.95,  -- Less than 1 means ratio to screen width
@@ -181,16 +196,10 @@ lazy.setup({
   },
 
   -- comment
-  { 'folke/todo-comments.nvim',    config = function() require 'todo-comments'.setup() end },
+  { 'folke/todo-comments.nvim',  config = function() require 'todo-comments'.setup() end },
 
   -- views
-  -- {
-  --   'lewis6991/satellite.nvim',
-  --   config = function()
-  --     require('satellite').setup()
-  --   end
-  -- },
-  { "petertriho/nvim-scrollbar",   config = function() require('scrollbar').setup() end },
+  { "petertriho/nvim-scrollbar", config = function() require('scrollbar').setup() end },
 
   'kevinhwang91/nvim-hlslens',
 
@@ -240,7 +249,7 @@ lazy.setup({
     "jiaoshijie/undotree",
     dependencies = "nvim-lua/plenary.nvim",
     config = true,
-    lazy = 'VeryLazy',
+    event = 'VeryLazy',
     keys = { -- load the plugin only when using it's keybinding:
       { "<leader>u", "<cmd>lua require('undotree').toggle()<cr>" },
     },
@@ -346,10 +355,10 @@ lazy.setup({
   -- },
 
   -- copilot
-  { 'zbirenbaum/copilot.lua', event = 'InsertEnter',            cmd = 'Copilot' },
-  { 'zbirenbaum/copilot-cmp', dependencies = { 'copilot.lua' }, },
+  { 'zbirenbaum/copilot.lua',   event = 'InsertEnter',            cmd = 'Copilot' },
+  { 'zbirenbaum/copilot-cmp',   dependencies = { 'copilot.lua' }, },
 
-  "dstein64/vim-startuptime",
+  { "dstein64/vim-startuptime", event = "VeryLazy" },
 
 
   -- fold
@@ -364,7 +373,7 @@ lazy.setup({
   'simrat39/symbols-outline.nvim',
 
   -- diff
-  'AndrewRadev/linediff.vim',
+  { 'AndrewRadev/linediff.vim', event = "VeryLazy" },
 
   -- navigation
   'SmiteshP/nvim-navic',
@@ -382,6 +391,7 @@ lazy.setup({
     'danymat/neogen',
     dependencies = 'nvim-treesitter/nvim-treesitter',
     config = true,
+    event = "VeryLazy"
     -- Uncomment next line if you want to follow only stable versions
     -- version = '*'
   },
@@ -396,7 +406,7 @@ lazy.setup({
   },
 
   -- preview to jump
-  { 'nacro90/numb.nvim',   config = function() require 'numb'.setup() end },
+  { 'nacro90/numb.nvim', config = function() require 'numb'.setup() end, event = 'VeryLazy' },
 
   -- remote-ssh
   -- {
