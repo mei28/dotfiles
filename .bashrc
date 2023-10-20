@@ -274,6 +274,13 @@ function dmux() {
 # ヒストリーの削除
 export HISTCONTROL=ignoreboth
 
+if [[ -e "$HOME/.modular" ]]; then
+  export MODULAR_HOME="$HOME/.modular"
+  export PATH="$MODULAR_HOME/pkg/packages.modular.com_mojo/bin:$PATH"
+fi
+
+
+
 #=====================#
 # change config by OS #
 #=====================#
