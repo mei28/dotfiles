@@ -406,7 +406,7 @@ lazy.setup({
   },
 
   -- preview to jump
-  { 'nacro90/numb.nvim', config = function() require 'numb'.setup() end, event = 'VeryLazy' },
+  { 'nacro90/numb.nvim',   config = function() require 'numb'.setup() end,     event = 'VeryLazy' },
 
   -- remote-ssh
   -- {
@@ -445,11 +445,7 @@ lazy.setup({
     event = "VeryLazy",
     cmd = "URLOpenUnderCursor",
     config = function()
-      local status_ok, url_open = pcall(require, "url-open")
-      if not status_ok then
-        return
-      end
-      url_open.setup({})
+      require "url-open".setup({})
     end,
   },
 
@@ -465,5 +461,7 @@ lazy.setup({
     'Wansmer/treesj',
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
   },
+
+  { 'mei28/toggleqf.nvim', config = function() require('toggleqf').setup() end },
 
 })

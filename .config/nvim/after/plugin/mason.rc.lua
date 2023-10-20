@@ -14,7 +14,7 @@ mason.setup({
 
 -- add lsp
 local servers = { 'lua_ls', 'bashls', 'html', 'clangd', 'rust_analyzer', 'quick_lint_js', 'tsserver',
-  'jsonls', 'efm', 'pyright' }
+  'jsonls', 'efm', 'pyright', 'mojo' }
 
 local status, mason_lspconfig = pcall(require, 'mason-lspconfig')
 if not status then return end
