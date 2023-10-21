@@ -248,14 +248,16 @@ if [ -e $HOME/.rye  ]; then
     eval "$(rye self completion -s bash)"
 fi
 
+if [ -e $HOME/go/bin ]; then
+  export PATH="$HOME/go/bin:$PATH"
+fi
+
 # show completion
 if [[ -t 1 ]]; then 
   bind 'set show-all-if-ambiguous on'
 fi
 
 # tmux
-
-
 if [[ ! -e ~/.tmux/plugins/tpm ]]; then
     git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 fi
