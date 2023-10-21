@@ -116,6 +116,13 @@ actpyenv(){
 if [ -d /usr/local/opt/llvm ]; then
     export PATH="/usr/local/opt/llvm/bin:$PATH"
 fi
+if [ -d /opt/homebrew/opt/llvm ]; then
+  export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
+  export LDFLAGS="-L/opt/homebrew/opt/llvm/lib"
+  export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
+  export LLVM_SYMBOLIZER_PATH=/opt/homebrew/opt/llvm/bin/llvm-symbolizer
+fi
+
 
 
 ## activate virtualenv
