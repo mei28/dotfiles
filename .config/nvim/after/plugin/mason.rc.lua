@@ -14,7 +14,7 @@ mason.setup({
 
 -- add lsp
 local servers = { 'lua_ls', 'bashls', 'html', 'clangd', 'rust_analyzer', 'quick_lint_js', 'tsserver',
-  'jsonls', 'efm', 'pyright', 'mojo' }
+  'jsonls', 'efm', 'pyright' }
 
 local status, mason_lspconfig = pcall(require, 'mason-lspconfig')
 if not status then return end
@@ -68,6 +68,7 @@ lspconfig.rust_analyzer.setup {
   }
 }
 
+lspconfig.mojo.setup({})
 
 -- Global mappings
 local set = vim.keymap.set
