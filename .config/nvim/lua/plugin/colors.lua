@@ -40,6 +40,13 @@ local spec = {
     config = function()
       require('log-highlight').setup {}
     end,
+  },
+  {
+    'mei28/luminate.nvim',
+    event = { 'TextYankPost' },
+    config = function()
+      require 'luminate'.setup({})
+    end
   }
 
 }
