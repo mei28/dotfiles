@@ -110,32 +110,6 @@ function mason_setup()
       set('n', '<Leader>lf', "<CMD>lua vim.lsp.buf.format({async=true})<CR>", bufopts)
       set('n', 'cc', vim.lsp.buf.incoming_calls, bufopts)
 
-      -- Reference highlight
-      local client = vim.lsp.get_client_by_id(ev.data.client_id)
-      if client.server_capabilities.documentHighlightProvider then
-        vim.api.nvim_command("highlight LspReferenceText  cterm=underline ctermbg=8 gui=underline guibg=#104040")
-        vim.api.nvim_command("highlight LspReferenceRead  cterm=underline ctermbg=8 gui=underline guibg=#104040")
-        vim.api.nvim_command("highlight LspReferenceWrite cterm=underline ctermbg=8 gui=underline guibg=#104040")
-        vim.api.nvim_command("set updatetime=100")
-        vim.api.nvim_create_augroup("lsp_document_highlight", { clear = true })
-        vim.api.nvim_clear_autocmds { buffer = ev.buf, group = "lsp_document_highlight" }
-        vim.api.nvim_create_autocmd("CursorHold", {
-          callback = vim.lsp.buf.document_highlight,
-          buffer = ev.buf,
-          group = "lsp_document_highlight",
-          desc = "Document Highlight",
-        })
-        vim.api.nvim_create_autocmd("CursorMoved", {
-          callback = function()
-            local bufnr = vim.api.nvim_get_current_buf()
-            vim.lsp.buf.clear_references(bufnr)
-          end,
-          buffer = ev.buf,
-          group = "lsp_document_highlight",
-          desc = "Clear All the References",
-        })
-      end
-
       if client.server_capabilities.documentSymbolProvider then
         navic.attach(client, ev.buf)
       end
@@ -157,7 +131,9 @@ function mason_setup()
     'black',
     'mypy',
     'isort',
-    'flake8'
+    'flake8',
+    'ruff',
+    'yamllint
   }
 
   local status, mti                 = pcall(require, 'mason-tool-installer')
