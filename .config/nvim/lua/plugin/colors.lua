@@ -28,6 +28,11 @@ local spec = {
   {
     'RRethy/vim-illuminate',
     event = { 'BufNewFile', 'BufRead' },
+    config = function()
+      vim.cmd("hi IlluminatedWordText cterm=underline ctermbg=8 gui=underline guibg=#104040")
+      vim.cmd("hi IlluminatedWordRead cterm=underline ctermbg=8 gui=underline guibg=#104040")
+      vim.cmd("hi IlluminatedWordWrite cterm=underline ctermbg=8 gui=underline guibg=#104040")
+    end,
   },
   {
     'fei6409/log-highlight.nvim',

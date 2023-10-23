@@ -110,6 +110,7 @@ function mason_setup()
       set('n', '<Leader>lf', "<CMD>lua vim.lsp.buf.format({async=true})<CR>", bufopts)
       set('n', 'cc', vim.lsp.buf.incoming_calls, bufopts)
 
+      local client = vim.lsp.get_active_clients()[1]
       if client.server_capabilities.documentSymbolProvider then
         navic.attach(client, ev.buf)
       end
@@ -133,7 +134,7 @@ function mason_setup()
     'isort',
     'flake8',
     'ruff',
-    'yamllint
+    'yamllint',
   }
 
   local status, mti                 = pcall(require, 'mason-tool-installer')
