@@ -27,7 +27,7 @@ local spec = {
     dependencies = {
       { 'nvim-telescope/telescope-file-browser.nvim', },
       { 'nvim-telescope/telescope-ui-select.nvim', },
-      { "nvim-telescope/telescope-dap.nvim", }
+      { "nvim-telescope/telescope-dap.nvim", },
     }
   },
 }
@@ -72,7 +72,6 @@ function telescope_setup()
 
   telescope.load_extension("file_browser")
   telescope.load_extension("ui-select")
-  telescope.load_extension("dap")
 end
 
 return spec

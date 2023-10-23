@@ -17,7 +17,8 @@ local spec = {
       { '<Leader>dl', function() require 'dap'.run_last() end },
       { '<Leader>df', function() require "dapui".float_element('scopes', { enter = true }) end },
       { '<Leader>dr', function() require 'dap'.repl.toggle() end },
-    }
+    },
+    dependencies = { "rcarriga/nvim-dap-ui", 'nvim-telescope/telescope.nvim' },
   },
   {
     "rcarriga/nvim-dap-ui",
@@ -42,6 +43,11 @@ local spec = {
 
 
 function dap_setup()
+  local status, telescope = pcall(require, "telescope")
+  if not status then return end
+  telescope.load_extension("dap")
+
+
   local status, dap = pcall(require, 'dap')
   if not status then return end
 
@@ -70,7 +76,7 @@ function dap_setup()
     dapui.close()
   end
 
-  local set = vim.keymap.set
+  -- local set = vim.keymap.set
   -- set("n", "<Leader>dt", ':DapToggleBreakpoint<CR>')
   -- set("n", "<Leader>dx", ':DapTerminate<CR>')
   -- set("n", "<Leader>do", ':DapStepOver<CR>')

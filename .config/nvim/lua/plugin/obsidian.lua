@@ -6,11 +6,12 @@ local spec = {
       -- Required.
       "nvim-lua/plenary.nvim",
       -- see below for full list of optional dependencies 👇
+      "telescope.nvim",
+      "hrsh7th/nvim-cmp"
     },
     config = function()
       local status, obsidian = pcall(require, 'obsidian')
       if not status then return end
-      local set = vim.keymap.set
 
       obsidian.setup({
         dir = '~/Documents/ovault/',
@@ -36,15 +37,16 @@ local spec = {
       })
     end,
     keys = {
-      { 'gf',
+      {
+        'Leader>gf',
         function()
-          if require 'obsidian'.util.cursor_on_markdown_link() then
+          if require("obsidian").util.cursor_on_markdown_link() then
             return "<cmd>ObsidianFollowLink<CR>"
           else
-            return "gf"
+            print("Cursor is not on a markdown link")
           end
         end,
-        { 'n' },
+        desc = "ObsidianFollowLink",
         { noremap = false, expr = true }
       },
       { '<Leader>ot', ':ObsidianToday<CR>' }
