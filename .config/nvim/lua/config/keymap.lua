@@ -23,7 +23,7 @@ set('n', '<C-n>', ':bprev<CR>')
 set('n', 'x', '"_x')
 
 -- ESC連打:noh
-set('n', '<Esc><Esc>', ':noh<CR>')
+set('n', '<Esc><Esc>', '<cmd>nohl<CR>')
 
 -- 分割windowの移動
 set('n', '<Leader>j', '<C-w>j')
