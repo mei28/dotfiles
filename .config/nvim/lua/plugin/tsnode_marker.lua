@@ -56,7 +56,7 @@ function tsnode_setup()
   -- autocmd
   vim.api.nvim_create_autocmd("FileType", {
     group = vim.api.nvim_create_augroup("tsnode-marker-nested-func", {}),
-    pattern = { "lua", "python", "go" },
+    pattern = { "lua", "python", "go", "rust", "cpp", "javascript", "css" },
     callback = function(ctx)
       require("tsnode-marker").set_automark(ctx.buf, {
         target = is_nested_def,

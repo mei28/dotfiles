@@ -9,7 +9,7 @@ local spec = {
   {
     'toppair/peek.nvim',
     build = 'deno task --quiet build:fast',
-    ft = { 'markdown', 'text' },
+    ft = { 'markdown' },
     config = function() peek_setup() end,
     cmd = { "Peek" }
   },
@@ -27,7 +27,7 @@ local spec = {
   },
   {
     'richardbizik/nvim-toc',
-    ft = { 'markdown', 'text' },
+    ft = { 'markdown' },
     config = function()
       require('nvim-toc').setup()
     end,
