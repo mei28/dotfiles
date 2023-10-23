@@ -7,11 +7,11 @@ local spec = {
       trouble.setup()
     end,
     keys = {
-      { "tt", "<cmd>TroubleToggle<cr>" },
-      { "tw", "<cmd>TroubleToggle workspace_diagnostics<cr>" },
-      { "td", "<cmd>TroubleToggle document_diagnostics<cr>" },
-      { "tl", "<cmd>TroubleToggle loclist<cr>" },
-      { "tq", "<cmd>TroubleToggle quickfix<cr>" },
+      { "tt", "<CMD>TroubleToggle<CR>" },
+      { "tw", "<CMD>TroubleToggle workspace_diagnostics<CR>" },
+      { "td", "<CMD>TroubleToggle document_diagnostics<CR>" },
+      { "tl", "<CMD>TroubleToggle loclist<CR>" },
+      { "tq", "<CMD>TroubleToggle quickfix<CR>" },
     }
   }
 }

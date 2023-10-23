@@ -41,7 +41,7 @@ local spec = {
         'Leader>gf',
         function()
           if require("obsidian").util.cursor_on_markdown_link() then
-            return "<cmd>ObsidianFollowLink<CR>"
+            return "<CMD>ObsidianFollowLink<CR>"
           else
             print("Cursor is not on a markdown link")
           end
@@ -49,7 +49,7 @@ local spec = {
         desc = "ObsidianFollowLink",
         { noremap = false, expr = true }
       },
-      { '<Leader>ot', ':ObsidianToday<CR>' }
+      { '<Leader>ot', '<CMD>ObsidianToday<CR>' }
     },
     ft = { 'markdown' }
   },

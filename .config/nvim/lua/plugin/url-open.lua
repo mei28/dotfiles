@@ -7,7 +7,7 @@ local spec = {
       require "url-open".setup({})
     end,
     keys = {
-      { "gx", "<esc>:URLOpenUnderCursor<cr>" }
+      { "gx", "<ESC><CMD>URLOpenUnderCursor<CR>" }
     }
   },
 }

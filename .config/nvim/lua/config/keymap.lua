@@ -13,8 +13,8 @@ set({ 'i', 'c', 'n' }, '<C-d>', '<Del>')
 set({ 'i', 'c', 'n' }, '<C-h>', '<BS>')
 
 
-set('n', '<C-p>', ':bnext<CR>')
-set('n', '<C-n>', ':bprev<CR>')
+set('n', '<C-p>', '<CMD>bnext<CR>')
+set('n', '<C-n>', '<CMD>bprev<CR>')
 
 -- set('n', '<C-o>', '<C-i>')
 -- set('n', '<C-i>', '<C-o>')
@@ -23,7 +23,7 @@ set('n', '<C-n>', ':bprev<CR>')
 set('n', 'x', '"_x')
 
 -- ESC連打:noh
-set('n', '<Esc><Esc>', '<cmd>nohl<CR>')
+set('n', '<Esc><Esc>', '<CMD>nohl<CR>')
 
 -- 分割windowの移動
 set('n', '<Leader>j', '<C-w>j')
@@ -68,7 +68,7 @@ set('c', '<C-v>', '<C-r><C-o>0')
 set('x', 'p', '"_dP')
 
 -- 新しいタブを作る,消す
-set('n', 'te', ':tabedit ')
-set('n', 'tc', ':tabclose<CR>')
+set('n', 'te', '<CMD>tabedit ')
+set('n', 'tc', '<CMD>tabclose<CR>')
 
 set('n', 'q:', '<Nop>')

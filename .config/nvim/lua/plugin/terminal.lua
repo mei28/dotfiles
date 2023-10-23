@@ -7,12 +7,12 @@ local spec = {
       vim.api.nvim_create_autocmd({ "TermEnter" }, {
         pattern = { "term://*toggleterm#*" },
         callback = function()
-          vim.keymap.set("t", "<C-t>", "<cmd>exe v:count1 . 'ToggleTerm'<cr>")
+          vim.keymap.set("t", "<C-t>", "<CMD>exe v:count1 . 'ToggleTerm'<CR>")
         end
       })
     end,
     keys = {
-      { "<C-t>", "<cmd>exe v:count1 . 'ToggleTerm'<cr>", { "i", "n" } }
+      { "<C-t>", "<CMD>exe v:count1 . 'ToggleTerm'<CR>", { "i", "n" } }
 
     }
   },

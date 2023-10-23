@@ -107,7 +107,7 @@ function mason_setup()
       set('n', 'K', vim.lsp.buf.signature_help, bufopts)
       set('n', '<Leader>D', vim.lsp.buf.type_definition, bufopts)
       set('n', '<Leader>rn', vim.lsp.buf.rename, bufopts)
-      set('n', '<Leader>lf', "<cmd>lua vim.lsp.buf.format({async=true})<CR>", bufopts)
+      set('n', '<Leader>lf', "<CMD>lua vim.lsp.buf.format({async=true})<CR>", bufopts)
       set('n', 'cc', vim.lsp.buf.incoming_calls, bufopts)
 
       -- Reference highlight

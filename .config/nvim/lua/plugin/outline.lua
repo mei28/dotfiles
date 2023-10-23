@@ -13,7 +13,7 @@ local spec = {
       })
     end,
     keys = {
-      { ';a', ':SymbolsOutline<CR>' },
+      { ';a', '<CMD>SymbolsOutline<CR>' },
     },
 
   }
