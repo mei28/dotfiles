@@ -45,7 +45,10 @@ local spec = {
     'mei28/luminate.nvim',
     event = { 'TextYankPost' },
     config = function()
-      require 'luminate'.setup({})
+      require 'luminate'.setup({
+        -- ctermbg = 8,
+        -- guibg = '#ebcb8b'
+      })
     end
   }
 
