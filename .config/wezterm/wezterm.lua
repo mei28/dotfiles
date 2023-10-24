@@ -1,11 +1,9 @@
 local status, wezterm = pcall(require, 'wezterm')
 if not status then return end
 local utils = require 'utils'
-local status = require 'status'
-local event = require 'event'
 local keys = require 'keys'
-local mousebinds = require 'mousebinds'
 local window = require 'window'
+require 'status'
 
 local act = wezterm.action
 
@@ -93,11 +91,8 @@ config.window_padding = window.window_padding
 -- skip confirm when clone
 config.skip_close_confirmation_for_processes_named = skip_close_confirmation_for_processes_named
 -- inactive_pane_hsb
-config.inactive_pane_hsb = inactive_pane_hsb
+config.inactive_pane_hsb = window.inactive_pane_hsb
 config.check_for_updates = false
--- hide title bar
-config.mouse_bindings = mousebinds.mouse_bindings
--- config.window_decorations = "RESIZE|TITLE"
 config.window_decorations = "RESIZE"
 -- background image
 config.window_background_image = utils:randomBackgroundImage()
