@@ -4,7 +4,8 @@ local spec = {
     event = { 'BufNewFile', 'BufRead' },
     config = function()
       lualine_setup()
-    end
+    end,
+    dependencies = { 'mason.nvim' },
   }
 }
 function lualine_setup()
