@@ -5,7 +5,6 @@ local spec = {
     config = function()
       lualine_setup()
     end,
-    dependencies = { 'mason.nvim' },
   }
 }
 function lualine_setup()

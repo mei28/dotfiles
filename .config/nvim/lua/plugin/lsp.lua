@@ -1,7 +1,7 @@
 local spec = {
   {
     'williamboman/mason.nvim',
-    event = { "VeryLazy" },
+    event = { 'BufNewFile', 'BufRead' },
     config = function()
       mason_setup()
     end
@@ -125,7 +125,7 @@ function mason_setup()
 
 
   -- efm
-  ensure_installed_linter_formatter = {
+  local ensure_installed_linter_formatter = {
     'eslint_d',
     'prettier',
     'stylua',
@@ -137,10 +137,11 @@ function mason_setup()
     'yamllint',
   }
 
-  local status, mti                 = pcall(require, 'mason-tool-installer')
+  local status, mti                       = pcall(require, 'mason-tool-installer')
   mti.setup({ ensure_installed = ensure_installed_linter_formatter })
   -- Register linters and formatters per language
   local prettier = require('efmls-configs.formatters.prettier')
+  local eslint   = require('efmls-configs.linters.eslint')
 
   local black    = require('efmls-configs.formatters.black')
   local mypy     = require('efmls-configs.linters.mypy')
@@ -154,6 +155,8 @@ function mason_setup()
   local languages    = {
     python = { black, mypy, isort, flake8, ruff },
     yaml = { yamllint, prettier },
+    json = { prettier },
+    svelte = { eslint, prettier },
   }
 
   local efmls_config = {
