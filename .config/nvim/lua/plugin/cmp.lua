@@ -299,9 +299,6 @@ function luasnip_setup()
   set({ "i", "s" }, "<C-m>", "<Plug>luasnip-next-choice")
   set({ 'i', 's' }, "<C-k>", "<Plug>luasnip-prev-choice")
 
-  local result = vim.fn.maparg('<CR>', 'n', 0, 1)
-  print(vim.inspect(result))
-
   -- to fix bugs -> maparg('<CR>', 'n', 0, 1)
   -- { buffer = 0, expr = 0, lhs = "<CR>", lhsraw = "\r",
   -- lnum = 0, mode = "n", noremap = 1, nowait = 0,

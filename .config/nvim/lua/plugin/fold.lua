@@ -1,5 +1,5 @@
 local spec = {
-  -- fold
+  -- -- fold
   {
     'anuvyklack/pretty-fold.nvim',
     config = function()

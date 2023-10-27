@@ -58,7 +58,7 @@ vim.opt.undofile = true
 vim.opt.splitbelow = true
 vim.opt.splitright = true
 -- カーソルを真ん中に
-vim.opt.scrolloff = 42
+vim.opt.scrolloff = 999
 -- 自動外部読み込み
 vim.opt.autoread = true
 -- popupオプション
@@ -88,3 +88,4 @@ vim.api.nvim_exec([[
     autocmd BufWinEnter *.* silent! loadview
   augroup END
 ]], false)
+
