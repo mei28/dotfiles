@@ -3,7 +3,10 @@ local spec = {
     'windwp/nvim-autopairs',
     event = 'InsertEnter',
     config = function()
-      require('nvim-autopairs').setup {}
+      local npairs = require('nvim-autopairs')
+      npairs.setup {
+        fast_wrap = { map = "<C-]>" }
+      }
     end
   },
 }
