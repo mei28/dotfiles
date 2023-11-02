@@ -45,10 +45,7 @@ local spec = {
     'mei28/luminate.nvim',
     event = { 'TextYankPost' },
     config = function()
-      require 'luminate'.setup({
-        -- ctermbg = 8,
-        -- guibg = '#ebcb8b'
-      })
+      require 'luminate'.setup({ timeout = 500 })
     end
   }
 
