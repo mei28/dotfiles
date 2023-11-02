@@ -1,9 +1,10 @@
 local spec = {
   {
     'williamboman/mason.nvim',
-    event = { 'BufNewFile', 'BufRead' },
+    event = { 'VeryLazy' },
     config = function()
       mason_setup()
+      vim.cmd "LspStart"
     end
   },
   { 'williamboman/mason-lspconfig.nvim',         cmd = { 'LspInstall', 'LspUninstall' } },
