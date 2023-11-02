@@ -71,17 +71,17 @@ function mason_setup()
   capabilities.offsetEncoding = { "utf-16" }
   lspconfig.clangd.setup({ capabilities = capabilities })
 
-  lspconfig.rust_analyzer.setup {
-    filetypes = { "rust" },
-    root_dir = lspconfig.util.root_pattern("Cargo.toml", "rust-project.json"),
-    settings = {
-      ['rust_analyzer'] = {
-        cargo = {
-          allFeatures = true,
-        }
-      }
-    }
-  }
+  -- lspconfig.rust_analyzer.setup {
+  --   filetypes = { "rust" },
+  --   root_dir = lspconfig.util.root_pattern("Cargo.toml", "rust-project.json"),
+  --   settings = {
+  --     ['rust_analyzer'] = {
+  --       cargo = {
+  --         allFeatures = true,
+  --       }
+  --     }
+  --   }
+  -- }
 
   lspconfig.mojo.setup({})
 

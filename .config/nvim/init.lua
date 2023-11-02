@@ -20,4 +20,4 @@ if is_win then require 'config.windows' end
 
 vim.opt.runtimepath:append("/Users/mei/Documents/codelens.nvim")
 require('codelens').setup({})
-
+vim.keymap.set({ 'n', 'v' }, '<Leader>cl', require('codelens').toggle)

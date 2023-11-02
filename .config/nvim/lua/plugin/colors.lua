@@ -41,14 +41,6 @@ local spec = {
       require('log-highlight').setup {}
     end,
   },
-  {
-    'mei28/luminate.nvim',
-    event = { 'TextYankPost' },
-    config = function()
-      require 'luminate'.setup({ timeout = 500 })
-    end
-  }
-
 }
 
 return spec
