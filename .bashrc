@@ -289,6 +289,37 @@ if [[ -e "$HOME/.modular" ]]; then
 fi
 
 
+# obsidian
+function ot(){
+  if [[ -e "$HOME/Documents/ovault/vault" ]]; then
+    # 対象ディレクトリとファイル名を設定
+    target_dir="$HOME/Documents/ovault/vault"
+    today=$(date +"%Y-%m-%d")
+    file_path="$target_dir/$today.md"
+
+    # ディレクトリが存在しない場合は作成
+    mkdir -p "$target_dir"
+
+    # ファイルが存在しない場合は新規作成
+    if [ ! -f "$file_path" ]; then
+      cat > "$file_path" <<- EOM
+---
+id: $today
+aliases:
+  - $(date +"%B %d, %Y")
+tags:
+  - daily-notes
+---
+
+# $(date +"%B %d, %Y")
+EOM
+    fi
+
+    # nvimでファイルを開く
+    nvim "$file_path"
+  fi
+}
+
 
 #=====================#
 # change config by OS #
