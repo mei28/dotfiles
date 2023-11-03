@@ -9,6 +9,30 @@ local spec = {
       })
     end
   },
+  {
+    'mei28/codelens.nvim',
+    lazy = false,
+    config = function()
+      require('codelens').setup({})
+    end,
+    keys = {
+      {
+        "<Leader>cl",
+        "<CMD>lua require('codelens').toggle()<CR>",
+        { 'n', 'v' },
+      },
+      {
+        '<Leader>cu',
+        "<CMD>lua require('codelens').show_cursor_info()<CR>",
+        { 'n', 'v' },
+      },
+    },
+  },
+  {
+    'mei28/toggleqf.nvim',
+    config = function() require('toggleqf').setup() end,
+    keys = { '<C-g><C-o>', '<C-g><C-o>' },
+  },
 }
 
 return spec
