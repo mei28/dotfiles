@@ -290,19 +290,16 @@ fi
 
 
 # obsidian
-function ot(){
-  if [[ -e "$HOME/Documents/ovault/vault" ]]; then
-    # 対象ディレクトリとファイル名を設定
-    target_dir="$HOME/Documents/ovault/vault"
-    today=$(date +"%Y-%m-%d")
-    file_path="$target_dir/$today.md"
+function createDailyFileIfNeeded() {
+  local target_dir="$HOME/Documents/ovault/vault"
+  local today=$(date +"%Y-%m-%d")
+  local file_path="$target_dir/$today.md"
 
-    # ディレクトリが存在しない場合は作成
-    mkdir -p "$target_dir"
+  mkdir -p "$target_dir" # ディレクトリが存在しない場合は作成
 
+  if [ ! -f "$file_path" ]; then
     # ファイルが存在しない場合は新規作成
-    if [ ! -f "$file_path" ]; then
-      cat > "$file_path" <<- EOM
+    cat > "$file_path" <<- EOM
 ---
 id: $today
 aliases:
@@ -313,13 +310,24 @@ tags:
 
 # $(date +"%B %d, %Y")
 EOM
-    fi
-
-    # nvimでファイルを開く
-    nvim "$file_path"
   fi
+  echo "$file_path"
 }
 
+function ot() {
+  local file_path=$(createDailyFileIfNeeded) # ファイルを作成するか確認し、パスを取得
+  nvim "$file_path" # nvimでファイルを開く
+}
+
+function obm() {
+  local file_path=$(createDailyFileIfNeeded) # ファイルを作成するか確認し、パスを取得
+
+  local time_stamp=$(date +"[%H:%M]")
+
+  echo "$time_stamp" >> "$file_path"
+  echo "$*" >> "$file_path"
+  echo "" >> "$file_path" # 空行を追加して見やすくする
+}
 
 #=====================#
 # change config by OS #
