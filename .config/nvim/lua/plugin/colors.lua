@@ -1,11 +1,22 @@
 local spec = {
+  -- {
+  --   'norcalli/nvim-colorizer.lua',
+  --   event = { 'BufNewFile', 'BufRead' },
+  --   config = function()
+  --     vim.opt.termguicolors = true
+  --     require 'colorizer'.setup()
+  --   end
+  -- },
   {
-    'norcalli/nvim-colorizer.lua',
+    'brenoprata10/nvim-highlight-colors',
     event = { 'BufNewFile', 'BufRead' },
     config = function()
       vim.opt.termguicolors = true
-      require 'colorizer'.setup()
+      require('nvim-highlight-colors').setup {
+        enable_tailwind = true
+      }
     end
+
   },
   {
     'uga-rosa/ccc.nvim',
