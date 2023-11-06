@@ -117,10 +117,10 @@ if [ -d /usr/local/opt/llvm ]; then
     export PATH="/usr/local/opt/llvm/bin:$PATH"
 fi
 if [ -d /opt/homebrew/opt/llvm ]; then
-  export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
-  export LDFLAGS="-L/opt/homebrew/opt/llvm/lib"
-  export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
-  export LLVM_SYMBOLIZER_PATH=/opt/homebrew/opt/llvm/bin/llvm-symbolizer
+    export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
+    export LDFLAGS="-L/opt/homebrew/opt/llvm/lib"
+    export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
+    export LLVM_SYMBOLIZER_PATH=/opt/homebrew/opt/llvm/bin/llvm-symbolizer
 fi
 
 
@@ -249,12 +249,12 @@ if [ -e $HOME/.rye  ]; then
 fi
 
 if [ -e $HOME/go/bin ]; then
-  export PATH="$HOME/go/bin:$PATH"
+    export PATH="$HOME/go/bin:$PATH"
 fi
 
 # show completion
-if [[ -t 1 ]]; then 
-  bind 'set show-all-if-ambiguous on'
+if [[ -t 1 ]]; then
+    bind 'set show-all-if-ambiguous on'
 fi
 
 # tmux
@@ -284,22 +284,22 @@ function dmux() {
 export HISTCONTROL=ignoreboth
 
 if [[ -e "$HOME/.modular" ]]; then
-  export MODULAR_HOME="$HOME/.modular"
-  export PATH="$MODULAR_HOME/pkg/packages.modular.com_mojo/bin:$PATH"
+    export MODULAR_HOME="$HOME/.modular"
+    export PATH="$MODULAR_HOME/pkg/packages.modular.com_mojo/bin:$PATH"
 fi
 
 
 # obsidian
 function createDailyFileIfNeeded() {
-  local target_dir="$HOME/Documents/ovault/vault"
-  local today=$(date +"%Y-%m-%d")
-  local file_path="$target_dir/$today.md"
+    local target_dir="$HOME/Documents/ovault/vault"
+    local today=$(date +"%Y-%m-%d")
+    local file_path="$target_dir/$today.md"
 
-  mkdir -p "$target_dir" # ディレクトリが存在しない場合は作成
+    mkdir -p "$target_dir" # ディレクトリが存在しない場合は作成
 
-  if [ ! -f "$file_path" ]; then
-    # ファイルが存在しない場合は新規作成
-    cat > "$file_path" <<- EOM
+    if [ ! -f "$file_path" ]; then
+        # ファイルが存在しない場合は新規作成
+        cat > "$file_path" <<- EOM
 ---
 id: $today
 aliases:
@@ -310,23 +310,27 @@ tags:
 
 # $(date +"%B %d, %Y")
 EOM
-  fi
-  echo "$file_path"
+    fi
+    echo "$file_path"
 }
 
 function ot() {
-  local file_path=$(createDailyFileIfNeeded) # ファイルを作成するか確認し、パスを取得
-  nvim "$file_path" # nvimでファイルを開く
+    local file_path=$(createDailyFileIfNeeded)
+    nvim "$file_path" # nvimでファイルを開く
 }
 
 function obm() {
-  local file_path=$(createDailyFileIfNeeded) # ファイルを作成するか確認し、パスを取得
+    local file_path=$(createDailyFileIfNeeded)
 
-  local time_stamp=$(date +"[%H:%M]")
+    local time_stamp=$(date +"[%H:%M]")
+    local last_time_stamp=$(grep "\[$(date +"%H:%M")\]" "$file_path")
 
-  echo "$time_stamp" >> "$file_path"
-  echo "$*" >> "$file_path"
-  echo "" >> "$file_path" # 空行を追加して見やすくする
+    if [ -z "$last_time_stamp" ]; then
+        echo "" >> "$file_path"
+        echo "$time_stamp" >> "$file_path"
+    fi
+
+    echo "$*" >> "$file_path"
 }
 
 #=====================#

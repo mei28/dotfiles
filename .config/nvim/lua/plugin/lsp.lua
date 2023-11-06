@@ -9,7 +9,7 @@ local spec = {
   },
   { 'williamboman/mason-lspconfig.nvim',         cmd = { 'LspInstall', 'LspUninstall' } },
   { "neovim/nvim-lspconfig",                     cmd = { 'LspInfo' } },
-  { 'WhoIsSethDaniel/mason-tool-installer.nvim', }
+  { 'WhoIsSethDaniel/mason-tool-installer.nvim', cmd = { 'MasonToolsUpdate' } }
 }
 
 function mason_setup()
@@ -136,21 +136,26 @@ function mason_setup()
     'flake8',
     'ruff',
     'yamllint',
+    'shellcheck',
+    'beautysh'
   }
 
   local status, mti                       = pcall(require, 'mason-tool-installer')
   mti.setup({ ensure_installed = ensure_installed_linter_formatter })
   -- Register linters and formatters per language
-  local prettier = require('efmls-configs.formatters.prettier')
-  local eslint   = require('efmls-configs.linters.eslint')
+  local prettier   = require('efmls-configs.formatters.prettier')
+  local eslint     = require('efmls-configs.linters.eslint')
 
-  local black    = require('efmls-configs.formatters.black')
-  local mypy     = require('efmls-configs.linters.mypy')
-  local isort    = require('efmls-configs.formatters.isort')
-  local flake8   = require('efmls-configs.linters.flake8')
-  local ruff     = require('efmls-configs.formatters.ruff')
+  local black      = require('efmls-configs.formatters.black')
+  local mypy       = require('efmls-configs.linters.mypy')
+  local isort      = require('efmls-configs.formatters.isort')
+  local flake8     = require('efmls-configs.linters.flake8')
+  local ruff       = require('efmls-configs.formatters.ruff')
 
-  local yamllint = require('efmls-configs.linters.yamllint')
+  local yamllint   = require('efmls-configs.linters.yamllint')
+
+  local shellcheck = require('efmls-configs.linters.shellcheck')
+  local beautysh   = require('efmls-configs.formatters.beautysh')
 
 
   local languages    = {
@@ -158,6 +163,7 @@ function mason_setup()
     yaml = { yamllint, prettier },
     json = { prettier },
     svelte = { eslint, prettier },
+    sh = { shellcheck, beautysh },
   }
 
   local efmls_config = {

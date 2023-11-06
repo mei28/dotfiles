@@ -100,7 +100,7 @@ end
 function MoveToPrevScreen()
   -- Get the focused window, its window frame dimensions, its screen frame dimensions,
   -- and the next screen's frame dimensions.
-  local focusedWindow, focusedScreenFrame = getScreenWindowInfo()
+  local focusedWindow, focusedScreenFrame = GetScreenWindowInfo()
   local nextScreenFrame = focusedWindow:screen():previous():frame()
   local windowFrame = focusedWindow:frame()
 
