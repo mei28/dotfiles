@@ -6,6 +6,7 @@ local spec = {
       local status, hlslens = pcall(require, 'hlslens')
       if not status then return end
       hlslens.setup()
+      require("scrollbar.handlers.search").setup({})
     end,
     keys = {
       { 'n',  [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]] },

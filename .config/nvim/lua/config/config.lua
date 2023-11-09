@@ -14,6 +14,8 @@ vim.opt.belloff = 'all'
 vim.opt.relativenumber = true
 -- 行番号の表示
 vim.opt.number = true
+-- statuscolの固定長
+vim.opt.signcolumn = 'yes:1'
 -- 背景色
 vim.opt.background = 'dark'
 -- tabをスペース

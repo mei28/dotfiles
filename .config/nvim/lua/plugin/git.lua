@@ -33,9 +33,8 @@ local spec = {
           changedelete = { text = '~' },
           untracked    = { text = '┆' },
         },
-      }
-
-      )
+      })
+      require("scrollbar.handlers.gitsigns").setup()
     end
   },
   {
