@@ -333,6 +333,11 @@ function obm() {
     echo "$*" >> "$file_path"
 }
 
+if command -v ngrok &>/dev/null; then
+    eval "$(ngrok completion)"
+fi
+
+
 #=====================#
 # change config by OS #
 #=====================#
@@ -373,6 +378,7 @@ case ${OSTYPE} in
         if [ -e /Applications/CMake.app/Contents/bin ]; then
             export PATH="/Applications/CMake.app/Contents/bin:$PATH"
         fi
+
 
         ;;
         #========#
