@@ -17,33 +17,78 @@ export PATH="$PATH:$GIT_CONTRIB_PATH/git-jump"
 export PATH="$PATH:$GIT_CONTRIB_PATH/diff-highlight"
 
 # prompt
-if [ -e $HOME/.git-prompt.sh ]
-then
+if [ -e $HOME/.git-prompt.sh ]; then
     GIT_PS1_SHOWDIRTYSTATE=true
     GIT_PS1_SHOWUNTRACKEDFILES=true
     GIT_PS1_SHOWSTASHSTATE=true
     GIT_PS1_SHOWUPSTREAM=auto
-
     source $HOME/.git-prompt.sh
-    PS1='\[\e[34m\]\w \[\e[0;32m\]$(__git_ps1 "(%s)")\[\e[0;37m\]\$\[\e[0m\] '
+    GIT_PROMPT_EXIST=true
+else
+    GIT_PROMPT_EXIST=false
+fi
+
+function shorten_path {
+    local max_dirs=3
+    local path="${PWD/#$HOME/~}"
+    local IFS='/'
+    read -ra path_array <<< "$path"
+    local new_path=""
+    local len=${#path_array[@]}
+
+    local show_head_num=3
+    if (( len > max_dirs )); then
+        new_path="~"
+        for (( i=1; i<len-max_dirs; i++ )); do
+            local dir=${path_array[i]:0:$show_head_num}
+            new_path+="/$dir"
+        done
+        for (( i=len-max_dirs; i<len; i++ )); do
+            new_path+="/${path_array[i]}"
+        done
+    else
+        new_path="$path"
+    fi
+    echo "$new_path"
+}
+
+function set_prompt {
+    local ps1_prefix=""
+    local ps1_suffix=""
+    path=$(shorten_path)
+
+    if $GIT_PROMPT_EXIST; then
+        ps1_suffix="\[\e[34m\]${path} \[\e[0;32m\]$(__git_ps1 "(%s)")\[\e[0;37m\]\$\[\e[0m\] "
+    else
+        ps1_suffix="\[\e[34m\]${path} \[\e[0;37m\]\$\[\e[0m\] "
+    fi
 
     if [[ ! -z $SSH_CONNECTION ]]; then
-        PS1='\[\e[1;30;43m\] SSH \[\e[0m\]'\ $PS1
+        ps1_prefix='\[\e[1;30;43m\] SSH \[\e[0m\]'
     fi
 
     if [ -f /.dockerenv ]; then
-        PS1='\[\e[1;34m\]🐳\[\e[0m\] '$PS1
+        ps1_prefix="${ps1_prefix}\[\e[1;34m\]🐳\[\e[0m\]"
     fi
-fi
+
+    PS1="${ps1_prefix}${ps1_suffix}"
+}
+
+function add_line {
+    if [[ -z "${PS1_NEWLINE_LOGIN}" ]]; then
+        PS1_NEWLINE_LOGIN=true
+    else
+        printf '\n'
+    fi
+}
+
+PROMPT_COMMAND='set_prompt; add_line'
 
 # git completion
 if [ -e $HOME/.git-completion.bash ]
 then
     source $HOME/.git-completion.bash
 fi
-
-
-
 
 if [ -e $HOME/.y/bin ]; then
     export PATH="$HOME/.y/bin:$PATH"
@@ -55,15 +100,6 @@ fi
 # export PATH="/usr/local/bin/git:$PATH"
 
 
-function add_line {
-    if [[ -z "${PS1_NEWLINE_LOGIN}" ]]; then
-        PS1_NEWLINE_LOGIN=true
-    else
-        printf '\n'
-    fi
-}
-
-PROMPT_COMMAND='add_line'
 
 # nvim
 alias nv='nvim'
