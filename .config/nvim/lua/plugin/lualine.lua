@@ -29,10 +29,20 @@ function lualine_setup()
     return ' ' .. table.concat(clients, '/')
   end
 
+  local function encoding()
+    -- vim.bo.fileencodingを取得して、utf-8でない場合のみその値を返す
+    local enc = vim.bo.fileencoding
+    if enc == '' or enc:lower() == 'utf-8' then
+      return ''  -- UTF-8の場合は何も表示しない
+    else
+      return enc -- UTF-8でない場合はエンコーディングを表示
+    end
+  end
+
   lualine.setup {
     options = {
       icons_enabled = true,
-      theme = 'nord',
+      theme = 'tokyonight',
       section_separators = { left = '', right = '' },
       component_separators = { left = '', right = '' },
       disabled_filetypes = {}
@@ -47,9 +57,9 @@ function lualine_setup()
           file_status = true,
           shorting_target = 40,
           symbols = {
-            modified = '[+]',
-            readonly = '[RO]',
-            unnamed = 'Untitled',
+            modified = '[]',
+            readonly = '[]',
+            unnamed = '[Untitled]',
           }
         }
       },
@@ -69,7 +79,7 @@ function lualine_setup()
       -- lualine_z = { 'location' }
       lualine_y = {
         'filetype',
-        'encoding',
+        encoding,
       },
       lualine_z = {
         lsp_names

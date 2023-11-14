@@ -5,7 +5,7 @@ vim.cmd [[lang en_US.UTF-8]]
 -- 文字コード
 vim.scriptencoding = 'UTF-8'
 vim.opt.encoding = 'UTF-8'
-vim.opt.fileencoding = 'UTF-8'
+vim.opt.fileencodings = {'utf-8', 'shift-jis', 'default', 'latin1'}
 -- 文字幅
 vim.opt.ambiwidth = 'single'
 -- ベルの音をミュート
