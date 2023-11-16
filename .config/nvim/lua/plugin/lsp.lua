@@ -115,14 +115,62 @@ function mason_setup()
       if client.server_capabilities.documentSymbolProvider then
         navic.attach(client, ev.buf)
       end
+
+      -- inlay hint
+      local bufnr = ev.buf
+      local supports_inlay_hints = client and client.server_capabilities.inlayHintProvider
+      if supports_inlay_hints then
+        vim.lsp.inlay_hint.enable(bufnr, false)
+        vim.api.nvim_create_user_command(
+          'ToggleInlayHint',
+          function() vim.lsp.inlay_hint.enable(bufnr, not vim.lsp.inlay_hint.is_enabled()) end,
+          { desc = 'Toggle Inlay Hints' }
+        )
+        vim.api.nvim_create_user_command(
+          'EnableInlayHint',
+          function() vim.lsp.inlay_hint.enable(bufnr, true) end,
+          { desc = 'Enable Inlay Hints' }
+        )
+        vim.api.nvim_create_user_command(
+          'DisableInlayHint',
+          function() vim.lsp.inlay_hint.enable(bufnr, false) end,
+          { desc = 'Disable Inlay Hints' }
+        )
+        if vim.lsp.inlay_hint.is_enabled() then
+          vim.lsp.inlay_hint.enable(bufnr, true)
+          vim.api.nvim_create_autocmd("InsertEnter", {
+            callback = function()
+              vim.lsp.inlay_hint.enable(bufnr, false)
+            end,
+            buffer = vim.api.nvim_get_current_buf(),
+          })
+          vim.api.nvim_create_autocmd("InsertLeave", {
+            callback = function()
+              vim.lsp.inlay_hint.enable(bufnr, true)
+            end,
+            buffer = vim.api.nvim_get_current_buf(),
+          })
+        end
+      end
     end
   })
 
 
-  -- LSP handlers
+  -- LSP handlers, virtualtext
   vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     vim.lsp.diagnostic.on_publish_diagnostics, { virtual_text = true }
   )
+  vim.api.nvim_create_autocmd("InsertEnter", {
+    callback = function()
+      vim.diagnostic.hide(nil, vim.api.nvim_get_current_buf())
+    end
+  })
+  vim.api.nvim_create_autocmd("InsertLeave", {
+    callback = function()
+      vim.diagnostic.show(nil, vim.api.nvim_get_current_buf())
+    end
+  })
+
 
 
   -- efm
