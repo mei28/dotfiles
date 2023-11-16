@@ -55,6 +55,7 @@ tree-sitter-cli@0.13.10
 .config/zed
 .config/gh
 .config/pdm
+.config/yarn
 .config/github-copilot
 .config/.gsd-keyboard.settings-ported
 

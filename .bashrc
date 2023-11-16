@@ -30,7 +30,7 @@ fi
 
 function shorten_path {
     local max_dirs=3
-    local path="${PWD/#$HOME/~}"
+    local path="${PWD/#$HOME/\~}"
     local IFS='/'
     read -ra path_array <<< "$path"
     local new_path=""
