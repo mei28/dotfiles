@@ -28,9 +28,19 @@ else
     GIT_PROMPT_EXIST=false
 fi
 
+
+replace_home_with_tilde() {
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        echo "${1/#$HOME/~}"
+    else
+        echo "${1/#$HOME/\~}"
+    fi
+}
+
+path=$(replace_home_with_tilde "$PWD")
 function shorten_path {
     local max_dirs=3
-    local path="${PWD/#$HOME/\~}"
+    local path=$(replace_home_with_tilde "$PWD")
     local IFS='/'
     read -ra path_array <<< "$path"
     local new_path=""
