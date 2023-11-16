@@ -119,38 +119,60 @@ function mason_setup()
       -- inlay hint
       local bufnr = ev.buf
       local supports_inlay_hints = client and client.server_capabilities.inlayHintProvider
+      vim.g.inlay_hints_enabled = false
       if supports_inlay_hints then
-        vim.lsp.inlay_hint.enable(bufnr, false)
+        vim.lsp.inlay_hint.enable(bufnr, true)
+        -- Inlay Hintsの表示状態をトグルするコマンド
         vim.api.nvim_create_user_command(
           'ToggleInlayHint',
-          function() vim.lsp.inlay_hint.enable(bufnr, not vim.lsp.inlay_hint.is_enabled()) end,
+          function()
+            vim.g.inlay_hints_enabled = not vim.g.inlay_hints_enabled
+            if vim.g.inlay_hints_enabled then
+              vim.lsp.inlay_hint.enable(bufnr)
+            else
+              vim.lsp.inlay_hint.enable(bufnr, false)
+            end
+          end,
           { desc = 'Toggle Inlay Hints' }
         )
+
+        -- Inlay Hintsを有効にするコマンド
         vim.api.nvim_create_user_command(
           'EnableInlayHint',
-          function() vim.lsp.inlay_hint.enable(bufnr, true) end,
+          function()
+            vim.g.inlay_hints_enabled = true
+            vim.lsp.inlay_hint.enable(bufnr, true)
+          end,
           { desc = 'Enable Inlay Hints' }
         )
+
+        -- Inlay Hintsを無効にするコマンド
         vim.api.nvim_create_user_command(
           'DisableInlayHint',
-          function() vim.lsp.inlay_hint.enable(bufnr, false) end,
+          function()
+            vim.g.inlay_hints_enabled = false
+            vim.lsp.inlay_hint.enable(bufnr, false)
+          end,
           { desc = 'Disable Inlay Hints' }
         )
-        if vim.lsp.inlay_hint.is_enabled() then
-          vim.lsp.inlay_hint.enable(bufnr, true)
-          vim.api.nvim_create_autocmd("InsertEnter", {
-            callback = function()
+
+        -- InsertEnterとInsertLeaveの自動コマンドを作成
+        vim.api.nvim_create_autocmd("InsertEnter", {
+          callback = function()
+            if vim.g.inlay_hints_enabled then
               vim.lsp.inlay_hint.enable(bufnr, false)
-            end,
-            buffer = vim.api.nvim_get_current_buf(),
-          })
-          vim.api.nvim_create_autocmd("InsertLeave", {
-            callback = function()
+            end
+          end,
+          buffer = bufnr,
+        })
+        vim.api.nvim_create_autocmd("InsertLeave", {
+          callback = function()
+            if vim.g.inlay_hints_enabled then
               vim.lsp.inlay_hint.enable(bufnr, true)
-            end,
-            buffer = vim.api.nvim_get_current_buf(),
-          })
-        end
+            end
+          end,
+          buffer = bufnr,
+        })
       end
     end
   })
