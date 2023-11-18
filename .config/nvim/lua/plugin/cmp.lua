@@ -108,10 +108,10 @@ function cmp_setup()
       { name = "path" },
       { name = "nvim_lsp_signature_help" },
       { name = "treesitter" },
-      { name = 'copilot' },
       -- { name = 'obsidian' },
       { name = 'tmux' },
       { name = 'env' },
+      { name = 'copilot',                priority = -50 },
     }),
     formatting = {
       format = lspkind.cmp_format({ with_text = false, maxwidth = 50 })
@@ -290,6 +290,9 @@ function luasnip_setup()
     'python', {
       s('ipd', {
         t("from ipdb import set_trace as ist")
+      }),
+      s('pdb', {
+        t("from pdb import set_trace as ist")
       }),
     }
   )

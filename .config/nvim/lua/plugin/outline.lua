@@ -10,6 +10,7 @@ local spec = {
         auto_close = true,
         show_number = true,
         show_symbol_details = true,
+        symbols = { icon_source = 'lspkind' }
       })
     end,
     keys = {
