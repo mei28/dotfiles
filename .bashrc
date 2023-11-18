@@ -384,6 +384,11 @@ if command -v ngrok &>/dev/null; then
 fi
 
 
+if type gitui &> /dev/null;
+then
+    alias gu='gitui'
+fi
+
 #=====================#
 # change config by OS #
 #=====================#
