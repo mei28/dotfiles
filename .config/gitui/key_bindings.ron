@@ -19,7 +19,7 @@
     move_right: Some(( code: Char('l'), modifiers: ( bits: 0,),)),
     move_up: Some(( code: Char('k'), modifiers: ( bits: 0,),)),
     move_down: Some(( code: Char('j'), modifiers: ( bits: 0,),)),
-    
+
     popup_up: Some(( code: Char('p'), modifiers: ( bits: 2,),)),
     popup_down: Some(( code: Char('n'), modifiers: ( bits: 2,),)),
     page_up: Some(( code: Char('b'), modifiers: ( bits: 2,),)),
@@ -42,4 +42,8 @@
     stash_open: Some(( code: Char('l'), modifiers: ( bits: 0,),)),
 
     abort_merge: Some(( code: Char('M'), modifiers: ( bits: 1,),)),
+
+    push: Some((code: Char('P'), modifiers: ( bits: 1,),)),
+    fetch: Some((code: Char('f'), modifiers: ( bits: 0,),)),
+    pull: Some((code: Char('F'), modifiers: ( bits: 1,),)),
 )
