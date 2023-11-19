@@ -121,7 +121,7 @@ function mason_setup()
       local supports_inlay_hints = client and client.server_capabilities.inlayHintProvider
       vim.g.inlay_hints_enabled = false
       if supports_inlay_hints then
-        vim.lsp.inlay_hint.enable(bufnr, true)
+        vim.lsp.inlay_hint.enable(bufnr, false)
         -- Inlay Hintsの表示状態をトグルするコマンド
         vim.api.nvim_create_user_command(
           'ToggleInlayHint',
