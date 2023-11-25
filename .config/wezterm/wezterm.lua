@@ -93,7 +93,7 @@ config.skip_close_confirmation_for_processes_named = skip_close_confirmation_for
 -- inactive_pane_hsb
 config.inactive_pane_hsb = window.inactive_pane_hsb
 config.check_for_updates = false
-config.window_decorations = "RESIZE"
+config.window_decorations = "INTEGRATED_BUTTONS|RESIZE|MACOS_FORCE_ENABLE_SHADOW"
 -- background image
 config.window_background_image = utils:randomBackgroundImage()
 config.window_background_image_hsb = {
