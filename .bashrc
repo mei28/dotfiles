@@ -81,6 +81,10 @@ function set_prompt {
         ps1_prefix="${ps1_prefix}\[\e[1;34m\]🐳\[\e[0m\]"
     fi
 
+    if [[ -n "$VIRTUAL_ENV" ]]; then
+        ps1_prefix="(`basename \"$VIRTUAL_ENV\"`)"$ps1_prefix
+    fi
+
     PS1="${ps1_prefix}${ps1_suffix}"
 }
 
