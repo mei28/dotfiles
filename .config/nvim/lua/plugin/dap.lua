@@ -6,26 +6,21 @@ local spec = {
       dap_setup()
     end,
     keys = {
-      { "<Leader>dt", ':DapToggleBreakpoint<CR>' },
-      { "<Leader>dx", ':DapTerminate<CR>' },
-      { "<Leader>do", ':DapStepOver<CR>' },
-      { '<Leader>dc', function() require 'dap'.continue() end },
-      { '<Leader>do', function() require 'dap'.step_over() end },
-      { '<Leader>di', function() require 'dap'.step_into() end },
-      { '<Leader>dp', function() require 'dap'.step_out() end },
-      { '<Leader>db', function() require 'dap'.toggle_breakpoint() end },
-      { '<Leader>dl', function() require 'dap'.run_last() end },
-      { '<Leader>df', function() require "dapui".float_element('scopes', { enter = true }) end },
-      { '<Leader>dr', function() require 'dap'.repl.toggle() end },
+      { "<leader>6",         ":lua require'dap'.continue()<CR>" },
+      { "<leader>7",         ":lua require'dap'.step_over()<CR>" },
+      { "<leader>8",         ":lua require'dap'.step_into()<CR>" },
+      { "<leader>9",         ":lua require'dap'.step_out()<CR>" },
+      { "<leader>;",         ":lua require'dap'.toggle_breakpoint()<CR>" },
+      { "<leader>'",         ":lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>" },
+      { "<leader>i",         ":lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>", },
+      { "<leader>d",         ":lua require'dapui'.toggle()<CR>", },
+      { "<leader><leader>d", ":lua require'dapui'.eval()<CR>" },
     },
     dependencies = { "rcarriga/nvim-dap-ui", 'nvim-telescope/telescope.nvim' },
   },
   {
     "rcarriga/nvim-dap-ui",
     dependencies = { "mfussenegger/nvim-dap" },
-    config = function()
-      require("dapui").setup()
-    end
   },
   {
     'theHamsta/nvim-dap-virtual-text',
@@ -53,43 +48,64 @@ function dap_setup()
 
   local status, dapui = pcall(require, 'dapui')
   if not status then return end
-  dapui.setup()
 
-
-  dap.listeners.after.event_initialized["dapui_config"] = function()
-    dapui.open()
-  end
-  dap.listeners.before.event_terminated["dapui_config"] = function()
-    dapui.close()
-  end
-  dap.listeners.before.event_exited["dapui_config"] = function()
-    dapui.close()
-  end
-
-  dap.listeners.after.event_initialized["dapui_config"] = function()
-    dapui.open()
-  end
-  dap.listeners.before.event_terminated["dapui_config"] = function()
-    dapui.close()
-  end
-  dap.listeners.before.event_exited["dapui_config"] = function()
-    dapui.close()
-  end
-
-  -- local set = vim.keymap.set
-  -- set("n", "<Leader>dt", ':DapToggleBreakpoint<CR>')
-  -- set("n", "<Leader>dx", ':DapTerminate<CR>')
-  -- set("n", "<Leader>do", ':DapStepOver<CR>')
-  --
-  -- set('n', '<Leader>dc', function() dap.continue() end)
-  -- set('n', '<Leader>do', function() dap.step_over() end)
-  -- set('n', '<Leader>di', function() dap.step_into() end)
-  -- set('n', '<Leader>dp', function() dap.step_out() end)
-  -- set('n', '<Leader>db', function() dap.toggle_breakpoint() end)
-  -- set('n', '<Leader>dl', function() dap.run_last() end)
-  -- set('n', '<Leader>df', function() require("dapui").float_element('scopes', { enter = true }) end)
-  -- set('n', '<Leader>dr', function() dap.repl.toggle() end)
-
+  dapui.setup({
+    icons = { expanded = "▾", collapsed = "▸", current_frame = "▸" },
+    mappings = {
+      expand = { "<CR>", "<2-LeftMouse>" },
+      open = "o",
+      remove = "d",
+      edit = "e",
+      repl = "r",
+      toggle = "t",
+    },
+    layouts = {
+      {
+        elements = {
+          { id = "scopes", size = 0.25 },
+          "breakpoints",
+          "stacks",
+          "watches",
+        },
+        size = 40,
+        position = "left",
+      },
+      {
+        elements = {
+          "repl",
+        },
+        size = 0.25,
+        position = "bottom",
+      },
+    },
+    controls = {
+      enabled = true,
+      element = "repl",
+      icons = {
+        pause = "",
+        play = "",
+        step_into = "",
+        step_over = "",
+        step_out = "",
+        step_back = "",
+        run_last = "↻",
+        terminate = "□",
+      },
+    },
+    floating = {
+      max_height = nil,
+      max_width = nil,
+      border = "single",
+      mappings = {
+        close = { "q", "<Esc>" },
+      },
+    },
+    windows = { indent = 1 },
+    render = {
+      max_type_length = nil,
+      max_value_lines = 100,
+    },
+  })
 
   dap.adapters = {
     codelldb = {
