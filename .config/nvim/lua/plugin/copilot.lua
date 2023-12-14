@@ -7,19 +7,34 @@ local spec = {
     config = function()
       local status, copilot = pcall(require, 'copilot')
       if not status then return end
-      local status, cop_cmp = pcall(require, 'copilot_cmp')
-      if not status then return end
+      -- local status, cop_cmp = pcall(require, 'copilot_cmp')
+      -- if not status then return end
 
       copilot.setup({
-        suggestion = { enabled = false },
-        panel = { enabled = false },
-        fix_pairs = true,
+        panel = {
+          enabled = false
+        },
+        suggestion = {
+          enabled = true,
+          auto_trigger = true,
+          keymap = {
+            accept_word = "<C-w>",
+            accept_line = "<C-j>",
+          },
+        }
       })
-      cop_cmp.setup({})
+      -- cop_cmp.setup({})
     end,
     cmd = 'Copilot'
   },
-  { 'zbirenbaum/copilot-cmp', event = { 'InsertEnter' }, dependencies = { 'copilot.lua' }, },
+  -- {
+  --   'zbirenbaum/copilot-cmp',
+  --   event = { 'InsertEnter' },
+  --   dependencies = { 'copilot.lua' },
+  -- },
 }
+
+
+
 
 return spec

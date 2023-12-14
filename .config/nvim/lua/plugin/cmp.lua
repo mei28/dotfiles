@@ -111,7 +111,7 @@ function cmp_setup()
       -- { name = 'obsidian' },
       { name = 'tmux' },
       { name = 'env' },
-      { name = 'copilot',                priority = -50 },
+      -- { name = 'copilot',                priority = -50 },
     }),
     formatting = {
       format = lspkind.cmp_format({ with_text = false, maxwidth = 50 })
@@ -142,13 +142,13 @@ function cmp_setup()
   })
 
   -- for copilot
-  cmp.event:on("menu_opened", function()
-    vim.b.copilot_suggestion_hidden = true
-  end)
-
-  cmp.event:on("menu_closed", function()
-    vim.b.copilot_suggestion_hidden = false
-  end)
+  -- cmp.event:on("menu_opened", function()
+  --   vim.b.copilot_suggestion_hidden = true
+  -- end)
+  --
+  -- cmp.event:on("menu_closed", function()
+  --   vim.b.copilot_suggestion_hidden = false
+  -- end)
 
   -- for cmp + autopairs: https://github.com/windwp/nvim-autopairs#mapping-cr
   -- and it needs to come after lsp-zero is configured: https://github.com/VonHeikemen/lsp-zero.nvim/discussions/119
