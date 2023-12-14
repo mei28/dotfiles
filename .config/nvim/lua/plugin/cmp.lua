@@ -112,6 +112,7 @@ function cmp_setup()
       { name = 'tmux' },
       { name = 'env' },
       -- { name = 'copilot',                priority = -50 },
+      { name = "codeium" }
     }),
     formatting = {
       format = lspkind.cmp_format({ with_text = false, maxwidth = 50 })
@@ -209,6 +210,7 @@ function lspkind_setup()
       Operator = "󰆕",
       TypeParameter = "",
       Copilot = "",
+      Codeium = "",
     },
   })
 end
