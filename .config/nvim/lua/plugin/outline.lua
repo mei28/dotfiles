@@ -1,24 +1,31 @@
 local spec = {
   {
-    'simrat39/symbols-outline.nvim',
+    "hedyhli/outline.nvim",
     config = function()
-      local status, outline = pcall(require, 'symbols-outline')
-      if not status then return end
-      outline.setup({
-        position = 'right',
-        auto_preview = true,
-        auto_close = true,
-        show_number = true,
-        show_symbol_details = true,
-        symbols = { icon_source = 'lspkind' }
-      })
+      require("outline").setup({
+        outline_window = {
+          position = 'right',
+        },
+        preview_window = {
+          auto_preview = true,
+          open_hover_on_preview = true,
+        },
+        outline_window = {
+          auto_close = true,
+          show_numbers = true,
+        },
+        outline_items = {
+          show_symbol_details = true,
+        },
+        symbols = {
+          icons = { icon_source = 'lspkind' },
+        }
+      });
     end,
     keys = {
-      { ';a', '<CMD>SymbolsOutline<CR>' },
+      { ';a', '<CMD>Outline<CR>', desc = "Toggle outline" },
     },
-
   }
-
 }
 
 return spec
