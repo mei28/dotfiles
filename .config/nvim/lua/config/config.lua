@@ -60,7 +60,7 @@ vim.opt.undofile = true
 vim.opt.splitbelow = true
 vim.opt.splitright = true
 -- カーソルを真ん中に
-vim.opt.scrolloff = 42
+vim.opt.scrolloff = 0
 -- 自動外部読み込み
 vim.opt.autoread = true
 -- popupオプション

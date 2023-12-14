@@ -125,7 +125,12 @@ function M.rand_element(seq)
   return seq[idx]
 end
 
-local color_table = { 'nordfox', 'Dracula', 'tokyonight' }
+local color_table = {
+  'nordfox',
+  'Dracula',
+  'tokyonight',
+  'Kanagawa (Gogh)',
+}
 function M.randomColorScheme()
   local theme = M.rand_element(color_table)
   return theme

@@ -94,17 +94,19 @@ config.skip_close_confirmation_for_processes_named = skip_close_confirmation_for
 config.inactive_pane_hsb = window.inactive_pane_hsb
 config.check_for_updates = false
 config.window_decorations = "INTEGRATED_BUTTONS|RESIZE|MACOS_FORCE_ENABLE_SHADOW"
--- background image
-config.window_background_image = utils:randomBackgroundImage()
-config.window_background_image_hsb = {
-  -- Darken the background image by reducing it to 1/3rd
-  brightness = 0.05,
-  -- -- You can adjust the hue by scaling its value.
-  -- -- a multiplier of 1.0 leaves the value unchanged.
-  hue = 1.0,
-  --
-  -- -- You can adjust the saturation also.
-  saturation = 1.0,
+
+-- background
+config.background = {
+  {
+    source = {
+      File = utils:randomBackgroundImage(),
+    },
+    width = '100%',
+    hsb = { brightness = 0.05, hue = 1.0, saturation = 1.0, },
+    vertical_align = 'Middle',
+    horizontal_align = 'Center',
+  }
 }
+
 
 return config
