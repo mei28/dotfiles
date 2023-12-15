@@ -6,7 +6,7 @@ local DEFAULT_BG = { Color = '#333333' }
 local SPACE_1 = ' '
 local SPACE_3 = '   '
 
-local HEADER_HOST = { Foreground = { Color = '#75b1a9' }, Text = '' }
+-- local HEADER_HOST = { Foreground = { Color = '#75b1a9' }, Text = '' }
 local HEADER_CWD = { Foreground = { Color = '#92aac7' }, Text = '' }
 local HEADER_DATE = { Foreground = { Color = '#ffccac' }, Text = '󱪺' }
 local HEADER_TIME = { Foreground = { Color = '#bcbabe' }, Text = '' }
@@ -23,24 +23,24 @@ function AddElement(elems, header, str)
 end
 
 local function GetHostAndCwd(elems, pane)
-  local uri = pane:get_current_working_dir()
+  local url = pane:get_current_working_dir()
 
-  if not uri then
+  if not url then
     return
   end
 
-  local cwd_uri = uri:sub(8)
-  local slash = cwd_uri:find '/'
+  local cwd_url = url.file_path
+  local slash = cwd_url:find '/'
 
   if not slash then
     return
   end
 
-  local host = cwd_uri:sub(1, slash - 1)
-  local dot = host:find '[.]'
+  -- local host = cwd_url:sub(1, slash - 1)
+  -- local dot = host:find '[.]'
 
-  AddElement(elems, HEADER_HOST, dot and host:sub(1, dot - 1) or host)
-  AddElement(elems, HEADER_CWD, cwd_uri:sub(slash))
+  -- AddElement(elems, HEADER_HOST, dot and host:sub(1, dot - 1) or host)
+  AddElement(elems, HEADER_CWD, cwd_url:sub(slash))
 end
 
 local function GetDate(elems)
