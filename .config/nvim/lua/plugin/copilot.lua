@@ -18,8 +18,9 @@ local spec = {
           enabled = true,
           auto_trigger = true,
           keymap = {
+            accept = "<C-c>",
             accept_word = "<C-w>",
-            accept_line = "<C-j>",
+            accept_line = "<C-l>",
           },
         }
       })
