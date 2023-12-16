@@ -72,3 +72,4 @@ set('n', 'te', '<CMD>tabedit ')
 set('n', 'tc', '<CMD>tabclose<CR>')
 
 set('n', 'q:', '<Nop>')
+set('n', '<C-l>', 'zz')
