@@ -112,7 +112,7 @@ function cmp_setup()
       { name = 'tmux' },
       { name = 'env' },
       -- { name = 'copilot',                priority = -50 },
-      { name = "codeium" }
+      -- { name = "codeium" }
     }),
     formatting = {
       format = lspkind.cmp_format({ with_text = false, maxwidth = 50 })

@@ -10,7 +10,6 @@ local colorschemes = {
   'jellybeans',
   'pinkmare',
   'hatsunemiku',
-  'catppuccin',
   'kanagawa',
   'kyotonight',
   'everforest',

@@ -73,3 +73,15 @@ set('n', 'tc', '<CMD>tabclose<CR>')
 
 set('n', 'q:', '<Nop>')
 set('n', '<C-l>', 'zz')
+
+
+-- ref: https://blog.atusy.net/2023/12/09/gf-open-url/
+vim.keymap.set("n", "gf", function()
+  local cfile = vim.fn.expand("<cfile>")
+  if cfile:match("^https?://") then
+    -- Neovim nightlyなら `vim.ui.open(cfile)` が便利。
+    vim.ui.open(cfile)
+  else
+    vim.cmd("normal! gF")
+  end
+end)

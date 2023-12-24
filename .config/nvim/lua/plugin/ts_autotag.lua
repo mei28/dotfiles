@@ -1,10 +1,25 @@
 local spec = {
   {
     'windwp/nvim-ts-autotag',
-    event = 'InsertEnter',
     config = function()
       require 'nvim-ts-autotag'.setup()
-    end
+    end,
+    ft = {
+      'astro',
+      'glimmer',
+      'handlebars',
+      'html',
+      'javascript',
+      'jsx',
+      'markdown',
+      'php',
+      'rescript',
+      'svelte',
+      'tsx',
+      'typescript',
+      'vue',
+      'xml',
+    },
   },
 }
 
