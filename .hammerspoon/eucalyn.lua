@@ -5,7 +5,7 @@ local M = {}
 -- キーマップのテーブルを定義
 local eucalynKeyMap = {
   [0x0c] = 0x0c, -- q -> q
-  [0x0d] = 0x0e, -- w -> e
+  [0x0d] = 0x0d, -- w -> w
   [0x0e] = 0x2b, -- e -> ,
   [0x0f] = 0x2f, -- r -> .
   [0x11] = 0x29, -- t -> ;
@@ -44,6 +44,24 @@ local function remapKey(event)
   local flags = event:getFlags()
   local remappedKeyCode = eucalynKeyMap[keyCode]
   local isKeyDown = event:getType() == hs.eventtap.event.types.keyDown
+
+  if flags.ctrl then
+    local ctrlKeyCodes = {
+      [0x00] = 0x00, -- a -> a
+      [0x2b] = 0x0e, -- , -> e
+      [0x22] = 0x03, -- i -> f
+      [0x0e] = 0x02, -- e -> d
+      [0x2d] = 0x0b, --  n -> b
+      [0x05] = 0x04, -- g -> h
+      [0x0b] = 0x2d, -- b -> n
+      [0x23] = 0x23, -- p -> p
+    }
+    if ctrlKeyCodes[keyCode] then
+      local newEventDown = hs.eventtap.event.newKeyEvent({ 'ctrl' }, remappedKeyCode, true)
+      local newEventUp = hs.eventtap.event.newKeyEvent({ 'ctrl' }, remappedKeyCode, false)
+      return true, { newEventDown, newEventUp }
+    end
+  end
 
   if remappedKeyCode then
     local mods = {}
