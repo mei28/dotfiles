@@ -1,25 +1,27 @@
+local eucalyn = require('eucalyn')
+
 hs.window.animationDuration = 0
 Units = {
   -- 半分分割
-  right50 = { x = 0.50, y = 0.00, w = 0.50, h = 1.00 },
-  left50  = { x = 0.00, y = 0.00, w = 0.50, h = 1.00 },
-  top50   = { x = 0.00, y = 0.00, w = 1.00, h = 0.50 },
-  bot50   = { x = 0.00, y = 0.50, w = 1.00, h = 0.50 },
+  right50     = { x = 0.50, y = 0.00, w = 0.50, h = 1.00 },
+  left50      = { x = 0.00, y = 0.00, w = 0.50, h = 1.00 },
+  top50       = { x = 0.00, y = 0.00, w = 1.00, h = 0.50 },
+  bot50       = { x = 0.00, y = 0.50, w = 1.00, h = 0.50 },
 
   -- 画面3分割設定
-  right33  = { x = 0.66, y = 0.00, w = 0.34, h = 1.00 },
-  left33   = { x = 0.00, y = 0.00, w = 0.33, h = 1.00 },
-  center33 = { x = 0.33, y = 0.00, w = 0.33, h = 1.00 },
+  right33     = { x = 0.66, y = 0.00, w = 0.34, h = 1.00 },
+  left33      = { x = 0.00, y = 0.00, w = 0.33, h = 1.00 },
+  center33    = { x = 0.33, y = 0.00, w = 0.33, h = 1.00 },
 
   -- 4分割
-  lefttop   = { x = 0.00, y = 0.00, w = 0.50, h = 0.50 },
-  righttop  = { x = 0.50, y = 0.00, w = 0.50, h = 0.50 },
-  leftdown  = { x = 0.00, y = 0.50, w = 0.50, h = 0.50 },
-  rightdown = { x = 0.50, y = 0.50, w = 0.50, h = 0.50 },
+  lefttop     = { x = 0.00, y = 0.00, w = 0.50, h = 0.50 },
+  righttop    = { x = 0.50, y = 0.00, w = 0.50, h = 0.50 },
+  leftdown    = { x = 0.00, y = 0.50, w = 0.50, h = 0.50 },
+  rightdown   = { x = 0.50, y = 0.50, w = 0.50, h = 0.50 },
 
   -- max,min
-  max = { x = 0.00, y = 0.00, w = 1.00, h = 1.00 },
-  min = { x = 0.33, y = 0.33, w = 0.33, h = 0.33 },
+  max         = { x = 0.00, y = 0.00, w = 1.00, h = 1.00 },
+  min         = { x = 0.33, y = 0.33, w = 0.33, h = 0.33 },
 
   -- 6分割
   right_up    = { x = 0.66, y = 0.00, w = 0.34, h = 0.50 },
@@ -67,7 +69,6 @@ function GetScreenWindowInfo()
   local focusedWindow = hs.window.focusedWindow()
   local focusedScreenFrame = focusedWindow:screen():frame()
   return focusedWindow, focusedScreenFrame
-
 end
 
 function MoveToNextScreen()
@@ -88,9 +89,9 @@ end
 
 function CalcNextWindowRatio(windowFrame, focusedScreenFrame, nextScreenFrame)
   local x = (
-      (((windowFrame.x - focusedScreenFrame.x) / focusedScreenFrame.w) * nextScreenFrame.w) + nextScreenFrame.x)
+    (((windowFrame.x - focusedScreenFrame.x) / focusedScreenFrame.w) * nextScreenFrame.w) + nextScreenFrame.x)
   local y = (
-      (((windowFrame.y - focusedScreenFrame.y) / focusedScreenFrame.h) * nextScreenFrame.h) + nextScreenFrame.y)
+    (((windowFrame.y - focusedScreenFrame.y) / focusedScreenFrame.h) * nextScreenFrame.h) + nextScreenFrame.y)
   local h = ((windowFrame.h / focusedScreenFrame.h) * nextScreenFrame.h)
   local w = ((windowFrame.w / focusedScreenFrame.w) * nextScreenFrame.w)
 
@@ -170,20 +171,30 @@ switcher.ui.showTitles = false
 switcher.ui.showSelectedTitle = false
 switcher.ui.showSelectedThumbnail = false
 switcher.ui.thumbnailSize = 256
-switcher.ui.backgroundColor = {0.0,0.0,0.0,0.0}
-hs.hotkey.bind({'alt'},'tab', function()switcher:next()end)
-hs.hotkey.bind({'alt', 'shift'},'tab', function()switcher:previous()end)
+switcher.ui.backgroundColor = { 0.0, 0.0, 0.0, 0.0 }
+hs.hotkey.bind({ 'alt' }, 'tab', function() switcher:next() end)
+hs.hotkey.bind({ 'alt', 'shift' }, 'tab', function() switcher:previous() end)
+
+-- eucalyn
+hs.hotkey.bind({ 'alt', 'ctrl' }, 'e', function()
+  eucalyn.toggleEucalynLayout()
+  if eucalyn.isEnabled() then
+    hs.alert.show("Eucalyn ON")
+  else
+    hs.alert.show("Eucalyn OFF")
+  end
+end)
 
 -- visible key
--- hs.eventtap.new({ hs.eventtap.event.types.keyDown, hs.eventtap.event.types.systemDefined },
---   function(event)
---     local type = event:getType()
---     if type == hs.eventtap.event.types.keyDown then
---       print(hs.keycodes.map[event:getKeyCode()])
---     elseif type == hs.eventtap.event.types.systemDefined then
---       local t = event:systemKey()
---       if t.down then
---         print("System key: " .. t.key)
---       end
---     end
---   end):start()
+hs.eventtap.new({ hs.eventtap.event.types.keyDown, hs.eventtap.event.types.systemDefined },
+  function(event)
+    local type = event:getType()
+    if type == hs.eventtap.event.types.keyDown then
+      print(hs.keycodes.map[event:getKeyCode()])
+    elseif type == hs.eventtap.event.types.systemDefined then
+      local t = event:systemKey()
+      if t.down then
+        print("System key: " .. t.key)
+      end
+    end
+  end):start()
