@@ -176,14 +176,18 @@ hs.hotkey.bind({ 'alt' }, 'tab', function() switcher:next() end)
 hs.hotkey.bind({ 'alt', 'shift' }, 'tab', function() switcher:previous() end)
 
 -- eucalyn
-hs.hotkey.bind({ 'alt', 'ctrl' }, 'e', function()
+local function toggleEucalynLayout()
   eucalyn.toggleEucalynLayout()
   if eucalyn.isEnabled() then
-    hs.alert.show("Eucalyn ON")
+    hs.alert.show("Eucalyn ON", hs.screen.mainScreen(), 0.2)
   else
-    hs.alert.show("Eucalyn OFF")
+    hs.alert.show("Eucalyn OFF", hs.screen.mainScreen(), 0.2)
   end
-end)
+end
+
+hs.hotkey.bind({ 'alt', 'ctrl' }, 'e', toggleEucalynLayout)
+hs.hotkey.bind({ 'alt', 'ctrl' }, 'd', toggleEucalynLayout)
+hs.hotkey.bind({ 'alt', 'ctrl' }, ',', toggleEucalynLayout)
 
 -- visible key
 hs.eventtap.new({ hs.eventtap.event.types.keyDown, hs.eventtap.event.types.systemDefined },
