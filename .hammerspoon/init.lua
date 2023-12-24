@@ -136,11 +136,13 @@ function EikanaEvent(event)
           if hs.keycodes.currentMethod() ~= 'Romaji' then
             hs.keycodes.setMethod('Romaji')
             hs.alert.show("ABC", hs.styledtext, hs.screen.mainScreen(), 0.2)
+            eucalyn.disableEucalynLayout()
           end
         elseif KeyCode == Map['rightcmd'] then
           if hs.keycodes.currentMethod() ~= 'Hiragana' then
             hs.keycodes.setMethod('Hiragana')
             hs.alert.show("かな", hs.styledtext, hs.screen.mainScreen(), 0.2)
+            eucalyn.enableEucalynLayout()
           end
         end
       end
