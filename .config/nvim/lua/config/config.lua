@@ -5,7 +5,7 @@ vim.cmd [[lang en_US.UTF-8]]
 -- 文字コード
 vim.scriptencoding = 'UTF-8'
 vim.opt.encoding = 'UTF-8'
-vim.opt.fileencodings = {'utf-8', 'shift-jis', 'default', 'latin1'}
+vim.opt.fileencodings = { 'utf-8', 'shift-jis', 'default', 'latin1' }
 -- 文字幅
 vim.opt.ambiwidth = 'single'
 -- ベルの音をミュート
@@ -42,7 +42,7 @@ vim.opt.wrapscan = true
 vim.opt.inccommand = 'split'
 -- 改行，タブの可視化
 vim.opt.list = true
-vim.opt.listchars = { tab = '>>', trail = '·', nbsp = '+' }
+vim.opt.listchars = { tab = "▸ ", trail = "⋅", nbsp = "␣", extends = "❯", precedes = "❮" }
 -- オートインデント
 vim.opt.autoindent = true
 -- スマートインデント
