@@ -137,12 +137,18 @@ function EikanaEvent(event)
             hs.keycodes.setMethod('Romaji')
             hs.alert.show("ABC", hs.styledtext, hs.screen.mainScreen(), 0.2)
             eucalyn.disableEucalynLayout()
+            hs.alert.show("Eucalyn OFF", hs.screen.mainScreen(), 0.2)
           end
         elseif KeyCode == Map['rightcmd'] then
           if hs.keycodes.currentMethod() ~= 'Hiragana' then
             hs.keycodes.setMethod('Hiragana')
             hs.alert.show("かな", hs.styledtext, hs.screen.mainScreen(), 0.2)
             eucalyn.enableEucalynLayout()
+
+            hs.alert.show("Eucalyn ON", hs.screen.mainScreen(), 0.2)
+          elseif eucalyn.isEnabled() then
+            eucalyn.disableEucalynLayout()
+            hs.alert.show("Eucalyn OFF", hs.screen.mainScreen(), 0.2)
           end
         end
       end
@@ -186,21 +192,23 @@ local function toggleEucalynLayout()
     hs.alert.show("Eucalyn OFF", hs.screen.mainScreen(), 0.2)
   end
 end
-
 hs.hotkey.bind({ 'alt', 'ctrl' }, 'e', toggleEucalynLayout)
 hs.hotkey.bind({ 'alt', 'ctrl' }, 'd', toggleEucalynLayout)
 hs.hotkey.bind({ 'alt', 'ctrl' }, ',', toggleEucalynLayout)
 
+-- reload config
+hs.hotkey.bind({ 'alt', 'ctrl' }, 'r', hs.reload)
+
 -- visible key
-hs.eventtap.new({ hs.eventtap.event.types.keyDown, hs.eventtap.event.types.systemDefined },
-  function(event)
-    local type = event:getType()
-    if type == hs.eventtap.event.types.keyDown then
-      print(hs.keycodes.map[event:getKeyCode()])
-    elseif type == hs.eventtap.event.types.systemDefined then
-      local t = event:systemKey()
-      if t.down then
-        print("System key: " .. t.key)
-      end
-    end
-  end):start()
+-- hs.eventtap.new({ hs.eventtap.event.types.keyDown, hs.eventtap.event.types.systemDefined },
+--   function(event)
+--     local type = event:getType()
+--     if type == hs.eventtap.event.types.keyDown then
+--       print(hs.keycodes.map[event:getKeyCode()])
+--     elseif type == hs.eventtap.event.types.systemDefined then
+--       local t = event:systemKey()
+--       if t.down then
+--         print("System key: " .. t.key)
+--       end
+--     end
+--   end):start()
