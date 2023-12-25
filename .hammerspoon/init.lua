@@ -143,11 +143,12 @@ function EikanaEvent(event)
           if hs.keycodes.currentMethod() ~= 'Hiragana' then
             hs.keycodes.setMethod('Hiragana')
             hs.alert.show("かな", hs.styledtext, hs.screen.mainScreen(), 0.2)
-            eucalyn.enableEucalynLayout()
+          end
 
+          eucalyn.toggleEucalynLayout()
+          if eucalyn.isEnabled() then
             hs.alert.show("Eucalyn ON", hs.screen.mainScreen(), 0.2)
-          elseif eucalyn.isEnabled() then
-            eucalyn.disableEucalynLayout()
+          else
             hs.alert.show("Eucalyn OFF", hs.screen.mainScreen(), 0.2)
           end
         end
@@ -166,6 +167,8 @@ local function Esc2Eng(event)
     if hs.keycodes.currentMethod() ~= 'Romaji' then
       hs.keycodes.setMethod('Romaji')
       hs.alert.show("ABC", hs.styledtext, hs.screen.mainScreen(), 0.2)
+      eucalyn.disableEucalynLayout()
+      hs.alert.show("Eucalyn OFF", hs.screen.mainScreen(), 0.2)
     end
   end
 end
@@ -197,7 +200,9 @@ hs.hotkey.bind({ 'alt', 'ctrl' }, 'd', toggleEucalynLayout)
 hs.hotkey.bind({ 'alt', 'ctrl' }, ',', toggleEucalynLayout)
 
 -- reload config
-hs.hotkey.bind({ 'alt', 'ctrl' }, 'r', hs.reload)
+hs.hotkey.bind({ 'alt', 'ctrl' }, 'r', function()
+  hs.reload()
+end)
 
 -- visible key
 -- hs.eventtap.new({ hs.eventtap.event.types.keyDown, hs.eventtap.event.types.systemDefined },
