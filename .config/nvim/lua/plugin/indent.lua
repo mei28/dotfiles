@@ -20,6 +20,24 @@ local spec = {
       }
     end,
   },
+  {
+    "shellRaining/hlchunk.nvim",
+    event = { 'BufNewFile', 'BufRead' },
+    config = function()
+      vim.opt.list = true
+      vim.opt.listchars:append "space: "
+      -- vim.opt.listchars:append "eol:↴"
+      require("hlchunk").setup({
+        line_num = {
+          enable = true,
+          style = "#ecc48d",
+        },
+        chunk = { enable = false },
+        indent = { enable = false },
+        blank = { enable = false }
+      })
+    end
+  },
 }
 
 return spec
