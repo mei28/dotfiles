@@ -28,8 +28,19 @@ function mason_setup()
   })
 
   -- add lsp
-  local servers = { 'lua_ls', 'bashls', 'html', 'clangd', 'rust_analyzer', 'quick_lint_js', 'tsserver',
-    'jsonls', 'efm', 'pyright', 'svelte' }
+  local servers = {
+    'lua_ls',
+    'bashls',
+    'html',
+    'clangd',
+    'rust_analyzer',
+    'quick_lint_js',
+    'tsserver',
+    'jsonls',
+    'efm',
+    'pyright',
+    'svelte',
+  }
 
   local status, mason_lspconfig = pcall(require, 'mason-lspconfig')
   if not status then return end
@@ -53,7 +64,13 @@ function mason_setup()
     end
   end
 
-  for _, lsp in ipairs(servers) do lspconfig[lsp].setup({}) end
+  for _, lsp in ipairs(servers) do
+    if lsp == 'rust_analyzer' then
+      goto continue
+    end
+    lspconfig[lsp].setup({})
+    ::continue::
+  end
 
   -- settings for specific LSP
   lspconfig.lua_ls.setup {
@@ -71,17 +88,21 @@ function mason_setup()
   capabilities.offsetEncoding = { "utf-16" }
   lspconfig.clangd.setup({ capabilities = capabilities })
 
-  -- lspconfig.rust_analyzer.setup {
-  --   filetypes = { "rust" },
-  --   root_dir = lspconfig.util.root_pattern("Cargo.toml", "rust-project.json"),
-  --   settings = {
-  --     ['rust_analyzer'] = {
-  --       cargo = {
-  --         allFeatures = true,
-  --       }
-  --     }
-  --   }
-  -- }
+  lspconfig.rust_analyzer.setup {
+    filetypes = { "rust" },
+    root_dir = lspconfig.util.root_pattern("Cargo.toml", "rust-project.json"),
+    settings = {
+      ['rust_analyzer'] = {
+        cargo = {
+          allFeatures = true,
+        },
+        -- enable clippy on save
+        check = {
+          command = "clippy",
+        },
+      }
+    }
+  }
 
   lspconfig.mojo.setup({})
 
@@ -249,6 +270,7 @@ function mason_setup()
   }
   lspconfig.efm.setup(vim.tbl_extend('force', efmls_config, {
   }))
+  ::continue::
 end
 
 return spec
