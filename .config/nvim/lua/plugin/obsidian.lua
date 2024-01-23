@@ -10,6 +10,7 @@ local spec = {
       "hrsh7th/nvim-cmp"
     },
     config = function()
+      vim.opt.conceallevel = 1
       local status, obsidian = pcall(require, 'obsidian')
       if not status then return end
 
