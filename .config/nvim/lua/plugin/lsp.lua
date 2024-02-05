@@ -1,7 +1,7 @@
 local spec = {
   {
     'williamboman/mason.nvim',
-    event = { 'VeryLazy' },
+    event = { 'CursorMoved', 'CursorHold' },
     config = function()
       mason_setup()
       vim.cmd "LspStart"
