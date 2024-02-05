@@ -74,7 +74,7 @@ function set_prompt {
     fi
 
     if [[ ! -z $SSH_CONNECTION ]]; then
-        ps1_prefix='\[\e[1;30;43m\] SSH \[\e[0m\]'
+        ps1_prefix='\[\e[1;30;43m\] SSH \[\e[0m\] '
     fi
 
     if [ -f /.dockerenv ]; then
