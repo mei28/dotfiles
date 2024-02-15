@@ -393,6 +393,13 @@ then
     alias gu='gitui'
 fi
 
+if type jj &> /dev/null;
+then
+    (jj util completion bash) > /tmp/jj_completion.sh  # --bash is the default
+    source /tmp/jj_completion.sh
+fi
+
+
 #=====================#
 # change config by OS #
 #=====================#
