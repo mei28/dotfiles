@@ -395,7 +395,7 @@ fi
 
 if type jj &> /dev/null;
 then
-    (jj util completion bash) > /tmp/jj_completion.sh  # --bash is the default
+    (jj util completion bash) > /tmp/jj_completion.sh
     source /tmp/jj_completion.sh
 fi
 
