@@ -20,6 +20,7 @@ local spec = {
           nvim_cmp = true,
         },
         daily_notes = { folder = 'vault' },
+        ui = { enable = false },
         note_id_func = function(title)
           -- Create note IDs in a Zettelkasten format with a timestamp and a suffix.
           local suffix = ""
