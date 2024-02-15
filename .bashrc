@@ -397,6 +397,14 @@ if type jj &> /dev/null;
 then
     (jj util completion bash) > /tmp/jj_completion.sh
     source /tmp/jj_completion.sh
+
+    jjb() {
+        if [ $# -eq 0 ]; then
+            echo "Usage: jjb <branch>"
+            return 1
+        fi
+        jj branch set -r @- "$1"
+    }
 fi
 
 
