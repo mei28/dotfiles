@@ -2,6 +2,7 @@ local status, wezterm = pcall(require, 'wezterm')
 if not status then return end
 require 'status'
 
+wezterm.on('toggle-opacity', require 'window'.toggle_opacity)
 
 local act = wezterm.action
 local M = {}

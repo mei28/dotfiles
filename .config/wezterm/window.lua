@@ -1,4 +1,5 @@
 local wezterm = require 'wezterm'
+local utils = require 'utils'
 
 local M = {}
 M.inactive_pane_hsb = {
@@ -12,17 +13,31 @@ M.window_padding = {
   top = 0,
   bottom = 0,
 }
+M.background = {
+  {
+    source = {
+      File = utils:randomBackgroundImage(),
+    },
+    width = '100%',
+    hsb = { brightness = 0.05, hue = 1.0, saturation = 1.0, },
+    vertical_align = 'Middle',
+    horizontal_align = 'Center',
+  }
+}
 
-wezterm.on('toggle-opacity', function(window, pane)
+
+M.toggle_opacity = function(window, pane)
   local overrides = window:get_config_overrides() or {}
   if not overrides.window_background_opacity then
     overrides.window_background_opacity = 0.3
     overrides.text_background_opacity = 0.3
+    overrides.background = {}
   else
     overrides.window_background_opacity = nil
     overrides.text_background_opacity = nil
+    overrides.background = M.background
   end
   window:set_config_overrides(overrides)
-end)
+end
 
 return M

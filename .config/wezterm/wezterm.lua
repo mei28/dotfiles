@@ -96,17 +96,6 @@ config.check_for_updates = false
 config.window_decorations = "INTEGRATED_BUTTONS|RESIZE|MACOS_FORCE_ENABLE_SHADOW"
 
 -- background
-config.background = {
-  {
-    source = {
-      File = utils:randomBackgroundImage(),
-    },
-    width = '100%',
-    hsb = { brightness = 0.05, hue = 1.0, saturation = 1.0, },
-    vertical_align = 'Middle',
-    horizontal_align = 'Center',
-  }
-}
-
+config.background = window.background
 
 return config
