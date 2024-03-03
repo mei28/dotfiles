@@ -428,8 +428,14 @@ case ${OSTYPE} in
 
 
         # pbcopy for macOS
+
         pbc(){
-            cat $1 | pbcopy && echo "Copied $1!!"
+            if [ -f "$1" ]; then
+                cat "$1" | pbcopy
+                echo "Copied $1!!"
+            else
+                echo "Error: File '$1' does not exist."
+            fi
         }
 
         alias tdi='_toggle_desktop_icon'
@@ -474,7 +480,12 @@ case ${OSTYPE} in
 
         # pbcopy for linux
         pbc(){
-            cat $1 | xsel --clipboard --input && echo "Copied $1!!"
+            if [ -f "$1" ]; then
+                cat "$1" | xsel --clipboard --input
+                echo "Copied $1!!"
+            else
+                echo "Error: File '$1' does not exist."
+            fi
         }
 
         # cuda
