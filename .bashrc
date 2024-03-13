@@ -450,6 +450,7 @@ case ${OSTYPE} in
             fi
         }
 
+
         ## add cmake
         if [ -e /Applications/CMake.app/Contents/bin ]; then
             export PATH="/Applications/CMake.app/Contents/bin:$PATH"
