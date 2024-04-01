@@ -59,6 +59,10 @@ tree-sitter-cli@0.13.10
 .config/github-copilot
 .config/.gsd-keyboard.settings-ported
 
+.rye/shims
+.rye/uv
+.rye/py
+
 lazy-lock.json
 
 .DS_STORE

@@ -1,0 +1,9 @@
+
+# rye shell setup
+case ":${PATH}:" in
+  *:"$HOME/.rye/shims":*)
+    ;;
+  *)
+    export PATH="$HOME/.rye/shims:$PATH"
+    ;;
+esac
