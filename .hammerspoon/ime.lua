@@ -32,6 +32,7 @@ function EikanaEvent(event)
           else
             hs.alert.show("Eucalyn OFF", hs.screen.mainScreen(), 0.2)
           end
+
         end
       end
       SimpleCmd = false

@@ -17,6 +17,7 @@ return {
   { 'morhetz/gruvbox' },
   { 'haxibami/urara.vim' },
   { 'bluz71/vim-nightfly-colors' },
+  { 'cryptomilk/nightcity.nvim',      version = false },
   -- { "typicode/bg.nvim",              event = {'BufNewFile', 'BufRead'}  },
   {
     'xiyaowong/transparent.nvim',
