@@ -34,6 +34,7 @@ Units = {
   -- 画面2/3分割設定
   right66     = { x = 0.33, y = 0.00, w = 0.67, h = 1.00 },
   left66      = { x = 0.00, y = 0.00, w = 0.66, h = 1.00 },
+  center66      = { x = 0.20, y = 0.00, w = 0.60, h = 1.00 },
 }
 
 -- 半分分割
@@ -68,6 +69,7 @@ hs.hotkey.bind(Sash, '6', function() hs.window.focusedWindow():move(Units.right_
 Sosh = { 'option', 'shift' }
 hs.hotkey.bind(Sosh, 'left', function() hs.window.focusedWindow():move(Units.left66, nil, true) end)
 hs.hotkey.bind(Sosh, 'right', function() hs.window.focusedWindow():move(Units.right66, nil, true) end)
+hs.hotkey.bind(Sosh, 'down', function() hs.window.focusedWindow():move(Units.center66, nil, true) end)
 
 -- {next, prev} window
 
