@@ -64,11 +64,18 @@ function mason_setup()
     end
   end
 
+  -- local capabilities = vim.lsp.protocol.make_client_capabilities()
+  local status, cmp_nvim_lsp = pcall(require, 'cmp_nvim_lsp')
+  if not status then
+    print('cmp_nvim_lsp not found')
+    return
+  end
+  local capabilities = cmp_nvim_lsp.default_capabilities()
   for _, lsp in ipairs(servers) do
     if lsp == 'rust_analyzer' then
       goto continue
     end
-    lspconfig[lsp].setup({})
+    lspconfig[lsp].setup({ capabilities = capabilities })
     ::continue::
   end
 
@@ -83,13 +90,13 @@ function mason_setup()
     },
   }
 
-  local capabilities = vim.lsp.protocol.make_client_capabilities()
 
   capabilities.offsetEncoding = { "utf-16" }
   lspconfig.clangd.setup({ capabilities = capabilities })
 
   lspconfig.rust_analyzer.setup {
     filetypes = { "rust" },
+    capabilities = capabilities,
     root_dir = lspconfig.util.root_pattern("Cargo.toml", "rust-project.json"),
     settings = {
       ['rust_analyzer'] = {
