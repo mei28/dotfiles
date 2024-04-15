@@ -221,6 +221,9 @@ function mason_setup()
     end
   })
 
+  -- https://zenn.dev/vim_jp/articles/c62b397647e3c9 エラー警告ヒントの順番を固定
+  vim.diagnostic.config({ severity_sort = true })
+
 
 
   -- efm
