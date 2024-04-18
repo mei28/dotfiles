@@ -5,8 +5,8 @@ local spec = {
     config = function()
       require("inc_rename").setup()
     end,
-    keys = {
-      { '<Leader>rn', function() return ":IncRename " .. vim.fn.expand("<cword>") end }
+    cmd = {
+      "IncRename"
     }
   },
 
