@@ -1,8 +1,8 @@
 -- bufferline
 local spec = {
   {
-    -- 'akinsho/bufferline.nvim',
-    'mei28/bufferline.nvim',
+    'akinsho/bufferline.nvim',
+    -- 'mei28/bufferline.nvim',
     event = { 'BufNewFile', 'BufRead' },
     config = function()
       bufferline_setup()
