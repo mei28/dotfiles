@@ -149,16 +149,16 @@ function mason_setup()
       local supports_inlay_hints = client and client.server_capabilities.inlayHintProvider
       vim.g.inlay_hints_enabled = false
       if supports_inlay_hints then
-        vim.lsp.inlay_hint.enable(bufnr, false)
+        vim.lsp.inlay_hint.enable(false, { bufnr })
         -- Inlay Hintsの表示状態をトグルするコマンド
         vim.api.nvim_create_user_command(
           'ToggleInlayHint',
           function()
             vim.g.inlay_hints_enabled = not vim.g.inlay_hints_enabled
             if vim.g.inlay_hints_enabled then
-              vim.lsp.inlay_hint.enable(bufnr)
+              vim.lsp.inlay_hint.enable(true, { bufnr })
             else
-              vim.lsp.inlay_hint.enable(bufnr, false)
+              vim.lsp.inlay_hint.enable(false, { bufnr })
             end
           end,
           { desc = 'Toggle Inlay Hints' }
@@ -169,7 +169,7 @@ function mason_setup()
           'EnableInlayHint',
           function()
             vim.g.inlay_hints_enabled = true
-            vim.lsp.inlay_hint.enable(bufnr, true)
+            vim.lsp.inlay_hint.enable(true, { bufnr })
           end,
           { desc = 'Enable Inlay Hints' }
         )
@@ -179,7 +179,7 @@ function mason_setup()
           'DisableInlayHint',
           function()
             vim.g.inlay_hints_enabled = false
-            vim.lsp.inlay_hint.enable(bufnr, false)
+            vim.lsp.inlay_hint.enable(false, { bufnr })
           end,
           { desc = 'Disable Inlay Hints' }
         )
@@ -188,7 +188,7 @@ function mason_setup()
         vim.api.nvim_create_autocmd("InsertEnter", {
           callback = function()
             if vim.g.inlay_hints_enabled then
-              vim.lsp.inlay_hint.enable(bufnr, false)
+              vim.lsp.inlay_hint.enable(false, { bufnr })
             end
           end,
           buffer = bufnr,
@@ -196,7 +196,7 @@ function mason_setup()
         vim.api.nvim_create_autocmd("InsertLeave", {
           callback = function()
             if vim.g.inlay_hints_enabled then
-              vim.lsp.inlay_hint.enable(bufnr, true)
+              vim.lsp.inlay_hint.enable(true, { bufnr })
             end
           end,
           buffer = bufnr,
