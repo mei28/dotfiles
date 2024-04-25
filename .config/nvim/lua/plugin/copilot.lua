@@ -11,9 +11,7 @@ local spec = {
       -- if not status then return end
 
       copilot.setup({
-        panel = {
-          enabled = false
-        },
+        panel = { enabled = false },
         suggestion = {
           enabled = true,
           auto_trigger = true,
@@ -22,7 +20,8 @@ local spec = {
             accept_word = "<C-w>",
             accept_line = "<C-l>",
           },
-        }
+        },
+        filetypes = { markdown = true }
       })
       -- cop_cmp.setup({})
     end,

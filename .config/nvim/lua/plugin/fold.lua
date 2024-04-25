@@ -1,12 +1,17 @@
 local spec = {
   -- -- fold
+  -- {
+  --   'anuvyklack/pretty-fold.nvim',
+  --   config = function()
+  --     require 'pretty-fold'.setup()
+  --   end,
+  --   event = { 'ModeChanged' },
+  -- },
   {
-    'anuvyklack/pretty-fold.nvim',
-    config = function()
-      require 'pretty-fold'.setup()
-    end,
+    'kevinhwang91/nvim-ufo',
+    dependencies = { 'kevinhwang91/promise-async' },
     event = { 'ModeChanged' },
-  },
+  }
 
 }
 return spec

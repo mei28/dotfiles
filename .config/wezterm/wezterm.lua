@@ -98,4 +98,6 @@ config.window_decorations = "INTEGRATED_BUTTONS|RESIZE|MACOS_FORCE_ENABLE_SHADOW
 -- background
 config.background = window.background
 
+config.quote_dropped_files = "Posix"
+
 return config

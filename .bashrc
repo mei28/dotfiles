@@ -408,6 +408,12 @@ then
 fi
 
 
+if type wezterm  &> /dev/null;
+then
+    alias imgcat='wezterm imgcat'
+fi
+
+
 #=====================#
 # change config by OS #
 #=====================#
