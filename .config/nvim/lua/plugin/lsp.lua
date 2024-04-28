@@ -231,10 +231,10 @@ function mason_setup()
     'eslint_d',
     'prettier',
     'stylua',
-    'black',
+    -- 'black',
     'mypy',
-    'isort',
-    'flake8',
+    -- 'isort',
+    -- 'flake8',
     'ruff',
     'yamllint',
     'shellcheck',
@@ -247,11 +247,12 @@ function mason_setup()
   local prettier   = require('efmls-configs.formatters.prettier')
   local eslint     = require('efmls-configs.linters.eslint')
 
-  local black      = require('efmls-configs.formatters.black')
+  -- local black      = require('efmls-configs.formatters.black')
   local mypy       = require('efmls-configs.linters.mypy')
-  local isort      = require('efmls-configs.formatters.isort')
-  local flake8     = require('efmls-configs.linters.flake8')
-  local ruff       = require('efmls-configs.formatters.ruff')
+  -- local isort      = require('efmls-configs.formatters.isort')
+  -- local flake8     = require('efmls-configs.linters.flake8')
+  local ruff_f     = require('efmls-configs.formatters.ruff')
+  local ruff_l     = require('efmls-configs.linters.ruff')
 
   local yamllint   = require('efmls-configs.linters.yamllint')
 
@@ -260,7 +261,7 @@ function mason_setup()
 
 
   local languages    = {
-    python = { black, mypy, isort, flake8, ruff },
+    python = { mypy, ruff_f, ruff_l },
     yaml = { yamllint, prettier },
     json = { prettier },
     svelte = { eslint, prettier },
