@@ -531,6 +531,12 @@ case ${OSTYPE} in
                 echo "Suspend is now disabled."
             fi
         }
+
+        update_discord(){
+            sudo apt autoremove discord --purge
+            wget https://discord.com/api/download/stable\?platform\=linux\&format\=deb -O /tmp/discord-update.deb && sudo apt install -y /tmp/discord-update.deb
+        }
+
         ;;
 esac
 
