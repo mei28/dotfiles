@@ -21,7 +21,7 @@ local spec = {
             accept_line = "<C-l>",
           },
         },
-        filetypes = { markdown = true }
+        filetypes = { markdown = true, gitcommit = true, },
       })
       -- cop_cmp.setup({})
     end,
@@ -32,6 +32,37 @@ local spec = {
   --   event = { 'InsertEnter' },
   --   dependencies = { 'copilot.lua' },
   -- },
+  {
+
+    "CopilotC-Nvim/CopilotChat.nvim",
+    branch = "canary",
+    dependencies = {
+      { "zbirenbaum/copilot.lua" }, -- or github/copilot.vim
+      { "nvim-lua/plenary.nvim" },  -- for curl, log wrapper
+    },
+    opts = {
+      debug = false, -- Enable debugging
+    },
+    cmd = {
+      "CopilotChat",
+      "CopilotChatOpen",
+      "CopilotChatClose",
+      "CopilotChatToggle",
+      "CopilotChatReset",
+      "CopilotChatSave",
+      "CopilotChatLoa",
+      "CopilotChatDebugInfo",
+      "CopilotChatExplain",
+      "CopilotChatReview",
+      "CopilotChatFix",
+      "CopilotChatOptimize",
+      "CopilotChatDocs",
+      "CopilotChatTests",
+      "CopilotChatFixDiagnostic",
+      "CopilotChatCommit",
+      "CopilotChatCommitStaged",
+    }
+  }
 }
 
 
