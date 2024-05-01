@@ -21,6 +21,8 @@ set('n', '<C-n>', '<CMD>bprev<CR>')
 
 -- x削除でヤンクしない
 set('n', 'x', '"_x')
+-- dl削除でヤンクしない
+set('n', 'dl', '"_dd')
 
 -- ESC連打:noh
 set('n', '<Esc><Esc>', '<CMD>nohl<CR>')
