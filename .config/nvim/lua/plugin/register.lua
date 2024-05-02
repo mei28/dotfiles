@@ -3,7 +3,12 @@ local spec = {
   {
     'tversteeg/registers.nvim',
     config = function()
-      require 'registers'.setup()
+      local registers = require('registers')
+      registers.setup(
+        {
+          show = "*+\"-/_=#%.0123456789abcdefghilmnopqrstuvwxyz:",
+        }
+      )
     end,
     cmd = { "Registers" },
     keys = {
