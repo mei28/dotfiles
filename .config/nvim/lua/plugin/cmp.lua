@@ -16,6 +16,7 @@ local spec = {
   { 'saadparwaiz1/cmp_luasnip',            event = 'InsertEnter' },
   { 'andersevenrud/cmp-tmux',              event = 'InsertEnter' },
   { 'bydlw98/cmp-env',                     event = 'InsertEnter' },
+  { 'hrsh7th/cmp-emoji',                   event = 'InsertEnter' },
   {
     'j-hui/fidget.nvim',
     tag = 'legacy',
@@ -108,6 +109,7 @@ function cmp_setup()
       { name = "path" },
       { name = "nvim_lsp_signature_help" },
       { name = "treesitter" },
+      { name = 'emoji' },
       -- { name = 'obsidian' },
       { name = 'tmux' },
       { name = 'env' },
