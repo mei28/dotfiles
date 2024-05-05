@@ -259,13 +259,16 @@ function mason_setup()
   local shellcheck = require('efmls-configs.linters.shellcheck')
   local beautysh   = require('efmls-configs.formatters.beautysh')
 
+  local cspell     = require('efmls-configs.linters.cspell')
+
 
   local languages    = {
-    python = { mypy, ruff_f, ruff_l },
-    yaml = { yamllint, prettier },
-    json = { prettier },
-    svelte = { eslint, prettier },
-    sh = { shellcheck, beautysh },
+    python = { mypy, ruff_f, ruff_l, cspell },
+    yaml = { yamllint, prettier, cspell },
+    json = { prettier, cspell },
+    svelte = { eslint, prettier, cspell },
+    sh = { shellcheck, beautysh, cspell },
+    lua = { cspell }
   }
 
   local efmls_config = {
