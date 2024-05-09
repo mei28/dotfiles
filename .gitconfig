@@ -1,6 +1,7 @@
 [core]
 	excludesfile = /Users/mei/.gitignore_global
 	editor = nvim
+	attributesfile = /Users/mei/.gitattributes
 [diff]
   tool = nvimdiff
 [difftool "nvimdiff"]
@@ -26,3 +27,6 @@
   lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
   lga = log --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
   fixup = commit --amend -C HEAD
+[filter "clean_ipynb"]
+    clean = jq --indent 1 --monochrome-output '. + if .metadata.git.suppress_outputs | not then { cells: [.cells[] | . + if .cell_type == \"code\" then { outputs: [], execution_count: null } else {} end ] } else {} end'
+    smudge = cat
