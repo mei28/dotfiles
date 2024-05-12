@@ -8,7 +8,6 @@ local colorschemes = {
   'tokyonight',
   'hybrid',
   'jellybeans',
-  'pinkmare',
   'hatsunemiku',
   'kanagawa',
   'kyotonight',
