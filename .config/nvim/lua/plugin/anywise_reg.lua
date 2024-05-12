@@ -2,7 +2,7 @@ local spec = {
 
   {
     'AckslD/nvim-anywise-reg.lua',
-    event = 'VeryLazy',
+    event = { 'CursorMoved', 'CursorHold' },
     config = function()
       require("anywise_reg").setup(
         {

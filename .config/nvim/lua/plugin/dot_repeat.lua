@@ -1,6 +1,12 @@
 local spec = {
   -- dot repeat
-  { 'tpope/vim-repeat', event = "VeryLazy" }
+  -- {
+  --   'tpope/vim-repeat',
+  --   event = {
+  --     'CursorMoved',
+  --     'CursorHold',
+  --   }
+  -- }
 }
 
 return spec
