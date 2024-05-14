@@ -40,6 +40,8 @@ function mason_setup()
     'efm',
     'pyright',
     'svelte',
+    'tailwindcss',
+    'emmet_ls',
   }
 
   local status, mason_lspconfig = pcall(require, 'mason-lspconfig')
