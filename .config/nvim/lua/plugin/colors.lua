@@ -13,7 +13,8 @@ local spec = {
     config = function()
       vim.opt.termguicolors = true
       require('nvim-highlight-colors').setup {
-        enable_tailwind = true
+        enable_tailwind = true,
+        render = 'virtual',
       }
     end
 
