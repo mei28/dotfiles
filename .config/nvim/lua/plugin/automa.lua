@@ -3,12 +3,14 @@ local spec = {
     'hrsh7th/nvim-automa',
     event = { 'CursorHold', 'CursorMoved' },
     config = function()
-      local automa = require('automa')
+      local automa = require 'automa'
       automa.setup({
         mapping = {
           ['.'] = {
-            -- wide-range dot-repeat definition.
-            automa.query_v1({ '!n(h,j,k,l)+' }),
+            queries = {
+              -- wide-range dot-repeat definition.
+              automa.query_v1({ '!n(h,j,k,l)+' }),
+            }
           },
         }
       })

@@ -3,14 +3,12 @@ local spec = {
     "hedyhli/outline.nvim",
     config = function()
       require("outline").setup({
-        outline_window = {
-          position = 'right',
-        },
         preview_window = {
           auto_preview = true,
           open_hover_on_preview = true,
         },
         outline_window = {
+          position = 'right',
           auto_close = true,
           show_numbers = true,
         },
