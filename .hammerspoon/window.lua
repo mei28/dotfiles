@@ -34,7 +34,7 @@ Units = {
   -- 画面2/3分割設定
   right66     = { x = 0.33, y = 0.00, w = 0.67, h = 1.00 },
   left66      = { x = 0.00, y = 0.00, w = 0.66, h = 1.00 },
-  center66      = { x = 0.20, y = 0.00, w = 0.60, h = 1.00 },
+  center66    = { x = 0.20, y = 0.00, w = 0.60, h = 1.00 },
 }
 
 -- 半分分割
@@ -137,4 +137,13 @@ switcher.ui.backgroundColor = { 0.0, 0.0, 0.0, 0.0 }
 hs.hotkey.bind({ 'alt' }, 'tab', function() switcher:next() end)
 hs.hotkey.bind({ 'alt', 'shift' }, 'tab', function() switcher:previous() end)
 
+-- toggle display mode between mirror and extend
+hs.hotkey.bind(
+  { 'cmd', 'alt' },
+  'x',
+  function()
+    hs.eventtap.event.newSystemKeyEvent("BRIGHTNESS_DOWN", true):setFlags({ cmd = true }):post()
+    hs.eventtap.event.newSystemKeyEvent("BRIGHTNESS_DOWN", false):setFlags({ cmd = true }):post()
+  end
+)
 return M
