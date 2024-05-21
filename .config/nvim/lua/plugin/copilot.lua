@@ -42,6 +42,13 @@ local spec = {
     },
     opts = {
       debug = false, -- Enable debugging
+      -- default prompts
+      prompts = {
+        CommitStaged = {
+          prompt =
+          'Write a commit message following the commitizen convention. The title should be a concise summary of the change, with a maximum of 50 characters. The message should include a detailed description of what was changed and why, wrapped at 72 characters per line. Wrap the whole message in a code block with language gitcommit. Ensure the message is clear and informative for future reference.',
+        },
+      },
     },
     cmd = {
       "CopilotChat",
@@ -50,7 +57,7 @@ local spec = {
       "CopilotChatToggle",
       "CopilotChatReset",
       "CopilotChatSave",
-      "CopilotChatLoa",
+      "CopilotChatLoad",
       "CopilotChatDebugInfo",
       "CopilotChatExplain",
       "CopilotChatReview",
@@ -62,7 +69,7 @@ local spec = {
       "CopilotChatCommit",
       "CopilotChatCommitStaged",
     }
-  }
+  },
 }
 
 
