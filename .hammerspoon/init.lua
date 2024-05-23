@@ -1,5 +1,6 @@
-local window = require('window')
-local ime = require('ime')
+require('window')
+require('ime')
+require('launch')
 
 
 -- reload config
