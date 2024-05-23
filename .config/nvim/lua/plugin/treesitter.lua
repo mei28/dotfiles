@@ -36,7 +36,6 @@ function treesitter_setup()
       "tsx", "toml", "php", "json", "yaml", "css", "html", "lua", "python",
       "cpp", "markdown", "markdown_inline", 'vim', 'rust', 'dockerfile', 'make'
     },
-    autotag = { enable = true },
     yati = {
       enable = true,
       indent = { enable = false }

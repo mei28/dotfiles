@@ -5,10 +5,17 @@ local spec = {
     'numToStr/Comment.nvim',
     config = function() comment_setup() end,
     keys = {
-      { 'gcl' }
+      { 'gcl', 'gbc' }
     },
     event = "ModeChanged",
-  }
+  },
+  {
+    "folke/ts-comments.nvim",
+    keys = {
+      { 'gcl', 'gbc' }
+    },
+    enabled = vim.fn.has("nvim-0.10.0") == 1,
+  },
 
 }
 
