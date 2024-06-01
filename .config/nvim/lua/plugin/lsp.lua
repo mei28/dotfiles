@@ -263,6 +263,8 @@ function mason_setup()
 
   local cspell     = require('efmls-configs.linters.cspell')
 
+  local stylelint  = require('efmls-configs.linters.stylelint')
+
 
   local languages    = {
     python = { mypy, ruff_f, ruff_l, cspell },
@@ -270,7 +272,8 @@ function mason_setup()
     json = { prettier, cspell },
     svelte = { eslint, prettier, cspell },
     sh = { shellcheck, beautysh, cspell },
-    lua = { cspell }
+    lua = { cspell },
+    css = { stylelint,prettier}
   }
 
   local efmls_config = {
