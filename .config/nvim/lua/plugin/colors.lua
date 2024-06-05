@@ -15,6 +15,9 @@ local spec = {
       require('nvim-highlight-colors').setup {
         enable_tailwind = true,
         render = 'virtual',
+        virtual_symbol_prefix = '[',
+        virtual_symbol_suffix = ']',
+        virtual_symbol_position = 'eol',
       }
     end
 

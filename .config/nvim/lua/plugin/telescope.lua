@@ -5,7 +5,9 @@ local spec = {
     config = function() telescope_setup() end,
     keys = {
       { ';f', function() require("telescope.builtin").find_files({ hidden = true, initial_mode = "normal", }) end },
-      { ';b', function() require("telescope.builtin").buffers() end },
+      { ';b', function()
+        require("telescope.builtin").buffers({ initial_mode = "normal", show_all_buffers = true })
+      end },
       { ';t', function() require("telescope.builtin").help_tags() end },
       { ';q', function() require("telescope.builtin").quickfix() end },
       -- set('n', ';;', function() builtin.resume() end)
