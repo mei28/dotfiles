@@ -37,6 +37,21 @@ local spec = {
     cmd = { 'DataViewer' }
   },
 
+  {
+    'emmanueltouzery/decisive.nvim',
+    ft = 'csv',
+    config = function()
+      require('decisive').setup {}
+    end,
+    keys = {
+      { '<Leader>cca', ':lua require("decisive").align_csv({})<CR>',          'n', { desc = 'alighn csv' } },
+      { '<Leader>ccA', ':lua require("decisive").align_csv_clear({})<CR>',    'n', { desc = 'alighn csv clear' } },
+      { '[c',          ':lua require("decisive").align_csv_prev_col({})<CR>', 'n', { desc = 'alighn csv prev col' } },
+      { ']c',          ':lua require("decisive").align_csv_next_col({})<CR>', 'n', { desc = 'alighn csv next col' } },
+    }
+
+  }
+
 }
 
 return spec
