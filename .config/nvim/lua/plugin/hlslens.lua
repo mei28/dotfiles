@@ -8,6 +8,7 @@ local spec = {
       hlslens.setup()
       require("scrollbar.handlers.search").setup({})
     end,
+    lazy = false,
     keys = {
       { 'n',  [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]] },
       { 'N',  [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]] },

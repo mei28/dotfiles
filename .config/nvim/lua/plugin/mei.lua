@@ -1,12 +1,9 @@
 local spec = {
   {
     'mei28/luminate.nvim',
-    event = { 'TextYankPost' },
+    keys = { { 'u' }, { '<C-r>' }, { 'p' }, { 'y' } },
     config = function()
-      require 'luminate'.setup({
-        timeout = 500,
-        HIGHLIGHT_THRESHOLD = 0.5,
-      })
+      require 'luminate'.setup({})
     end
   },
   {
