@@ -1,7 +1,7 @@
 local spec = {
   {
     'mei28/luminate.nvim',
-    keys = { { 'u' }, { '<C-r>' }, { 'p' }, { 'y' } },
+    keys = { { 'u' }, { '<C-r>' }, { 'p' }, { 'y' }, { '<C-v>' } },
     config = function()
       require 'luminate'.setup({})
     end
