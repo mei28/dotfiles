@@ -37,6 +37,13 @@ local spec = {
     cmd = { "SwapWord" }
 
   },
+  {
+    'mei28/qfc.nvim',
+    config = function()
+      require('qfc').setup({ timeout = 3000, autoclose = true, })
+    end,
+    ft = 'qf',
+  }
 }
 
 return spec
