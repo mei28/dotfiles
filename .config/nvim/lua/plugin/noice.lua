@@ -69,8 +69,8 @@ function noice_setup()
         },
         confirm = {
           position = {
-            row = "10%",
-            col = "50%",
+            row = "5%",
+            col = "95%",
           },
         },
       },

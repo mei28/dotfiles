@@ -18,7 +18,8 @@ local colorschemes = {
   'gruvbox',
   'urara',
   'nightfly',
-  'nightcity'
+  'nightcity',
+  'sweetie'
 }
 
 local function applyColorScheme(scheme)

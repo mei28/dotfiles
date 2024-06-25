@@ -18,6 +18,7 @@ return {
   { 'haxibami/urara.vim' },
   { 'bluz71/vim-nightfly-colors' },
   { 'cryptomilk/nightcity.nvim',      version = false },
+  { "NTBBloodbath/sweetie.nvim" },
   -- { "typicode/bg.nvim",              event = {'BufNewFile', 'BufRead'}  },
   {
     'xiyaowong/transparent.nvim',
