@@ -414,6 +414,11 @@ then
 fi
 
 
+# sudo completion
+complete -cf sudo
+alias sudo='sudo '
+
+
 #=====================#
 # change config by OS #
 #=====================#
