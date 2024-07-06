@@ -9,32 +9,6 @@ font pango:monospace 10
 
 exec --no-startup-id "feh --bg-scale $HOME/dotfiles/.config/wezterm/pic/GITB0AJa0AA_7dK.jpeg"
 
-# ==colors==
-# i3wm全体の色
-set $bg           #1C1E27
-set $fg           #CACACC
-set $darkred      #D95882
-set $red          #E4436F
-set $darkgreen    #68DDC4
-set $green        #24E39D
-set $darkyellow   #E8AEAA
-set $yellow       #EDA685
-set $darkblue     #64A4BF
-set $blue         #2095B4
-set $darkmagenta  #B382CF
-set $darkcyan     #54AEB8
-set $cyan         #00A5AF
-set $darkwhite    #CACACC
-set $white        #CACACA
-set $darkgrey     #6C6F93
-
-# フォーカスカラー
-# class                     border      background      text        indicator       child_border
-client.focused              $bg         $darkgrey       $fg         $yellow         $green
-client.unfocused            $bg         $bg             $fg         $yellow         $bg
-
-# ==========
-
 
 # ウインドウ間の隙間の広さ
 gaps top 20
@@ -142,38 +116,46 @@ bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
-# toggle tiling / floating
-bindsym $mod+Shift+space floating toggle
-
 ## Rofi
 bindsym $mod+d exec rofi -show drun
 bindsym $mod+space exec rofi -show drun
 
 
-# i3 statu
+# status bar
 bar {
-    status_command i3blocks
-    font pango:Hack Regular 10
-    mode dock
-    position top
-    separator_symbol " │ "
-    workspace_buttons yes
+  height 25
+  position top
+    font pango:OperatorMono Nerd Font 12
+  status_command i3status
+    tray_padding 1
     strip_workspace_numbers yes
-    binding_mode_indicator yes
-    tray_output none
-    tray_padding 0
+
     colors {
-        background $background
-        focused_background $background
-        statusline $blue
-        focused_statusline $blue
-        separator $secondary
-        focused_separator $secondary
-        # 左からborder, bg, fg
-        focused_workspace  $blue $blue $background
-        active_workspace $background $background $foreground
-        inactive_workspace $background $background $foreground
-        urgent_workspace   $red $red $background
-        binding_mode       $blue $blue $background
+            separator  #1f222d
+            background #1f222d
+            statusline #81a1c1
+
+            #                   border  background text
+            focused_workspace  #1f222d #1f222d    #81a1c1
+            active_workspace   #1f222d #252936    #5e81ac
+            inactive_workspace #1f222d #1f222d    #4c566a
+            urgent_workspace   #1f222d #1f222d    #ee829f
+            binding_mode       #1f222d #81a1c1    #2e3440
     }
-}s
+}
+
+    ##START THEMING WM
+
+    # Window color settings
+    # class                 border  backgr. text    indicator
+    client.focused          #81a1c1 #81a1c1 #ffffff #81a1c1
+    client.unfocused        #2e3440 #1f222d #888888 #1f222d
+    client.focused_inactive #2e3440 #1f222d #888888 #1f222d
+    client.placeholder      #2e3440 #1f222d #888888 #1f222d
+    client.urgent           #900000 #900000 #ffffff #900000
+
+    client.background       #242424
+
+    ##STOP THEMING WM
+
+exec xset r rate 300 50 &# i3 statu
