@@ -467,6 +467,14 @@ case ${OSTYPE} in
             export PATH="/Applications/CMake.app/Contents/bin:$PATH"
         fi
 
+        ## yabai
+        if type yabai &> /dev/null; then
+            alias yabai_start='yabai --start-service'
+            # yabai --start-service(開始)
+            alias yabai_stop='yabai --stop-service'
+            # yabai --stop-service(停止)
+            alias yabai_restart='yabai --restart-service'
+        fi
 
         ;;
         #========#
