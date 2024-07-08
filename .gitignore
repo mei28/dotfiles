@@ -67,6 +67,8 @@ lazy-lock.json
 
 .DS_STORE
 */.DS_STORE
+.DS_Store
+*/.DS_Store
 
 ! .config/nvim/*
 ! .gitignore/*

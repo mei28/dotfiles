@@ -449,6 +449,9 @@ case ${OSTYPE} in
             fi
         }
 
+        ## don't write .DS_Store
+        defaults write com.apple.desktopservices DSDontWriteNetworkStores True
+
         alias tdi='_toggle_desktop_icon'
         _toggle_desktop_icon(){
             local isDisplay=$(defaults read com.apple.finder CreateDesktop)
