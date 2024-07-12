@@ -3,7 +3,7 @@ local spec = {
     'mei28/luminate.nvim',
     keys = { { 'u' }, { '<C-r>' }, { 'p' }, { 'y' }, { '<C-v>' } },
     config = function()
-      require 'luminate'.setup({})
+      require 'luminate'.setup()
     end
   },
   {
@@ -38,11 +38,13 @@ local spec = {
 
   },
   {
+    -- dir = "~/Documents/qfc.nvim/",
     'mei28/qfc.nvim',
     config = function()
-      require('qfc').setup({ timeout = 3000, autoclose = true, })
+      require('qfc').setup({ timeout = 3000, enabled = true, })
     end,
     ft = 'qf',
+    cmd = { "QFC" }
   }
 }
 
