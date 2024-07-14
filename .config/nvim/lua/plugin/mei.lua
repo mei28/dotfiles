@@ -1,10 +1,23 @@
 local spec = {
   {
-    'mei28/luminate.nvim',
+    dir = "~/Documents/luminate.nvim/",
+    -- 'mei28/luminate.nvim',
     keys = { { 'u' }, { '<C-r>' }, { 'p' }, { 'y' }, { '<C-v>' } },
     config = function()
       require 'luminate'.setup()
     end
+  },
+  {
+    dir = "~/Documents/qfc.nvim/",
+    -- 'mei28/qfc.nvim',
+    config = function()
+      require('qfc').setup({
+        timeout = 3000,
+        enabled = true,
+      })
+    end,
+    ft = 'qf',
+    cmd = { "QFC" }
   },
   {
     'mei28/codelens.nvim',
@@ -37,15 +50,6 @@ local spec = {
     cmd = { "SwapWord" }
 
   },
-  {
-    -- dir = "~/Documents/qfc.nvim/",
-    'mei28/qfc.nvim',
-    config = function()
-      require('qfc').setup({ timeout = 3000, enabled = true, })
-    end,
-    ft = 'qf',
-    cmd = { "QFC" }
-  }
 }
 
 return spec
