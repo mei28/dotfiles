@@ -1,15 +1,15 @@
 local spec = {
   {
-    dir = "~/Documents/luminate.nvim/",
-    -- 'mei28/luminate.nvim',
-    keys = { { 'u' }, { '<C-r>' }, { 'p' }, { 'y' }, { '<C-v>' } },
+    -- dir = "~/Documents/luminate.nvim/",
+    'mei28/luminate.nvim',
+    keys = { { 'u' }, { 'U' }, { '<C-r>' }, { 'p' }, { 'y' }, },
     config = function()
       require 'luminate'.setup()
     end
   },
   {
-    dir = "~/Documents/qfc.nvim/",
-    -- 'mei28/qfc.nvim',
+    -- dir = "~/Documents/qfc.nvim/",
+    'mei28/qfc.nvim',
     config = function()
       require('qfc').setup({
         timeout = 3000,
