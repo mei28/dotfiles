@@ -1,7 +1,7 @@
 local spec = {
   {
-    -- dir = "~/Documents/luminate.nvim/",
-    'mei28/luminate.nvim',
+    dir = "~/Documents/luminate.nvim/",
+    -- 'mei28/luminate.nvim',
     keys = { { 'u' }, { 'U' }, { '<C-r>' }, { 'p' }, { 'y' }, },
     config = function()
       require 'luminate'.setup()

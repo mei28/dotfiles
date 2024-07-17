@@ -51,9 +51,14 @@ local spec = {
     version = '*',
     config = true
   },
-  -- {
-  --   'sindrets/diffview.nvim',
-  -- },
+  {
+    'sindrets/diffview.nvim',
+    cmd = {
+      "DiffviewFileHistory",
+      "DiffviewOpen",
+      "DiffviewClose",
+    },
+  },
   { 'rhysd/git-messenger.vim', cmd = { 'GitMessenger' } },
   {
     'niuiic/git-log.nvim',

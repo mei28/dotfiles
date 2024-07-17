@@ -117,8 +117,8 @@ function mason_setup()
 
   -- Global mappings
   local set = vim.keymap.set
-  set('n', '[d', vim.diagnostic.goto_prev)
-  set('n', ']d', vim.diagnostic.goto_next)
+  set('n', '[d', function() vim.diagnostic.goto_prev({ count = 1, float = true }) end)
+  set('n', ']d', function() vim.diagnostic.goto_next({ count = -1, float = true }) end)
   set('n', '<Leader>e', vim.diagnostic.open_float)
   set('n', '<Leader>q', vim.diagnostic.setloclist)
 
