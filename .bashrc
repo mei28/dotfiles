@@ -551,6 +551,10 @@ case ${OSTYPE} in
         }
 
         export XDG_CURRENT_DESKTOP=GNOME
+
+        if [ -e /home/linuxbrew/.linuxbrew/bin/brew ]; then
+            eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+        fi
         ;;
 esac
 
