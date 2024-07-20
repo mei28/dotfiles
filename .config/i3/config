@@ -158,4 +158,28 @@ bar {
 
     ##STOP THEMING WM
 
-exec xset r rate 300 50 &# i3 statu
+exec xset r rate 300 50 & # i3 statu
+
+
+# GNOME Settings Daemon を起動
+exec --no-startup-id /usr/lib/gnome-settings-daemon/gsd-xsettings &
+exec --no-startup-id /usr/lib/gnome-settings-daemon/gsd-a11y-settings &
+exec --no-startup-id /usr/lib/gnome-settings-daemon/gsd-clipboard &
+exec --no-startup-id /usr/lib/gnome-settings-daemon/gsd-color &
+exec --no-startup-id /usr/lib/gnome-settings-daemon/gsd-datetime &
+exec --no-startup-id /usr/lib/gnome-settings-daemon/gsd-housekeeping &
+exec --no-startup-id /usr/lib/gnome-settings-daemon/gsd-keyboard &
+exec --no-startup-id /usr/lib/gnome-settings-daemon/gsd-media-keys &
+exec --no-startup-id /usr/lib/gnome-settings-daemon/gsd-mouse &
+exec --no-startup-id /usr/lib/gnome-settings-daemon/gsd-power &
+exec --no-startup-id /usr/lib/gnome-settings-daemon/gsd-print-notifications &
+exec --no-startup-id /usr/lib/gnome-settings-daemon/gsd-rfkill &
+exec --no-startup-id /usr/lib/gnome-settings-daemon/gsd-screensaver-proxy &
+exec --no-startup-id /usr/lib/gnome-settings-daemon/gsd-sharing &
+exec --no-startup-id /usr/lib/gnome-settings-daemon/gsd-smartcard &
+exec --no-startup-id /usr/lib/gnome-settings-daemon/gsd-sound &
+exec --no-startup-id /usr/lib/gnome-settings-daemon/gsd-wacom &
+exec --no-startup-id /usr/lib/gnome-settings-daemon/gsd-wwan &
+exec --no-startup-id /usr/lib/gnome-settings-daemon/gsd-xrandr &
+# gnome-control-center
+# GNOME Control Center を起動するショートカット
