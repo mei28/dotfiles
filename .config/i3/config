@@ -1,0 +1,185 @@
+## Set the mod key to the Windows key
+set $mod Mod4
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+## config
+focus_follows_mouse on
+font pango:monospace 10
+
+exec --no-startup-id "feh --bg-scale $HOME/dotfiles/.config/wezterm/pic/GITB0AJa0AA_7dK.jpeg"
+
+
+# ウインドウ間の隙間の広さ
+gaps top 20
+gaps bottom 20
+gaps right 20
+gaps left 20
+gaps inner 20
+
+## set shortcut
+bindsym $mod+Return exec --no-startup-id wezterm
+
+## set quit
+bindsym $mod+q kill
+
+# 設定再読込み
+bindsym $mod+Shift+c reload
+# 再起動
+bindsym $mod+Shift+r restart
+
+# focus window
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+#
+# # move window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+
+bindsym $mod+f fullscreen toggle
+# ウインドウフロート
+bindsym $mod+Shift+w floating toggle
+
+# フロートウインドウフォーカス
+bindsym $mod+Shift+space focus mode_toggle
+
+# ウインドウリサイズ
+bindsym $mod+r mode "RESIZE"
+mode "RESIZE" {
+        bindsym h resize shrink width 10 px or 5 ppt
+        bindsym j resize grow height 10 px or 5 ppt
+        bindsym k resize shrink height 10 px or 5 ppt
+        bindsym l resize grow width 10 px or 5 ppt
+
+        # 代替
+        bindsym Left resize shrink width 10 px or 5 ppt
+        bindsym Down resize grow height 10 px or 5 ppt
+        bindsym Up resize shrink height 10 px or 5 ppt
+        bindsym Right resize grow width 10 px or 5 ppt
+
+        # 通常モード遷移
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
+}
+
+
+# ウインドウ切り替え
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace prev
+bindsym $mod+0 workspace next
+
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace prev
+bindsym $mod+Shift+0 move container to workspace next
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+## Rofi
+bindsym $mod+d exec rofi -show drun
+bindsym $mod+space exec rofi -show drun
+
+
+# status bar
+bar {
+  height 25
+  position top
+    font pango:OperatorMono Nerd Font 12
+  status_command i3status
+    tray_padding 1
+    strip_workspace_numbers yes
+
+    colors {
+            separator  #1f222d
+            background #1f222d
+            statusline #81a1c1
+
+            #                   border  background text
+            focused_workspace  #1f222d #1f222d    #81a1c1
+            active_workspace   #1f222d #252936    #5e81ac
+            inactive_workspace #1f222d #1f222d    #4c566a
+            urgent_workspace   #1f222d #1f222d    #ee829f
+            binding_mode       #1f222d #81a1c1    #2e3440
+    }
+}
+
+    ##START THEMING WM
+
+    # Window color settings
+    # class                 border  backgr. text    indicator
+    client.focused          #81a1c1 #81a1c1 #ffffff #81a1c1
+    client.unfocused        #2e3440 #1f222d #888888 #1f222d
+    client.focused_inactive #2e3440 #1f222d #888888 #1f222d
+    client.placeholder      #2e3440 #1f222d #888888 #1f222d
+    client.urgent           #900000 #900000 #ffffff #900000
+
+    client.background       #242424
+
+    ##STOP THEMING WM
+
+exec xset r rate 300 50 & # i3 statu
+
+
+# GNOME Settings Daemon を起動
+exec --no-startup-id /usr/lib/gnome-settings-daemon/gsd-xsettings &
+exec --no-startup-id /usr/lib/gnome-settings-daemon/gsd-a11y-settings &
+exec --no-startup-id /usr/lib/gnome-settings-daemon/gsd-clipboard &
+exec --no-startup-id /usr/lib/gnome-settings-daemon/gsd-color &
+exec --no-startup-id /usr/lib/gnome-settings-daemon/gsd-datetime &
+exec --no-startup-id /usr/lib/gnome-settings-daemon/gsd-housekeeping &
+exec --no-startup-id /usr/lib/gnome-settings-daemon/gsd-keyboard &
+exec --no-startup-id /usr/lib/gnome-settings-daemon/gsd-media-keys &
+exec --no-startup-id /usr/lib/gnome-settings-daemon/gsd-mouse &
+exec --no-startup-id /usr/lib/gnome-settings-daemon/gsd-power &
+exec --no-startup-id /usr/lib/gnome-settings-daemon/gsd-print-notifications &
+exec --no-startup-id /usr/lib/gnome-settings-daemon/gsd-rfkill &
+exec --no-startup-id /usr/lib/gnome-settings-daemon/gsd-screensaver-proxy &
+exec --no-startup-id /usr/lib/gnome-settings-daemon/gsd-sharing &
+exec --no-startup-id /usr/lib/gnome-settings-daemon/gsd-smartcard &
+exec --no-startup-id /usr/lib/gnome-settings-daemon/gsd-sound &
+exec --no-startup-id /usr/lib/gnome-settings-daemon/gsd-wacom &
+exec --no-startup-id /usr/lib/gnome-settings-daemon/gsd-wwan &
+exec --no-startup-id /usr/lib/gnome-settings-daemon/gsd-xrandr &
+# gnome-control-center
+# GNOME Control Center を起動するショートカット

@@ -1,0 +1,73 @@
+# Modキーを設定 (通常はWindowsキー)
+set $mod Mod4
+
+# コマンドを簡略化する関数
+exec_always {
+    function run_command(command) {
+        return "exec /usr/bin/swaymsg " + command
+    }
+}
+
+# ウィンドウフォーカスの移動
+bindsym $mod+h exec swaymsg focus left
+bindsym $mod+j exec swaymsg focus down
+bindsym $mod+k exec swaymsg focus up
+bindsym $mod+l exec swaymsg focus right
+bindsym $mod+n exec swaymsg focus next
+bindsym $mod+p exec swaymsg focus prev
+
+bindsym $mod+Left exec swaymsg focus left
+bindsym $mod+Down exec swaymsg focus down
+bindsym $mod+Up exec swaymsg focus up
+bindsym $mod+Right exec swaymsg focus right
+
+# ウィンドウの移動
+bindsym $mod+Shift+h exec swaymsg move left
+bindsym $mod+Shift+j exec swaymsg move down
+bindsym $mod+Shift+k exec swaymsg move up
+bindsym $mod+Shift+l exec swaymsg move right
+
+bindsym $mod+Shift+Left exec swaymsg move left
+bindsym $mod+Shift+Down exec swaymsg move down
+bindsym $mod+Shift+Up exec swaymsg move up
+bindsym $mod+Shift+Right exec swaymsg move right
+
+# ウィンドウのスペース（ワークスペース）移動
+bindsym $mod+Shift+1 exec swaymsg move container to workspace number 1
+bindsym $mod+Shift+2 exec swaymsg move container to workspace number 2
+bindsym $mod+Shift+3 exec swaymsg move container to workspace number 3
+bindsym $mod+Shift+4 exec swaymsg move container to workspace number 4
+bindsym $mod+Shift+5 exec swaymsg move container to workspace number 5
+bindsym $mod+Shift+9 exec swaymsg move container to workspace prev
+bindsym $mod+Shift+0 exec swaymsg move container to workspace next
+
+# ウィンドウのフルスクリーン切り替え
+bindsym $mod+Shift+f exec swaymsg fullscreen
+bindsym $mod+f exec swaymsg fullscreen
+
+# ウィンドウの浮動/非浮動切り替え
+bindsym $mod+Shift+space exec swaymsg floating toggle
+
+# ウィンドウのスプリットタイプ切り替え
+bindsym $mod+e exec swaymsg split toggle
+
+# スペース（ワークスペース）の回転
+bindsym $mod+r exec swaymsg workspace --rotate 90
+
+# スペースのY軸反転
+bindsym $mod+y exec swaymsg workspace --mirror y
+
+# スペースのX軸反転
+bindsym $mod+x exec swaymsg workspace --mirror x
+
+# ウィンドウサイズの増加
+bindsym $mod+Shift+a exec swaymsg resize shrink width 20
+bindsym $mod+Shift+s exec swaymsg resize grow height 20
+bindsym $mod+Shift+w exec swaymsg resize shrink height 20
+bindsym $mod+Shift+d exec swaymsg resize grow width 20
+
+# ウィンドウサイズの減少
+bindsym $mod+Ctrl+Shift+a exec swaymsg resize grow width 20
+bindsym $mod+Ctrl+Shift+s exec swaymsg resize shrink height 20
+bindsym $mod+Ctrl+Shift+w exec swaymsg resize grow height 20
+bindsym $mod+Ctrl+Shift+d exec swaymsg resize shrink width 20
