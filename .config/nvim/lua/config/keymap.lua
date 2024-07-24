@@ -31,7 +31,7 @@ set('n', '<Esc><Esc>', '<CMD>nohl<CR>')
 set('n', '<Leader>j', '<C-w>j')
 set('n', '<Leader>k', '<C-w>k')
 set('n', '<Leader>l', '<C-w>l')
-set('n', '<Leader>hh', '<C-w>h')
+set('n', '<Leader>h', '<C-w>h')
 
 -- 行単位の移動
 set({ "n", 'v' }, 'j', 'gj')

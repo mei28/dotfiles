@@ -1,12 +1,4 @@
 local spec = {
-  -- {
-  --   'norcalli/nvim-colorizer.lua',
-  --   event = { 'BufNewFile', 'BufRead' },
-  --   config = function()
-  --     vim.opt.termguicolors = true
-  --     require 'colorizer'.setup()
-  --   end
-  -- },
   {
     'brenoprata10/nvim-highlight-colors',
     event = { 'BufNewFile', 'BufRead' },
@@ -42,7 +34,7 @@ local spec = {
   },
   {
     'RRethy/vim-illuminate',
-    event = { 'BufNewFile', 'BufRead' },
+    event = { 'CursorMoved', 'CursorHold' },
     config = function()
       vim.cmd("hi IlluminatedWordText cterm=underline ctermbg=8 gui=underline guibg=#104040")
       vim.cmd("hi IlluminatedWordRead cterm=underline ctermbg=8 gui=underline guibg=#104040")

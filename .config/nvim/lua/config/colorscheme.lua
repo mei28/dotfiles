@@ -19,7 +19,7 @@ local colorschemes = {
   'urara',
   'nightfly',
   'nightcity',
-  'sweetie'
+  'sweetie',
 }
 
 local function applyColorScheme(scheme)

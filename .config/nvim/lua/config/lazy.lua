@@ -32,4 +32,3 @@ local opts = {
 }
 
 lazy.setup("plugin", opts)
-

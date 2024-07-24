@@ -23,6 +23,6 @@ return {
   {
     'xiyaowong/transparent.nvim',
     event = { 'BufReadPre', 'BufNewFile' },
-    config = function() vim.cmd [[TransparentEnable]] end
+    -- config = function() vim.cmd [[TransparentEnable]] end
   }
 }
