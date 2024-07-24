@@ -21,6 +21,14 @@ local spec = {
     cmd = { "QFC" }
   },
   {
+    -- dir = '~/Documents/instant_rename.nvim',
+    'mei28/instant_rename.nvim',
+    event = { 'ModeChanged', 'CmdlineChanged' }, -- for lazy loading
+    config = function()
+      require('instant_rename')
+    end
+  },
+  {
     'mei28/codelens.nvim',
     config = function()
       require('codelens').setup({})
@@ -38,11 +46,6 @@ local spec = {
       },
     },
   },
-  -- {
-  --   'mei28/toggleqf.nvim',
-  --   config = function() require('toggleqf').setup() end,
-  --   keys = { '<C-g><C-o>', '<C-g><C-o>' },
-  -- },
   {
     'mei28/swapwords.nvim',
     config = function()
@@ -51,6 +54,11 @@ local spec = {
     cmd = { "SwapWord" }
 
   },
+  -- {
+  --   'mei28/toggleqf.nvim',
+  --   config = function() require('toggleqf').setup() end,
+  --   keys = { '<C-g><C-o>', '<C-g><C-o>' },
+  -- },
 }
 
 return spec
