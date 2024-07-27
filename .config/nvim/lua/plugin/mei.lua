@@ -2,7 +2,7 @@ local spec = {
   {
     -- dir = "~/Documents/luminate.nvim/",
     'mei28/luminate.nvim',
-    branch = 'fix#8',
+    -- branch = 'fix#15',
     keys = { { 'u' }, { 'U' }, { '<C-r>' }, { 'p' }, { 'y' }, },
     config = function()
       require 'luminate'.setup()
@@ -21,8 +21,8 @@ local spec = {
     cmd = { "QFC" }
   },
   {
-    -- dir = '~/Documents/instant_rename.nvim',
-    'mei28/instant_rename.nvim',
+    -- dir = '~/Documents/instant-rename.nvim',
+    'mei28/instant-rename.nvim',
     event = { 'ModeChanged', 'CmdlineChanged' }, -- for lazy loading
     config = function()
       require('instant_rename')
