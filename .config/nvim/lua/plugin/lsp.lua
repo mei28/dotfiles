@@ -42,6 +42,7 @@ function mason_setup()
     'svelte',
     'tailwindcss',
     'emmet_ls',
+    'typos_lsp',
   }
 
   local status, mason_lspconfig = pcall(require, 'mason-lspconfig')
@@ -261,18 +262,16 @@ function mason_setup()
   local shellcheck = require('efmls-configs.linters.shellcheck')
   local beautysh   = require('efmls-configs.formatters.beautysh')
 
-  local cspell     = require('efmls-configs.linters.cspell')
-
   local stylelint  = require('efmls-configs.linters.stylelint')
 
 
   local languages    = {
-    python = { mypy, ruff_f, ruff_l, cspell },
-    yaml = { yamllint, prettier, cspell },
-    json = { prettier, cspell },
-    svelte = { eslint, prettier, cspell },
-    sh = { shellcheck, beautysh, cspell },
-    lua = { cspell },
+    python = { mypy, ruff_f, ruff_l, },
+    yaml = { yamllint, prettier, },
+    json = { prettier, },
+    svelte = { eslint, prettier, },
+    sh = { shellcheck, beautysh, },
+    lua = {},
     css = { stylelint, prettier }
   }
 
@@ -287,8 +286,7 @@ function mason_setup()
       documentRangeFormatting = true,
     },
   }
-  lspconfig.efm.setup(vim.tbl_extend('force', efmls_config, {
-  }))
+  lspconfig.efm.setup(vim.tbl_extend('force', efmls_config, {}))
   ::continue::
 end
 
