@@ -117,7 +117,9 @@ fi
 
 # nvim
 alias nv='nvim'
+alias nn='export NVIM_APPNAME=nvim'
 alias nvc='nvim --clean'
+alias nvi='export NVIM_APPNAME=nvim-minimal; nvim'
 
 if [ -e $HOME/.nvm ]; then
     export NVM_DIR="$HOME/.nvm"
