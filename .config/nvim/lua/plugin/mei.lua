@@ -91,6 +91,12 @@ local spec = {
     },
   },
   {
+    'opps-guardian.nvim',
+    -- dir = '~/Documents/opps-guardian.nvim',
+    lazy = false,
+    init = function() require('opps-guardian').init() end,
+  },
+  {
     'mei28/swapwords.nvim',
     config = function()
       require('swapwords')
