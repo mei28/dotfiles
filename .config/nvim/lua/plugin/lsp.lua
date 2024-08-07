@@ -30,7 +30,7 @@ function mason_setup()
   -- add lsp
   local servers = {
     'lua_ls',
-    'bashls',
+    -- 'bashls',
     'html',
     'clangd',
     'rust_analyzer',
