@@ -426,9 +426,11 @@ alias sudo='sudo '
 if [[ -f ~/Documents/competitive-programing/scripts/oj_d.sh ]]; then
     source ~/Documents/competitive-programing/scripts/oj_d.sh
 fi
-
 if [[ -f ~/Documents/competitive-programing/scripts/oj_t.sh ]]; then
     source ~/Documents/competitive-programing/scripts/oj_t.sh
+fi
+if [[ -f ~/Documents/competitive-programing/scripts/oj_s.sh ]]; then
+    source ~/Documents/competitive-programing/scripts/oj_s.sh
 fi
 
 
