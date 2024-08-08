@@ -13,7 +13,7 @@ local spec = {
   {
     -- dir = "~/Documents/blink-bang-word-light.nvim",
     'mei28/blink-bang-word-light.nvim',
-    event = { 'CursorHold', 'CursorHoldI', 'CursorMoved', 'CursorMovedI' },
+    event = { 'CursorHold', 'CursorMoved' },
     config = function()
       require('blink-bang-word-light').setup({
         max_word_length = 100, -- if cursorword length > max_word_length then not highlight
