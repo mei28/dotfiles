@@ -6,6 +6,15 @@ local spec = {
       require('scrollbar').setup()
     end
   },
+
+  {
+    "tonymajestro/smart-scrolloff.nvim",
+    event = { 'CursorMoved', 'CursorHold' },
+    opts = {
+      scrolloff_percentage = 0.2,
+    },
+  },
+
 }
 
 return spec
