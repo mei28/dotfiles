@@ -8,6 +8,7 @@ local spec = {
       { 'gcl', 'gbc' }
     },
     event = "ModeChanged",
+    dependencies = { 'JoosepAlviste/nvim-ts-context-commentstring' }
   },
   {
     "folke/ts-comments.nvim",
