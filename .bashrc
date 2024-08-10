@@ -62,23 +62,47 @@ function shorten_path {
     echo "$new_path"
 }
 
+# Define color variables
+RESET='\[\e[0m\]'
+BLACK='\[\e[0;30m\]'
+RED='\[\e[0;31m\]'
+GREEN='\[\e[0;32m\]'
+YELLOW='\[\e[0;33m\]'
+BLUE='\[\e[0;34m\]'
+MAGENTA='\[\e[0;35m\]'
+CYAN='\[\e[0;36m\]'
+WHITE='\[\e[0;37m\]'
+
+# Bold colors
+BOLD_BLACK='\[\e[1;30m\]'
+BOLD_RED='\[\e[1;31m\]'
+BOLD_GREEN='\[\e[1;32m\]'
+BOLD_YELLOW='\[\e[1;33m\]'
+BOLD_BLUE='\[\e[1;34m\]'
+BOLD_MAGENTA='\[\e[1;35m\]'
+BOLD_CYAN='\[\e[1;36m\]'
+BOLD_WHITE='\[\e[1;37m\]'
+
+# Background colors
+BG_YELLOW='\[\e[43m\]'
+
 function set_prompt {
     local ps1_prefix=""
     local ps1_suffix=""
     path=$(shorten_path)
 
     if $GIT_PROMPT_EXIST; then
-        ps1_suffix="\[\e[34m\]${path} \[\e[0;32m\]$(__git_ps1 "(%s)")\[\e[0;37m\]\$\[\e[0m\] "
+        ps1_suffix="${BLUE}${path} ${GREEN}$(__git_ps1 "(%s)")${WHITE}\$${RESET} "
     else
-        ps1_suffix="\[\e[34m\]${path} \[\e[0;37m\]\$\[\e[0m\] "
+        ps1_suffix="${BLUE}${path} ${WHITE}\$${RESET} "
     fi
 
     if [[ ! -z $SSH_CONNECTION ]]; then
-        ps1_prefix='\[\e[1;30;43m\] SSH \[\e[0m\] '
+        ps1_prefix="${BOLD_BLACK}${BG_YELLOW} SSH ${RESET} "
     fi
 
     if [ -f /.dockerenv ]; then
-        ps1_prefix="${ps1_prefix}\[\e[1;34m\]🐳\[\e[0m\]"
+        ps1_prefix="${ps1_prefix}${BOLD_BLUE}🐳${RESET}"
     fi
 
     if [[ -n "$VIRTUAL_ENV" ]]; then
@@ -87,6 +111,7 @@ function set_prompt {
 
     PS1="${ps1_prefix}${ps1_suffix}"
 }
+
 
 function add_line {
     if [[ -z "${PS1_NEWLINE_LOGIN}" ]]; then
