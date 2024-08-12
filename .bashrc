@@ -458,6 +458,18 @@ if [[ -f ~/Documents/competitive-programing/scripts/oj_s.sh ]]; then
     source ~/Documents/competitive-programing/scripts/oj_s.sh
 fi
 
+# yazi
+if type yazi &> /dev/null; then
+    function yy() {
+        local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+        yazi "$@" --cwd-file="$tmp"
+        if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+            builtin cd -- "$cwd"
+        fi
+        rm -f -- "$tmp"
+    }
+fi
+
 
 #=====================#
 # change config by OS #
