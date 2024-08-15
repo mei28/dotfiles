@@ -1,7 +1,7 @@
 require('window')
 require('ime')
 require('launch')
-require('yabai')
+-- require('yabai')
 
 
 -- reload config
