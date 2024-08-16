@@ -66,10 +66,10 @@ hs.hotkey.bind(Sash, '5', function() hs.window.focusedWindow():move(Units.center
 hs.hotkey.bind(Sash, '6', function() hs.window.focusedWindow():move(Units.right_down, nil, true) end)
 
 -- 2/３分割
-Sosh = { 'option', 'shift' }
-hs.hotkey.bind(Sosh, 'left', function() hs.window.focusedWindow():move(Units.left66, nil, true) end)
-hs.hotkey.bind(Sosh, 'right', function() hs.window.focusedWindow():move(Units.right66, nil, true) end)
-hs.hotkey.bind(Sosh, 'down', function() hs.window.focusedWindow():move(Units.center66, nil, true) end)
+-- Sosh = { 'option', 'shift' }
+-- hs.hotkey.bind(Sosh, 'left', function() hs.window.focusedWindow():move(Units.left66, nil, true) end)
+-- hs.hotkey.bind(Sosh, 'right', function() hs.window.focusedWindow():move(Units.right66, nil, true) end)
+-- hs.hotkey.bind(Sosh, 'down', function() hs.window.focusedWindow():move(Units.center66, nil, true) end)
 
 -- {next, prev} window
 
