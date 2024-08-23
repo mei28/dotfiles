@@ -6,7 +6,28 @@ local spec = {
     keys = { { 'u' }, { 'U' }, { '<C-r>' }, { 'p' }, { 'y' }, },
     config = function()
       require 'luminate'.setup({
-
+        -- highlight_threshold = 1.9,
+        -- yank = {
+        --   guibg = "#2d4f67",
+        --   fg = "#ebcb8b",
+        --   enabled = true,
+        -- },
+        -- paste = {
+        --   guibg = "#000067",
+        --   fg = "#eb0000",
+        --   enabled = true,
+        -- },
+        -- undo = {
+        --   guibg = "#2d4f67",
+        --   fg = "#00cb00",
+        --   enabled = true,
+        -- },
+        -- redo = {
+        --   guibg = "#2d4f67",
+        --   fg = "#ff008b",
+        --   enabled = true,
+        -- },
+        --
       })
     end
   },
@@ -90,12 +111,12 @@ local spec = {
       },
     },
   },
-  {
-    'opps-guardian.nvim',
-    -- dir = '~/Documents/opps-guardian.nvim',
-    lazy = false,
-    init = function() require('opps-guardian').init() end,
-  },
+  -- {
+  --   -- 'opps-guardian.nvim',
+  --   dir = '~/Documents/opps-guardian.nvim',
+  --   lazy = false,
+  --   init = function() require('opps-guardian').init() end,
+  -- },
   {
     'mei28/swapwords.nvim',
     config = function()
