@@ -1,4 +1,4 @@
-vim.g.python3_host_prog = '$HOME/.venv/neovim/bin/python'
+vim.g.python3_host_prog = '$HOME/neovim_venv/neovim/bin/python'
 -- リーダーキーの設定
 vim.g.mapleader = ' '
 vim.cmd [[lang en_US.UTF-8]]

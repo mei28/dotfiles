@@ -326,6 +326,10 @@ if [ -e $HOME/.rye  ]; then
     eval "$(rye self completion -s bash)"
 fi
 
+if [ -e $HOME/.config/uv ]; then
+    eval "$(uv generate-shell-completion bash)"
+fi
+
 if [ -e $HOME/go/bin ]; then
     export PATH="$HOME/go/bin:$PATH"
 fi
