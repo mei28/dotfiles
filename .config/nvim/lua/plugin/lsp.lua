@@ -35,7 +35,7 @@ function mason_setup()
     'clangd',
     'rust_analyzer',
     'quick_lint_js',
-    'tsserver',
+    'ts_ls',
     'jsonls',
     'efm',
     'pyright',

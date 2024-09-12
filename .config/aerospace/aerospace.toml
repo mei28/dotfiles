@@ -106,6 +106,16 @@ alt-shift-down = 'move down'
 alt-shift-up = 'move up'
 alt-shift-right = 'move right'
 
+# Consider using 'join-with' command as a 'split' replacement if you want to enable normalizations
+
+alt-f = 'fullscreen'
+
+alt-s = 'layout v_accordion' # 'layout stacking' in i3
+alt-w = 'layout h_accordion' # 'layout tabbed' in i3
+alt-e = 'layout tiles horizontal vertical' # 'layout toggle split' in i3
+
+alt-shift-space = 'layout floating tiling' # 'floating toggle' in i3
+
 # See: https://nikitabobko.github.io/AeroSpace/commands#resize
 alt-shift-minus = 'resize smart -50'
 alt-shift-equal = 'resize smart +50'
@@ -181,3 +191,11 @@ minus = 'resize smart -50'
 equal = 'resize smart +50'
 q = 'mode main'
 esc = 'mode main'
+
+[workspace-to-monitor-force-assignment]
+1 = 1                            # Monitor sequence number from left to right. 1-based indexing
+2 = 'main'                       # Main monitor
+3 = 'secondary'                  # Non-main monitor in case when there are only two monitors
+4 = 'built-in'                   # Case insensitive regex substring
+5 = '^built-in retina display$'  # Case insensitive regex match
+6 = ['secondary', 'dell']        # You can specify multiple patterns. The first matching pattern will be used

@@ -134,8 +134,8 @@ switcher.ui.showSelectedTitle = false
 switcher.ui.showSelectedThumbnail = false
 switcher.ui.thumbnailSize = 256
 switcher.ui.backgroundColor = { 0.0, 0.0, 0.0, 0.0 }
-hs.hotkey.bind({ 'alt' }, 'tab', function() switcher:next() end)
-hs.hotkey.bind({ 'alt', 'shift' }, 'tab', function() switcher:previous() end)
+-- hs.hotkey.bind({ 'alt' }, 'tab', function() switcher:next() end)
+-- hs.hotkey.bind({ 'alt', 'shift' }, 'tab', function() switcher:previous() end)
 
 -- toggle display mode between mirror and extend
 hs.hotkey.bind(
