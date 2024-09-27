@@ -1,11 +1,11 @@
 local spec = {
-  {
-    "petertriho/nvim-scrollbar",
-    event = { 'BufNewFile', 'BufRead' },
-    config = function()
-      require('scrollbar').setup()
-    end
-  },
+  -- {
+  --   "petertriho/nvim-scrollbar",
+  --   event = { 'BufNewFile', 'BufRead' },
+  --   config = function()
+  --     require('scrollbar').setup()
+  --   end
+  -- },
 
   {
     "tonymajestro/smart-scrolloff.nvim",

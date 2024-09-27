@@ -34,7 +34,7 @@ local spec = {
           untracked    = { text = '┆' },
         },
       })
-      require("scrollbar.handlers.gitsigns").setup()
+      -- require("scrollbar.handlers.gitsigns").setup()
     end
   },
   {
