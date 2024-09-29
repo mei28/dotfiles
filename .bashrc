@@ -474,6 +474,9 @@ if type yazi &> /dev/null; then
     }
 fi
 
+# https://x.com/walnuts1018/status/1839636079164715262?s=46&t=CQvD0ppkcFnFEeBoG47BZg
+alias "$"="" 
+
 
 #=====================#
 # change config by OS #
