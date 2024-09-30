@@ -475,7 +475,7 @@ if type yazi &> /dev/null; then
 fi
 
 # https://x.com/walnuts1018/status/1839636079164715262?s=46&t=CQvD0ppkcFnFEeBoG47BZg
-alias "$"="" 
+# alias "$"="" 
 
 
 #=====================#
@@ -530,13 +530,13 @@ case ${OSTYPE} in
         fi
 
         ## yabai
-        if type yabai &> /dev/null; then
-            alias yabai_start='yabai --start-service'
-            # yabai --start-service(開始)
-            alias yabai_stop='yabai --stop-service'
-            # yabai --stop-service(停止)
-            alias yabai_restart='yabai --restart-service'
-        fi
+        # if type yabai &> /dev/null; then
+        #     alias yabai_start='yabai --start-service'
+        #     # yabai --start-service(開始)
+        #     alias yabai_stop='yabai --stop-service'
+        #     # yabai --stop-service(停止)
+        #     alias yabai_restart='yabai --restart-service'
+        # fi
 
         ;;
         #========#
