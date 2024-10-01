@@ -29,6 +29,42 @@ local spec = {
     keys = {
       { '-', '<CMD>Oil<CR>', 'n' }
     }
+  },
+
+  {
+    'Tronikelis/xylene.nvim',
+    config = function()
+      require("xylene").setup({
+        icons = {
+          files = true,
+          dir_open = "  ",
+          dir_close = "  ",
+        },
+        keymaps = {
+          enter = "<cr>",
+        },
+        indent = 4,
+        sort_names = function(a, b)
+          return a.name < b.name
+        end,
+        skip = function(name, filetype)
+          return name == ".git"
+        end,
+        on_attach = function(renderer)
+          vim.keymap.set("n", "<c-cr>", function()
+            local row = vim.api.nvim_win_get_cursor(0)[1]
+
+            local file = renderer:find_file(row)
+            if not file then
+              return
+            end
+
+            require("oil").open(file.path)
+          end, { buffer = renderer.buf })
+        end,
+      })
+    end,
+    cmd = { 'Xylene' }
   }
 }
 
