@@ -34,26 +34,97 @@ function bufferline_setup()
     },
     highlights = {
       separator = {
-        fg = '#073642',
-        bg = '#002b36',
+        fg = '#504945',
+        bg = '#282828',
       },
       separator_selected = {
-        fg = '#073642',
+        fg = '#504945',
       },
       background = {
-        fg = '#657b83',
-        bg = '#002b36'
+        fg = '#EBDBB2',
+        bg = '#282828'
       },
       buffer_selected = {
-        fg = '#fdf6e3',
+        fg = '#FABD2F',
         bold = true,
         italic = false
       },
       fill = {
-        bg = '#073642'
+        bg = '#3C3836'
       }
-    },
+    }
   })
 end
 
 return spec
+
+
+-- Nord
+--
+-- highlights = {
+--   separator = {
+--     fg = '#4C566A',
+--     bg = '#2E3440',
+--   },
+--   separator_selected = {
+--     fg = '#4C566A',
+--   },
+--   background = {
+--     fg = '#D8DEE9',
+--     bg = '#2E3440'
+--   },
+--   buffer_selected = {
+--     fg = '#ECEFF4',
+--     bold = true,
+--     italic = false
+--   },
+--   fill = {
+--     bg = '#3B4252'
+--   }
+-- }
+
+-- Dracula
+-- highlights = {
+--   separator = {
+--     fg = '#6272A4',
+--     bg = '#282A36',
+--   },
+--   separator_selected = {
+--     fg = '#6272A4',
+--   },
+--   background = {
+--     fg = '#F8F8F2',
+--     bg = '#282A36'
+--   },
+--   buffer_selected = {
+--     fg = '#FF79C6',
+--     bold = true,
+--     italic = false
+--   },
+--   fill = {
+--     bg = '#44475A'
+--   }
+-- }
+
+-- Gruvbox
+-- highlights = {
+--   separator = {
+--     fg = '#504945',
+--     bg = '#282828',
+--   },
+--   separator_selected = {
+--     fg = '#504945',
+--   },
+--   background = {
+--     fg = '#EBDBB2',
+--     bg = '#282828'
+--   },
+--   buffer_selected = {
+--     fg = '#FABD2F',
+--     bold = true,
+--     italic = false
+--   },
+--   fill = {
+--     bg = '#3C3836'
+--   }
+-- }

@@ -28,7 +28,6 @@ local spec = {
   {
     'onsails/lspkind-nvim', -- vscode-like pictograms
     config = function() lspkind_setup() end,
-
   },
   {
     "L3MON4D3/LuaSnip",
@@ -61,8 +60,8 @@ function cmp_setup()
       end,
     },
     window = {
-      completion = cmp.config.window.bordered(),
-      documentation = cmp.config.window.bordered(),
+      -- completion = cmp.config.window.bordered(),
+      -- documentation = cmp.config.window.bordered(),
     },
     mapping = cmp.mapping.preset.insert({
       ["<C-p>"] = cmp.mapping.select_prev_item(),
