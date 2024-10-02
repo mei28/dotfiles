@@ -477,6 +477,12 @@ fi
 # https://x.com/walnuts1018/status/1839636079164715262?s=46&t=CQvD0ppkcFnFEeBoG47BZg
 # alias "$"="" 
 
+export PNPM_HOME="/Users/mei/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+
 
 #=====================#
 # change config by OS #
