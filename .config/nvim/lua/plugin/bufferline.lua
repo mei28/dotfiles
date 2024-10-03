@@ -10,17 +10,20 @@ local spec = {
     keys = {
       { '<Tab>',   '<Cmd>BufferLineCycleNext<CR>' },
       { '<S-Tab>', '<Cmd>BufferLineCyclePrev<CR>' }
-    }
+    },
+    dependencies = { 'mei28/chromabuffer' }
   }
-
-
 }
 
 function bufferline_setup()
   local status, bufferline = pcall(require, "bufferline")
-  if not status then
-    return
-  end
+  if not status then return end
+  local status, chroma = pcall(require, "chromabuffer")
+  if not status then return end
+
+
+  chroma.setup({ highlight_template = 'default' })
+  local highlights = chroma.get_bufferline_highlights()
 
   bufferline.setup({
     options = {
@@ -34,24 +37,24 @@ function bufferline_setup()
     },
     highlights = {
       separator = {
-        fg = '#504945',
-        bg = '#282828',
+        fg = highlights.separator_fg,
+        bg = highlights.bg,
       },
       separator_selected = {
-        fg = '#504945',
+        fg = highlights.separator_fg,
       },
       background = {
-        fg = '#EBDBB2',
-        bg = '#282828'
+        fg = highlights.background_fg,
+        bg = highlights.bg,
       },
       buffer_selected = {
-        fg = '#FABD2F',
+        fg = highlights.selected_fg,
         bold = true,
-        italic = false
+        italic = false,
       },
       fill = {
-        bg = '#3C3836'
-      }
+        bg = highlights.fill_bg,
+      },
     }
   })
 end
