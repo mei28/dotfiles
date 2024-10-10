@@ -39,6 +39,29 @@ local spec = {
       require('log-highlight').setup {}
     end,
   },
+  {
+    'nvchad/minty',
+    dependencies = { 'nvchad/volt' },
+    config = function()
+      vim.api.nvim_create_user_command(
+        "MintyHue", -- コマンド名
+        function()  -- 実行する関数
+          require('minty.huefy').open({ border = true })
+        end,
+        { nargs = 0 } -- コマンドに引数がない場合は`nargs = 0`
+      )
+
+      vim.api.nvim_create_user_command(
+        "MintyShade", -- もう1つのコマンド名
+        function()
+          print("MintyShade command executed!")
+        end,
+        { nargs = 0 } -- 引数なしの設定
+      )
+    end,
+    cmd = { 'MintyHue', 'MintyShade' }
+  },
+
 }
 
 return spec

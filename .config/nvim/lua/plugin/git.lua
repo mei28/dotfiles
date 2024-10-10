@@ -38,18 +38,49 @@ local spec = {
     end
   },
   {
-    'akinsho/git-conflict.nvim',
+    'Tronikelis/conflict-marker.nvim',
+    config = function()
+      require("conflict-marker").setup({
+        highlights = true,
+        on_attach = function(conflict)
+          local MID = "^=======$"
+
+          vim.keymap.set("n", "[x", function()
+            vim.cmd("?" .. MID)
+          end, { buffer = conflict.bufnr })
+
+          vim.keymap.set("n", "]x", function()
+            vim.cmd("/" .. MID)
+          end, { buffer = conflict.bufnr })
+
+          local map = function(key, fn)
+            vim.keymap.set("n", key, fn, { buffer = conflict.bufnr })
+          end
+
+          -- or you can map these to <cmd>ChooseOurs<cr>
+
+          map("co", function()
+            conflict:choose_ours()
+          end)
+          map("ct", function()
+            conflict:choose_theirs()
+          end)
+          map("cb", function()
+            conflict:choose_both()
+          end)
+          map("cn", function()
+            conflict:choose_none()
+          end)
+        end,
+      })
+    end,
     cmd = {
-      "GitConflictChooseOurs",
-      "GitConflictChooseTheirs",
-      "GitConflictChooseBoth",
-      "GitConflictChooseNone",
-      "GitConflictNextConflict",
-      "GitConflictPrevConflict",
-      "GitConflictListQf",
-    },
-    version = '*',
-    config = true
+      'ConflictOurs',
+      'ConflictTheirs',
+      'ConflictBoth',
+      'ConflictNone',
+    }
+
   },
   {
     'sindrets/diffview.nvim',
