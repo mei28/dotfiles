@@ -64,7 +64,10 @@ local spec = {
         end,
       })
     end,
-    cmd = { 'Xylene' }
+    cmd = { 'Xylene' },
+    keys = {
+      { '_', '<CMD>Xylene<CR>', 'n' }
+    }
   }
 }
 
