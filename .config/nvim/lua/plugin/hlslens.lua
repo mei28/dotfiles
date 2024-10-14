@@ -6,7 +6,7 @@ local spec = {
       local status, hlslens = pcall(require, 'hlslens')
       if not status then return end
       hlslens.setup()
-      require("scrollbar.handlers.search").setup({})
+      -- require("scrollbar.handlers.search").setup({})
     end,
     dependencies = { 'rapan931/lasterisk.nvim' },
     keys = {

@@ -111,7 +111,21 @@ local spec = {
       require("blame").setup()
     end,
     cmd = { "BlameToggle" }
+  },
+  {
+    'Chen-Yulin/ColorfulDiff.nvim',
+    event = { 'BufNewFile', 'BufRead' },
+    config = function()
+      local config = {
+        colors = {
+          diff = "#667700",
+          origin = "#007766",
+        },
+      }
+      require("colorful_diff").setup(config)
+    end
   }
+
 }
 
 
