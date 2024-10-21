@@ -484,6 +484,12 @@ case ":$PATH:" in
 esac
 
 
+# docker completion
+if type docker &> /dev/null; then
+   eval "$(docker completion bash)" 
+fi
+
+
 #=====================#
 # change config by OS #
 #=====================#
