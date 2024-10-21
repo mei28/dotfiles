@@ -130,6 +130,9 @@ alt-6 = 'workspace 6'
 alt-7 = 'workspace 7'
 alt-8 = 'workspace 8'
 alt-9 = 'workspace 9'
+alt-a = 'workspace a'
+alt-d = 'workspace d'
+alt-u = 'workspace u'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
 alt-shift-1 = ['move-node-to-workspace 1', 'workspace 1']
@@ -141,6 +144,9 @@ alt-shift-6 = ['move-node-to-workspace 6', 'workspace 6']
 alt-shift-7 = ['move-node-to-workspace 7', 'workspace 7']
 alt-shift-8 = ['move-node-to-workspace 8', 'workspace 8']
 alt-shift-9 = ['move-node-to-workspace 9', 'workspace 9']
+alt-shift-a = ['move-node-to-workspace a', 'workspace a']
+alt-shift-d = ['move-node-to-workspace d', 'workspace d']
+alt-shift-u = ['move-node-to-workspace u', 'workspace u']
 
 alt-p = 'workspace prev'
 alt-n = 'workspace next'
@@ -185,6 +191,9 @@ alt-shift-6 = 'move-node-to-workspace 6'
 alt-shift-7 = 'move-node-to-workspace 7'
 alt-shift-8 = 'move-node-to-workspace 8'
 alt-shift-9 = 'move-node-to-workspace 9'
+alt-shift-a = 'move-node-to-workspace a'
+alt-shift-d = 'move-node-to-workspace d'
+alt-shift-u = 'move-node-to-workspace u'
 
 [mode.resize.binding]
 minus = 'resize smart -50'
@@ -199,3 +208,16 @@ esc = 'mode main'
 4 = 'built-in'                   # Case insensitive regex substring
 5 = '^built-in retina display$'  # Case insensitive regex match
 6 = ['secondary', 'dell']        # You can specify multiple patterns. The first matching pattern will be used
+
+[[on-window-detected]]
+if.app-id = "com.tinyspeck.slackmacgap"
+run = "move-node-to-workspace a"
+
+[[on-window-detected]]
+if.app-id = "com.hnc.Discord"
+run = "move-node-to-workspace d"
+
+[[on-window-detected]]
+if.app-id = "com.getupnote.desktop"
+run = "move-node-to-workspace u"
+
