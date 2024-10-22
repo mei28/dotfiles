@@ -24,7 +24,52 @@
         alejandra
         gitui
         wezterm
+        arxiv-latex-cleaner
+        bash
+        bash-completion
+        bat
+        coreutils
+        csvlens
+        deno
+        efm-langserver
+        fastfetch
+        fd
+        ffmpeg
+        ffmpegthumbnailer
+        fzf
+        gh
+        ghostscript
+        gitui
+        heroku
+        imagemagick
+        jj
+        jq
+        libevent
+        libgit2
+        libheif
+        libssh2
+        llvm
+        luajit
+        luarocks
         neovim
+        nodejs_20
+        openssl
+        ripgrep
+        rust-analyzer
+        serie
+        unzip
+        tig
+        tldr
+        tmux
+        tmux-mem-cpu-load
+        tokei
+        trash-cli
+        tree
+        tree-sitter
+        unbound
+        wget
+        yazi
+        zoxide
       ];
     };
 
