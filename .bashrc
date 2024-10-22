@@ -489,6 +489,11 @@ if type docker &> /dev/null; then
    eval "$(docker completion bash)" 
 fi
 
+# git graph serie
+if type serie &> /dev/null; then
+    alias gl='serie'
+fi
+
 
 #=====================#
 # change config by OS #
