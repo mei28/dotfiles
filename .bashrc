@@ -494,6 +494,11 @@ if type serie &> /dev/null; then
     alias gl='serie'
 fi
 
+# nix
+if type nix &> /dev/null; then
+    export PATH="~/.nix-profile/bin:$PATH"
+fi
+
 
 #=====================#
 # change config by OS #

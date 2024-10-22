@@ -10,18 +10,35 @@
     self,
     nixpkgs,
     neovim-nightly-overlay,
-  }: {
-    packages.aarch64-darwin.my-packages = nixpkgs.legacyPackages.aarch64-darwin.buildEnv {
+  }: let
+    system = "aarch64-darwin";
+    pkgs = nixpkgs.legacyPackages.${system}.extend (
+      neovim-nightly-overlay.overlays.default
+    );
+  in {
+    packages.${system}.my-packages = pkgs.buildEnv {
       name = "my-packages-list";
-      paths = with nixpkgs.legacyPackages.aarch64-darwin;
-        [
-          git
-          curl
-          alejandra
-          gitui
-          wezterm
-        ]
-        ++ [neovim-nightly-overlay.packages.aarch64-darwin.neovim];
+      paths = with pkgs; [
+        git
+        curl
+        alejandra
+        gitui
+        wezterm
+        neovim
+      ];
+    };
+
+    # nix run .#update
+    apps.${system}.update = {
+      type = "app";
+      program = toString (pkgs.writeShellScript "update-script" ''
+        set -e
+        echo "Updating flake..."
+        nix flake update
+        echo "Updating profile..."
+        nix profile upgrade my-packages
+        echo "Update complete!"
+      '');
     };
   };
 }
