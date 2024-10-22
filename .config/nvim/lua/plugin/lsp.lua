@@ -272,7 +272,8 @@ function mason_setup()
     svelte = { eslint, prettier, },
     sh = { shellcheck, beautysh, },
     lua = {},
-    css = { stylelint, prettier }
+    css = { stylelint, prettier },
+    nix = {}
   }
 
   local efmls_config = {
