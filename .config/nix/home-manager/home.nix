@@ -49,6 +49,7 @@ in {
         imagemagick
         jujutsu
         jq
+        sqlite
         libevent
         libgit2
         libheif

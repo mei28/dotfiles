@@ -10,7 +10,9 @@ if [ -e /usr/local/share/git-core/contrib ]; then
 elif [ -e /opt/homebrew/share/git-core/contrib ]; then
     export GIT_CONTRIB_PATH=/opt/homebrew/share/git-core/contrib
 elif [ -e /usr/share/doc/git/contrib ]; then
-    export GIT_CONTRIB_PATH=/usr/share/doc/git/contrib
+    export GIT_CONTRIB_PATH=/usr/share/git/contrib
+elif [ -e ~/.nix-profile//usr/share/git/contrib ]; then
+    export 
 fi
 
 export PATH="$PATH:$GIT_CONTRIB_PATH/git-jump"
@@ -497,6 +499,10 @@ fi
 # nix
 if type nix &> /dev/null; then
     export PATH="~/.nix-profile/bin:$PATH"
+fi
+
+if [[ -f ~/.config/nix/completions/nix.bash ]]; then
+    source ~/.config/nix/completions/nix.bash
 fi
 
 
