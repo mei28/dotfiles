@@ -11,8 +11,8 @@ elif [ -e /opt/homebrew/share/git-core/contrib ]; then
     export GIT_CONTRIB_PATH=/opt/homebrew/share/git-core/contrib
 elif [ -e /usr/share/doc/git/contrib ]; then
     export GIT_CONTRIB_PATH=/usr/share/git/contrib
-elif [ -e ~/.nix-profile//usr/share/git/contrib ]; then
-    export 
+elif [ -e ~/.nix-profile/share/git/contrib ]; then
+    export GIT_CONTRIB_PATH=~/.nix-profile/share/git/contrib
 fi
 
 export PATH="$PATH:$GIT_CONTRIB_PATH/git-jump"
