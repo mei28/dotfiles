@@ -78,10 +78,16 @@ in {
       zoxide
       nerdfonts
     ];
-
-    # Home Manager programs configuration
-    programs.home-manager.enable = true;
-
   };
-}
 
+  # Home Manager programs configuration
+  programs.home-manager.enable = true;
+
+  # neovim
+  programs.neovim.plugins = [
+    {
+      plugin = pkgs.vimPlugins.sqlite-lua;
+      config = "let g:sqlite_clib_path = '${pkgs.sqlite.out}/lib/libsqlite3.dylib'";
+    }
+  ];
+}
