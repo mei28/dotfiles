@@ -501,9 +501,9 @@ if type nix &> /dev/null; then
     export PATH="~/.nix-profile/bin:$PATH"
 fi
 
-if [[ -f ~/.config/nix/completions/nix.bash ]]; then
-    source ~/.config/nix/completions/nix.bash
-fi
+# if [[ -f ~/.config/nix/completions/nix.bash ]]; then
+#     source ~/.config/nix/completions/nix.bash
+# fi
 
 
 #=====================#
