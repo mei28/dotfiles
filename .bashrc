@@ -505,6 +505,12 @@ fi
 #     source ~/.config/nix/completions/nix.bash
 # fi
 
+# cliperge
+if type cliperge &> /dev/null; then
+    alias cl='cliperge'
+    alias cr='cliperge -r'
+fi
+
 
 #=====================#
 # change config by OS #
