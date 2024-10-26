@@ -8,12 +8,17 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-darwin = {
+      url = "github:LnL7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
     self,
     nixpkgs,
     home-manager,
+    nix-darwin,
     ...
   } @ inputs: let
     system = "aarch64-darwin";
@@ -34,6 +39,9 @@
         echo "Updating profile..."
         echo "Updating home-manager..."
         nix run nixpkgs#home-manager -- switch --flake .#myHomeConfig
+        echo "Updating nix-darwin..."
+        nix run nix-darwin -- switch --flake .#mei-darwin
+        echo "Update Complete!"
       '');
     };
     homeConfigurations = {
@@ -46,6 +54,10 @@
           ./.config/nix/home-manager/home.nix
         ];
       };
+    };
+    darwinConfigurations.mei-darwin = nix-darwin.lib.darwinSystem {
+      system = system;
+      modules = [./.config/nix/nix-darwin/default.nix];
     };
   };
 }

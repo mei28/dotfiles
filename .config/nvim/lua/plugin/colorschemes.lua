@@ -15,7 +15,6 @@ return {
   { 'is-hoku/sakura' },
   { 'navarasu/onedark.nvim' },
   { 'morhetz/gruvbox' },
-  { 'haxibami/urara.vim' },
   { 'bluz71/vim-nightfly-colors' },
   { 'cryptomilk/nightcity.nvim',      version = false },
   { "NTBBloodbath/sweetie.nvim" },
