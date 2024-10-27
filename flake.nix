@@ -84,7 +84,7 @@
       ];
     };
 
-    # nix-darwin configuration for macOS
+    # nix-darwin configuration for macOS with Homebrew module integration
     darwinConfigurations.mei-darwin = nix-darwin.lib.darwinSystem {
       system = "aarch64-darwin"; # Specify the macOS system directly here
       modules = [
@@ -93,8 +93,8 @@
         {
           nix-homebrew = {
             enable = true;
-            enableRosetta = true;
-            user = "mei"; # Adjust the username as needed
+            enableRosetta = true; # For Apple Silicon compatibility with Intel apps
+            user = "mei"; # Replace "mei" with your actual username
             taps = {
               "homebrew/homebrew-core" = homebrew-core;
               "homebrew/homebrew-cask" = homebrew-cask;

@@ -500,6 +500,10 @@ fi
 if type nix &> /dev/null; then
     export PATH="~/.nix-profile/bin:$PATH"
 fi
+if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+  . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+fi
+
 
 # if [[ -f ~/.config/nix/completions/nix.bash ]]; then
 #     source ~/.config/nix/completions/nix.bash
