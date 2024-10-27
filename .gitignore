@@ -82,3 +82,4 @@ lazy-lock.json
 ! .vscode
 ! *.lua
 result
+.config/nix/nix.conf
