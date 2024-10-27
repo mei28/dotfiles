@@ -1,45 +1,13 @@
-{pkgs, ...}: {
-  nix = {
-    optimise.automatic = true;
-    settings = {
-      experimental-features = "nix-command flakes";
-      max-jobs = 8;
-    };
-  };
-  services.nix-daemon.enable = true;
-
-  system = {
-    stateVersion = 5; 
-    defaults = {
-      NSGlobalDomain.AppleShowAllExtensions = true;
-      finder = {
-        AppleShowAllFiles = true;
-        AppleShowAllExtensions = true;
-      };
-      dock = {
-        autohide = true;
-        show-recents = false;
-        orientation = "left";
-      };
-    };
-  };
-  homebrew = {
-    enable = true;
-    onActivation = {
-      autoUpdate = true;
-      # !! 注意 !!
-      # cleanup = "uninstall";
-    };
-    casks = [
-      "hammerspoon"
-      "aerospace"
-      "ngrok"
-      "wezterm"
-      "font-hack-nerd-font" 
-      "font-symbols-only-nerd-font"
-    ];
-    taps = [
-      "nikitabobko/tap"
-    ];
-  };
+{
+  pkgs,
+  username,
+  ...
+}: let
+  nix = import ./config/nix.nix;
+  fonts = import ./config/fonts.nix {inherit pkgs;};
+  services = import ./config/services.nix;
+  system = import ./config/system.nix {inherit pkgs;};
+  homebrew = import ./config/homebrew.nix;
+in {
+  imports = [nix services fonts system homebrew];
 }
