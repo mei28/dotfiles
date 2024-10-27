@@ -12,17 +12,20 @@
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
+    homebrew-core = {
+      url = "github:homebrew/homebrew-core";
+      flake = false;
+    };
+    homebrew-cask = {
+      url = "github:homebrew/homebrew-cask";
+      flake = false;
+    };
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    home-manager,
-    nix-darwin,
-    ...
-  } @ inputs: let
+  outputs = { self, nixpkgs, home-manager, nix-darwin, nix-homebrew, homebrew-core, homebrew-cask, ... }: let
     system = "aarch64-darwin";
-    pkgs = import nixpkgs {inherit system;};
+    pkgs = import nixpkgs { inherit system; };
   in {
     packages.${system}.my-packages = pkgs.buildEnv {
       name = "my-packages-list";
@@ -48,7 +51,7 @@
       myHomeConfig = home-manager.lib.homeManagerConfiguration {
         pkgs = pkgs;
         extraSpecialArgs = {
-          inherit inputs;
+          inherit (self) inputs;
         };
         modules = [
           ./.config/nix/home-manager/home.nix
@@ -57,7 +60,23 @@
     };
     darwinConfigurations.mei-darwin = nix-darwin.lib.darwinSystem {
       system = system;
-      modules = [./.config/nix/nix-darwin/default.nix];
+      modules = [
+        ./.config/nix/nix-darwin/default.nix
+        nix-homebrew.darwinModules.nix-homebrew
+        {
+          nix-homebrew = {
+            enable = true;
+            enableRosetta = true;
+            user = "mei";
+            taps = {
+              "homebrew/homebrew-core" = homebrew-core;
+              "homebrew/homebrew-cask" = homebrew-cask;
+            };
+            mutableTaps = false;
+          };
+        }
+      ];
     };
   };
 }
+
