@@ -38,5 +38,8 @@
       "font-hack-nerd-font" 
       "font-symbols-only-nerd-font"
     ];
+    taps = [
+      "nikitabobko/tap"
+    ];
   };
 }

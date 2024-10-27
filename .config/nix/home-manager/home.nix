@@ -77,7 +77,13 @@ in {
       yazi
       zoxide
       nerdfonts
+      cargo-generate
     ];
+
+    # 環境変数を sessionVariables に設定
+    sessionVariables = {
+      PKG_CONFIG_PATH = "${pkgs.openssl.dev}/lib/pkgconfig";
+    };
   };
 
   # Home Manager programs configuration
