@@ -100,6 +100,7 @@
               "homebrew/homebrew-cask" = homebrew-cask;
             };
             mutableTaps = false;
+            autoMigrate = true;
           };
         }
       ];
