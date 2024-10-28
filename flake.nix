@@ -69,7 +69,7 @@
       pkgs = pkgs;
       extraSpecialArgs = {inherit (self) inputs;};
       modules = [
-        ./.config/nix/home-manager/home-shared.nix
+        ./.config/nix/home-manager/home.nix
       ];
     };
 
