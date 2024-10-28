@@ -12,15 +12,6 @@
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
-    homebrew-core = {
-      url = "github:homebrew/homebrew-core";
-      flake = false;
-    };
-    homebrew-cask = {
-      url = "github:homebrew/homebrew-cask";
-      flake = false;
-    };
   };
 
   outputs = {
@@ -28,9 +19,6 @@
     nixpkgs,
     home-manager,
     nix-darwin,
-    nix-homebrew,
-    homebrew-core,
-    homebrew-cask,
     ...
   }: let
     # Define the system variable based on the current platform
@@ -39,6 +27,7 @@
       then "aarch64-darwin"
       else "x86_64-linux";
     pkgs = import nixpkgs {inherit system;};
+    username = "mei";
   in {
     packages.${system}.my-packages = pkgs.buildEnv {
       name = "my-packages-list";
@@ -89,20 +78,6 @@
       system = "aarch64-darwin"; # Specify the macOS system directly here
       modules = [
         ./.config/nix/nix-darwin/default.nix
-        nix-homebrew.darwinModules.nix-homebrew
-        {
-          nix-homebrew = {
-            enable = true;
-            enableRosetta = true; # For Apple Silicon compatibility with Intel apps
-            user = "mei"; # Replace "mei" with your actual username
-            taps = {
-              "homebrew/homebrew-core" = homebrew-core;
-              "homebrew/homebrew-cask" = homebrew-cask;
-            };
-            mutableTaps = false;
-            autoMigrate = true;
-          };
-        }
       ];
     };
   };
