@@ -9,5 +9,11 @@
   system = import ./config/system.nix {inherit pkgs;};
   homebrew = import ./config/homebrew.nix;
 in {
-  imports = [nix services fonts system homebrew];
+  imports = [
+    nix
+    services
+    fonts 
+    system 
+    homebrew
+  ];
 }
