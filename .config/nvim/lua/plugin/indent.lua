@@ -3,6 +3,7 @@ local spec = {
   {
     "lukas-reineke/indent-blankline.nvim",
     main = "ibl",
+    version = 'v3.8.2',
     event = { 'BufNewFile', 'BufRead' },
     config = function()
       vim.opt.list = true
