@@ -28,7 +28,6 @@ in {
       curl
       alejandra
       gitui
-      wezterm
       arxiv-latex-cleaner
       bash
       bash-completion
