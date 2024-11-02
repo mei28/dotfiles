@@ -520,9 +520,9 @@ fi
 case ${OSTYPE} in
     darwin*)
         # ls(color)
-        alias ls='ls -G'
-        alias ll='ls -lG'
-        alias la='ls -laG'
+        alias ls='ls -G --color=auto'
+        alias ll='ls -lG --color=auto'
+        alias la='ls -laG --color=auto'
 
         # bash_completion
         # Use bash-completion, if available
