@@ -1,88 +1,76 @@
 {
   inputs,
   lib,
-  config,
   pkgs,
+  system,
   ...
 }: let
   inherit (import ./options.nix) username;
 in {
-  nixpkgs = {
-    config = {
-      allowUnfree = true;
-    };
-    overlays = [
-      inputs.neovim-nightly-overlay.overlays.default
-    ];
-  };
+  home.username = username;
+  home.homeDirectory = "/Users/${username}";
 
-  home = {
-    username = username;
-    homeDirectory = "/Users/${username}";
+  # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
+  home.stateVersion = "24.05";
 
-    # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
-    stateVersion = "24.05";
+  home.packages = with pkgs; [
+    git
+    curl
+    alejandra
+    gitui
+    arxiv-latex-cleaner
+    bash-completion
+    bat
+    coreutils
+    csvlens
+    deno
+    efm-langserver
+    fastfetch
+    fd
+    ffmpeg
+    ffmpegthumbnailer
+    fzf
+    gh
+    ghostscript
+    gitui
+    heroku
+    imagemagick
+    jujutsu
+    jq
+    sqlite
+    libevent
+    libgit2
+    libheif
+    libssh2
+    llvm
+    luajit
+    luarocks
+    neovim
+    nodejs_20
+    openssl
+    ripgrep
+    rust-analyzer
+    serie
+    unzip
+    tig
+    tldr
+    tmux
+    tmux-mem-cpu-load
+    tokei
+    trash-cli
+    tree
+    tree-sitter
+    unbound
+    wget
+    yazi
+    zoxide
+    nerdfonts
+    cargo-generate
+  ];
 
-    packages = with pkgs; [
-      git
-      curl
-      alejandra
-      gitui
-      arxiv-latex-cleaner
-      bash
-      bash-completion
-      bat
-      coreutils
-      csvlens
-      deno
-      efm-langserver
-      fastfetch
-      fd
-      ffmpeg
-      ffmpegthumbnailer
-      fzf
-      gh
-      ghostscript
-      gitui
-      heroku
-      imagemagick
-      jujutsu
-      jq
-      sqlite
-      libevent
-      libgit2
-      libheif
-      libssh2
-      llvm
-      luajit
-      luarocks
-      neovim
-      nodejs_20
-      openssl
-      ripgrep
-      rust-analyzer
-      serie
-      unzip
-      tig
-      tldr
-      tmux
-      tmux-mem-cpu-load
-      tokei
-      trash-cli
-      tree
-      tree-sitter
-      unbound
-      wget
-      yazi
-      zoxide
-      nerdfonts
-      cargo-generate
-    ];
-
-    # 環境変数を sessionVariables に設定
-    sessionVariables = {
-      PKG_CONFIG_PATH = "${pkgs.openssl.dev}/lib/pkgconfig";
-    };
+  # 環境変数を sessionVariables に設定
+  home.sessionVariables = {
+    PKG_CONFIG_PATH = "${pkgs.openssl.dev}/lib/pkgconfig";
   };
 
   # Home Manager programs configuration
@@ -96,3 +84,4 @@ in {
     }
   ];
 }
+
