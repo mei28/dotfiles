@@ -19,6 +19,7 @@ in {
     alejandra
     gitui
     arxiv-latex-cleaner
+    bash
     bash-completion
     bat
     coreutils
