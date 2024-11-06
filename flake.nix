@@ -25,7 +25,8 @@
   } @ inputs:
     flake-utils.lib.eachDefaultSystem (
       system: let
-        username = "mei";
+        # username = "mei";
+        inherit (import ./.config/nix/home-manager/options.nix) username;
         pkgs = import nixpkgs {inherit system;};
       in {
         formatter = pkgs.nixfmt-rfc-style;
@@ -53,7 +54,7 @@
           # Home Manager configuration
           homeConfigurations."${username}" = home-manager.lib.homeManagerConfiguration {
             pkgs = pkgs;
-            extraSpecialArgs = {inherit inputs;};
+            extraSpecialArgs = {inherit inputs system;};
             modules = [./.config/nix/home-manager/home.nix];
           };
 

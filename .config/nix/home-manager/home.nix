@@ -5,7 +5,7 @@
   pkgs,
   ...
 }: let
-  username = "mei";
+  inherit (import ./options.nix) username;
 in {
   nixpkgs = {
     config = {
