@@ -93,6 +93,18 @@ local spec = {
       require('instant_rename')
     end
   },
+  {
+    -- dir = '/Users/mei/Documents/BigSheetGardna.nvim',
+    'mei28/BigSheetGardna.nvim',
+    event = { 'BufNewFile', 'BufRead' },
+    config = function()
+      require("big_sheet_gardna").setup({
+        notify = false,                     -- Show notification for large files
+        size_threshold = 1.5 * 1024 * 1024, -- Set size threshold (default: 1.5MB)
+      })
+    end,
+
+  }
 
   -- {
   --   "nvim-treesitter/nvim-treesitter-textobjects",
