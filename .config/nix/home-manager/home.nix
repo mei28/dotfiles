@@ -40,10 +40,8 @@ in
     nixfmt-rfc-style
 
     # System Utilities and CLI Enhancements
-    fzf
     fd
     bat
-    tmux
     tmux-mem-cpu-load
     trash-cli
     tree
@@ -60,9 +58,7 @@ in
     ffmpeg
     ffmpegthumbnailer
     imagemagick
-    openssl
-    yazi
-    tokei
+    openssl yazi tokei
 
     # Others (LaTeX, etc.)
     arxiv-latex-cleaner
@@ -83,6 +79,7 @@ in
     ./modules/git.nix
     ./modules/gitui.nix
     ./modules/fzf.nix
+    ./modules/tmux.nix
 
     # formater linter
     ./modules/ruff.nix
