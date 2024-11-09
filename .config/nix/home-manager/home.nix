@@ -79,9 +79,10 @@ in
   };
 
   imports = [
-    
+    # cli 
     ./modules/git.nix
     ./modules/gitui.nix
+    ./modules/fzf.nix
 
     # formater linter
     ./modules/ruff.nix
