@@ -307,10 +307,6 @@ if type zoxide &> /dev/null; then
     eval "$(zoxide init bash)"
 fi
 
-if [ -f ~/.fzf.bash ]; then
-    source ~/.fzf.bash
-fi
-
 if type gh &> /dev/null; then
     eval "$(gh completion -s bash)"
 fi
