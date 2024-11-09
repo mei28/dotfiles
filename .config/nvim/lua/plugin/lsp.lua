@@ -43,6 +43,7 @@ function mason_setup()
     'tailwindcss',
     'emmet_ls',
     'typos_lsp',
+    'nil_ls',
   }
 
   local status, mason_lspconfig = pcall(require, 'mason-lspconfig')
@@ -115,6 +116,18 @@ function mason_setup()
   }
 
   lspconfig.mojo.setup({})
+
+  lspconfig.nil_ls.setup({
+    filetypes = { "nix" },
+    settings = {
+      ['nil'] = {
+        testSetting = 42,
+        formatting = {
+          command = { "nixfmt" },
+        },
+      },
+    }
+  })
 
   -- Global mappings
   local set = vim.keymap.set
@@ -264,6 +277,10 @@ function mason_setup()
 
   local stylelint  = require('efmls-configs.linters.stylelint')
 
+  local statix     = require('efmls-configs.linters.statix')
+  local alejandra  = require('efmls-configs.formatters.alejandra')
+  local nixfmt     = require('efmls-configs.formatters.nixfmt')
+
 
   local languages    = {
     python = { mypy, ruff_f, ruff_l, },
@@ -273,7 +290,7 @@ function mason_setup()
     sh = { shellcheck, beautysh, },
     lua = {},
     css = { stylelint, prettier },
-    nix = {}
+    nix = { statix, alejandra, nixfmt },
   }
 
   local efmls_config = {

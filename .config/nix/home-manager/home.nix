@@ -4,9 +4,11 @@
   pkgs,
   system,
   ...
-}: let
+}:
+let
   inherit (import ./options.nix) username;
-in {
+in
+{
   home.username = username;
   home.homeDirectory = "/Users/${username}";
 
@@ -14,61 +16,66 @@ in {
   home.stateVersion = "24.05";
 
   home.packages = with pkgs; [
+    # Development Tools
     git
-    curl
-    alejandra
     gitui
-    arxiv-latex-cleaner
-    bash
-    bash-completion
-    bat
-    coreutils
-    csvlens
-    deno
-    efm-langserver
-    fastfetch
-    fd
-    ffmpeg
-    ffmpegthumbnailer
-    fzf
     gh
-    ghostscript
-    gitui
-    heroku
-    imagemagick
-    jujutsu
-    jq
     sqlite
-    libevent
-    libgit2
-    libheif
-    libssh2
+    nodejs_20
+    rust-analyzer
+    cargo-generate
     llvm
+    neovim
+    efm-langserver
+
+    # Language Runtimes and Build Tools
+    deno
     luajit
     luarocks
-    neovim
-    nodejs_20
-    openssl
-    ripgrep
-    rust-analyzer
-    serie
-    unzip
-    tig
-    tldr
+    uv
+    cargo
+
+    # lsp
+    pyright
+
+    # formatter linter
+    nixfmt-rfc-style
+    ruff
+
+    # System Utilities and CLI Enhancements
+    fzf
+    fd
+    bat
     tmux
     tmux-mem-cpu-load
-    tokei
     trash-cli
     tree
     tree-sitter
-    unbound
     wget
-    yazi
+    unzip
+    ripgrep
     zoxide
     nerdfonts
-    cargo-generate
-  ];
+    fastfetch
 
+    # File Management
+    coreutils
+    ffmpeg
+    ffmpegthumbnailer
+    imagemagick
+    openssl
+    yazi
+    tokei
+
+    # Others (LaTeX, etc.)
+    arxiv-latex-cleaner
+    ghostscript
+    csvlens
+    heroku
+    tig
+    tldr
+    alejandra
+  ];
   # 環境変数を sessionVariables に設定
   home.sessionVariables = {
     PKG_CONFIG_PATH = "${pkgs.openssl.dev}/lib/pkgconfig";
@@ -85,4 +92,3 @@ in {
     }
   ];
 }
-
