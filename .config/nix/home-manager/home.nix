@@ -17,7 +17,6 @@ in
 
   home.packages = with pkgs; [
     # Development Tools
-    git
     gitui
     gh
     sqlite
@@ -80,6 +79,10 @@ in
   home.sessionVariables = {
     PKG_CONFIG_PATH = "${pkgs.openssl.dev}/lib/pkgconfig";
   };
+
+  imports = [
+    ./modules/git.nix
+  ];
 
   # Home Manager programs configuration
   programs.home-manager.enable = true;
