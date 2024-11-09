@@ -17,7 +17,6 @@ in
 
   home.packages = with pkgs; [
     # Development Tools
-    gitui
     gh
     sqlite
     nodejs_20
@@ -82,6 +81,7 @@ in
 
   imports = [
     ./modules/git.nix
+    ./modules/gitui.nix
   ];
 
   # Home Manager programs configuration
