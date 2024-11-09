@@ -28,6 +28,17 @@ in
 {
   programs.tmux = {
     enable = true;
+    # see: https://github.com/nix-community/home-manager/issues/5952
+    # https://suzumiyaaoba.github.io/blog/2024-10-14-tmux-with-nix/
+    package = pkgs.tmux.overrideAttrs (old: rec {
+      version = "3.5";
+      src = pkgs.fetchFromGitHub {
+        owner = "tmux";
+        repo = "tmux";
+        rev = version;
+        hash = "sha256-8CRZj7UyBhuB5QO27Y+tHG62S/eGxPOHWrwvh1aBqq0=";
+      };
+    });
 
     # tmuxプラグインの設定
     plugins = with pkgs; [
