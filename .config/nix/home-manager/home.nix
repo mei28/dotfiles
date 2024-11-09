@@ -38,7 +38,6 @@ in
 
     # formatter linter
     nixfmt-rfc-style
-    ruff
 
     # System Utilities and CLI Enhancements
     fzf
@@ -80,8 +79,12 @@ in
   };
 
   imports = [
+    
     ./modules/git.nix
     ./modules/gitui.nix
+
+    # formater linter
+    ./modules/ruff.nix
   ];
 
   # Home Manager programs configuration
