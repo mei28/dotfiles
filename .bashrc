@@ -307,6 +307,12 @@ if type zoxide &> /dev/null; then
     eval "$(zoxide init bash)"
 fi
 
+
+# fzf activate key-bindings
+if [ -e  ~/.nix-profile/share/fzf/key-bindings.bash ]; then
+    source ~/.nix-profile/share/fzf/key-bindings.bash
+fi
+
 if type gh &> /dev/null; then
     eval "$(gh completion -s bash)"
 fi
