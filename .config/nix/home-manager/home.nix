@@ -40,6 +40,7 @@ in
     nixfmt-rfc-style
 
     # System Utilities and CLI Enhancements
+    git-lfs
     fd
     bat
     tmux-mem-cpu-load
