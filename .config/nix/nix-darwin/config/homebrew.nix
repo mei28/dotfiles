@@ -13,9 +13,11 @@
       "wezterm"
       "font-hack-nerd-font"
       "font-symbols-only-nerd-font"
+      "serie"
     ];
     taps = [
       "nikitabobko/tap"
+      "lusingander/tap"
     ];
   };
 }
