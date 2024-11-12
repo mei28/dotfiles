@@ -1,4 +1,5 @@
 local eucalyn = require('eucalyn')
+local oonishi = require('oonishi')
 
 -- like karabiner
 SimpleCmd = false
@@ -20,6 +21,7 @@ function EikanaEvent(event)
             hs.alert.show("ABC", hs.styledtext, hs.screen.mainScreen(), showtime)
             eucalyn.disableEucalynLayout()
             hs.alert.show("Eucalyn OFF", hs.screen.mainScreen(), showtime)
+            hs.alert.show("Oonishi OFF", hs.screen.mainScreen(), showtime)
           end
         elseif KeyCode == Map['rightcmd'] then
           if hs.keycodes.currentMethod() ~= 'Hiragana' then
@@ -33,8 +35,14 @@ function EikanaEvent(event)
           -- else
           --   hs.alert.show("Eucalyn OFF", hs.screen.mainScreen(), showtime)
           -- end
-          eucalyn.enableEucalynLayout()
-          hs.alert.show("Eucalyn ON", hs.screen.mainScreen(), showtime)
+
+          -- oonishi
+          oonishi.toggleOonishiLayout()
+          if oonishi.isEnabled() then
+            hs.alert.show("Oonishi ON", hs.screen.mainScreen(), showtime)
+          else
+            hs.alert.show("Oonishi OFF", hs.screen.mainScreen(), showtime)
+          end
         end
       end
       SimpleCmd = false
