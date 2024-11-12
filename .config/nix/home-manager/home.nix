@@ -52,7 +52,6 @@ in
     ripgrep
     zoxide
     nerdfonts
-    fastfetch
 
     # File Management
     coreutils
@@ -81,6 +80,7 @@ in
     ./modules/gitui.nix
     ./modules/fzf.nix
     ./modules/tmux.nix
+    ./modules/fastfetch.nix
 
     # formater linter
     ./modules/ruff.nix
