@@ -19,8 +19,9 @@ function EikanaEvent(event)
           if hs.keycodes.currentMethod() ~= 'Romaji' then
             hs.keycodes.setMethod('Romaji')
             hs.alert.show("ABC", hs.styledtext, hs.screen.mainScreen(), showtime)
-            eucalyn.disableEucalynLayout()
-            hs.alert.show("Eucalyn OFF", hs.screen.mainScreen(), showtime)
+            -- eucalyn.disableEucalynLayout()
+            -- hs.alert.show("Eucalyn OFF", hs.screen.mainScreen(), showtime)
+            oonishi.disableOonishiLayout()
             hs.alert.show("Oonishi OFF", hs.screen.mainScreen(), showtime)
           end
         elseif KeyCode == Map['rightcmd'] then
@@ -59,9 +60,12 @@ local function Esc2Eng(event)
     if hs.keycodes.currentMethod() ~= 'Romaji' then
       hs.keycodes.setMethod('Romaji')
       hs.alert.show("ABC", hs.styledtext, hs.screen.mainScreen(), showtime)
-      -- eucalyn
-      eucalyn.disableEucalynLayout()
-      hs.alert.show("Eucalyn OFF", hs.screen.mainScreen(), showtime)
+      -- -- eucalyn
+      -- eucalyn.disableEucalynLayout()
+      -- hs.alert.show("Eucalyn OFF", hs.screen.mainScreen(), showtime)
+      -- oonishi
+      oonishi.disableOonishiLayout()
+      hs.alert.show("Oonishi OFF", hs.screen.mainScreen(), showtime)
     end
   end
 end
