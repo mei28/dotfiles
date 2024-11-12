@@ -2,6 +2,7 @@ local eucalyn = require('eucalyn')
 
 -- like karabiner
 SimpleCmd = false
+local showtime = 0.2
 function EikanaEvent(event)
   Map = hs.keycodes.map
   KeyCode = event:getKeyCode()
@@ -16,23 +17,24 @@ function EikanaEvent(event)
         if KeyCode == Map['cmd'] then
           if hs.keycodes.currentMethod() ~= 'Romaji' then
             hs.keycodes.setMethod('Romaji')
-            hs.alert.show("ABC", hs.styledtext, hs.screen.mainScreen(), 0.2)
+            hs.alert.show("ABC", hs.styledtext, hs.screen.mainScreen(), showtime)
             eucalyn.disableEucalynLayout()
-            hs.alert.show("Eucalyn OFF", hs.screen.mainScreen(), 0.2)
+            hs.alert.show("Eucalyn OFF", hs.screen.mainScreen(), showtime)
           end
         elseif KeyCode == Map['rightcmd'] then
           if hs.keycodes.currentMethod() ~= 'Hiragana' then
             hs.keycodes.setMethod('Hiragana')
-            hs.alert.show("かな", hs.styledtext, hs.screen.mainScreen(), 0.2)
+            hs.alert.show("かな", hs.styledtext, hs.screen.mainScreen(), showtime)
           end
           -- eucalyn
-          eucalyn.toggleEucalynLayout()
-          if eucalyn.isEnabled() then
-            hs.alert.show("Eucalyn ON", hs.screen.mainScreen(), 0.2)
-          else
-            hs.alert.show("Eucalyn OFF", hs.screen.mainScreen(), 0.2)
-          end
-
+          -- eucalyn.toggleEucalynLayout()
+          -- if eucalyn.isEnabled() then
+          --   hs.alert.show("Eucalyn ON", hs.screen.mainScreen(), showtime)
+          -- else
+          --   hs.alert.show("Eucalyn OFF", hs.screen.mainScreen(), showtime)
+          -- end
+          eucalyn.enableEucalynLayout()
+          hs.alert.show("Eucalyn ON", hs.screen.mainScreen(), showtime)
         end
       end
       SimpleCmd = false
@@ -48,10 +50,10 @@ local function Esc2Eng(event)
   if c == hs.keycodes.map['escape'] then
     if hs.keycodes.currentMethod() ~= 'Romaji' then
       hs.keycodes.setMethod('Romaji')
-      hs.alert.show("ABC", hs.styledtext, hs.screen.mainScreen(), 0.2)
+      hs.alert.show("ABC", hs.styledtext, hs.screen.mainScreen(), showtime)
       -- eucalyn
       eucalyn.disableEucalynLayout()
-      hs.alert.show("Eucalyn OFF", hs.screen.mainScreen(), 0.2)
+      hs.alert.show("Eucalyn OFF", hs.screen.mainScreen(), showtime)
     end
   end
 end
@@ -63,9 +65,9 @@ Esc2EngEvent:start()
 local function toggleEucalynLayout()
   eucalyn.toggleEucalynLayout()
   if eucalyn.isEnabled() then
-    hs.alert.show("Eucalyn ON", hs.screen.mainScreen(), 0.2)
+    hs.alert.show("Eucalyn ON", hs.screen.mainScreen(), showtime)
   else
-    hs.alert.show("Eucalyn OFF", hs.screen.mainScreen(), 0.2)
+    hs.alert.show("Eucalyn OFF", hs.screen.mainScreen(), showtime)
   end
 end
 
