@@ -439,7 +439,7 @@ then
             echo "Usage: jjb <branch>"
             return 1
         fi
-        jj branch set -r @- "$1"
+        jj bookmark set -r @- "$1"
     }
 fi
 

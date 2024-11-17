@@ -25,6 +25,7 @@ in
     llvm
     neovim
     efm-langserver
+    jujutsu
 
     # Language Runtimes and Build Tools
     deno
