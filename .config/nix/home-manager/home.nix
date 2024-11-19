@@ -49,6 +49,7 @@ in
     tree
     tree-sitter
     wget
+    curl
     unzip
     ripgrep
     zoxide
@@ -59,7 +60,9 @@ in
     ffmpeg
     ffmpegthumbnailer
     imagemagick
-    openssl yazi tokei
+    openssl
+    yazi
+    tokei
 
     # Others (LaTeX, etc.)
     arxiv-latex-cleaner
@@ -72,11 +75,13 @@ in
   ];
   # 環境変数を sessionVariables に設定
   home.sessionVariables = {
-    PKG_CONFIG_PATH = "${pkgs.openssl.dev}/lib/pkgconfig";
+    PKG_CONFIG_PATH = "${pkgs.curl.dev}/lib/pkgconfig";
+    LDFLAGS = "-L${pkgs.curl.dev}/lib";
+    CPPFLAGS = "-I${pkgs.curl.dev}/include";
   };
 
   imports = [
-    # cli 
+    # cli
     ./modules/git.nix
     ./modules/gitui.nix
     ./modules/fzf.nix
