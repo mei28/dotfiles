@@ -43,16 +43,15 @@ in
     # System Utilities and CLI Enhancements
     git-lfs
     fd
-    bat
     tmux-mem-cpu-load
     trash-cli
     tree
     tree-sitter
     wget
     curl
+    zip
     unzip
     ripgrep
-    zoxide
     nerdfonts
 
     # File Management
@@ -62,16 +61,13 @@ in
     imagemagick
     openssl
     yazi
-    tokei
 
     # Others (LaTeX, etc.)
     arxiv-latex-cleaner
     ghostscript
     csvlens
     heroku
-    tig
     tldr
-    alejandra
   ];
   # 環境変数を sessionVariables に設定
   home.sessionVariables = {
@@ -87,6 +83,7 @@ in
     ./modules/fzf.nix
     ./modules/tmux.nix
     ./modules/fastfetch.nix
+    ./modules/zoxide.nix
 
     # formater linter
     ./modules/ruff.nix
