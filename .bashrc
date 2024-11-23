@@ -41,27 +41,36 @@ replace_home_with_tilde() {
 
 path=$(replace_home_with_tilde "$PWD")
 function shorten_path {
-    local max_dirs=3
-    local path=$(replace_home_with_tilde "$PWD")
-    local IFS='/'
-    read -ra path_array <<< "$path"
-    local new_path=""
-    local len=${#path_array[@]}
+    local path=$(replace_home_with_tilde "$PWD") 
+    local max_len=20  
+    local path_len=${#path}
 
-    local show_head_num=3
-    if (( len > max_dirs )); then
-        new_path="~"
-        for (( i=1; i<len-max_dirs; i++ )); do
-            local dir=${path_array[i]:0:$show_head_num}
-            new_path+="/$dir"
-        done
-        for (( i=len-max_dirs; i<len; i++ )); do
-            new_path+="/${path_array[i]}"
-        done
-    else
-        new_path="$path"
+    if (( path_len <= max_len )); then
+        echo "$path"
+        return
     fi
-    echo "$new_path"
+
+    local IFS='/'
+    read -ra segments <<< "$path"
+
+    local new_segments=("${segments[@]}") 
+    local total_len=$path_len
+    local last_index=$(( ${#segments[@]} - 1 ))
+
+    for (( i=1; i<last_index; i++ )); do
+        if (( total_len <= max_len )); then
+            break
+        fi
+        local original_len=${#new_segments[i]}
+        local shortened_len=3
+        new_segments[i]="${new_segments[i]:0:$shortened_len}"
+        total_len=$(( total_len - original_len + shortened_len ))
+    done
+
+    local shortened_path
+    shortened_path=$(IFS='/'; echo "${new_segments[*]}")
+
+    echo "$shortened_path"
 }
 
 # Define color variables
