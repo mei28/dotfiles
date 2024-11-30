@@ -76,6 +76,9 @@ set('n', 'tc', '<CMD>tabclose<CR>')
 set('n', 'q:', '<Nop>')
 set('n', '<C-l>', 'zz')
 
+set('n', 'dw', 'diw')
+set('n', 'cw', 'ciw')
+
 
 -- ref: https://blog.atusy.net/2023/12/09/gf-open-url/
 vim.keymap.set("n", "gf", function()
