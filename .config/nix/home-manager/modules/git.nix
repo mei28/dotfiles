@@ -8,6 +8,10 @@ in
     userName = gitUsername;
     userEmail = gitEmail;
 
+    attributes = [
+      "*.ipynb filter=clean_ipynb"
+    ];
+
     extraConfig = {
       # Core settings
       core.excludesFile = "/Users/${username}/.gitignore_global";
