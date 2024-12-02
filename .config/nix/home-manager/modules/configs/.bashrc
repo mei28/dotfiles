@@ -1,3 +1,17 @@
+# Set PATH, MANPATH, etc., for Homebrew.
+if [ -e /opt/homebrew/bin/brew ]
+then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
+# nix
+if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+  . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+fi
+if type nix &> /dev/null; then
+    export PATH="~/.nix-profile/bin:$PATH"
+fi
+
 # .bashrc
 #========#
 # COMMON #
@@ -19,12 +33,12 @@ export PATH="$PATH:$GIT_CONTRIB_PATH/git-jump"
 export PATH="$PATH:$GIT_CONTRIB_PATH/diff-highlight"
 
 # prompt
-if [ -e $HOME/.git-prompt.sh ]; then
+if [ -e $GIT_CONTRIB_PATH/completion/git-prompt.sh ]; then
     GIT_PS1_SHOWDIRTYSTATE=true
     GIT_PS1_SHOWUNTRACKEDFILES=true
     GIT_PS1_SHOWSTASHSTATE=true
     GIT_PS1_SHOWUPSTREAM=auto
-    source $HOME/.git-prompt.sh
+    source $GIT_CONTRIB_PATH/completion/git-prompt.sh
     GIT_PROMPT_EXIST=true
 else
     GIT_PROMPT_EXIST=false

@@ -77,6 +77,8 @@ in
   };
 
   imports = [
+
+    ./modules/bash.nix
     # cli
     ./modules/git.nix
     ./modules/gitui.nix
@@ -85,7 +87,7 @@ in
     ./modules/fastfetch.nix
     ./modules/zoxide.nix
 
-    # formater linter
+    # formatter linter
     ./modules/ruff.nix
   ];
 
@@ -99,4 +101,5 @@ in
       config = "vim.g:sqlite_clib_path = '${pkgs.sqlite.out}/lib/libsqlite3.dylib'";
     }
   ];
+
 }
