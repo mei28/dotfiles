@@ -75,6 +75,17 @@ function noice_setup()
           },
         },
       },
+      routes = {
+        {
+          filter = {
+            event = 'msg_show',
+            any = {
+              { find = 'Agent service not initialized' },
+            },
+          },
+          opts = { skip = true },
+        },
+      },
     }
   )
 end
