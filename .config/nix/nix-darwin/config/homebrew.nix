@@ -8,16 +8,15 @@
     };
     casks = [
       "hammerspoon"
-      "aerospace"
+      "nikitabobko/tap/aerospace"
       "ngrok"
       "wezterm"
+      "wezterm@nightly"
       "font-hack-nerd-font"
       "font-symbols-only-nerd-font"
-      "serie"
     ];
-    taps = [
-      "nikitabobko/tap"
-      "lusingander/tap"
+    brews = [
+      "lusingander/tap/serie"
     ];
   };
 }
