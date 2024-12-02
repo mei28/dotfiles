@@ -1,4 +1,4 @@
-DOT_FILES=(.bashrc  .bash_profile  .config  .git-prompt.sh .rye)
+DOT_FILES=(.config .rye)
 
 for file in ${DOT_FILES[@]}
 do 
