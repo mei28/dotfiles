@@ -46,17 +46,19 @@ fi
 
 
 replace_home_with_tilde() {
-    if [[ "$OSTYPE" == "darwin"* ]]; then
-        echo "${1/#$HOME/~}"
+    local path="$1"
+    local home="$HOME"
+
+    if [[ "$path" == "$home"* ]]; then
+        echo "~${path#$home}"
     else
-        echo "${1/#$HOME/\~}"
+        echo "$path"
     fi
 }
 
-path=$(replace_home_with_tilde "$PWD")
 function shorten_path {
-    local path=$(replace_home_with_tilde "$PWD") 
-    local max_len=20  
+    local path=$(replace_home_with_tilde "$PWD")
+    local max_len=20
     local path_len=${#path}
 
     if (( path_len <= max_len )); then
@@ -67,7 +69,7 @@ function shorten_path {
     local IFS='/'
     read -ra segments <<< "$path"
 
-    local new_segments=("${segments[@]}") 
+    local new_segments=("${segments[@]}")
     local total_len=$path_len
     local last_index=$(( ${#segments[@]} - 1 ))
 

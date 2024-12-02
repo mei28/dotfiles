@@ -65,7 +65,7 @@ local skip_close_confirmation_for_processes_named = {
 --- config ----
 local config = {}
 
-config.default_prog = { '/bin/bash', '-l' }
+config.default_prog = { '/Users/mei/.nix-profile/bin/bash', '-l' }
 -- font
 config.font = wezterm.font_with_fallback(utils:switchFonts())
 config.font_size = 16
