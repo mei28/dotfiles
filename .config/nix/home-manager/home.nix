@@ -52,7 +52,7 @@ in
     zip
     unzip
     ripgrep
-    nerdfonts
+    # nerd-fonts
 
     # File Management
     coreutils

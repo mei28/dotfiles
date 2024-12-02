@@ -23,7 +23,12 @@ in
       # Other Git settings
       init.defaultBranch = "main";
       credential.helper = "store";
+      fetch.prune = "true";
+      pull.ff = "only";
       pull.rebase = "false";
+      pull.autostash = "true";
+      rebase.autoStash = "true";
+      rebase.autoSquash = "true";
 
       # Pager settings
       pager.log = "diff-highlight | less";

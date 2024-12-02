@@ -2,7 +2,7 @@
   fonts.packages = with pkgs; [
     hackgen-font
     hackgen-nf-font
-    nerdfonts
+    # nerd-fonts
     font-awesome
     font-awesome_5
   ];
