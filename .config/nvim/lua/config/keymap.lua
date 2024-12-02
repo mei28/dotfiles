@@ -78,6 +78,7 @@ set('n', '<C-l>', 'zz')
 
 set('n', 'dw', 'diw')
 set('n', 'cw', 'ciw')
+set('n', 'yw', 'yiw')
 
 
 -- ref: https://blog.atusy.net/2023/12/09/gf-open-url/
