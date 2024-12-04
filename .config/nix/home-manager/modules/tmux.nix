@@ -64,13 +64,13 @@ in
         '';
       }
     ];
-    shell = "${pkgs.bash}/bin/bash";
+    shell = "/Users/mei/.nix-profile/bin/bash";
     terminal = "tmux-256color";
 
     # .tmux.conf の内容を extraConfig に記述
     extraConfig = ''
       # tmux起動時のシェルをbashにする
-      set-option -g default-shell /bin/bash
+      # set-option -g default-shell /bin/bash
       # tmuxを256色表示できるようにする
       set-option -g default-terminal screen-256color
       set -g terminal-overrides 'xterm:colors=256'
