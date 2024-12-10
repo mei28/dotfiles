@@ -4,6 +4,7 @@ local spec = {
     'mei28/luminate.nvim',
     -- branch = 'fix#15',
     keys = { { 'u' }, { 'U' }, { '<C-r>' }, { 'p' }, { 'y' }, },
+    event = { 'ModeChanged' },
     config = function()
       require 'luminate'.setup({
         -- highlight_threshold = 1.9,
