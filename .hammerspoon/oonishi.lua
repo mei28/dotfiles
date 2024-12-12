@@ -1,9 +1,5 @@
-local oonishiEventtap
-local oonishiEnabled = false
+local Layout = require('keyLayout')
 
-local M = {}
--- キーマップのテーブルを定義
--- qwerty -> oonishi
 local oonishiKeyMap = {
   [0x0c] = 0x0c, -- q -> q
   [0x0d] = 0x25, -- w -> l
@@ -75,65 +71,4 @@ local qwertyKeyMap = {
 }
 
 
-local function remapKey(event)
-  if not oonishiEnabled then return false end
-
-  local keyCode = event:getKeyCode()
-  local flags = event:getFlags()
-  local remappedKeyCode = oonishiKeyMap[keyCode]
-  local isKeyDown = event:getType() == hs.eventtap.event.types.keyDown
-
-  if flags.ctrl and not (flags.shift or flags.alt or flags.cmd or flags.fn) then
-    if qwertyKeyMap[remappedKeyCode] then
-      local originalKeyCode = qwertyKeyMap[remappedKeyCode]
-      local mods = { "ctrl" }
-
-      local newEventDown = hs.eventtap.event.newKeyEvent(mods, originalKeyCode, true)
-      local newEventUp = hs.eventtap.event.newKeyEvent(mods, originalKeyCode, false)
-      return true, { newEventDown, newEventUp }
-    end
-  end
-
-  if remappedKeyCode then
-    local mods = {}
-    if flags.shift then table.insert(mods, "shift") end
-    if flags.ctrl then table.insert(mods, "ctrl") end
-    if flags.alt then table.insert(mods, "alt") end
-    if flags.cmd then table.insert(mods, "cmd") end
-
-    local newEventDown = hs.eventtap.event.newKeyEvent(mods, remappedKeyCode, true)
-    local newEventUp = hs.eventtap.event.newKeyEvent(mods, remappedKeyCode, false)
-    return true, { newEventDown, newEventUp }
-  end
-
-  return false
-end
-
-function M.isEnabled()
-  return oonishiEnabled
-end
-
-function M.enableOonishiLayout()
-  if not oonishiEventtap then
-    oonishiEventtap = hs.eventtap.new({ hs.eventtap.event.types.keyDown }, remapKey)
-  end
-  oonishiEnabled = true
-  oonishiEventtap:start()
-end
-
-function M.disableOonishiLayout()
-  if oonishiEventtap then
-    oonishiEventtap:stop()
-  end
-  oonishiEnabled = false
-end
-
-function M.toggleOonishiLayout()
-  if oonishiEnabled then
-    M.disableOonishiLayout()
-  else
-    M.enableOonishiLayout()
-  end
-end
-
-return M
+return Layout:new("Oonishi", oonishiKeyMap, qwertyKeyMap)
