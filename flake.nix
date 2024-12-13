@@ -13,22 +13,26 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     flake-utils.url = "github:numtide/flake-utils";
+    # fzf-make.url = "github:kyu08/fzf-make?ref=main";
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    home-manager,
-    nix-darwin,
-    flake-utils,
-    ...
-  } @ inputs:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      nix-darwin,
+      flake-utils,
+      ...
+    }@inputs:
     flake-utils.lib.eachDefaultSystem (
-      system: let
+      system:
+      let
         # username = "mei";
         inherit (import ./.config/nix/home-manager/options.nix) username;
-        pkgs = import nixpkgs {inherit system;};
-      in {
+        pkgs = import nixpkgs { inherit system; };
+      in
+      {
         formatter = pkgs.nixfmt-rfc-style;
 
         # Application update script as an app
@@ -54,8 +58,8 @@
           # Home Manager configuration
           homeConfigurations."${username}" = home-manager.lib.homeManagerConfiguration {
             pkgs = pkgs;
-            extraSpecialArgs = {inherit inputs system;};
-            modules = [./.config/nix/home-manager/home.nix];
+            extraSpecialArgs = { inherit inputs system; };
+            modules = [ ./.config/nix/home-manager/home.nix ];
           };
 
           # nix-darwin configuration for macOS with Homebrew integration
