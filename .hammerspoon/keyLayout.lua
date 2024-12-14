@@ -1,7 +1,11 @@
 local Layout = {}
 Layout.__index = Layout
 
-function Layout:new(name, keyMap, reverseMap)
+function Layout:new(name, keyMap)
+  local reverseMap = {}
+  for key, value in pairs(keyMap) do
+    reverseMap[value] = key
+  end
   return setmetatable({
     name = name,
     keyMap = keyMap,
@@ -74,4 +78,3 @@ function Layout:toggleLayout()
 end
 
 return Layout
-
