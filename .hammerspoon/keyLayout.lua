@@ -20,19 +20,15 @@ function Layout:remapKey(event)
 
   local keyCode = event:getKeyCode()
   local flags = event:getFlags()
-  local remappedKeyCode = self.keyMap[keyCode]
   local isKeyDown = event:getType() == hs.eventtap.event.types.keyDown
 
-  if flags.ctrl and not (flags.shift or flags.alt or flags.cmd or flags.fn) then
-    local originalKeyCode = self.reverseMap[keyCode]
-    if originalKeyCode then
-      local mods = { "ctrl" }
-      local newEventDown = hs.eventtap.event.newKeyEvent(mods, originalKeyCode, true)
-      local newEventUp = hs.eventtap.event.newKeyEvent(mods, originalKeyCode, false)
-      return true, { newEventDown, newEventUp }
-    end
+  -- Ctrlキーが押されている場合はリマップしない
+  if flags.ctrl then
+    return false
   end
 
+  -- 通常の再マップ
+  local remappedKeyCode = self.keyMap[keyCode]
   if remappedKeyCode then
     local mods = {}
     for _, mod in ipairs({ "shift", "ctrl", "alt", "cmd" }) do
