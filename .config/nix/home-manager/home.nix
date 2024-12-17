@@ -27,6 +27,7 @@ in
     efm-langserver
     jujutsu
     # fzf-make
+    bat
 
     # Language Runtimes and Build Tools
     deno

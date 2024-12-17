@@ -535,6 +535,16 @@ if type cliperge &> /dev/null; then
     alias cr='cliperge -r'
 fi
 
+# fzf-make
+if type fzf-make &> /dev/null; then
+    alias fm='fzf-make'
+    alias fr='fzf-make repeat'
+    alias fh='fzf-make history'
+fi
+
+# go to git root
+alias gr='cd $(git rev-parse --show-toplevel)'
+
 
 #=====================#
 # change config by OS #

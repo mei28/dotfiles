@@ -83,3 +83,4 @@ lazy-lock.json
 ! *.lua
 result
 .config/nix/nix.conf
+.config/fzf-make/history.toml
