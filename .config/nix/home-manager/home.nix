@@ -26,7 +26,6 @@ in
     neovim
     efm-langserver
     jujutsu
-    # fzf-make
     bat
 
     # Language Runtimes and Build Tools
@@ -35,6 +34,7 @@ in
     luarocks
     uv
     cargo
+    rustc
 
     # lsp
     pyright
