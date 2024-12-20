@@ -283,7 +283,7 @@ fi
 
 
 # pytest
-alias pt='pytest'
+alias pt='pytest -s'
 
 
 # compile c++
