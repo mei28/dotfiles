@@ -136,6 +136,10 @@ function set_prompt {
         ps1_prefix="(`basename \"$VIRTUAL_ENV\"`)"$ps1_prefix
     fi
 
+    if [[ -n "$IN_NIX_SHELL" && "$IN_NIX_SHELL" == "impure" ]]; then
+        ps1_prefix="${ps1_prefix}${BOLD_GREEN}🧊${RESET} "
+    fi
+
     PS1="${ps1_prefix}${ps1_suffix}"
 }
 

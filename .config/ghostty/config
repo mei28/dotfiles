@@ -1,0 +1,8 @@
+font-family = "Hack Nerd Font Mono"
+font-size = 14
+theme = "kanagawabones"
+window-padding-x = 10
+window-padding-y = 10
+window-padding-balance = true
+background-blur-radius = 20
+macos-titlebar-style = transparent

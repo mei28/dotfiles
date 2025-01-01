@@ -14,6 +14,7 @@
       "wezterm@nightly"
       "font-hack-nerd-font"
       "font-symbols-only-nerd-font"
+      "ghostty"
     ];
     brews = [
       "lusingander/tap/serie"

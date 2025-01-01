@@ -68,6 +68,7 @@ local spec = {
       "CopilotChatFixDiagnostic",
       "CopilotChatCommit",
       "CopilotChatCommitStaged",
+      "CopilotChatModels"
     }
   },
 }
