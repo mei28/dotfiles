@@ -79,8 +79,8 @@ local spec = {
       'ConflictTheirs',
       'ConflictBoth',
       'ConflictNone',
+      'Conflict'
     }
-
   },
   {
     'sindrets/diffview.nvim',
