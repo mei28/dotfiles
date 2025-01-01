@@ -38,23 +38,7 @@
       {
         formatter = pkgs.nixfmt-rfc-style;
 
-        # Application update script as an app
-        apps = {
-          update = {
-            type = "app";
-            program = "${pkgs.writeShellScriptBin "update" ''
-              set -e
-              echo "Updating flake..."
-              nix flake update
-              echo "Updating home-manager..."
-              nix run nixpkgs#home-manager -- switch --flake .#${username}
-              echo "Update complete!"
-              nix run nix-darwin -- switch --flake .#mei-darwin
-            ''}/bin/update";
-          };
-        };
-
-        # Legacy Packages and Home Manager + nix-darwin configurations
+        # Home Manager + nix-darwin 設定
         legacyPackages = {
           inherit (pkgs) home-manager;
 
@@ -65,9 +49,9 @@
             modules = [ ./.config/nix/home-manager/home.nix ];
           };
 
-          # nix-darwin configuration for macOS with Homebrew integration
+          # macOS (nix-darwin) の設定
           darwinConfigurations.mei-darwin = nix-darwin.lib.darwinSystem {
-            system = "aarch64-darwin"; # Specify the macOS system
+            system = "aarch64-darwin";
             modules = [
               ./.config/nix/nix-darwin/default.nix
             ];
