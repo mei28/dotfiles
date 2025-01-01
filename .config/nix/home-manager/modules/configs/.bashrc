@@ -549,6 +549,9 @@ fi
 # go to git root
 alias gr='cd $(git rev-parse --show-toplevel)'
 
+## git branch delete
+alias gbd="git branch --merged | grep -vE '\\*\\|main' | xargs git branch -d"
+
 
 #=====================#
 # change config by OS #
