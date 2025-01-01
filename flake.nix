@@ -38,7 +38,7 @@
       {
         formatter = pkgs.nixfmt-rfc-style;
 
-        # Home Manager + nix-darwin 設定
+        # Home Manager + nix-darwin
         legacyPackages = {
           inherit (pkgs) home-manager;
 
@@ -49,7 +49,7 @@
             modules = [ ./.config/nix/home-manager/home.nix ];
           };
 
-          # macOS (nix-darwin) の設定
+          # macOS (nix-darwin)
           darwinConfigurations.mei-darwin = nix-darwin.lib.darwinSystem {
             system = "aarch64-darwin";
             modules = [

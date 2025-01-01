@@ -1,41 +1,39 @@
-# Justfile
-
-# シェル設定: bash を利用し、エラー検知を強化
+# Shell setting: Use bash and enable strict error checking
 set shell := ["bash", "-eu", "-o", "pipefail", "-c"]
 
-# ユーザー名などを変数化
+# Define variables such as username
 username := "mei"
 darwinHost := "mei-darwin"
 
 # -------------------------------------------------------
-# 1) フレーク更新だけを行うタスク
+# 1) Task to update the flake only
 # -------------------------------------------------------
 update-flake:
   @echo "Updating flake..."
   nix flake update
 
 # -------------------------------------------------------
-# 2) Home Manager 更新だけを行うタスク
+# 2) Task to update Home Manager only
 # -------------------------------------------------------
 update-home:
   @echo "Updating Home Manager config..."
   nix run nixpkgs#home-manager -- switch --flake .#{{username}}
 
 # -------------------------------------------------------
-# 3) nix-darwin 更新だけを行うタスク
+# 3) Task to update nix-darwin only
 # -------------------------------------------------------
 update-darwin:
   @echo "Updating nix-darwin config..."
   nix run nix-darwin -- switch --flake .#{{darwinHost}}
 
 # -------------------------------------------------------
-# 4) すべてまとめて更新 (必要なら)
+# 4) Update everything together (if needed)
 # -------------------------------------------------------
-# 依存タスクとして指定すれば、順番に実行されます
+# Specifying them as dependent tasks will run them in sequence
 update-all: update-flake update-home update-darwin
 
 # -------------------------------------------------------
-# デフォルトタスク (使わないなら消してもOK)
+# Default task (remove it if not needed)
 # -------------------------------------------------------
 default:
   @echo "Available tasks:"
