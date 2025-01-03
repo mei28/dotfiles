@@ -15,6 +15,7 @@
       "font-hack-nerd-font"
       "font-symbols-only-nerd-font"
       "ghostty"
+      "marta"
     ];
     brews = [
       "lusingander/tap/serie"

@@ -32,3 +32,6 @@ update-darwin:
 # 4) Update everything together (if needed) Specifying them as dependent tasks will run them in sequence
 update-all: update-flake update-home update-darwin
 
+gc:
+  @echo "Garbage collecting..."
+  nix store gc
