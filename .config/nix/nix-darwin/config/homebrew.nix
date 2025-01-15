@@ -16,6 +16,7 @@
       "font-symbols-only-nerd-font"
       "ghostty"
       "marta"
+      "raycast"
     ];
     brews = [
       "lusingander/tap/serie"
