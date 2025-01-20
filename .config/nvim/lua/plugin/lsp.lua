@@ -129,6 +129,14 @@ function mason_setup()
     }
   })
 
+  lspconfig.pyright.setup({
+    workspace = {
+      didChangeWatchedFiles = {
+        dynamicRegistration = true,
+      },
+    }
+  })
+
   -- Global mappings
   local set = vim.keymap.set
   set('n', '[d', function() vim.diagnostic.goto_prev({ count = 1, float = true }) end)
