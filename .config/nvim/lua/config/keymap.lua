@@ -82,7 +82,7 @@ set('n', 'yw', 'yiw')
 
 
 -- ref: https://blog.atusy.net/2023/12/09/gf-open-url/
-vim.keymap.set("n", "gf", function()
+set("n", "gf", function()
   local cfile = vim.fn.expand("<cfile>")
   if cfile:match("^https?://") then
     -- Neovim nightlyなら `vim.ui.open(cfile)` が便利。
@@ -91,3 +91,23 @@ vim.keymap.set("n", "gf", function()
     vim.cmd("normal! gF")
   end
 end)
+
+local state = 1
+
+local function n_zz()
+  if state == 1 then
+    vim.cmd("normal! z")
+    vim.cmd("normal! zt")
+    state = 2
+  elseif state == 2 then
+    vim.cmd("normal! z")
+    vim.cmd("normal! zb")
+    state = 0
+  elseif state == 0 then
+    vim.cmd("normal! z")
+    vim.cmd("normal! zz")
+    state = 1
+  end
+end
+
+set('n', 'zz', n_zz)
