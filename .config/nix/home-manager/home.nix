@@ -92,6 +92,7 @@ in
 
     # formatter linter
     ./modules/ruff.nix
+    ./modules/zellij.nix
   ];
 
   # Home Manager programs configuration
