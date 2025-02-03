@@ -1,39 +1,39 @@
 local spec = {
-
-  {
-    'mfussenegger/nvim-dap',
-    config = function()
-      dap_setup()
-    end,
-    keys = {
-      { "<leader>6",         ":lua require'dap'.continue()<CR>" },
-      { "<leader>7",         ":lua require'dap'.step_over()<CR>" },
-      { "<leader>8",         ":lua require'dap'.step_into()<CR>" },
-      { "<leader>9",         ":lua require'dap'.step_out()<CR>" },
-      { "<leader>;",         ":lua require'dap'.toggle_breakpoint()<CR>" },
-      { "<leader>'",         ":lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>" },
-      { "<leader>i",         ":lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>", },
-      { "<leader>d",         ":lua require'dapui'.toggle()<CR>", },
-      { "<leader><leader>d", ":lua require'dapui'.eval()<CR>" },
-    },
-    dependencies = { "rcarriga/nvim-dap-ui", 'nvim-telescope/telescope.nvim' },
-  },
-  {
-    "rcarriga/nvim-dap-ui",
-    dependencies = { "mfussenegger/nvim-dap" },
-  },
-  {
-    'theHamsta/nvim-dap-virtual-text',
-    dependencies = { 'mfussenegger/nvim-dap', 'nvim-treesitter' },
-    config = function()
-      require("nvim-dap-virtual-text").setup()
-    end
-  },
-  {
-    'simrat39/rust-tools.nvim',
-    ft = { 'rust' },
-  }
-
+  --
+  -- {
+  --   'mfussenegger/nvim-dap',
+  --   config = function()
+  --     dap_setup()
+  --   end,
+  --   keys = {
+  --     { "<leader>6",         ":lua require'dap'.continue()<CR>" },
+  --     { "<leader>7",         ":lua require'dap'.step_over()<CR>" },
+  --     { "<leader>8",         ":lua require'dap'.step_into()<CR>" },
+  --     { "<leader>9",         ":lua require'dap'.step_out()<CR>" },
+  --     { "<leader>;",         ":lua require'dap'.toggle_breakpoint()<CR>" },
+  --     { "<leader>'",         ":lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>" },
+  --     { "<leader>i",         ":lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>", },
+  --     { "<leader>d",         ":lua require'dapui'.toggle()<CR>", },
+  --     { "<leader><leader>d", ":lua require'dapui'.eval()<CR>" },
+  --   },
+  --   dependencies = { "rcarriga/nvim-dap-ui", 'nvim-telescope/telescope.nvim' },
+  -- },
+  -- {
+  --   "rcarriga/nvim-dap-ui",
+  --   dependencies = { "mfussenegger/nvim-dap" },
+  -- },
+  -- {
+  --   'theHamsta/nvim-dap-virtual-text',
+  --   dependencies = { 'mfussenegger/nvim-dap', 'nvim-treesitter' },
+  --   config = function()
+  --     require("nvim-dap-virtual-text").setup()
+  --   end
+  -- },
+  -- {
+  --   'simrat39/rust-tools.nvim',
+  --   ft = { 'rust' },
+  -- }
+  --
 }
 
 

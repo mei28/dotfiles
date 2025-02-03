@@ -12,6 +12,12 @@ in
       "*.ipynb filter=clean_ipynb"
     ];
 
+    ignores = [
+      ".DS_Store"
+      "node_modules"
+      "*.swp"
+    ];
+
     extraConfig = {
       # Core settings
       core.excludesFile = "/Users/${username}/.gitignore_global";
