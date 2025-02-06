@@ -3,18 +3,18 @@ local set = vim.keymap.set
 set('n', '*', '*N')
 set('n', '#', '#N')
 
-set({ 'i', 'c', 'n' }, '<C-f>', '<Right>')
-set({ 'i', 'c', 'n' }, '<C-b>', '<Left>')
-set({ 'i', 'c', 'n' }, '<C-p>', '<Up>')
-set({ 'i', 'c', 'n' }, '<C-n>', '<Down>')
-set({ 'i', 'c', 'n' }, '<C-a>', '<Home>')
-set({ 'i', 'c', 'n' }, '<C-e>', '<End>')
-set({ 'i', 'c', 'n' }, '<C-d>', '<Del>')
-set({ 'i', 'c', 'n' }, '<C-h>', '<BS>')
+set({ 'i', 'c', 'n', 'v' }, '<C-f>', '<Right>')
+set({ 'i', 'c', 'n', 'v' }, '<C-b>', '<Left>')
+set({ 'i', 'c', 'n', 'v' }, '<C-p>', '<Up>')
+set({ 'i', 'c', 'n', 'v' }, '<C-n>', '<Down>')
+set({ 'i', 'c', 'n', 'v' }, '<C-a>', '<Home>')
+set({ 'i', 'c', 'n', 'v' }, '<C-e>', '<End>')
+set({ 'i', 'c', 'n', 'v' }, '<C-d>', '<Del>')
+set({ 'i', 'c', 'n', 'v' }, '<C-h>', '<BS>')
 
 
-set('n', '<C-p>', '<CMD>bnext<CR>')
-set('n', '<C-n>', '<CMD>bprev<CR>')
+-- set('n', '<C-p>', '<CMD>bnext<CR>')
+-- set('n', '<C-n>', '<CMD>bprev<CR>')
 
 -- set('n', '<C-o>', '<C-i>')
 -- set('n', '<C-i>', '<C-o>')
