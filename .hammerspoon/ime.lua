@@ -26,13 +26,13 @@ local function switchInputMethod(lang)
     hs.keycodes.setMethod(config.inputMethods[lang])
     hs.alert.show(config.displayName[lang], hs.styledtext, hs.screen.mainScreen(), config.showtime)
 
-    if lang == "en" then
-      config.module:disableLayout()
-      hs.alert.show(config.module.name .. " OFF", hs.screen.mainScreen(), config.showtime)
-    elseif lang == "jp" then
-      config.module:enableLayout()
-      hs.alert.show(config.module.name .. " ON", hs.screen.mainScreen(), config.showtime)
-    end
+    -- if lang == "en" then
+    --   config.module:disableLayout()
+    --   hs.alert.show(config.module.name .. " OFF", hs.screen.mainScreen(), config.showtime)
+    -- elseif lang == "jp" then
+    --   config.module:enableLayout()
+    --   hs.alert.show(config.module.name .. " ON", hs.screen.mainScreen(), config.showtime)
+    -- end
   end
 end
 
