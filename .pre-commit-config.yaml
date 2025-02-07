@@ -10,7 +10,7 @@ repos:
       - id: check-yaml
       - id: check-toml
       - id: check-json
-      # - id: detect-aws-credentials
+      - id: detect-aws-credentials
       - id: detect-private-key
       - id: check-added-large-files
   # - repo: https://gitlab.com/pablodiehl/pre-commit-lua-formatter.git
