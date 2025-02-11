@@ -94,6 +94,9 @@ in
     ./modules/ruff.nix
     ./modules/zellij.nix
 
+    # emacs
+    ./modules/emacs.nix
+
   ];
 
   # Home Manager programs configuration
