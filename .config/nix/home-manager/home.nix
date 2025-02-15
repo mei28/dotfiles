@@ -71,6 +71,9 @@ in
     csvlens
     heroku
     tldr
+
+    # cliperge
+    inputs.cliperge.defaultPackage.${system}
   ];
   # 環境変数を sessionVariables に設定
   home.sessionVariables = {

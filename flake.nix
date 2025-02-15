@@ -17,6 +17,9 @@
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    cliperge = {
+      url = "github:mei28/cliperge";
+    };
   };
 
   outputs =
