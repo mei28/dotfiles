@@ -2,6 +2,7 @@
   inputs,
   lib,
   pkgs,
+  pkgsUnstable,
   system,
   ...
 }:
@@ -15,66 +16,69 @@ in
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   home.stateVersion = "24.11";
 
-  home.packages = with pkgs; [
-    # Development Tools
-    gh
-    sqlite
-    nodejs_20
-    rust-analyzer
-    cargo-generate
-    llvm
-    neovim
-    efm-langserver
-    jujutsu
-    bat
-    just
+  home.packages =
+    with pkgs;
+    [
+      # Development Tools
+      gh
+      sqlite
+      nodejs_20
+      rust-analyzer
+      cargo-generate
+      llvm
+      neovim
+      efm-langserver
+      jujutsu
+      bat
+      just
 
-    # Language Runtimes and Build Tools
-    deno
-    luajit
-    luarocks
-    uv
-    cargo
-    rustc
+      # Language Runtimes and Build Tools
+      deno
+      luajit
+      luarocks
+      uv
+      cargo
+      rustc
 
-    # lsp
-    pyright
+      # lsp
+      pyright
 
-    # formatter linter
-    nixfmt-rfc-style
+      # formatter linter
+      nixfmt-rfc-style
 
-    # System Utilities and CLI Enhancements
-    git-lfs
-    fd
-    tmux-mem-cpu-load
-    trash-cli
-    tree
-    tree-sitter
-    wget
-    curl
-    zip
-    unzip
-    ripgrep
-    # nerd-fonts
+      # System Utilities and CLI Enhancements
+      git-lfs
+      fd
+      tmux-mem-cpu-load
+      trash-cli
+      tree
+      tree-sitter
+      wget
+      curl
+      zip
+      unzip
+      ripgrep
+      # nerd-fonts
 
-    # File Management
-    coreutils
-    ffmpeg
-    ffmpegthumbnailer
-    imagemagick
-    openssl
-    yazi
+      # File Management
+      coreutils
+      ffmpeg
+      ffmpegthumbnailer
+      imagemagick
+      openssl
+      yazi
 
-    # Others (LaTeX, etc.)
-    arxiv-latex-cleaner
-    ghostscript
-    csvlens
-    heroku
-    tldr
+      # Others (LaTeX, etc.)
+      arxiv-latex-cleaner
+      ghostscript
+      csvlens
+      heroku
+      tldr
 
-    # cliperge
-    inputs.cliperge.defaultPackage.${system}
-  ];
+      # cliperge
+      inputs.cliperge.defaultPackage.${system}
+    ]
+    ++ [ pkgsUnstable.fzf-make ];
   # 環境変数を sessionVariables に設定
   home.sessionVariables = {
     PKG_CONFIG_PATH = "${pkgs.curl.dev}/lib/pkgconfig";
