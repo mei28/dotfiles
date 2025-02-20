@@ -75,8 +75,9 @@ in
       heroku
       tldr
 
-      # cliperge
+      # mei
       inputs.cliperge.defaultPackage.${system}
+      inputs.sgh.defaultPackage.${system}
     ]
     ++ [ pkgsUnstable.fzf-make ];
   # 環境変数を sessionVariables に設定

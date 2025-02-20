@@ -21,6 +21,9 @@
     cliperge = {
       url = "github:mei28/cliperge";
     };
+    sgh = {
+      url = "github:mei28/sgh";
+    };
   };
 
   outputs =
