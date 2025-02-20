@@ -78,6 +78,7 @@ function cmp_setup()
       },
       ['<Esc>'] = cmp.mapping.close(),
       ['<C-{>'] = cmp.mapping.close(),
+      ['<C-[>'] = cmp.mapping.close(),
       ['<CR>'] = cmp.mapping.confirm({
         select = true,
         behavior = cmp.ConfirmBehavior.Insert,
