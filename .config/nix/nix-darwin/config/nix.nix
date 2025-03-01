@@ -1,7 +1,6 @@
 {
   nix = {
-    useDaemon = true;
-    optimise.automatic = true;
+    enable = false;
     settings = {
       experimental-features = "nix-command flakes";
       max-jobs = 8;
