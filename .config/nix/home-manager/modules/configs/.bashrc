@@ -564,9 +564,68 @@ alias gbd="git branch --merged | grep -vE '\\*\\|main' | xargs git branch -d"
 case ${OSTYPE} in
     darwin*)
         # ls(color)
-        alias ls='ls -G --color=auto'
-        alias ll='ls -lG --color=auto'
-        alias la='ls -laG --color=auto'
+        alias ls='ls -hG --color=auto'
+        alias ls='ls -hG --color=auto'
+        alias ll='ls -lhG --color=auto'
+        alias la='ls -lahG --color=auto'
+
+        # bash_completion
+        # Use bash-completion, if available
+
+
+        # pbcopy for macOS
+
+        pbc(){
+            if [ -f "$1" ]; then
+                cat "$1" | pbcopy
+                echo "Copied $1!!"
+            else
+                echo "Error: File '$1' does not exist."
+            fi
+        }
+
+        ## don't write .DS_Store
+        defaults write com.apple.desktopservices DSDontWriteNetworkStores True
+
+        alias tdi='_toggle_desktop_icon'
+        _toggle_desktop_icon(){
+            local isDisplay=$(defaults read com.apple.finder CreateDesktop)
+            if [ $isDisplay -eq 1 ]; then
+                defaults write com.apple.finder CreateDesktop -boolean false && killall Finder
+                echo "Hide Desktop Icon"
+            else
+                defaults write com.apple.finder CreateDesktop -boolean true && killall Finder
+                echo "Show Desktop Icon"
+            fi
+        }
+
+
+        ## add cmake
+        if [ -e /Applications/CMake.app/Contents/bin ]; then
+            export PATH="/Applications/CMake.app/Contents/bin:$PATH"
+        fi
+
+        ## yabai
+        # if type yabai &> /dev/null; then
+        #     alias yabai_start='yabai --start-service'
+        #     # yabai --start-service(開始)
+        #     alias yabai_stop='yabai --stop-service'
+        #     # yabai --stop-service(停止)
+        #     alias yabai_restart='yabai --restart-service'
+        # fi
+
+        ;;
+        #========#
+        # ubuntu #
+        #========#
+    linux*)
+        # ls(color)
+        alias ls='ls -h --color'
+        alias ll='ls -lh --color'
+        alias la='ls -lha --color'
+
+        alias ll='ls -lhG --color=auto'
+        alias la='ls -lhaG --color=auto'
 
         # bash_completion
         # Use bash-completion, if available
