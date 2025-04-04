@@ -82,15 +82,16 @@ local spec = {
         timeout = 3000,
         enabled = true,
         targets = {
-          { buftype = "quickfix",  timeout = 3000 },
-          { filetype = "Outline",  timeout = 3000 },
-          { filetype = "qf",       timeout = 3000 },
-          { filetype = "undotree", timeout = 2000 },
-          { filetype = "Avante",   timeout = 5000 },
+          { buftype = "quickfix",      timeout = 3000 },
+          { filetype = "Outline",      timeout = 3000 },
+          { filetype = "qf",           timeout = 3000 },
+          { filetype = "undotree",     timeout = 2000 },
+          { filetype = "Avante",       timeout = 5000 },
+          { filetype = "copilot-chat", timeout = 5000 },
         },
       })
     end,
-    ft = { 'qf', 'Outline', 'Avante', "undotree" },
+    ft = { 'qf', 'Outline', 'Avante', "undotree", "copilot-chat" },
     cmd = { "QFC" }
   },
   {
