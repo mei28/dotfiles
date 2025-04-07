@@ -48,7 +48,7 @@ function mason_setup()
 
   local status, mason_lspconfig = pcall(require, 'mason-lspconfig')
   if not status then return end
-  mason_lspconfig.setup({ automatic_installation=true,ensure_installed = servers })
+  mason_lspconfig.setup({ automatic_installation = true, ensure_installed = servers })
 
   local status, lspconfig = pcall(require, 'lspconfig')
   if not status then return end
@@ -80,24 +80,15 @@ function mason_setup()
     if lsp == 'rust_analyzer' then
       goto continue
     end
-    -- lspconfig[lsp].setup({ capabilities = capabilities })
-    vlc(lsp, { capabilities = capabilities })
+    lspconfig[lsp].setup({ capabilities = capabilities })
+    -- vlc(lsp, { capabilities = capabilities })
     ::continue::
   end
 
 
 
   -- settings for specific LSP
-  -- lspconfig.lua_ls.setup {
-  --   settings = {
-  --     Lua = {
-  --       diagnostics = {
-  --         globals = { 'vim', 'hs', 'wez' }
-  --       }
-  --     }
-  --   },
-  -- }
-  vlc('lua_ls', {
+  lspconfig.lua_ls.setup {
     settings = {
       Lua = {
         diagnostics = {
@@ -106,30 +97,23 @@ function mason_setup()
       }
     },
   }
-  )
+  -- vlc('lua_ls', {
+  --   settings = {
+  --     Lua = {
+  --       diagnostics = {
+  --         globals = { 'vim', 'hs', 'wez' }
+  --       }
+  --     }
+  --   },
+  -- }
+  -- )
 
 
   capabilities.offsetEncoding = { "utf-16" }
-  -- lspconfig.clangd.setup({ capabilities = capabilities })
-  vlc('clangd', { capabilities = capabilities })
+  lspconfig.clangd.setup({ capabilities = capabilities })
+  -- vlc('clangd', { capabilities = capabilities })
 
-  -- lspconfig.rust_analyzer.setup {
-  --   filetypes = { "rust" },
-  --   capabilities = capabilities,
-  --   root_dir = lspconfig.util.root_pattern("Cargo.toml", "rust-project.json"),
-  --   settings = {
-  --     ['rust_analyzer'] = {
-  --       cargo = {
-  --         allFeatures = true,
-  --       },
-  --       -- enable clippy on save
-  --       check = {
-  --         command = "clippy",
-  --       },
-  --     }
-  --   }
-  -- }
-  vlc('rust_analyzer', {
+  lspconfig.rust_analyzer.setup {
     filetypes = { "rust" },
     capabilities = capabilities,
     root_dir = lspconfig.util.root_pattern("Cargo.toml", "rust-project.json"),
@@ -144,23 +128,28 @@ function mason_setup()
         },
       }
     }
-  })
-
-  -- lspconfig.mojo.setup({})
-  vlc('mojo', {})
-
-  -- lspconfig.nil_ls.setup({
-  --   filetypes = { "nix" },
+  }
+  -- vlc('rust_analyzer', {
+  --   filetypes = { "rust" },
+  --   capabilities = capabilities,
+  --   root_dir = lspconfig.util.root_pattern("Cargo.toml", "rust-project.json"),
   --   settings = {
-  --     ['nil'] = {
-  --       testSetting = 42,
-  --       formatting = {
-  --         command = { "nixfmt" },
+  --     ['rust_analyzer'] = {
+  --       cargo = {
+  --         allFeatures = true,
   --       },
-  --     },
+  --       -- enable clippy on save
+  --       check = {
+  --         command = "clippy",
+  --       },
+  --     }
   --   }
   -- })
-  vlc('nil_ls', {
+
+  lspconfig.mojo.setup({})
+  -- vlc('mojo', {})
+
+  lspconfig.nil_ls.setup({
     filetypes = { "nix" },
     settings = {
       ['nil'] = {
@@ -171,23 +160,33 @@ function mason_setup()
       },
     }
   })
-
-  -- lspconfig.pyright.setup({
-  --   workspace = {
-  --     didChangeWatchedFiles = {
-  --       dynamicRegistration = true,
+  -- vlc('nil_ls', {
+  --   filetypes = { "nix" },
+  --   settings = {
+  --     ['nil'] = {
+  --       testSetting = 42,
+  --       formatting = {
+  --         command = { "nixfmt" },
+  --       },
   --     },
   --   }
   -- })
-  vlc('pyright', {
+
+  lspconfig.pyright.setup({
     workspace = {
       didChangeWatchedFiles = {
         dynamicRegistration = true,
       },
     }
   })
+  -- vlc('pyright', {
+  --   workspace = {
+  --     didChangeWatchedFiles = {
+  --       dynamicRegistration = true,
+  --     },
+  --   }
+  -- })
 
-  vim.lsp.enable(servers)
 
   -- Global mappings
   local set = vim.keymap.set
@@ -366,6 +365,8 @@ function mason_setup()
   }
   lspconfig.efm.setup(vim.tbl_extend('force', efmls_config, {}))
   ::continue::
+
+  -- vim.lsp.enable(servers)
 end
 
 return spec
