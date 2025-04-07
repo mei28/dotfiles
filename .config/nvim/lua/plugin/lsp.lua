@@ -48,13 +48,14 @@ function mason_setup()
 
   local status, mason_lspconfig = pcall(require, 'mason-lspconfig')
   if not status then return end
-  mason_lspconfig.setup({ ensure_installed = servers })
+  mason_lspconfig.setup({ automatic_installation=true,ensure_installed = servers })
 
   local status, lspconfig = pcall(require, 'lspconfig')
   if not status then return end
 
   local status, navic = pcall(require, 'nvim-navic')
   if not status then return end
+  local vlc = vim.lsp.config
 
   -- https://github.com/neovim/neovim/issues/23291#issuecomment-1523243069
   -- https://github.com/neovim/neovim/pull/23500#issuecomment-1585986913
@@ -79,12 +80,24 @@ function mason_setup()
     if lsp == 'rust_analyzer' then
       goto continue
     end
-    lspconfig[lsp].setup({ capabilities = capabilities })
+    -- lspconfig[lsp].setup({ capabilities = capabilities })
+    vlc(lsp, { capabilities = capabilities })
     ::continue::
   end
 
+
+
   -- settings for specific LSP
-  lspconfig.lua_ls.setup {
+  -- lspconfig.lua_ls.setup {
+  --   settings = {
+  --     Lua = {
+  --       diagnostics = {
+  --         globals = { 'vim', 'hs', 'wez' }
+  --       }
+  --     }
+  --   },
+  -- }
+  vlc('lua_ls', {
     settings = {
       Lua = {
         diagnostics = {
@@ -93,12 +106,30 @@ function mason_setup()
       }
     },
   }
+  )
 
 
   capabilities.offsetEncoding = { "utf-16" }
-  lspconfig.clangd.setup({ capabilities = capabilities })
+  -- lspconfig.clangd.setup({ capabilities = capabilities })
+  vlc('clangd', { capabilities = capabilities })
 
-  lspconfig.rust_analyzer.setup {
+  -- lspconfig.rust_analyzer.setup {
+  --   filetypes = { "rust" },
+  --   capabilities = capabilities,
+  --   root_dir = lspconfig.util.root_pattern("Cargo.toml", "rust-project.json"),
+  --   settings = {
+  --     ['rust_analyzer'] = {
+  --       cargo = {
+  --         allFeatures = true,
+  --       },
+  --       -- enable clippy on save
+  --       check = {
+  --         command = "clippy",
+  --       },
+  --     }
+  --   }
+  -- }
+  vlc('rust_analyzer', {
     filetypes = { "rust" },
     capabilities = capabilities,
     root_dir = lspconfig.util.root_pattern("Cargo.toml", "rust-project.json"),
@@ -113,11 +144,23 @@ function mason_setup()
         },
       }
     }
-  }
+  })
 
-  lspconfig.mojo.setup({})
+  -- lspconfig.mojo.setup({})
+  vlc('mojo', {})
 
-  lspconfig.nil_ls.setup({
+  -- lspconfig.nil_ls.setup({
+  --   filetypes = { "nix" },
+  --   settings = {
+  --     ['nil'] = {
+  --       testSetting = 42,
+  --       formatting = {
+  --         command = { "nixfmt" },
+  --       },
+  --     },
+  --   }
+  -- })
+  vlc('nil_ls', {
     filetypes = { "nix" },
     settings = {
       ['nil'] = {
@@ -129,13 +172,22 @@ function mason_setup()
     }
   })
 
-  lspconfig.pyright.setup({
+  -- lspconfig.pyright.setup({
+  --   workspace = {
+  --     didChangeWatchedFiles = {
+  --       dynamicRegistration = true,
+  --     },
+  --   }
+  -- })
+  vlc('pyright', {
     workspace = {
       didChangeWatchedFiles = {
         dynamicRegistration = true,
       },
     }
   })
+
+  vim.lsp.enable(servers)
 
   -- Global mappings
   local set = vim.keymap.set
