@@ -86,12 +86,12 @@ local spec = {
           { filetype = "Outline",      timeout = 3000 },
           { filetype = "qf",           timeout = 3000 },
           { filetype = "undotree",     timeout = 2000 },
-          { filetype = "Avante",       timeout = 5000 },
+          -- { filetype = "Avante",       timeout = 5000 },
           { filetype = "copilot-chat", timeout = 5000 },
         },
       })
     end,
-    ft = { 'qf', 'Outline', 'Avante', "undotree", "copilot-chat" },
+    ft = { 'qf', 'Outline', --[[ 'Avante', ]] "undotree", "copilot-chat" },
     cmd = { "QFC" }
   },
   {
