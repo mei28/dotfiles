@@ -516,6 +516,10 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 
+if type pnpm &> /dev/null; then
+    eval "$(pnpm completion bash)"
+fi
+
 
 # docker completion
 if type docker &> /dev/null; then
