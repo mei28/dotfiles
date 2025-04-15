@@ -1,16 +1,16 @@
 local spec = {
 
-  --- noice
-  {
-    "folke/noice.nvim",
-    event = "ModeChanged",
-    tag = 'v4.4.7',
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-      -- "rcarriga/nvim-notify",
-    },
-    config = function() noice_setup() end,
-  },
+  -- --- noice
+  -- {
+  --   "folke/noice.nvim",
+  --   event = "ModeChanged",
+  --   tag = 'v4.4.7',
+  --   dependencies = {
+  --     "MunifTanjim/nui.nvim",
+  --     "rcarriga/nvim-notify",
+  --   },
+  --   config = function() noice_setup() end,
+  -- },
   -- {
   --   "rcarriga/nvim-notify",
   --   event = "ModeChanged",
@@ -26,6 +26,7 @@ function noice_setup()
 
   noice.setup(
     {
+      debug = true,
       lsp = {
         signature = {
           auto_open = {
@@ -90,15 +91,16 @@ function noice_setup()
   )
 end
 
-function notify_setup()
-  local status, notify = pcall(require, 'notify')
-  if not status then return end
-
-  notify.setup({
-    render = "minimal",
-    stages = "fade",
-    timeout = 1,
-  })
-end
+-- function notify_setup()
+--   local status, notify = pcall(require, 'notify')
+--   if not status then return end
+--
+--   notify.setup({
+--     render = "minimal",
+--     stages = "fade",
+--     timeout = 0,
+--     background_colour = "#000000",
+--   })
+-- end
 
 return spec
