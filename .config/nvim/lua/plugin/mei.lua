@@ -75,17 +75,17 @@ local spec = {
 
   },
   {
-    dir = "~/Documents/qfc.nvim/",
-    -- 'mei28/qfc.nvim',
+    -- dir = "~/Documents/qfc.nvim/",
+    'mei28/qfc.nvim',
     config = function()
       require('qfc').setup({
         timeout = 3000,
         enabled = true,
         targets = {
-          { buftype = "quickfix",      timeout = 3000 },
-          { filetype = "Outline",      timeout = 3000 },
-          { filetype = "qf",           timeout = 3000 },
-          { filetype = "undotree",     timeout = 2000 },
+          { buftype = "quickfix",  timeout = 3000 },
+          { filetype = "Outline",  timeout = 3000 },
+          { filetype = "qf",       timeout = 3000 },
+          { filetype = "undotree", timeout = 2000 },
           -- { filetype = "Avante",       timeout = 5000 },
           -- { filetype = "copilot-chat", timeout = 5000 },
         },
