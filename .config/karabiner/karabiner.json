@@ -4,10 +4,14 @@
             "complex_modifications": {
                 "rules": [
                     {
-                        "description": "Home‐row dual‐role mods: tap → original key, hold → modifier",
+                        "description": "Home‐row dual‐role mods: tap → original key, hold → modifier (built‑in keyboard only)",
                         "manipulators": [
                             {
                                 "conditions": [
+                                    {
+                                        "identifiers": [{ "is_built_in_keyboard": true }],
+                                        "type": "device_if"
+                                    },
                                     {
                                         "name": "s_after_last_down",
                                         "type": "variable_if",
@@ -32,6 +36,10 @@
                             {
                                 "conditions": [
                                     {
+                                        "identifiers": [{ "is_built_in_keyboard": true }],
+                                        "type": "device_if"
+                                    },
+                                    {
                                         "name": "s_after_last_down",
                                         "type": "variable_if",
                                         "value": 0
@@ -42,8 +50,8 @@
                                     "modifiers": { "optional": ["any"] }
                                 },
                                 "parameters": {
-                                    "basic.to_delayed_action_delay_milliseconds": 200,
-                                    "basic.to_if_alone_timeout_milliseconds": 500
+                                    "basic.to_delayed_action_delay_milliseconds": 300,
+                                    "basic.to_if_alone_timeout_milliseconds": 200
                                 },
                                 "to": [
                                     {
@@ -81,6 +89,10 @@
                             {
                                 "conditions": [
                                     {
+                                        "identifiers": [{ "is_built_in_keyboard": true }],
+                                        "type": "device_if"
+                                    },
+                                    {
                                         "name": "d_after_last_down",
                                         "type": "variable_if",
                                         "value": 1
@@ -104,6 +116,10 @@
                             {
                                 "conditions": [
                                     {
+                                        "identifiers": [{ "is_built_in_keyboard": true }],
+                                        "type": "device_if"
+                                    },
+                                    {
                                         "name": "d_after_last_down",
                                         "type": "variable_if",
                                         "value": 0
@@ -114,8 +130,8 @@
                                     "modifiers": { "optional": ["any"] }
                                 },
                                 "parameters": {
-                                    "basic.to_delayed_action_delay_milliseconds": 200,
-                                    "basic.to_if_alone_timeout_milliseconds": 500
+                                    "basic.to_delayed_action_delay_milliseconds": 300,
+                                    "basic.to_if_alone_timeout_milliseconds": 200
                                 },
                                 "to": [
                                     {
@@ -153,6 +169,10 @@
                             {
                                 "conditions": [
                                     {
+                                        "identifiers": [{ "is_built_in_keyboard": true }],
+                                        "type": "device_if"
+                                    },
+                                    {
                                         "name": "f_after_last_down",
                                         "type": "variable_if",
                                         "value": 1
@@ -176,6 +196,10 @@
                             {
                                 "conditions": [
                                     {
+                                        "identifiers": [{ "is_built_in_keyboard": true }],
+                                        "type": "device_if"
+                                    },
+                                    {
                                         "name": "f_after_last_down",
                                         "type": "variable_if",
                                         "value": 0
@@ -186,8 +210,8 @@
                                     "modifiers": { "optional": ["any"] }
                                 },
                                 "parameters": {
-                                    "basic.to_delayed_action_delay_milliseconds": 200,
-                                    "basic.to_if_alone_timeout_milliseconds": 500
+                                    "basic.to_delayed_action_delay_milliseconds": 300,
+                                    "basic.to_if_alone_timeout_milliseconds": 200
                                 },
                                 "to": [
                                     {
@@ -225,6 +249,10 @@
                             {
                                 "conditions": [
                                     {
+                                        "identifiers": [{ "is_built_in_keyboard": true }],
+                                        "type": "device_if"
+                                    },
+                                    {
                                         "name": "e_after_last_down",
                                         "type": "variable_if",
                                         "value": 1
@@ -248,6 +276,10 @@
                             {
                                 "conditions": [
                                     {
+                                        "identifiers": [{ "is_built_in_keyboard": true }],
+                                        "type": "device_if"
+                                    },
+                                    {
                                         "name": "e_after_last_down",
                                         "type": "variable_if",
                                         "value": 0
@@ -258,8 +290,8 @@
                                     "modifiers": { "optional": ["any"] }
                                 },
                                 "parameters": {
-                                    "basic.to_delayed_action_delay_milliseconds": 200,
-                                    "basic.to_if_alone_timeout_milliseconds": 500
+                                    "basic.to_delayed_action_delay_milliseconds": 300,
+                                    "basic.to_if_alone_timeout_milliseconds": 200
                                 },
                                 "to": [
                                     {
@@ -297,6 +329,10 @@
                             {
                                 "conditions": [
                                     {
+                                        "identifiers": [{ "is_built_in_keyboard": true }],
+                                        "type": "device_if"
+                                    },
+                                    {
                                         "name": "l_after_last_down",
                                         "type": "variable_if",
                                         "value": 1
@@ -320,6 +356,10 @@
                             {
                                 "conditions": [
                                     {
+                                        "identifiers": [{ "is_built_in_keyboard": true }],
+                                        "type": "device_if"
+                                    },
+                                    {
                                         "name": "l_after_last_down",
                                         "type": "variable_if",
                                         "value": 0
@@ -330,8 +370,8 @@
                                     "modifiers": { "optional": ["any"] }
                                 },
                                 "parameters": {
-                                    "basic.to_delayed_action_delay_milliseconds": 200,
-                                    "basic.to_if_alone_timeout_milliseconds": 500
+                                    "basic.to_delayed_action_delay_milliseconds": 300,
+                                    "basic.to_if_alone_timeout_milliseconds": 200
                                 },
                                 "to": [
                                     {
@@ -369,6 +409,10 @@
                             {
                                 "conditions": [
                                     {
+                                        "identifiers": [{ "is_built_in_keyboard": true }],
+                                        "type": "device_if"
+                                    },
+                                    {
                                         "name": "k_after_last_down",
                                         "type": "variable_if",
                                         "value": 1
@@ -392,6 +436,10 @@
                             {
                                 "conditions": [
                                     {
+                                        "identifiers": [{ "is_built_in_keyboard": true }],
+                                        "type": "device_if"
+                                    },
+                                    {
                                         "name": "k_after_last_down",
                                         "type": "variable_if",
                                         "value": 0
@@ -402,8 +450,8 @@
                                     "modifiers": { "optional": ["any"] }
                                 },
                                 "parameters": {
-                                    "basic.to_delayed_action_delay_milliseconds": 200,
-                                    "basic.to_if_alone_timeout_milliseconds": 500
+                                    "basic.to_delayed_action_delay_milliseconds": 300,
+                                    "basic.to_if_alone_timeout_milliseconds": 200
                                 },
                                 "to": [
                                     {
@@ -441,6 +489,10 @@
                             {
                                 "conditions": [
                                     {
+                                        "identifiers": [{ "is_built_in_keyboard": true }],
+                                        "type": "device_if"
+                                    },
+                                    {
                                         "name": "j_after_last_down",
                                         "type": "variable_if",
                                         "value": 1
@@ -464,6 +516,10 @@
                             {
                                 "conditions": [
                                     {
+                                        "identifiers": [{ "is_built_in_keyboard": true }],
+                                        "type": "device_if"
+                                    },
+                                    {
                                         "name": "j_after_last_down",
                                         "type": "variable_if",
                                         "value": 0
@@ -474,8 +530,8 @@
                                     "modifiers": { "optional": ["any"] }
                                 },
                                 "parameters": {
-                                    "basic.to_delayed_action_delay_milliseconds": 200,
-                                    "basic.to_if_alone_timeout_milliseconds": 500
+                                    "basic.to_delayed_action_delay_milliseconds": 300,
+                                    "basic.to_if_alone_timeout_milliseconds": 200
                                 },
                                 "to": [
                                     {
@@ -513,6 +569,10 @@
                             {
                                 "conditions": [
                                     {
+                                        "identifiers": [{ "is_built_in_keyboard": true }],
+                                        "type": "device_if"
+                                    },
+                                    {
                                         "name": "i_after_last_down",
                                         "type": "variable_if",
                                         "value": 1
@@ -536,6 +596,10 @@
                             {
                                 "conditions": [
                                     {
+                                        "identifiers": [{ "is_built_in_keyboard": true }],
+                                        "type": "device_if"
+                                    },
+                                    {
                                         "name": "i_after_last_down",
                                         "type": "variable_if",
                                         "value": 0
@@ -546,8 +610,8 @@
                                     "modifiers": { "optional": ["any"] }
                                 },
                                 "parameters": {
-                                    "basic.to_delayed_action_delay_milliseconds": 200,
-                                    "basic.to_if_alone_timeout_milliseconds": 500
+                                    "basic.to_delayed_action_delay_milliseconds": 300,
+                                    "basic.to_if_alone_timeout_milliseconds": 200
                                 },
                                 "to": [
                                     {
