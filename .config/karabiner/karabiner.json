@@ -4,86 +4,22 @@
             "complex_modifications": {
                 "rules": [
                     {
-                        "description": "Home‐row dual‐role mods: tap → original key, hold → modifier (built‑in keyboard only)",
+                        "description": "Home‑row dual‑role mods: tap → original key; hold → modifier (built‑in only, 600ms)",
                         "manipulators": [
                             {
                                 "conditions": [
                                     {
                                         "identifiers": [{ "is_built_in_keyboard": true }],
                                         "type": "device_if"
-                                    },
-                                    {
-                                        "name": "s_after_last_down",
-                                        "type": "variable_if",
-                                        "value": 1
                                     }
                                 ],
                                 "from": {
                                     "key_code": "s",
                                     "modifiers": { "optional": ["any"] }
                                 },
-                                "to": [
-                                    {
-                                        "set_variable": {
-                                            "name": "s_after_last_down",
-                                            "value": 0
-                                        }
-                                    },
-                                    { "key_code": "s" }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "identifiers": [{ "is_built_in_keyboard": true }],
-                                        "type": "device_if"
-                                    },
-                                    {
-                                        "name": "s_after_last_down",
-                                        "type": "variable_if",
-                                        "value": 0
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "s",
-                                    "modifiers": { "optional": ["any"] }
-                                },
-                                "parameters": {
-                                    "basic.to_delayed_action_delay_milliseconds": 300,
-                                    "basic.to_if_alone_timeout_milliseconds": 200
-                                },
-                                "to": [
-                                    {
-                                        "set_variable": {
-                                            "name": "s_after_last_down",
-                                            "value": 1
-                                        }
-                                    },
-                                    {
-                                        "key_code": "left_shift",
-                                        "lazy": true
-                                    }
-                                ],
-                                "to_delayed_action": {
-                                    "to_if_canceled": [
-                                        {
-                                            "set_variable": {
-                                                "name": "s_after_last_down",
-                                                "value": 0
-                                            }
-                                        }
-                                    ],
-                                    "to_if_invoked": [
-                                        {
-                                            "set_variable": {
-                                                "name": "s_after_last_down",
-                                                "value": 0
-                                            }
-                                        }
-                                    ]
-                                },
+                                "parameters": { "basic.to_if_held_down_threshold_milliseconds": 600 },
                                 "to_if_alone": [{ "key_code": "s" }],
+                                "to_if_held_down": [{ "key_code": "left_shift" }],
                                 "type": "basic"
                             },
                             {
@@ -91,79 +27,15 @@
                                     {
                                         "identifiers": [{ "is_built_in_keyboard": true }],
                                         "type": "device_if"
-                                    },
-                                    {
-                                        "name": "d_after_last_down",
-                                        "type": "variable_if",
-                                        "value": 1
                                     }
                                 ],
                                 "from": {
                                     "key_code": "d",
                                     "modifiers": { "optional": ["any"] }
                                 },
-                                "to": [
-                                    {
-                                        "set_variable": {
-                                            "name": "d_after_last_down",
-                                            "value": 0
-                                        }
-                                    },
-                                    { "key_code": "d" }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "identifiers": [{ "is_built_in_keyboard": true }],
-                                        "type": "device_if"
-                                    },
-                                    {
-                                        "name": "d_after_last_down",
-                                        "type": "variable_if",
-                                        "value": 0
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "d",
-                                    "modifiers": { "optional": ["any"] }
-                                },
-                                "parameters": {
-                                    "basic.to_delayed_action_delay_milliseconds": 300,
-                                    "basic.to_if_alone_timeout_milliseconds": 200
-                                },
-                                "to": [
-                                    {
-                                        "set_variable": {
-                                            "name": "d_after_last_down",
-                                            "value": 1
-                                        }
-                                    },
-                                    {
-                                        "key_code": "left_alt",
-                                        "lazy": true
-                                    }
-                                ],
-                                "to_delayed_action": {
-                                    "to_if_canceled": [
-                                        {
-                                            "set_variable": {
-                                                "name": "d_after_last_down",
-                                                "value": 0
-                                            }
-                                        }
-                                    ],
-                                    "to_if_invoked": [
-                                        {
-                                            "set_variable": {
-                                                "name": "d_after_last_down",
-                                                "value": 0
-                                            }
-                                        }
-                                    ]
-                                },
+                                "parameters": { "basic.to_if_held_down_threshold_milliseconds": 600 },
                                 "to_if_alone": [{ "key_code": "d" }],
+                                "to_if_held_down": [{ "key_code": "left_alt" }],
                                 "type": "basic"
                             },
                             {
@@ -171,79 +43,15 @@
                                     {
                                         "identifiers": [{ "is_built_in_keyboard": true }],
                                         "type": "device_if"
-                                    },
-                                    {
-                                        "name": "f_after_last_down",
-                                        "type": "variable_if",
-                                        "value": 1
                                     }
                                 ],
                                 "from": {
                                     "key_code": "f",
                                     "modifiers": { "optional": ["any"] }
                                 },
-                                "to": [
-                                    {
-                                        "set_variable": {
-                                            "name": "f_after_last_down",
-                                            "value": 0
-                                        }
-                                    },
-                                    { "key_code": "f" }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "identifiers": [{ "is_built_in_keyboard": true }],
-                                        "type": "device_if"
-                                    },
-                                    {
-                                        "name": "f_after_last_down",
-                                        "type": "variable_if",
-                                        "value": 0
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "f",
-                                    "modifiers": { "optional": ["any"] }
-                                },
-                                "parameters": {
-                                    "basic.to_delayed_action_delay_milliseconds": 300,
-                                    "basic.to_if_alone_timeout_milliseconds": 200
-                                },
-                                "to": [
-                                    {
-                                        "set_variable": {
-                                            "name": "f_after_last_down",
-                                            "value": 1
-                                        }
-                                    },
-                                    {
-                                        "key_code": "left_control",
-                                        "lazy": true
-                                    }
-                                ],
-                                "to_delayed_action": {
-                                    "to_if_canceled": [
-                                        {
-                                            "set_variable": {
-                                                "name": "f_after_last_down",
-                                                "value": 0
-                                            }
-                                        }
-                                    ],
-                                    "to_if_invoked": [
-                                        {
-                                            "set_variable": {
-                                                "name": "f_after_last_down",
-                                                "value": 0
-                                            }
-                                        }
-                                    ]
-                                },
+                                "parameters": { "basic.to_if_held_down_threshold_milliseconds": 600 },
                                 "to_if_alone": [{ "key_code": "f" }],
+                                "to_if_held_down": [{ "key_code": "left_control" }],
                                 "type": "basic"
                             },
                             {
@@ -251,79 +59,15 @@
                                     {
                                         "identifiers": [{ "is_built_in_keyboard": true }],
                                         "type": "device_if"
-                                    },
-                                    {
-                                        "name": "e_after_last_down",
-                                        "type": "variable_if",
-                                        "value": 1
                                     }
                                 ],
                                 "from": {
                                     "key_code": "e",
                                     "modifiers": { "optional": ["any"] }
                                 },
-                                "to": [
-                                    {
-                                        "set_variable": {
-                                            "name": "e_after_last_down",
-                                            "value": 0
-                                        }
-                                    },
-                                    { "key_code": "e" }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "identifiers": [{ "is_built_in_keyboard": true }],
-                                        "type": "device_if"
-                                    },
-                                    {
-                                        "name": "e_after_last_down",
-                                        "type": "variable_if",
-                                        "value": 0
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "e",
-                                    "modifiers": { "optional": ["any"] }
-                                },
-                                "parameters": {
-                                    "basic.to_delayed_action_delay_milliseconds": 300,
-                                    "basic.to_if_alone_timeout_milliseconds": 200
-                                },
-                                "to": [
-                                    {
-                                        "set_variable": {
-                                            "name": "e_after_last_down",
-                                            "value": 1
-                                        }
-                                    },
-                                    {
-                                        "key_code": "left_command",
-                                        "lazy": true
-                                    }
-                                ],
-                                "to_delayed_action": {
-                                    "to_if_canceled": [
-                                        {
-                                            "set_variable": {
-                                                "name": "e_after_last_down",
-                                                "value": 0
-                                            }
-                                        }
-                                    ],
-                                    "to_if_invoked": [
-                                        {
-                                            "set_variable": {
-                                                "name": "e_after_last_down",
-                                                "value": 0
-                                            }
-                                        }
-                                    ]
-                                },
+                                "parameters": { "basic.to_if_held_down_threshold_milliseconds": 600 },
                                 "to_if_alone": [{ "key_code": "e" }],
+                                "to_if_held_down": [{ "key_code": "left_command" }],
                                 "type": "basic"
                             },
                             {
@@ -331,79 +75,15 @@
                                     {
                                         "identifiers": [{ "is_built_in_keyboard": true }],
                                         "type": "device_if"
-                                    },
-                                    {
-                                        "name": "l_after_last_down",
-                                        "type": "variable_if",
-                                        "value": 1
                                     }
                                 ],
                                 "from": {
                                     "key_code": "l",
                                     "modifiers": { "optional": ["any"] }
                                 },
-                                "to": [
-                                    {
-                                        "set_variable": {
-                                            "name": "l_after_last_down",
-                                            "value": 0
-                                        }
-                                    },
-                                    { "key_code": "l" }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "identifiers": [{ "is_built_in_keyboard": true }],
-                                        "type": "device_if"
-                                    },
-                                    {
-                                        "name": "l_after_last_down",
-                                        "type": "variable_if",
-                                        "value": 0
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "l",
-                                    "modifiers": { "optional": ["any"] }
-                                },
-                                "parameters": {
-                                    "basic.to_delayed_action_delay_milliseconds": 300,
-                                    "basic.to_if_alone_timeout_milliseconds": 200
-                                },
-                                "to": [
-                                    {
-                                        "set_variable": {
-                                            "name": "l_after_last_down",
-                                            "value": 1
-                                        }
-                                    },
-                                    {
-                                        "key_code": "left_shift",
-                                        "lazy": true
-                                    }
-                                ],
-                                "to_delayed_action": {
-                                    "to_if_canceled": [
-                                        {
-                                            "set_variable": {
-                                                "name": "l_after_last_down",
-                                                "value": 0
-                                            }
-                                        }
-                                    ],
-                                    "to_if_invoked": [
-                                        {
-                                            "set_variable": {
-                                                "name": "l_after_last_down",
-                                                "value": 0
-                                            }
-                                        }
-                                    ]
-                                },
+                                "parameters": { "basic.to_if_held_down_threshold_milliseconds": 600 },
                                 "to_if_alone": [{ "key_code": "l" }],
+                                "to_if_held_down": [{ "key_code": "left_shift" }],
                                 "type": "basic"
                             },
                             {
@@ -411,79 +91,15 @@
                                     {
                                         "identifiers": [{ "is_built_in_keyboard": true }],
                                         "type": "device_if"
-                                    },
-                                    {
-                                        "name": "k_after_last_down",
-                                        "type": "variable_if",
-                                        "value": 1
                                     }
                                 ],
                                 "from": {
                                     "key_code": "k",
                                     "modifiers": { "optional": ["any"] }
                                 },
-                                "to": [
-                                    {
-                                        "set_variable": {
-                                            "name": "k_after_last_down",
-                                            "value": 0
-                                        }
-                                    },
-                                    { "key_code": "k" }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "identifiers": [{ "is_built_in_keyboard": true }],
-                                        "type": "device_if"
-                                    },
-                                    {
-                                        "name": "k_after_last_down",
-                                        "type": "variable_if",
-                                        "value": 0
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "k",
-                                    "modifiers": { "optional": ["any"] }
-                                },
-                                "parameters": {
-                                    "basic.to_delayed_action_delay_milliseconds": 300,
-                                    "basic.to_if_alone_timeout_milliseconds": 200
-                                },
-                                "to": [
-                                    {
-                                        "set_variable": {
-                                            "name": "k_after_last_down",
-                                            "value": 1
-                                        }
-                                    },
-                                    {
-                                        "key_code": "left_alt",
-                                        "lazy": true
-                                    }
-                                ],
-                                "to_delayed_action": {
-                                    "to_if_canceled": [
-                                        {
-                                            "set_variable": {
-                                                "name": "k_after_last_down",
-                                                "value": 0
-                                            }
-                                        }
-                                    ],
-                                    "to_if_invoked": [
-                                        {
-                                            "set_variable": {
-                                                "name": "k_after_last_down",
-                                                "value": 0
-                                            }
-                                        }
-                                    ]
-                                },
+                                "parameters": { "basic.to_if_held_down_threshold_milliseconds": 600 },
                                 "to_if_alone": [{ "key_code": "k" }],
+                                "to_if_held_down": [{ "key_code": "left_alt" }],
                                 "type": "basic"
                             },
                             {
@@ -491,79 +107,15 @@
                                     {
                                         "identifiers": [{ "is_built_in_keyboard": true }],
                                         "type": "device_if"
-                                    },
-                                    {
-                                        "name": "j_after_last_down",
-                                        "type": "variable_if",
-                                        "value": 1
                                     }
                                 ],
                                 "from": {
                                     "key_code": "j",
                                     "modifiers": { "optional": ["any"] }
                                 },
-                                "to": [
-                                    {
-                                        "set_variable": {
-                                            "name": "j_after_last_down",
-                                            "value": 0
-                                        }
-                                    },
-                                    { "key_code": "j" }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "identifiers": [{ "is_built_in_keyboard": true }],
-                                        "type": "device_if"
-                                    },
-                                    {
-                                        "name": "j_after_last_down",
-                                        "type": "variable_if",
-                                        "value": 0
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "j",
-                                    "modifiers": { "optional": ["any"] }
-                                },
-                                "parameters": {
-                                    "basic.to_delayed_action_delay_milliseconds": 300,
-                                    "basic.to_if_alone_timeout_milliseconds": 200
-                                },
-                                "to": [
-                                    {
-                                        "set_variable": {
-                                            "name": "j_after_last_down",
-                                            "value": 1
-                                        }
-                                    },
-                                    {
-                                        "key_code": "left_control",
-                                        "lazy": true
-                                    }
-                                ],
-                                "to_delayed_action": {
-                                    "to_if_canceled": [
-                                        {
-                                            "set_variable": {
-                                                "name": "j_after_last_down",
-                                                "value": 0
-                                            }
-                                        }
-                                    ],
-                                    "to_if_invoked": [
-                                        {
-                                            "set_variable": {
-                                                "name": "j_after_last_down",
-                                                "value": 0
-                                            }
-                                        }
-                                    ]
-                                },
+                                "parameters": { "basic.to_if_held_down_threshold_milliseconds": 600 },
                                 "to_if_alone": [{ "key_code": "j" }],
+                                "to_if_held_down": [{ "key_code": "left_control" }],
                                 "type": "basic"
                             },
                             {
@@ -571,79 +123,15 @@
                                     {
                                         "identifiers": [{ "is_built_in_keyboard": true }],
                                         "type": "device_if"
-                                    },
-                                    {
-                                        "name": "i_after_last_down",
-                                        "type": "variable_if",
-                                        "value": 1
                                     }
                                 ],
                                 "from": {
                                     "key_code": "i",
                                     "modifiers": { "optional": ["any"] }
                                 },
-                                "to": [
-                                    {
-                                        "set_variable": {
-                                            "name": "i_after_last_down",
-                                            "value": 0
-                                        }
-                                    },
-                                    { "key_code": "i" }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "identifiers": [{ "is_built_in_keyboard": true }],
-                                        "type": "device_if"
-                                    },
-                                    {
-                                        "name": "i_after_last_down",
-                                        "type": "variable_if",
-                                        "value": 0
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "i",
-                                    "modifiers": { "optional": ["any"] }
-                                },
-                                "parameters": {
-                                    "basic.to_delayed_action_delay_milliseconds": 300,
-                                    "basic.to_if_alone_timeout_milliseconds": 200
-                                },
-                                "to": [
-                                    {
-                                        "set_variable": {
-                                            "name": "i_after_last_down",
-                                            "value": 1
-                                        }
-                                    },
-                                    {
-                                        "key_code": "left_command",
-                                        "lazy": true
-                                    }
-                                ],
-                                "to_delayed_action": {
-                                    "to_if_canceled": [
-                                        {
-                                            "set_variable": {
-                                                "name": "i_after_last_down",
-                                                "value": 0
-                                            }
-                                        }
-                                    ],
-                                    "to_if_invoked": [
-                                        {
-                                            "set_variable": {
-                                                "name": "i_after_last_down",
-                                                "value": 0
-                                            }
-                                        }
-                                    ]
-                                },
+                                "parameters": { "basic.to_if_held_down_threshold_milliseconds": 600 },
                                 "to_if_alone": [{ "key_code": "i" }],
+                                "to_if_held_down": [{ "key_code": "left_command" }],
                                 "type": "basic"
                             }
                         ]
