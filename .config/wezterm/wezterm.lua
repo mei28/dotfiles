@@ -61,11 +61,35 @@ local skip_close_confirmation_for_processes_named = {
   'tmux',
 }
 
+-- 優先順位を上から順に並べる
+local candidates = {
+  os.getenv('HOME') .. '/.nix-profile/bin/bash', -- Nix on macOS
+  os.getenv('HOME') .. '/.nix-profile/bin/bash', -- Nix on Linux
+  '/opt/homebrew/bin/bash',
+  '/usr/local/bin/bash',
+  '/bin/bash',
+}
+
+local function first_existing(list)
+  for _, p in ipairs(list) do
+    if wezterm.to_path then -- 2024-03 以降ならこちらが高速
+      if wezterm.to_path(p):try_exists() then
+        return p
+      end
+    else
+      local f = io.open(p, 'r')
+      if f then
+        f:close(); return p
+      end
+    end
+  end
+  return 'bash'
+end
 
 --- config ----
 local config = {}
 
-config.default_prog = { '/Users/mei/.nix-profile/bin/bash', '-l' }
+config.default_prog = { first_existing(candidates), '-l' }
 -- font
 config.font = wezterm.font_with_fallback(utils:switchFonts())
 config.font_size = 16

@@ -11,7 +11,7 @@ let
 in
 {
   home.username = username;
-  home.homeDirectory = "/Users/${username}";
+  # home.homeDirectory = "/Users/${username}";
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   home.stateVersion = "24.11";
