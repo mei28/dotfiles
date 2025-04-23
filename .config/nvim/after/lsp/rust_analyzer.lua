@@ -3,7 +3,7 @@ if not status then return end
 
 return {
   filetypes = { "rust" },
-  root_dir = lspconfig.util.root_pattern("Cargo.toml", "rust-project.json"),
+  -- root_dir = lspconfig.util.root_pattern("Cargo.toml", "rust-project.json"),
   settings = {
     ['rust_analyzer'] = {
       cargo = {

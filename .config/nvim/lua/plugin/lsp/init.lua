@@ -200,7 +200,7 @@ local spec = {
 
       -- efm
       local ensure_installed_linter_formatter = {
-        'eslint_d',
+        'eslint',
         'prettier',
         'stylua',
         -- 'black',
@@ -210,6 +210,7 @@ local spec = {
         'ruff',
         'yamllint',
         'shellcheck',
+        'stylelint',
         'beautysh'
       }
 
@@ -220,7 +221,7 @@ local spec = {
       local eslint     = require('efmls-configs.linters.eslint')
 
       -- local black      = require('efmls-configs.formatters.black')
-      local mypy       = require('efmls-configs.linters.mypy')
+      -- local mypy       = require('efmls-configs.linters.mypy')
       -- local isort      = require('efmls-configs.formatters.isort')
       -- local flake8     = require('efmls-configs.linters.flake8')
       local ruff_f     = require('efmls-configs.formatters.ruff')
@@ -239,7 +240,7 @@ local spec = {
 
 
       local languages    = {
-        python = { mypy, ruff_f, ruff_l, },
+        python = { --[[ mypy, ]] ruff_f, ruff_l, },
         yaml = { yamllint, prettier, },
         json = { prettier, },
         svelte = { eslint, prettier, },
