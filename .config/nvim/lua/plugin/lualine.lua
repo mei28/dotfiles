@@ -13,20 +13,63 @@ function lualine_setup()
     return
   end
 
-  local lsp_names = function()
-    local clients = {}
-    for _, client in ipairs(vim.lsp.get_clients { bufnr = 0 }) do
-      if client.name == 'null-ls' then
-        local sources = {}
-        for _, source in ipairs(require('null-ls.sources').get_available(vim.bo.filetype)) do
-          table.insert(sources, source.name)
+  local function lsp_names()
+    ------------------------------------------------------------------
+    -- A) after/lsp/*.lua → 「ファイル専用」LSP 名セットを 1 回だけ作る
+    ------------------------------------------------------------------
+    local function build_specific_set()
+      local dir = vim.fn.stdpath('config') .. '/after/lsp'
+      local uv  = vim.loop
+      local h   = uv.fs_scandir(dir)
+      if not h then return {} end -- ディレクトリが無い／空
+
+      local set = {}
+      while true do
+        local fname, t = uv.fs_scandir_next(h)
+        if not fname then break end
+        if t == 'file' and fname:sub(-4) == '.lua' then
+          set[fname:sub(1, -5)] = true -- pyright.lua → "pyright"
         end
-        table.insert(clients, 'null-ls(' .. table.concat(sources, ', ') .. ')')
+      end
+      return set
+    end
+
+    -- キャッシュしておく（Neovim 1 セッション中で 1 度だけ走る）
+    local specific             = vim.g.__lsp_specific_cache or build_specific_set()
+    vim.g.__lsp_specific_cache = specific
+
+    ------------------------------------------------------------------
+    -- B) 現在バッファにアタッチしている LSP を仕分け
+    ------------------------------------------------------------------
+    local specific_names       = {}
+    local normal_cnt           = 0
+
+    for _, c in ipairs(vim.lsp.get_clients { bufnr = 0 }) do
+      if specific[c.name] then
+        table.insert(specific_names, c.name)
       else
-        table.insert(clients, client.name)
+        normal_cnt = normal_cnt + 1
       end
     end
-    return ' ' .. table.concat(clients, '/')
+
+    ------------------------------------------------------------------
+    -- C) 表示用文字列を組み立て
+    ------------------------------------------------------------------
+    if #specific_names == 0 and normal_cnt == 0 then
+      return " 0" -- LSP が 1 つも無い
+    end
+
+    table.sort(specific_names) -- 並び順が気になる場合だけ
+
+    local out = { " " } -- アイコンは好みで変更可
+    if #specific_names > 0 then
+      table.insert(out, table.concat(specific_names, ", "))
+    end
+    if normal_cnt > 0 then
+      table.insert(out, (" (+%d)"):format(normal_cnt))
+    end
+
+    return table.concat(out)
   end
 
   local function encoding()
