@@ -8,10 +8,13 @@
 }:
 let
   inherit (import ./options.nix) username;
+  # OS ごとにルートを切替え
+  homeRoot =
+    if pkgs.stdenv.isDarwin then "/Users" else "/home";  # :contentReference[oaicite:0]{index=0}
 in
 {
   home.username = username;
-  # home.homeDirectory = "/Users/${username}";
+  home.homeDirectory = lib.mkDefault "${homeRoot}/${username}";
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   home.stateVersion = "24.11";
