@@ -9,8 +9,7 @@
 let
   inherit (import ./options.nix) username;
   # OS ごとにルートを切替え
-  homeRoot =
-    if pkgs.stdenv.isDarwin then "/Users" else "/home";  # :contentReference[oaicite:0]{index=0}
+  homeRoot = if pkgs.stdenv.isDarwin then "/Users" else "/home"; # :contentReference[oaicite:0]{index=0}
 in
 {
   home.username = username;
@@ -42,6 +41,8 @@ in
       uv
       cargo
       rustc
+      llvmPackages.openmp
+      zlib
 
       # lsp
       pyright
@@ -88,6 +89,7 @@ in
     PKG_CONFIG_PATH = "${pkgs.curl.dev}/lib/pkgconfig";
     LDFLAGS = "-L${pkgs.curl.dev}/lib";
     CPPFLAGS = "-I${pkgs.curl.dev}/include";
+    DYLD_FALLBACK_LIBRARY_PATH = "${pkgs.llvmPackages.openmp}/lib:${pkgs.zlib}/lib";
   };
 
   imports = [
