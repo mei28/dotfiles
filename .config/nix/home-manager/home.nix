@@ -41,8 +41,11 @@ in
       uv
       cargo
       rustc
-      llvmPackages.openmp
-      zlib
+
+      # lightgbm
+      llvmPackages.openmp # libomp.dylib
+      zlib # libz.1.dylib
+      llvmPackages.libcxx # libc++.1.dylib
 
       # lsp
       pyright
@@ -89,7 +92,11 @@ in
     PKG_CONFIG_PATH = "${pkgs.curl.dev}/lib/pkgconfig";
     LDFLAGS = "-L${pkgs.curl.dev}/lib";
     CPPFLAGS = "-I${pkgs.curl.dev}/include";
-    DYLD_FALLBACK_LIBRARY_PATH = "${pkgs.llvmPackages.openmp}/lib:${pkgs.zlib}/lib";
+    DYLD_FALLBACK_LIBRARY_PATH =
+      "${pkgs.llvmPackages.openmp}/lib:"
+      + "${pkgs.zlib}/lib:"
+      + "${pkgs.llvmPackages.libcxx}/lib:"
+      + "/usr/lib";
   };
 
   imports = [
