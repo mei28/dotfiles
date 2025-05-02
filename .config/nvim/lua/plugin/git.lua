@@ -22,7 +22,8 @@ local spec = {
   },
   {
     'lewis6991/gitsigns.nvim',
-    event = { 'BufNewFile', 'BufRead' },
+    -- event = { 'BufNewFile', 'BufRead' },
+    lazy = false,
     config = function()
       require 'gitsigns'.setup({
         signs = {

@@ -43,6 +43,7 @@ local spec = {
         'emmet_ls',
         'typos_lsp',
         'nil_ls',
+        'gopls'
       }
 
       local status, mason_lspconfig = pcall(require, 'mason-lspconfig')

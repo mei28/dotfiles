@@ -41,6 +41,7 @@ in
       uv
       cargo
       rustc
+      go
 
       # lightgbm
       llvmPackages.openmp # libomp.dylib
@@ -49,6 +50,7 @@ in
 
       # lsp
       pyright
+      gopls
 
       # formatter linter
       nixfmt-rfc-style
