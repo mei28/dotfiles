@@ -173,6 +173,8 @@ fi
 
 # nvim
 alias nv='nvim'
+alias gv='nvim'
+alias vn='nvim'
 alias nn='export NVIM_APPNAME=nvim; nvim'
 alias nvc='nvim --clean'
 alias nvi='export NVIM_APPNAME=nvim-minimal; nvim'
