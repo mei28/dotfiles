@@ -90,3 +90,18 @@ vim.api.nvim_exec([[
     autocmd BufWinEnter *.* silent! loadview
   augroup END
 ]], false)
+
+
+-- v0.12 extui http://zenn.dev/kawarimidoll/articles/4da7458c102c1f
+local ok, extui = pcall(require, 'vim._extui')
+if ok then
+  extui.enable({
+    enable = true,      -- extuiを有効化
+    msg = {
+      pos = 'cmd',      -- 'box'か'cmd'だがcmdheight=0だとどっちでも良い？（記事後述）
+      box = {
+        timeout = 5000, -- boxメッセージの表示時間 ミリ秒
+      },
+    },
+  })
+end
