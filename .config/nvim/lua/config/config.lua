@@ -65,7 +65,7 @@ vim.opt.scrolloff = 5
 vim.opt.autoread = true
 -- popupオプション
 vim.opt.wildoptions = 'pum'
--- フォーマットオプション 改行の時コメントアウトさせない
+-- フォーマットオプション 改行の時コメントアウトさせない ftpluginで上書き
 vim.api.nvim_exec([[
   au FileType * if match(&ft, 'markdown\|markdown') == -1 | set fo-=c fo-=r fo-=o | endif
 ]], false)
@@ -95,6 +95,7 @@ vim.api.nvim_exec([[
 -- v0.12 extui http://zenn.dev/kawarimidoll/articles/4da7458c102c1f
 local ok, extui = pcall(require, 'vim._extui')
 if ok then
+  print('Now, the version of vim is 0.12. If you check this message, you can delete it.')
   extui.enable({
     enable = true,      -- extuiを有効化
     msg = {

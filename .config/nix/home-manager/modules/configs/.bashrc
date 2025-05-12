@@ -6,7 +6,7 @@ fi
 
 # nix
 if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
-  . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+    . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
 fi
 if type nix &> /dev/null; then
     export PATH="~/.nix-profile/bin:$PATH"
@@ -510,12 +510,12 @@ if type yazi &> /dev/null; then
 fi
 
 # https://x.com/walnuts1018/status/1839636079164715262?s=46&t=CQvD0ppkcFnFEeBoG47BZg
-# alias "$"="" 
+# alias "$"=""
 
 export PNPM_HOME="/Users/mei/Library/pnpm"
 case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
+    *":$PNPM_HOME:"*) ;;
+    *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 
 if type pnpm &> /dev/null; then
@@ -525,7 +525,7 @@ fi
 
 # docker completion
 if type docker &> /dev/null; then
-   eval "$(docker completion bash)" 
+    eval "$(docker completion bash)"
 fi
 
 # git graph serie
@@ -557,6 +557,12 @@ alias gr='cd $(git rev-parse --show-toplevel)'
 
 ## git branch delete
 alias gbd="git branch --merged | grep -vE '\\*\\|main' | xargs git branch -d"
+
+
+## portsage
+if type portsage &> /dev/null; then
+    alias psa='portsage'
+fi
 
 
 #=====================#
