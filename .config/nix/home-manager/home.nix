@@ -87,6 +87,7 @@ in
       # mei
       inputs.cliperge.defaultPackage.${system}
       inputs.sgh.defaultPackage.${system}
+      inputs.portsage.defaultPackage.${system}
     ]
     ++ [ pkgsUnstable.fzf-make ];
   # 環境変数を sessionVariables に設定

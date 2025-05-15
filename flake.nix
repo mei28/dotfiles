@@ -24,6 +24,9 @@
     sgh = {
       url = "github:mei28/sgh";
     };
+    portsage = {
+      url = "github:mei28/PortSage";
+    };
   };
 
   outputs =
