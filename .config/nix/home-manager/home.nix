@@ -30,7 +30,6 @@ in
       llvm
       neovim
       efm-langserver
-      jujutsu
       bat
       just
 
@@ -45,8 +44,7 @@ in
 
       # lightgbm
       llvmPackages.openmp # libomp.dylib
-      zlib # libz.1.dylib
-      llvmPackages.libcxx # libc++.1.dylib
+      zlib # libz.1.dylib llvmPackages.libcxx # libc++.1.dylib
 
       # lsp
       pyright
@@ -112,6 +110,7 @@ in
     ./modules/tmux.nix
     ./modules/fastfetch.nix
     ./modules/zoxide.nix
+    ./modules/jujutsu.nix
 
     # formatter linter
     ./modules/ruff.nix
