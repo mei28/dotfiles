@@ -1,392 +1,1003 @@
 {
-    "profiles": [
-        {
-            "complex_modifications": {
-                "rules": [
-                    {
-                        "description": "Tap≤100 ms / Hold≥280 ms  (s d f e | l k j i → ⇧⌥⌃⌘)",
-                        "enabled": false,
-                        "manipulators": [
-                            {
-                                "conditions": [
-                                    {
-                                        "identifiers": [{ "is_built_in_keyboard": true }],
-                                        "type": "device_if"
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "s",
-                                    "modifiers": { "optional": ["any"] }
-                                },
-                                "parameters": {
-                                    "basic.to_if_alone_timeout_milliseconds": 100,
-                                    "basic.to_if_held_down_threshold_milliseconds": 280
-                                },
-                                "to_if_alone": [{ "key_code": "s" }],
-                                "to_if_held_down": [{ "key_code": "left_shift" }],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "identifiers": [{ "is_built_in_keyboard": true }],
-                                        "type": "device_if"
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "d",
-                                    "modifiers": { "optional": ["any"] }
-                                },
-                                "parameters": {
-                                    "basic.to_if_alone_timeout_milliseconds": 100,
-                                    "basic.to_if_held_down_threshold_milliseconds": 280
-                                },
-                                "to_if_alone": [{ "key_code": "d" }],
-                                "to_if_held_down": [{ "key_code": "left_option" }],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "identifiers": [{ "is_built_in_keyboard": true }],
-                                        "type": "device_if"
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "f",
-                                    "modifiers": { "optional": ["any"] }
-                                },
-                                "parameters": {
-                                    "basic.to_if_alone_timeout_milliseconds": 100,
-                                    "basic.to_if_held_down_threshold_milliseconds": 280
-                                },
-                                "to_if_alone": [{ "key_code": "f" }],
-                                "to_if_held_down": [{ "key_code": "left_control" }],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "identifiers": [{ "is_built_in_keyboard": true }],
-                                        "type": "device_if"
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "e",
-                                    "modifiers": { "optional": ["any"] }
-                                },
-                                "parameters": {
-                                    "basic.to_if_alone_timeout_milliseconds": 100,
-                                    "basic.to_if_held_down_threshold_milliseconds": 280
-                                },
-                                "to_if_alone": [{ "key_code": "e" }],
-                                "to_if_held_down": [{ "key_code": "left_command" }],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "identifiers": [{ "is_built_in_keyboard": true }],
-                                        "type": "device_if"
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "l",
-                                    "modifiers": { "optional": ["any"] }
-                                },
-                                "parameters": {
-                                    "basic.to_if_alone_timeout_milliseconds": 100,
-                                    "basic.to_if_held_down_threshold_milliseconds": 280
-                                },
-                                "to_if_alone": [{ "key_code": "l" }],
-                                "to_if_held_down": [{ "key_code": "right_shift" }],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "identifiers": [{ "is_built_in_keyboard": true }],
-                                        "type": "device_if"
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "k",
-                                    "modifiers": { "optional": ["any"] }
-                                },
-                                "parameters": {
-                                    "basic.to_if_alone_timeout_milliseconds": 100,
-                                    "basic.to_if_held_down_threshold_milliseconds": 280
-                                },
-                                "to_if_alone": [{ "key_code": "k" }],
-                                "to_if_held_down": [{ "key_code": "right_option" }],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "identifiers": [{ "is_built_in_keyboard": true }],
-                                        "type": "device_if"
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "j",
-                                    "modifiers": { "optional": ["any"] }
-                                },
-                                "parameters": {
-                                    "basic.to_if_alone_timeout_milliseconds": 100,
-                                    "basic.to_if_held_down_threshold_milliseconds": 280
-                                },
-                                "to_if_alone": [{ "key_code": "j" }],
-                                "to_if_held_down": [{ "key_code": "right_control" }],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "identifiers": [{ "is_built_in_keyboard": true }],
-                                        "type": "device_if"
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "i",
-                                    "modifiers": { "optional": ["any"] }
-                                },
-                                "parameters": {
-                                    "basic.to_if_alone_timeout_milliseconds": 100,
-                                    "basic.to_if_held_down_threshold_milliseconds": 280
-                                },
-                                "to_if_alone": [{ "key_code": "i" }],
-                                "to_if_held_down": [{ "key_code": "right_command" }],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "description": "Home‑row dual‑role mods: tap → original key; hold → modifier (built‑in only, 600ms)",
-                        "enabled": false,
-                        "manipulators": [
-                            {
-                                "conditions": [
-                                    {
-                                        "identifiers": [{ "is_built_in_keyboard": true }],
-                                        "type": "device_if"
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "s",
-                                    "modifiers": { "optional": ["any"] }
-                                },
-                                "parameters": { "basic.to_if_held_down_threshold_milliseconds": 600 },
-                                "to_if_alone": [{ "key_code": "s" }],
-                                "to_if_held_down": [{ "key_code": "left_shift" }],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "identifiers": [{ "is_built_in_keyboard": true }],
-                                        "type": "device_if"
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "d",
-                                    "modifiers": { "optional": ["any"] }
-                                },
-                                "parameters": { "basic.to_if_held_down_threshold_milliseconds": 600 },
-                                "to_if_alone": [{ "key_code": "d" }],
-                                "to_if_held_down": [{ "key_code": "left_alt" }],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "identifiers": [{ "is_built_in_keyboard": true }],
-                                        "type": "device_if"
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "f",
-                                    "modifiers": { "optional": ["any"] }
-                                },
-                                "parameters": { "basic.to_if_held_down_threshold_milliseconds": 600 },
-                                "to_if_alone": [{ "key_code": "f" }],
-                                "to_if_held_down": [{ "key_code": "left_control" }],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "identifiers": [{ "is_built_in_keyboard": true }],
-                                        "type": "device_if"
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "e",
-                                    "modifiers": { "optional": ["any"] }
-                                },
-                                "parameters": { "basic.to_if_held_down_threshold_milliseconds": 600 },
-                                "to_if_alone": [{ "key_code": "e" }],
-                                "to_if_held_down": [{ "key_code": "left_command" }],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "identifiers": [{ "is_built_in_keyboard": true }],
-                                        "type": "device_if"
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "l",
-                                    "modifiers": { "optional": ["any"] }
-                                },
-                                "parameters": { "basic.to_if_held_down_threshold_milliseconds": 600 },
-                                "to_if_alone": [{ "key_code": "l" }],
-                                "to_if_held_down": [{ "key_code": "left_shift" }],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "identifiers": [{ "is_built_in_keyboard": true }],
-                                        "type": "device_if"
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "k",
-                                    "modifiers": { "optional": ["any"] }
-                                },
-                                "parameters": { "basic.to_if_held_down_threshold_milliseconds": 600 },
-                                "to_if_alone": [{ "key_code": "k" }],
-                                "to_if_held_down": [{ "key_code": "left_alt" }],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "identifiers": [{ "is_built_in_keyboard": true }],
-                                        "type": "device_if"
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "j",
-                                    "modifiers": { "optional": ["any"] }
-                                },
-                                "parameters": { "basic.to_if_held_down_threshold_milliseconds": 600 },
-                                "to_if_alone": [{ "key_code": "j" }],
-                                "to_if_held_down": [{ "key_code": "left_control" }],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "identifiers": [{ "is_built_in_keyboard": true }],
-                                        "type": "device_if"
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "i",
-                                    "modifiers": { "optional": ["any"] }
-                                },
-                                "parameters": { "basic.to_if_held_down_threshold_milliseconds": 600 },
-                                "to_if_alone": [{ "key_code": "i" }],
-                                "to_if_held_down": [{ "key_code": "left_command" }],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "description": "Discord-Enter-Modification",
-                        "manipulators": [
-                            {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "^com\\.hnc\\.Discord"
-                                        ],
-                                        "type": "frontmost_application_if"
-                                    }
-                                ],
-                                "from": { "key_code": "return_or_enter" },
-                                "to": [
-                                    {
-                                        "key_code": "return_or_enter",
-                                        "modifiers": ["left_shift"]
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "^com\\.hnc\\.Discord"
-                                        ],
-                                        "type": "frontmost_application_if"
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "return_or_enter",
-                                    "modifiers": { "mandatory": ["command"] }
-                                },
-                                "to": { "key_code": "return_or_enter" },
-                                "type": "basic"
-                            }
-                        ]
-                    }
-                ]
-            },
-            "devices": [
-                {
-                    "identifiers": {
-                        "is_keyboard": true,
-                        "is_pointing_device": true,
-                        "product_id": 24801,
-                        "vendor_id": 6127
-                    },
-                    "ignore": false,
-                    "simple_modifications": [
-                        {
-                            "from": { "key_code": "caps_lock" },
-                            "to": [{ "key_code": "left_control" }]
-                        },
-                        {
-                            "from": { "key_code": "left_command" },
-                            "to": [{ "key_code": "left_option" }]
-                        },
-                        {
-                            "from": { "key_code": "left_option" },
-                            "to": [{ "key_code": "left_command" }]
-                        },
-                        {
-                            "from": { "key_code": "page_down" },
-                            "to": [{ "key_code": "right_arrow" }]
-                        },
-                        {
-                            "from": { "key_code": "page_up" },
-                            "to": [{ "key_code": "left_arrow" }]
-                        },
-                        {
-                            "from": { "key_code": "right_command" },
-                            "to": [{ "key_code": "right_option" }]
-                        },
-                        {
-                            "from": { "key_code": "right_option" },
-                            "to": [{ "key_code": "right_command" }]
-                        },
-                        {
-                            "from": { "pointing_button": "button3" },
-                            "to": [{ "key_code": "vk_none" }]
-                        }
+  "profiles": [
+    {
+      "complex_modifications": {
+        "rules": [
+          {
+            "description": "homerow_layer0",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "e",
+                  "modifiers": {
+                    "optional": [
+                      "any"
                     ]
+                  }
+                },
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "vendor_id": 1278,
+                        "product_id": 33
+                      },
+                      {
+                        "is_built_in_keyboard": true
+                      }
+                    ],
+                    "type": "device_if"
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "7003132A-366F-4AA6-9EE7-9C92D539719D-Repeat",
+                    "value": 1
+                  }
+                ],
+                "to": [
+                  {
+                    "key_code": "e"
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "e",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "vendor_id": 1278,
+                        "product_id": 33
+                      },
+                      {
+                        "is_built_in_keyboard": true
+                      }
+                    ],
+                    "type": "device_if"
+                  }
+                ],
+                "to_if_alone": [
+                  {
+                    "key_code": "e"
+                  }
+                ],
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "7003132A-366F-4AA6-9EE7-9C92D539719D-Repeat",
+                      "value": 1
+                    }
+                  },
+                  {
+                    "key_code": "left_command"
+                  }
+                ],
+                "to_delayed_action": {
+                  "to_if_invoked": [
+                    {
+                      "set_variable": {
+                        "name": "7003132A-366F-4AA6-9EE7-9C92D539719D-Repeat",
+                        "value": 0
+                      }
+                    }
+                  ],
+                  "to_if_canceled": [
+                    {
+                      "set_variable": {
+                        "name": "7003132A-366F-4AA6-9EE7-9C92D539719D-Repeat",
+                        "value": 0
+                      }
+                    }
+                  ]
                 }
-            ],
-            "name": "Default profile",
-            "selected": true,
-            "virtual_hid_keyboard": {
-                "country_code": 0,
-                "keyboard_type_v2": "ansi"
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "i",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "vendor_id": 1278,
+                        "product_id": 33
+                      },
+                      {
+                        "is_built_in_keyboard": true
+                      }
+                    ],
+                    "type": "device_if"
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "F872D5F0-E368-4161-9B04-BB6025A1C3CC-Repeat",
+                    "value": 1
+                  }
+                ],
+                "to": [
+                  {
+                    "key_code": "i"
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "i",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "vendor_id": 1278,
+                        "product_id": 33
+                      }
+                    ],
+                    "type": "device_if"
+                  }
+                ],
+                "to_if_alone": [
+                  {
+                    "key_code": "i"
+                  }
+                ],
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "F872D5F0-E368-4161-9B04-BB6025A1C3CC-Repeat",
+                      "value": 1
+                    }
+                  },
+                  {
+                    "key_code": "left_command"
+                  }
+                ],
+                "to_delayed_action": {
+                  "to_if_invoked": [
+                    {
+                      "set_variable": {
+                        "name": "F872D5F0-E368-4161-9B04-BB6025A1C3CC-Repeat",
+                        "value": 0
+                      }
+                    }
+                  ],
+                  "to_if_canceled": [
+                    {
+                      "set_variable": {
+                        "name": "F872D5F0-E368-4161-9B04-BB6025A1C3CC-Repeat",
+                        "value": 0
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "caps_lock",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "vendor_id": 1278,
+                        "product_id": 33
+                      },
+                      {
+                        "is_built_in_keyboard": true
+                      }
+                    ],
+                    "type": "device_if"
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "AFFF5E2C-EC50-4026-89F4-059873C5C190-Repeat",
+                    "value": 1
+                  }
+                ],
+                "to": [
+                  {
+                    "key_code": "escape"
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "caps_lock",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "vendor_id": 1278,
+                        "product_id": 33
+                      }
+                    ],
+                    "type": "device_if"
+                  }
+                ],
+                "to_if_alone": [
+                  {
+                    "key_code": "escape"
+                  }
+                ],
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "AFFF5E2C-EC50-4026-89F4-059873C5C190-Repeat",
+                      "value": 1
+                    }
+                  },
+                  {
+                    "key_code": "left_control"
+                  }
+                ],
+                "to_delayed_action": {
+                  "to_if_invoked": [
+                    {
+                      "set_variable": {
+                        "name": "AFFF5E2C-EC50-4026-89F4-059873C5C190-Repeat",
+                        "value": 0
+                      }
+                    }
+                  ],
+                  "to_if_canceled": [
+                    {
+                      "set_variable": {
+                        "name": "AFFF5E2C-EC50-4026-89F4-059873C5C190-Repeat",
+                        "value": 0
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "s",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "vendor_id": 1278,
+                        "product_id": 33
+                      },
+                      {
+                        "is_built_in_keyboard": true
+                      }
+                    ],
+                    "type": "device_if"
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "88659542-50D5-4994-A00C-5DCAB70302F3-Repeat",
+                    "value": 1
+                  }
+                ],
+                "to": [
+                  {
+                    "key_code": "s"
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "s",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "vendor_id": 1278,
+                        "product_id": 33
+                      },
+                      {
+                        "is_built_in_keyboard": true
+                      }
+                    ],
+                    "type": "device_if"
+                  }
+                ],
+                "to_if_alone": [
+                  {
+                    "key_code": "s"
+                  }
+                ],
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "88659542-50D5-4994-A00C-5DCAB70302F3-Repeat",
+                      "value": 1
+                    }
+                  },
+                  {
+                    "key_code": "left_shift"
+                  }
+                ],
+                "to_delayed_action": {
+                  "to_if_invoked": [
+                    {
+                      "set_variable": {
+                        "name": "88659542-50D5-4994-A00C-5DCAB70302F3-Repeat",
+                        "value": 0
+                      }
+                    }
+                  ],
+                  "to_if_canceled": [
+                    {
+                      "set_variable": {
+                        "name": "88659542-50D5-4994-A00C-5DCAB70302F3-Repeat",
+                        "value": 0
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "d",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "vendor_id": 1278,
+                        "product_id": 33
+                      },
+                      {
+                        "is_built_in_keyboard": true
+                      }
+                    ],
+                    "type": "device_if"
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "2E4184BB-FBA4-40BD-8E8D-E978FC7640A5-Repeat",
+                    "value": 1
+                  }
+                ],
+                "to": [
+                  {
+                    "key_code": "d"
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "d",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "vendor_id": 1278,
+                        "product_id": 33
+                      },
+                      {
+                        "is_built_in_keyboard": true
+                      }
+                    ],
+                    "type": "device_if"
+                  }
+                ],
+                "to_if_alone": [
+                  {
+                    "key_code": "d"
+                  }
+                ],
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "2E4184BB-FBA4-40BD-8E8D-E978FC7640A5-Repeat",
+                      "value": 1
+                    }
+                  },
+                  {
+                    "key_code": "left_option"
+                  }
+                ],
+                "to_delayed_action": {
+                  "to_if_invoked": [
+                    {
+                      "set_variable": {
+                        "name": "2E4184BB-FBA4-40BD-8E8D-E978FC7640A5-Repeat",
+                        "value": 0
+                      }
+                    }
+                  ],
+                  "to_if_canceled": [
+                    {
+                      "set_variable": {
+                        "name": "2E4184BB-FBA4-40BD-8E8D-E978FC7640A5-Repeat",
+                        "value": 0
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "f",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "vendor_id": 1278,
+                        "product_id": 33
+                      },
+                      {
+                        "is_built_in_keyboard": true
+                      }
+                    ],
+                    "type": "device_if"
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "E16BF0F6-4D08-4B3C-82BA-FFBD308D7989-Repeat",
+                    "value": 1
+                  }
+                ],
+                "to": [
+                  {
+                    "key_code": "f"
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "f",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "vendor_id": 1278,
+                        "product_id": 33
+                      },
+                      {
+                        "is_built_in_keyboard": true
+                      }
+                    ],
+                    "type": "device_if"
+                  }
+                ],
+                "to_if_alone": [
+                  {
+                    "key_code": "f"
+                  }
+                ],
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "E16BF0F6-4D08-4B3C-82BA-FFBD308D7989-Repeat",
+                      "value": 1
+                    }
+                  },
+                  {
+                    "key_code": "left_control"
+                  }
+                ],
+                "to_delayed_action": {
+                  "to_if_invoked": [
+                    {
+                      "set_variable": {
+                        "name": "E16BF0F6-4D08-4B3C-82BA-FFBD308D7989-Repeat",
+                        "value": 0
+                      }
+                    }
+                  ],
+                  "to_if_canceled": [
+                    {
+                      "set_variable": {
+                        "name": "E16BF0F6-4D08-4B3C-82BA-FFBD308D7989-Repeat",
+                        "value": 0
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "j",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "vendor_id": 1278,
+                        "product_id": 33
+                      },
+                      {
+                        "is_built_in_keyboard": true
+                      }
+                    ],
+                    "type": "device_if"
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "24C9A01F-F00F-42EF-BF11-9C62757F8DB7-Repeat",
+                    "value": 1
+                  }
+                ],
+                "to": [
+                  {
+                    "key_code": "j"
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "j",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "vendor_id": 1278,
+                        "product_id": 33
+                      },
+                      {
+                        "is_built_in_keyboard": true
+                      }
+                    ],
+                    "type": "device_if"
+                  }
+                ],
+                "to_if_alone": [
+                  {
+                    "key_code": "j"
+                  }
+                ],
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "24C9A01F-F00F-42EF-BF11-9C62757F8DB7-Repeat",
+                      "value": 1
+                    }
+                  },
+                  {
+                    "key_code": "left_control"
+                  }
+                ],
+                "to_delayed_action": {
+                  "to_if_invoked": [
+                    {
+                      "set_variable": {
+                        "name": "24C9A01F-F00F-42EF-BF11-9C62757F8DB7-Repeat",
+                        "value": 0
+                      }
+                    }
+                  ],
+                  "to_if_canceled": [
+                    {
+                      "set_variable": {
+                        "name": "24C9A01F-F00F-42EF-BF11-9C62757F8DB7-Repeat",
+                        "value": 0
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "k",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "vendor_id": 1278,
+                        "product_id": 33
+                      },
+                      {
+                        "is_built_in_keyboard": true
+                      }
+                    ],
+                    "type": "device_if"
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "65B1DD19-3342-49BD-9E56-3D8AEA2C4728-Repeat",
+                    "value": 1
+                  }
+                ],
+                "to": [
+                  {
+                    "key_code": "k"
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "k",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "vendor_id": 1278,
+                        "product_id": 33
+                      },
+                      {
+                        "is_built_in_keyboard": true
+                      }
+                    ],
+                    "type": "device_if"
+                  }
+                ],
+                "to_if_alone": [
+                  {
+                    "key_code": "k"
+                  }
+                ],
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "65B1DD19-3342-49BD-9E56-3D8AEA2C4728-Repeat",
+                      "value": 1
+                    }
+                  },
+                  {
+                    "key_code": "left_option"
+                  }
+                ],
+                "to_delayed_action": {
+                  "to_if_invoked": [
+                    {
+                      "set_variable": {
+                        "name": "65B1DD19-3342-49BD-9E56-3D8AEA2C4728-Repeat",
+                        "value": 0
+                      }
+                    }
+                  ],
+                  "to_if_canceled": [
+                    {
+                      "set_variable": {
+                        "name": "65B1DD19-3342-49BD-9E56-3D8AEA2C4728-Repeat",
+                        "value": 0
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "l",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "vendor_id": 1278,
+                        "product_id": 33
+                      },
+                      {
+                        "is_built_in_keyboard": true
+                      }
+                    ],
+                    "type": "device_if"
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "8A0F7427-222A-450C-8D56-FB87BBEF5085-Repeat",
+                    "value": 1
+                  }
+                ],
+                "to": [
+                  {
+                    "key_code": "l"
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "l",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "vendor_id": 1278,
+                        "product_id": 33
+                      },
+                      {
+                        "is_built_in_keyboard": true
+                      }
+                    ],
+                    "type": "device_if"
+                  }
+                ],
+                "to_if_alone": [
+                  {
+                    "key_code": "l"
+                  }
+                ],
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "8A0F7427-222A-450C-8D56-FB87BBEF5085-Repeat",
+                      "value": 1
+                    }
+                  },
+                  {
+                    "key_code": "left_shift"
+                  }
+                ],
+                "to_delayed_action": {
+                  "to_if_invoked": [
+                    {
+                      "set_variable": {
+                        "name": "8A0F7427-222A-450C-8D56-FB87BBEF5085-Repeat",
+                        "value": 0
+                      }
+                    }
+                  ],
+                  "to_if_canceled": [
+                    {
+                      "set_variable": {
+                        "name": "8A0F7427-222A-450C-8D56-FB87BBEF5085-Repeat",
+                        "value": 0
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "description": "Discord-Enter-Modification",
+            "manipulators": [
+              {
+                "conditions": [
+                  {
+                    "bundle_identifiers": [
+                      "^com\\.hnc\\.Discord"
+                    ],
+                    "type": "frontmost_application_if"
+                  }
+                ],
+                "from": {
+                  "key_code": "return_or_enter"
+                },
+                "to": [
+                  {
+                    "key_code": "return_or_enter",
+                    "modifiers": [
+                      "left_shift"
+                    ]
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "bundle_identifiers": [
+                      "^com\\.hnc\\.Discord"
+                    ],
+                    "type": "frontmost_application_if"
+                  }
+                ],
+                "from": {
+                  "key_code": "return_or_enter",
+                  "modifiers": {
+                    "mandatory": [
+                      "command"
+                    ]
+                  }
+                },
+                "to": {
+                  "key_code": "return_or_enter"
+                },
+                "type": "basic"
+              }
+            ]
+          }
+        ]
+      },
+      "devices": [
+        {
+          "identifiers": {
+            "is_keyboard": true,
+            "is_pointing_device": true,
+            "product_id": 24801,
+            "vendor_id": 6127
+          },
+          "ignore": false,
+          "simple_modifications": [
+            {
+              "from": {
+                "key_code": "caps_lock"
+              },
+              "to": [
+                {
+                  "key_code": "left_control"
+                }
+              ]
+            },
+            {
+              "from": {
+                "key_code": "left_command"
+              },
+              "to": [
+                {
+                  "key_code": "left_option"
+                }
+              ]
+            },
+            {
+              "from": {
+                "key_code": "left_option"
+              },
+              "to": [
+                {
+                  "key_code": "left_command"
+                }
+              ]
+            },
+            {
+              "from": {
+                "key_code": "page_down"
+              },
+              "to": [
+                {
+                  "key_code": "right_arrow"
+                }
+              ]
+            },
+            {
+              "from": {
+                "key_code": "page_up"
+              },
+              "to": [
+                {
+                  "key_code": "left_arrow"
+                }
+              ]
+            },
+            {
+              "from": {
+                "key_code": "right_command"
+              },
+              "to": [
+                {
+                  "key_code": "right_option"
+                }
+              ]
+            },
+            {
+              "from": {
+                "key_code": "right_option"
+              },
+              "to": [
+                {
+                  "key_code": "right_command"
+                }
+              ]
+            },
+            {
+              "from": {
+                "pointing_button": "button3"
+              },
+              "to": [
+                {
+                  "key_code": "vk_none"
+                }
+              ]
             }
+          ]
         }
-    ]
+      ],
+      "name": "Default profile",
+      "selected": true,
+      "virtual_hid_keyboard": {
+        "country_code": 0,
+        "keyboard_type_v2": "ansi"
+      }
+    }
+  ]
 }
