@@ -85,3 +85,4 @@ result
 .config/nix/nix.conf
 .config/fzf-make/history.toml
 .config/raycast/extensions/*
+.config/go
