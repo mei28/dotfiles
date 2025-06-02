@@ -5,6 +5,7 @@
                 "rules": [
                     {
                         "description": "homerow_layer0",
+                        "enabled": false,
                         "manipulators": [
                             {
                                 "conditions": [
