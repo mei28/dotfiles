@@ -16,4 +16,6 @@ in {
     system 
     homebrew
   ];
+
+  system.primaryUser = username;
 }

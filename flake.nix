@@ -66,6 +66,7 @@
             system = "aarch64-darwin";
             modules = [
               ./.config/nix/nix-darwin/default.nix
+              { _module.args = { inherit username; }; }
             ];
           };
         };

@@ -119,6 +119,9 @@ in
     # emacs
     ./modules/emacs.nix
 
+    # ssh
+    ./modules/ssh.nix
+
   ];
 
   # Home Manager programs configuration
