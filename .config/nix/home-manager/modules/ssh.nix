@@ -122,6 +122,46 @@
         }
       ];
     };
+    # === 新しい設定: 2段階SSHトンネルの再現 ===
+    # 1. 踏み台サーバーへの接続とローカルポートフォワーディング (ターミナル1の役割)
+    # この設定を使用するには `ssh as-highreso-tunnel` のように直接実行する必要があります。
+    # -g オプションは localForwards の bind.address で "0.0.0.0" を指定することで再現できます。
+    "as-highreso-tunnel" = {
+      # 新しいエイリアス名を付けます
+      hostname = "as-highreso.com";
+      user = "user"; # as-highreso.com へのログインユーザー名
+      port = 30022; # as-highreso.com へのSSHポート
+      identityFile = "~/.ssh/ackey.txt"; # as-highreso.com へのログインに使用する鍵
+      localForwards = [
+        {
+          # -g (GatewayPorts) に対応するため、bind.address を "0.0.0.0" に設定
+          bind.address = "0.0.0.0";
+          bind.port = 10022;
+          host.address = "172.30.35.52"; # 最終目的サーバーのIPアドレス
+          host.port = 10022; # 最終目的サーバーのSSHポート
+        }
+      ];
+      # 必要であれば、以下を追加して接続が閉じないようにする
+      # serverAliveInterval = 60;
+      # serverAliveCountMax = 5;
+    };
+
+    # 2. 最終目的サーバーへの接続 (ターミナル2の役割)
+    # この設定は、上記で確立されたローカルポートフォワーディングに対して接続します。
+    "soroban-target" = {
+      # 新しいエイリアス名を付けます
+      hostname = "localhost"; # トンネルのローカルエンドポイント
+      user = "yang"; # 最終目的サーバーへのログインユーザー名
+      port = 10022; # ローカルでフォワードされたポート
+      identityFile = "~/.ssh/id_moonshot_rsa"; # 最終目的サーバーへのログインに使用する鍵
+      # 注意: Home Manager の programs.ssh はデフォルトで StrictHostKeyChecking が有効です。
+      # 必要であれば extraOptions で "StrictHostKeyChecking = no;" を追加できますが、
+      # セキュリティ上の理由から推奨されません。
+      # ExtraOptions = {
+      #   StrictHostKeyChecking = "no";
+      #   UserKnownHostsFile = "/dev/null";
+      # };
+    };
 
     # もし Moonshot プロジェクト用の新しい設定を追加するならここ
     # moonshot = {
