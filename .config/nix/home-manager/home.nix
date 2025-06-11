@@ -14,6 +14,8 @@ in
 {
   home.username = username;
   home.homeDirectory = lib.mkDefault "${homeRoot}/${username}";
+  # unfreeパッケージを許可
+  nixpkgs.config.allowUnfree = true;
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   home.stateVersion = "25.05";
@@ -44,6 +46,7 @@ in
       go
       google-cloud-sdk
       pnpm
+      claude-code
 
       # lightgbm
       llvmPackages.openmp # libomp.dylib
