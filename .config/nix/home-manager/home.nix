@@ -16,7 +16,7 @@ in
   home.homeDirectory = lib.mkDefault "${homeRoot}/${username}";
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
-  home.stateVersion = "24.11";
+  home.stateVersion = "25.05";
 
   home.packages =
     with pkgs;
@@ -24,7 +24,8 @@ in
       # Development Tools
       gh
       sqlite
-      nodejs_20
+      # nodejs_20
+      nodejs_24
       rust-analyzer
       cargo-generate
       llvm
@@ -41,6 +42,8 @@ in
       cargo
       rustc
       go
+      google-cloud-sdk
+      pnpm
 
       # lightgbm
       llvmPackages.openmp # libomp.dylib
