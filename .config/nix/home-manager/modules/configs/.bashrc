@@ -185,6 +185,12 @@ alias nvi='export NVIM_APPNAME=nvim-minimal; nvim'
 #     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 # fi
 
+if type npm &> /dev/null; then
+    mkdir -p "$HOME/.npm-global"
+    npm config set prefix "$HOME/.npm-global"
+    export PATH="$HOME/.npm-global/bin:$PATH"
+fi
+
 # mkdir and change directory
 mkcd(){
     mkdir -p $1 && cd $1 && pwd
