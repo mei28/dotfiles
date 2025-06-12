@@ -106,3 +106,54 @@ if ok then
     },
   })
 end
+
+
+
+-- すべてのバッファのフルパスをクリップボードにコピーするコマンド
+vim.api.nvim_create_user_command(
+  'CopyAllBufferPaths',
+  function()
+    -- buflistedで、かつファイル名が空でないバッファのみを対象
+    local bufs = vim.tbl_filter(function(bufnr)
+      return vim.bo[bufnr].buflisted and vim.api.nvim_buf_get_name(bufnr) ~= ''
+    end, vim.api.nvim_list_bufs())
+
+    local paths = vim.tbl_map(vim.api.nvim_buf_get_name, bufs)
+    local result = table.concat(paths, '\n')
+
+    if result ~= '' then
+      vim.fn.setreg('+', result)
+      -- 表示するメッセージを短縮
+      local count = #paths
+      print('Copied ' .. count .. ' buffer paths.')
+    else
+      print('No buffer paths to copy.')
+    end
+  end,
+  { desc = 'Copy all listed buffer full paths to clipboard' }
+)
+
+-- ccb の定義 (CopyCurrentBufferPathの省略形)
+vim.api.nvim_create_user_command(
+  'CCB',
+  'CopyCurrentBufferPath', -- 既存のコマンドを呼び出す
+  { desc = 'Alias for CopyCurrentBufferPath' }
+)
+
+-- cab の定義 (CopyAllBufferPathsの省略形)
+vim.api.nvim_create_user_command(
+  'CAB',
+  'CopyAllBufferPaths', -- 既存のコマンドを呼び出す
+  { desc = 'Alias for CopyAllBufferPaths' }
+)
+
+-- 現在のバッファのフルパスをクリップボードにコピーするコマンド
+vim.api.nvim_create_user_command(
+  'CopyCurrentBufferPath',
+  function()
+    local path = vim.fn.expand('%:p')
+    vim.fn.setreg('+', path)
+    print('Copied: ' .. path)
+  end,
+  { desc = 'Copy current buffer full path to clipboard' }
+)
