@@ -570,6 +570,12 @@ if type portsage &> /dev/null; then
     alias psa='portsage'
 fi
 
+## ccusage
+if type ccusage &> /dev/null; then
+    alias ccu='ccusage'
+    alias ccl='ccusage blocks --live'
+fi
+
 
 #=====================#
 # change config by OS #
