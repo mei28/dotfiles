@@ -47,6 +47,7 @@ in
       google-cloud-sdk
       pnpm
       claude-code
+      terraform
 
       # lightgbm
       llvmPackages.openmp # libomp.dylib

@@ -2,8 +2,10 @@
   description = "Multi-platform configuration for Mac and Linux";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    # nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    # nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/master";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/master";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     home-manager = {
       url = "github:nix-community/home-manager";
