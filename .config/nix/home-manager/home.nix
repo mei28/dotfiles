@@ -48,6 +48,7 @@ in
       pnpm
       claude-code
       terraform
+      postgresql
 
       # lightgbm
       llvmPackages.openmp # libomp.dylib
