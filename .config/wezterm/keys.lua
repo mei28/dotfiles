@@ -71,6 +71,9 @@ local keys = {
   { key = 'r',         mods = 'LEADER', action = act.ActivateKeyTable { name = 'resize_pane', one_shot = false } },
   -- toggle opacity
   { key = 'u',         mods = 'CTRL',   action = wezterm.action.EmitEvent 'toggle-opacity' },
+  -- Shift + Enter to send a newline
+  { key = 'Enter',     mods = 'SHIFT',  action = act.SendString '\n' },
+
 }
 
 local key_tables = {
