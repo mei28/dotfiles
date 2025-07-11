@@ -125,7 +125,7 @@ in
     ./modules/zellij.nix
 
     # emacs
-    ./modules/emacs.nix
+    # ./modules/emacs.nix
 
     # ssh
     ./modules/ssh.nix
