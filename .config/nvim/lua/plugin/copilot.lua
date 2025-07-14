@@ -35,18 +35,19 @@ local spec = {
   {
 
     "CopilotC-Nvim/CopilotChat.nvim",
-    -- branch = "canary",
+    -- branch = "main",
     dependencies = {
       { "zbirenbaum/copilot.lua" }, -- or github/copilot.vim
       { "nvim-lua/plenary.nvim" },  -- for curl, log wrapper
     },
+    build = "make tiktoken",        -- Only on MacOS or Linux
     opts = {
-      debug = false, -- Enable debugging
+      debug = false,                -- Enable debugging
       -- default prompts
       prompts = {
         CommitStaged = {
           prompt =
-          'Write a commit message following the commitizen convention. The title should be a concise summary of the change, with a maximum of 50 characters. The message should include a detailed description of what was changed and why, wrapped at 72 characters per line. Wrap the whole message in a code block with language gitcommit. Ensure the message is clear and informative for future reference.',
+          'Write a commit message following the commitizen convention. The title should be a concise summary of the change, with a maximum of 50 characters. The message should include a detailed description of what was changed and Why the change was made, wrapped at 72 characters per line. Wrap the whole message in a code block with language gitcommit. Ensure the message is clear and informative for future reference.',
         },
       },
     },

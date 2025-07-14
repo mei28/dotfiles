@@ -576,6 +576,9 @@ if type ccusage &> /dev/null; then
     alias ccl='ccusage blocks --live'
 fi
 
+if type claude &> /dev/null; then
+    export EDITOR="nvim"
+fi
 
 #=====================#
 # change config by OS #
