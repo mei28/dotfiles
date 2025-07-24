@@ -86,3 +86,7 @@ result
 .config/fzf-make/history.toml
 .config/raycast/extensions/*
 .config/go
+.claude/projects
+.claude/shell-snapshots
+.claude/statsig
+.claude/todos
