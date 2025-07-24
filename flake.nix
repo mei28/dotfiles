@@ -29,6 +29,9 @@
     portsage = {
       url = "github:mei28/PortSage";
     };
+    git-gardener = {
+      url = "github:mei28/git-gardener";
+    };
   };
 
   outputs =
