@@ -580,6 +580,10 @@ if type claude &> /dev/null; then
     export EDITOR="nvim"
 fi
 
+if type git-gardener &> /dev/null; then
+    alias ggr='git-gardener'
+fi
+
 #=====================#
 # change config by OS #
 #=====================#
