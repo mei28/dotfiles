@@ -584,6 +584,64 @@ if type git-gardener &> /dev/null; then
     alias ggr='git-gardener'
 fi
 
+# Function to omit '%' for the fg command
+fg() {
+    # If there's an argument, run with '%', otherwise run as is
+    if [ -n "$1" ]; then
+        builtin fg %"$1"
+    else
+        builtin fg
+    fi
+}
+
+# Do the same for the bg command
+bg() {
+    if [ -n "$1" ]; then
+        builtin bg %"$1"
+    else
+        builtin bg
+    fi
+}
+
+# A custom function to list jobs and resume one
+jb() {
+    # First, list the current jobs.
+    # Using 'jobs -l' is clearer as it shows the process ID.
+    jobs -l
+
+    # If there are no jobs, exit the function here.
+    if ! jobs &>/dev/null; then
+        return
+    fi
+
+    # Prompt the user for input and wait.
+    # The 'read' command stores the input in the 'job_num' variable.
+    read -p "Enter job number to resume (or Enter to cancel): " job_num
+
+    # Only run the fg command if a number was entered.
+    if [[ -n "$job_num" ]]; then
+        builtin fg %"$job_num"
+    fi
+}
+
+jk() {
+    # showing process IDs can help users identify which job they want to kill
+    jobs -l
+
+    # If there are no jobs, exit the function here.
+    if ! jobs &>/dev/null; then
+        return
+    fi
+
+    # promote user to enter the job number to kill
+    read -p "Enter job number to kill (or Enter to cancel):" job_num
+
+    # If a number was entered, run the kill command
+    if [[ -n "$job_num" ]]; then
+        kill %"$job_num"
+    fi
+}
+
 #=====================#
 # change config by OS #
 #=====================#
