@@ -7,7 +7,8 @@ local spec = {
       "nvim-lua/plenary.nvim",
       -- see below for full list of optional dependencies 👇
       "telescope.nvim",
-      "hrsh7th/nvim-cmp"
+      "hrsh7th/nvim-cmp",
+      "nvim-telescope/telescope.nvim",
     },
     config = function()
       vim.opt.conceallevel = 0
