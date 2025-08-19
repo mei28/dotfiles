@@ -1,6 +1,7 @@
 local spec = {
   {
     'nvim-treesitter/nvim-treesitter',
+    lazy = false,
     event = { 'BufNewFile', 'BufRead' },
     branch = 'main',
     build = { ':TSInstall! vim', ':TSUpdate' },
@@ -42,7 +43,7 @@ function treesitter_setup()
     'make',
     'go',
   }
-  ts.install { installed_parser }
+  ts.install(installed_parser)
 
 
   vim.api.nvim_create_autocmd({ "FileType" }, {
