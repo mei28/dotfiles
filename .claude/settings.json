@@ -1,5 +1,9 @@
 {
   "feedbackSurveyState": {
     "lastShownTime": 1754308736953
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "bun x ccusage statusline"
   }
 }

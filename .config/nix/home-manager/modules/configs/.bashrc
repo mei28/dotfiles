@@ -642,6 +642,11 @@ jk() {
     fi
 }
 
+if type bun &> /dev/null; then
+  export PATH="/Users/mei/.bun/bin:$PATH"
+fi
+
+
 #=====================#
 # change config by OS #
 #=====================#

@@ -49,6 +49,7 @@ in
       claude-code
       terraform
       postgresql
+      bun
 
       # lightgbm
       llvmPackages.openmp # libomp.dylib
