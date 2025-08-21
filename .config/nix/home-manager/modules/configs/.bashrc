@@ -216,7 +216,7 @@ if [ -e $HOME/.pyenv ]; then
     export PATH="$PYENV_ROOT/bin:$PATH"
 fi
 
-if which pyenv > /dev/null; then eval "$(pyenv init --path)"; fi
+# if which pyenv > /dev/null; then eval "$(pyenv init --path)"; fi
 # eval "$(pyenv init --path)"
 # eval "$(pyenv virtualenv-init -)"
 
@@ -694,15 +694,6 @@ case ${OSTYPE} in
             export PATH="/Applications/CMake.app/Contents/bin:$PATH"
         fi
 
-        ## yabai
-        # if type yabai &> /dev/null; then
-        #     alias yabai_start='yabai --start-service'
-        #     # yabai --start-service(開始)
-        #     alias yabai_stop='yabai --stop-service'
-        #     # yabai --stop-service(停止)
-        #     alias yabai_restart='yabai --restart-service'
-        # fi
-
         ;;
         #========#
         # ubuntu #
@@ -751,15 +742,6 @@ case ${OSTYPE} in
         if [ -e /Applications/CMake.app/Contents/bin ]; then
             export PATH="/Applications/CMake.app/Contents/bin:$PATH"
         fi
-
-        ## yabai
-        # if type yabai &> /dev/null; then
-        #     alias yabai_start='yabai --start-service'
-        #     # yabai --start-service(開始)
-        #     alias yabai_stop='yabai --stop-service'
-        #     # yabai --stop-service(停止)
-        #     alias yabai_restart='yabai --restart-service'
-        # fi
 
         ;;
         #========#
