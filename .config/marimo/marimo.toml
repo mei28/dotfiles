@@ -1,57 +1,76 @@
 [ai]
 rules = ""
+mode = "manual"
 
-[server]
-browser = "default"
-follow_symlink = false
+[ai.bedrock]
+
+[ai.anthropic]
+
+[ai.google]
+
+[ai.open_ai]
+
+[diagnostics]
+
+[experimental]
+
+[keymap]
+destructive_delete = true
+preset = "default"
+
+[keymap.overrides]
+
+[language_servers.pylsp]
+enable_pydocstyle = false
+enable_pyflakes = false
+enable_pylint = false
+enable_mypy = true
+enable_ruff = true
+enable_flake8 = false
+enabled = true
+
+[language_servers.ty]
 
 [formatting]
 line_length = 99
 
-[language_servers.pylsp]
-enable_pydocstyle = false
-enable_mypy = true
-enabled = true
-enable_pyflakes = false
-enable_pylint = false
-enable_flake8 = false
-enable_ruff = true
-
-[completion]
-activate_on_typing = true
-copilot = false
-
-[runtime]
-auto_instantiate = true
-auto_reload = "off"
-reactive_tests = true
-output_max_bytes = 8000000
-watcher_on_save = "lazy"
-on_cell_change = "lazy"
-std_stream_max_bytes = 1000000
+[save]
+format_on_save = true
+autosave = "after_delay"
+autosave_delay = 1000
 
 [display]
-default_width = "medium"
-theme = "light"
-code_editor_font_size = 14
-cell_output = "above"
-dataframes = "rich"
 default_table_page_size = 10
+default_table_max_columns = 50
+reference_highlighting = false
+dataframes = "rich"
+code_editor_font_size = 14
+theme = "light"
+default_width = "medium"
+cell_output = "below"
 
 [package_management]
 manager = "uv"
 
-[experimental]
-
-[save]
-autosave = "after_delay"
-autosave_delay = 1000
-format_on_save = false
+[completion]
+activate_on_typing = true
+copilot = "github"
 
 [snippets]
 include_default_snippets = true
 custom_paths = []
 
-[keymap]
-preset = "default"
-[keymap.overrides]
+[runtime]
+default_sql_output = "auto"
+output_max_bytes = 8000000
+on_cell_change = "autorun"
+watcher_on_save = "lazy"
+auto_instantiate = false
+auto_reload = "autorun"
+std_stream_max_bytes = 1000000
+reactive_tests = true
+default_auto_download = []
+
+[server]
+browser = "default"
+follow_symlink = false

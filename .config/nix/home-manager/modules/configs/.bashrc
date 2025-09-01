@@ -643,8 +643,29 @@ jk() {
 }
 
 if type bun &> /dev/null; then
-  export PATH="/Users/mei/.bun/bin:$PATH"
+    export PATH="/Users/mei/.bun/bin:$PATH"
 fi
+
+# copy pwd to clipboard
+cpwd() {
+    # macOS
+    if command -v pbcopy >/dev/null 2>&1; then
+        pwd | pbcopy
+        echo "Copied to clipboard: $(pwd)"
+        # Linux Waylandの場合 (wl-copyコマンドをチェック)
+    elif command -v wl-copy >/dev/null 2>&1; then
+        pwd | wl-copy
+        echo "Copied to clipboard: $(pwd)"
+        # Linux X11の場合 (xclipコマンドをチェック)
+    elif command -v xclip >/dev/null 2>&1; then
+        pwd | xclip -selection clipboard
+        echo "Copied to clipboard: $(pwd)"
+    else
+        echo "Error: No clipboard tool found. Please install pbcopy, wl-copy, or xclip."
+        return 1
+    fi
+}
+
 
 
 #=====================#
