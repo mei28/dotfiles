@@ -7,14 +7,17 @@
 
 {
   programs.ssh.enable = true;
+  programs.ssh.enableDefaultConfig = false; # デフォルト設定を無効化
 
   # グローバルなSSHオプションは programs.ssh のトップレベルに配置します
-  # matchBlocks."*" に書くのではなく、programs.ssh の直下です
-  programs.ssh.controlMaster = "auto";
-  programs.ssh.controlPath = "~/.ssh/mux-%r@%h:%p";
-  programs.ssh.controlPersist = "4h";
-
   programs.ssh.matchBlocks = {
+    "*" = {
+      controlMaster = "auto";
+      controlPath = "~/.ssh/mux-%r@%h:%p";
+      controlPersist = "4h";
+      # 必要であれば他の共通設定もここに追加できます
+      # e.g. serverAliveInterval = 60;
+    };
     # HomeUbuntu
     HomeUbuntu = {
       hostname = "192.168.40.30";
