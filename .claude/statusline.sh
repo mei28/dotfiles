@@ -66,10 +66,18 @@ else
 fi
 
 full_status_line=$(echo "$input" | bun x ccusage@latest statusline "$@")
-extracted_info=$(echo "$full_status_line" | cut -d '|' -f 2 | sed 's/.* \//\//')
 
-today_info=$(echo "$extracted_info" | cut -d '/' -f 2)
-block_info=$(echo "$extracted_info" | cut -d '/' -f 3)
+# ccusage出力の2番目のフィールド（金額情報）を抽出
+# 例: " 💰 $0.23 session / $1.23 today / $0.45 block (2h 45m left) "
+money_info=$(echo "$full_status_line" | cut -d '|' -f 2)
 
-echo "󰚩 ${MODEL_DISPLAY} |  ${CURRENT_DIR##*/}${GIT_BRANCH} |  ${TOKEN_COUNT} | 󰃰 ${today_info} | 󰔟 ${block_info}"
+# `/` で区切って2番目の要素 (" $1.23 today ") を抽出し、xargsで前後の空白を削除
+today_info=$(echo "$money_info" | cut -d '/' -f 2 | xargs)
+
+# `/` で区切って3番目の要素 (" $0.45 block (2h 45m left) ") を抽出し、xargsで空白削除
+block_info_raw=$(echo "$money_info" | cut -d '/' -f 3 | xargs)
+# 括弧内の残り時間 ("2h 45m left") を抽出
+time_left=$(echo "$block_info_raw" | sed 's/.*(\(.*\))/\1/')
+
+echo "󰚩 ${MODEL_DISPLAY} |  ${CURRENT_DIR##*/}${GIT_BRANCH} |  ${TOKEN_COUNT} | 󰃰 ${today_info} | 󰔟 ${time_left}"
 

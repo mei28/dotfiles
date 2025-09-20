@@ -484,6 +484,8 @@ fi
 if type wezterm  &> /dev/null;
 then
     alias imgcat='wezterm imgcat'
+    eval "$(wezterm shell-completion --shell bash)"
+    ln -snf ~/.config/wezterm/wezterm.lua ~/.wezterm.lua
 fi
 
 
