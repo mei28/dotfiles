@@ -1,9 +1,10 @@
 {
-  "feedbackSurveyState": {
-    "lastShownTime": 1754308736953
-  },
   "statusLine": {
     "type": "command",
     "command": "$HOME/dotfiles/.claude/statusline.sh"
+  },
+  "alwaysThinkingEnabled": true,
+  "feedbackSurveyState": {
+    "lastShownTime": 1754308736953
   }
 }

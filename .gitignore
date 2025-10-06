@@ -90,3 +90,5 @@ result
 .claude/shell-snapshots
 .claude/statsig
 .claude/todos
+.claude/file-history
+.claude/history.jsonl
