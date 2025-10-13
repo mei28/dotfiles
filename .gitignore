@@ -92,3 +92,4 @@ result
 .claude/todos
 .claude/file-history
 .claude/history.jsonl
+.claude/debug
