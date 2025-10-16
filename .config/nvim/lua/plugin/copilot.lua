@@ -45,9 +45,26 @@ local spec = {
       debug = false,                -- Enable debugging
       -- default prompts
       prompts = {
-        CommitStaged = {
+        Commit = {
           prompt =
-          'Write a commit message following the commitizen convention. The title should be a concise summary of the change, with a maximum of 50 characters. The message should include a detailed description of what was changed and Why the change was made, wrapped at 72 characters per line. Wrap the whole message in a code block with language gitcommit. Ensure the message is clear and informative for future reference.',
+          [[
+Write a commit message following these rules:
+- DO NOT include any Claude Code signatures
+- Use mandatory prefix based on Angular convention:
+  * feat: new feature
+  * fix: bug fix
+  * docs: documentation only changes
+  * style: changes that don't affect code meaning (whitespace, formatting)
+  * refactor: code changes that neither fix bugs nor add features
+  * perf: code changes that improve performance
+  * test: adding tests or modifying existing tests
+  * chore: changes to build process, tools, or libraries
+- Include WHY: explain the reason, background, and purpose of the change
+- Focus on why the change was made, not just what was changed
+- Keep title under 50 characters
+- Wrap message body at 72 characters
+- Format as a gitcommit code block
+            ]]
         },
       },
     },

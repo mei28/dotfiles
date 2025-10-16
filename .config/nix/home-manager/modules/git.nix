@@ -14,8 +14,11 @@ in
 
     ignores = [
       ".DS_Store"
+      "*DS_Store*"
       "node_modules"
       "*.swp"
+      ".venv"
+      "target"
     ];
 
     extraConfig = {
