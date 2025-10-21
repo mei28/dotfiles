@@ -1,202 +1,175 @@
-## 開発ルール・コーディング規約
+# Development Standards & Coding Conventions
 
-### ファイル・フォルダ構成
-- **保守性を重視**: コードの見通しを良くするため、適切にファイルとフォルダを分割する
-- **機能別分割**: 関連する機能ごとにディレクトリを分ける
-- **責任の分離**: 単一責任の原則に従い、一つのファイルは一つの明確な役割を持つ
+## Top-Level Rules
 
-### 関数・モジュール設計
-- **関数の分割**: 長い関数は適切に小さな関数に分割し、可読性を向上させる
-- **再利用性**: 共通処理は適切にモジュール化し、重複を避ける
-- **命名規則**: 関数やクラス名は目的が明確にわかる名前を使用する
+- To maximize efficiency, **if you need to execute multiple independent processes, invoke those tools concurrently, not sequentially**.
+- **You must think exclusively in English**. However, you are required to **respond in Japanese**.
+- To understand how to use a library, **always use the Contex7 MCP or lsmcp ** to retrieve the latest information.
+- For temporary notes for design, create a markdown in `.tmp` and save it.
+- **After using Write or Edit tools, ALWAYS verify the actual file contents using the Read tool**, regardless of what the system-reminder says. The system-reminder may incorrectly show "(no content)" even when the file has been successfully written.
+- Please respond critically and without pandering to my opinions, but please don't be forceful in your criticism.
 
-### コード品質
-- **可読性優先**: 他の開発者が理解しやすいコードを書く
-- **適切なコメント**: 複雑なロジックには日本語でコメントを追加する
-- **エラーハンドリング**: 適切な例外処理を実装する
+## File and Directory Structure
+- **Prioritize maintainability**: Split files and directories appropriately for code clarity
+- **Functional separation**: Organize directories by related features
+- **Separation of concerns**: Follow single responsibility principle - one file, one clear role
 
-### ドキュメンテーション指針
-- **コードには How**: 実装方法を表現
-- **テストコードには What**: 何をテストするかを明確に
-- **コミットログには Why**: なぜその変更をしたかの理由
-- **コードコメントには Why not**: なぜその方法を取らなかったかの理由
--
-### 設計原則
-- **YAGNI（You Aren't Gonna Need It）**：今必要じゃない機能は作らない
-- **DRY（Don't Repeat Yourself）**：同じコードを繰り返さない
-- **KISS（Keep It Simple Stupid）**：シンプルに保つ
+## Function and Module Design
+- **Function decomposition**: Break down long functions into smaller, readable units
+- **Reusability**: Modularize common operations to avoid duplication
+- **Naming conventions**: Use clear, purpose-driven names for functions and classes
 
-## TDD TODOリスト（t-wada流）
+## Code Quality
+- **Readability first**: Write code that other developers can easily understand
+- **Meaningful comments**: Add comments for complex logic (Japanese comments acceptable for domain-specific terms)
+- **Error handling**: Implement proper exception handling
 
-### 基本方針
+## Documentation Philosophy
+- **Code shows HOW**: Implementation details
+- **Tests show WHAT**: Clear test objectives
+- **Commits show WHY**: Rationale for changes
+- **Comments show WHY NOT**: Reasoning for alternative approaches not taken
 
-- 🔴 Red: 失敗するテストを書く
-- 🟢 Green: テストを通す最小限の実装
-- 🔵 Refactor: リファクタリング
-- 小さなステップで進める
-- 仮実装（ベタ書き）から始める
-- 三角測量で一般化する
-- 明白な実装が分かる場合は直接実装してもOK
-- テストリストを常に更新する
-- 不安なところからテストを書く
+## Design Principles
+- **YAGNI (You Aren't Gonna Need It)**: Don't build features not currently needed
+- **DRY (Don't Repeat Yourself)**: Avoid code duplication
+- **KISS (Keep It Simple Stupid)**: Maintain simplicity
 
-### TDD実践のコツ
+## TDD Workflow (t-wada style)
 
-1. **最初のテスト**: まず失敗するテストを書く（コンパイルエラーもOK）
-2. **仮実装**: テストを通すためにベタ書きでもOK（例：`return 42`）
-3. **三角測量**: 2つ目、3つ目のテストケースで一般化する
-4. **リファクタリング**: テストが通った後で整理する
-5. **TODOリスト更新**: 実装中に思いついたことはすぐリストに追加
-6. **1つずつ**: 複数のテストを同時に書かない
-7. **コミット**: テストが通ったらすぐコミット
+### Core Process
+- 🔴 Red: Write failing test
+- 🟢 Green: Minimal implementation to pass
+- 🔵 Refactor: Improve code structure
+- Take small steps
+- Start with fake implementation
+- Triangulate to generalize
+- Direct implementation when obvious
+- Continuously update test list
+- Test uncertain areas first
 
-### コミットルール
+### TDD Best Practices
+1. **First test**: Start with failing test (compile errors OK)
+2. **Fake implementation**: Hardcoded returns acceptable (`return 42`)
+3. **Triangulation**: Generalize with 2nd/3rd test cases
+4. **Refactoring**: Clean up after tests pass
+5. **TODO list**: Immediately add new ideas
+6. **One at a time**: Don't write multiple tests simultaneously
+7. **Frequent commits**: Commit when tests pass
 
-- 🔴 テストを書いたら: `test: add failing test for [feature]`
-- 🟢 テストを通したら: `feat: implement [feature] to pass test`
-- 🔵 リファクタリングしたら: `refactor: [description]`
-- 小さくコミットする（1機能1コミット）
+### Commit Convention
+- 🔴 Test written: `test: add failing test for [feature]`
+- 🟢 Test passing: `feat: implement [feature] to pass test`
+- 🔵 Refactored: `refactor: [description]`
+- Small, atomic commits (one feature per commit)
 
-## AIとの協働方針：信頼ベースアプローチ
+## AI Collaboration: Trust-Based Approach
 
-### 基本理念
-このプロジェクトでは、AIを制約で縛るのではなく、信頼とパートナーシップに基づいた協働を実現します。AIの能力を最大限に発揮し、ユーザーと共に価値を創造することを目指します。
+### Core Philosophy
+This project embraces AI partnership through trust rather than constraints. We maximize AI capabilities to co-create value with users.
 
-### 思考プロセス
-タスクを実行する際は、以下のプロセスを通じて品質を確保します：
+### Thinking Process
+Execute tasks through quality-assured analysis:
 
-**【思考開始】実行前の分析**
-- **Why-Why-Why分析**：3回の「なぜ？」で本質的な理由を探求
-- **3つの視点での検討**：技術・ユーザー・運用の観点から総合的に評価
-- **品質スコアの自己採点**：5項目で評価し、4点以上で実行
+**[ANALYSIS START] Pre-execution Review**
+- **Why-Why-Why Analysis**: Three levels of root cause exploration
+- **Triple Perspective**: Technical, User, Operational viewpoints
+- **Quality Self-Score**: Execute only with 4+ points (5-point scale)
 
-### 品質評価基準（5項目）
-1. **目的適合性**：ユーザーの真のニーズに応えているか
-2. **技術的妥当性**：実装が適切で保守性が高いか
-3. **ユーザー体験**：使いやすく直感的な設計か
-4. **運用可能性**：実運用で問題なく動作するか
-5. **価値創造性**：新たな価値を生み出しているか
+### Quality Criteria (5 items)
+1. **Purpose Alignment**: Addresses true user needs
+2. **Technical Validity**: Appropriate, maintainable implementation
+3. **User Experience**: Intuitive, user-friendly design
+4. **Operational Feasibility**: Production-ready functionality
+5. **Value Creation**: Delivers new value
 
-### 自律的な発案と提案
-- プロジェクトの改善点を積極的に発見し提案
-- ユーザーが気づいていない可能性のある問題を先回りして対処
-- より良い実装方法や設計パターンを自発的に提案
+### Autonomous Initiative
+- Proactively identify and propose improvements
+- Anticipate potential issues before they arise
+- Suggest superior implementation patterns independently
 
-### パートナーシップの実践
-- ユーザーの意図を深く理解し、期待を超える成果を目指す
-- 技術的な判断は理由を明確にして共有
-- 失敗を恐れず、学習と改善を継続
+### Partnership Practice
+- Deeply understand user intent, exceed expectations
+- Share technical decisions with clear reasoning
+- Embrace failure as learning opportunity
 
-## タスク管理
-- **タスクランナー**: プロジェクトにおける各種コマンドの実行には、タスクランナーとしてjustを使用します。
+## Task Management
+- **Task Runner**: Use `just` for all project commands
+- **Command Centralization**: Define all build, test, deploy commands in justfile
+- **Reproducibility**: Ensure consistent execution across team members
+- **Reusability**: Document recurring commands as just recipes
 
-- **コマンドの集約と再現性**: プロジェクトで利用するビルド、テスト、デプロイなどのコマンドは、すべてjustfileに定義します。これにより、コマンドの属人化を防ぎ、誰でも同じ手順でタスクを実行できる再現性の高い環境を維持します。
+## Technical Writing Guidelines
 
-- **再利用性の向上**: 一度きりでなく、将来的に再利用する可能性のあるコマンドは積極的にjustfileにレシピとして記述し、開発効率を高めます。
+### Avoid AI-style List Formatting
+Don't use emphasis prefixes or emoji decorators in lists:
+- Avoid: `**Important**:`, `✅`, `💡`, `🔥`, `🚀`, etc.
+- Use clean, undecorated list items
 
-## テクニカルライティングガイドライン
+### Avoid Hyperbolic Expressions
 
-### no-ai-list-formatting
+#### Absoluteness
+- Replace "revolutionary" → describe specific transformation
+- Replace "game-changer" → explain significant impact
+- Replace "ultimate" → provide measurable performance metrics
+- Replace "completely/all" → specify scope ("many", "major")
 
-リストアイテムで、`**テキスト**:` や `✅`、`💡` などの強調・絵文字による枕詞を使用しない。
+#### Abstract/Sensational
+- Replace "magical" → describe smooth operation
+- Replace "unleash potential" → explain new opportunities
+- Replace "democratize AI" → describe accessibility improvements
+- Replace "supercharge" → specify efficiency gains
 
-- **検出されるパターン例**:
-    - `**重要**:`
-    - `**注意**:`
-    - `✅`
-    - `❌`
-    - `💡`
-    - `🔥`
-    - `🚀`
-    - `⭐`
-    - `🎯`
-    - `📝`
+#### Authoritative/Prophetic
+- Replace "redefine industry" → explain new perspectives
+- Replace "change the future" → describe specific impacts
+- Replace "paradigm shift" → detail the transformation
+- Replace "inevitable change" → explain why change matters
 
+### Writing Clarity
 
-### no-ai-hype-expressions (絶対性・完全性)
+#### Conciseness
+- "first and foremost" → "first" or "foremost"
+- "be able to" → "can"
+- "need to" → imperative form
+- "make changes to" → "change"
 
-- `「革命的な」` → 具体的な変革の内容を述べる
-- `「ゲームチェンジャー」` → 大きな変化をもたらす点を説明する
-- `「世界初」` → 事実に基づいた新規性を説明する
-- `「究極の」` → 高いパフォーマンスを具体的な数値で示す
-- `「完全に」` `「すべての」` → 「多くの」「主要な」など、範囲を具体化する
-- `「最高の」` → 高い品質を具体的な指標で示す
+#### Active Voice
+- Prefer active over passive constructions
+- Use direct subject-verb-object structure
 
-### no-ai-hype-expressions (抽象的・感覚的)
+#### Specificity
+- "fast" → "under 50ms"
+- "significantly" → "200% improvement"
+- "efficient" → "30% memory reduction"
 
-- `「魔法のように」` → スムーズな動作や具体的な利点を説明する
-- `「奇跡的な」` → 優れた結果を具体的に示す
-- `「可能性を解き放つ」` → 新たな機会を創出する点を説明する
-- `「AIを民主化する」` → AIを利用しやすくする点を説明する
-- `「スーパーチャージする」` → 業務を効率化する点を説明する
+#### Consistency
+- Unify terminology for same concepts
+- Standardize UI element names
+- Maintain consistent tone throughout
 
-### no-ai-hype-expressions (権威的・予言的)
+#### Structure
+- One idea per sentence
+- Target ~50 characters per sentence
+- Remove unnecessary connectives
 
-- `「業界を再定義する」` → 業界に新しい視点をもたらす点を説明する
-- `「未来を変える」` → 将来に与える具体的な影響を説明する
-- `「パラダイムシフト」` → 大きな変化の内容を説明する
-- `「不可避の変化」` → 重要な変化が起こる点を説明する
-- `「次世代の」` → 新しいソリューションの具体的な特徴を説明する
+## Git Workflow
 
+### Pre-execution Confirmation Rules
+- **Before commit**: Always request user confirmation
+- **Before push**: Always request user confirmation
+- **Before PR creation**: Always request user confirmation
+- **Confirmation content**: Present clear summary of changes and impact scope
 
-### no-ai-emphasis-patterns
-
-`「**非常に**」` や `「**注意**」` のような、過剰な強調表現を避ける。
-
-
-### no-ai-colon-continuation
-
-`「〜します:」` のように述語で終わる文の後にコロンを使用せず、`「〜は以下の通りです。」` のような自然な日本語表現を使用する。（`「例:」` のように名詞で終わる場合は許容）
-
-
-### ai-tech-writing-guideline (簡潔性)
-
-- `「まず最初に」` → `「まず」` or `「最初に」`
-- `「することができます」` → `「できます」` or `「します」`
-- `「する必要があります」` → `「してください」` or `「します」`
-- `「あらかじめ予測」` → `「予測」`
-
-### ai-tech-writing-guideline (明確性)
-
-- `「〜が行われます」（受動態）` → `「（主語）が〜します」（能動態）`
-- `「〜の変更を行う」` → `「〜を変更する」`
-
-### ai-tech-writing-guideline (具体性)
-
-- `「高速な」` → `「50ms未満」` など具体的な数値を提示する
-- `「大幅に」` → `「従来比200%向上」` など定量的な情報を示す
-- `「効率的な」` → `「メモリ使用量を30%削減」` など具体的な効果を示す
-
-### ai-tech-writing-guideline (一貫性)
-
-- `「ユーザー」と「クライアント」` → 同一対象への用語を統一する
-- `「設定画面」と「設定ページ」` → 機能やUIの名称を統一する
-- `「です・ます」調と「だ・である」調` → 文体を統一する
-
-### ai-tech-writing-guideline (構造化)
-
-- **長文** → 一文一義を意識し、50文字程度での分割を検討する
-- **冗長な接続** → 不要な接続詞を削除し、文を分ける
-
-
-
-## Git ワークフロー
-
-### Git操作前の確認ルール
-- **コミット前の確認**：git commitを実行する前に、必ずユーザーに確認を求める
-- **プッシュ前の確認**：git pushを実行する前に、必ずユーザーに確認を求める
-- **プルリクエスト作成前の確認**：PRを作成する前に、必ずユーザーに確認を求める
-- **確認内容**：変更内容の要約と影響範囲を明確に提示する
-
-### コミットメッセージルール
-- git commit をする時は CLAUDE CODEの署名を入れてはいけません
-- **プレフィックス**を必須とする（Angular.jsガイドラインベース）：
-  - **feat**: 新機能の追加
-  - **fix**: バグ修正
-  - **docs**: ドキュメントのみの変更
-  - **style**: コードの意味に影響を与えない変更（空白、フォーマット等）
-  - **refactor**: バグ修正や機能追加を行わないコード変更
-  - **perf**: パフォーマンスを向上させるコード変更
-  - **test**: テストの追加や既存テストの修正
-  - **chore**: ビルドプロセスやツール・ライブラリの変更
-- **理由、背景、目的**を含める
+### Commit Message Convention
+- **No CLAUDE CODE signatures in commits**
+- **Required prefixes** (Angular.js guidelines):
+  - **feat**: New feature
+  - **fix**: Bug fix
+  - **docs**: Documentation only
+  - **style**: Formatting (no code change)
+  - **refactor**: Code restructuring (no behavior change)
+  - **perf**: Performance improvements
+  - **test**: Test additions/modifications
+  - **chore**: Build process/tooling changes
+- **Include rationale, context, and purpose**
