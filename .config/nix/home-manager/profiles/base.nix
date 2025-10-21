@@ -52,17 +52,10 @@
   # Home Manager自身
   programs.home-manager.enable = true;
 
-  # neovim基本設定
-  programs.neovim.plugins = [
-    {
-      plugin = pkgs.vimPlugins.sqlite-lua;
-      config =
-        let
-          sqliteLib = if pkgs.stdenv.isDarwin then "libsqlite3.dylib" else "libsqlite3.so";
-        in
-        "vim.g:sqlite_clib_path = '${pkgs.sqlite.out}/lib/${sqliteLib}'";
-    }
-  ];
+  # neovim設定は ~/.dotfiles/.config/nvim/ を直接使用（Lazy.nvim対応）
+  # neovimパッケージは home.packages に含まれている（28行目）
+  # .config/nvim を dotfiles からシンボリックリンク
+  home.file.".config/nvim".source = ../../../nvim;
 
   # unfreeパッケージを許可
   nixpkgs.config.allowUnfree = true;
