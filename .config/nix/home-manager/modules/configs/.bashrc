@@ -200,8 +200,8 @@ mkcd(){
 # ruby env
 if [ -e ~/.rbenv/shims ]; then
     export PATH="~/.rbenv/shims:/usr/local/bin:$PATH"
+    if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 fi
-if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 # rust env  for rust
 if [[ -f $HOME/.cargo/env ]]; then
