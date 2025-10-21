@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches: [main, remote-nix]  # remote-nixブランチも追加
   pull_request:
     branches: [main]
   workflow_dispatch:
