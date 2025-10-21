@@ -29,15 +29,6 @@ in
   # stateVersion
   home.stateVersion = "25.05";
 
-  # リモート専用の追加設定
-  programs.bash.bashrcExtra = lib.mkAfter ''
-    # SSH接続時に自動tmux起動
-    if [[ -z "$TMUX" ]] && [[ -n "$SSH_CONNECTION" ]]; then
-      # 既存のセッションにアタッチ、なければ新規作成
-      tmux attach -t remote || tmux new-session -s remote
-    fi
-  '';
-
   # Git設定（リモート環境用）
   # 既存のmodules/git.nixがあるため、上書きが必要な場合のみ
   programs.git.settings = {
