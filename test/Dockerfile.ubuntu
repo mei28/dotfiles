@@ -1,0 +1,38 @@
+# Test Dockerfile for Ubuntu environment
+# This simulates an EC2 Ubuntu instance for testing dotfiles setup
+
+FROM ubuntu:22.04
+
+# Install minimal dependencies
+RUN apt-get update && \
+    apt-get install -y \
+    git \
+    curl \
+    sudo \
+    xz-utils \
+    ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create test user (simulating EC2 ubuntu user)
+RUN useradd -m -s /bin/bash -G sudo ubuntu && \
+    echo "ubuntu ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
+# Switch to test user
+USER ubuntu
+WORKDIR /home/ubuntu
+
+# Copy dotfiles to container
+COPY --chown=ubuntu:ubuntu . /home/ubuntu/.dotfiles
+
+# Run bootstrap script
+RUN cd /home/ubuntu/.dotfiles && \
+    bash remote-bootstrap.sh
+
+# Verify installation
+RUN bash -c 'source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh && \
+    which git && \
+    which tmux && \
+    which nvim && \
+    which fzf'
+
+CMD ["/bin/bash"]

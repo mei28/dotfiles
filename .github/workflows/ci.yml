@@ -1,0 +1,86 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  nix-check:
+    name: Nix Flake Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v13
+
+      - name: Setup Nix cache
+        uses: DeterminateSystems/magic-nix-cache-action@v7
+
+      - name: Check flake
+        run: nix flake check --impure
+
+      - name: Format check
+        run: |
+          nix fmt
+          git diff --exit-code || (echo "Files need formatting. Run 'nix fmt'" && exit 1)
+
+  shellcheck:
+    name: ShellCheck
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run ShellCheck
+        uses: ludeeus/action-shellcheck@master
+        with:
+          scandir: '.'
+          severity: warning
+          ignore_paths: '.git .nix'
+
+  build-profiles:
+    name: Build Profiles
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        profile: [remote]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v13
+
+      - name: Setup Nix cache
+        uses: DeterminateSystems/magic-nix-cache-action@v7
+
+      - name: Build remote profile
+        run: |
+          nix build .#legacyPackages.$(nix eval --impure --raw --expr 'builtins.currentSystem').homeConfigurations.mei-remote.activationPackage --impure
+
+  test-bootstrap:
+    name: Test Bootstrap Script
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Test bootstrap script
+        run: |
+          # Don't actually run the full bootstrap, just check syntax
+          bash -n remote-bootstrap.sh
+          echo "Bootstrap script syntax is valid"
+
+      - name: Check required commands
+        run: |
+          # Verify script uses required commands correctly
+          grep -q "command -v nix" remote-bootstrap.sh
+          grep -q "git clone" remote-bootstrap.sh
+          grep -q "home-manager" remote-bootstrap.sh
+          echo "Bootstrap script structure is valid"

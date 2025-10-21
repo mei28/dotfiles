@@ -93,3 +93,19 @@ result
 .claude/file-history
 .claude/history.jsonl
 .claude/debug
+
+# 機密情報（リモート環境にコミットしない）
+.openai
+.aws/
+.ssh/id_*
+.ssh/*.pem
+.gnupg/
+*.key
+*.pem
+.env
+.env.*
+credentials.json
+*credentials*
+
+# リモート環境固有の設定ファイル（必要に応じて）
+.config/nix/home-manager/profiles/options-override.nix
