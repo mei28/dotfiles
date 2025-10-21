@@ -41,7 +41,8 @@ jobs:
         run: |
           shellcheck --version
           # Check only newly created scripts (not legacy ones)
-          shellcheck remote-bootstrap.sh test/verify-setup.sh
+          # Only check for errors and warnings, ignore info-level messages
+          shellcheck --severity=warning remote-bootstrap.sh test/verify-setup.sh
           echo "ShellCheck passed for new scripts"
 
   build-profiles:

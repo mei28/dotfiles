@@ -82,7 +82,7 @@ echo ""
 echo -n "Checking home-manager state... "
 if [ -e "$HOME/.local/state/nix/profiles/home-manager" ]; then
     echo -e "${GREEN}✓${NC}"
-    echo "  Profile: $(readlink $HOME/.local/state/nix/profiles/home-manager)"
+    echo "  Profile: $(readlink "$HOME/.local/state/nix/profiles/home-manager")"
 else
     echo -e "${YELLOW}⚠ home-manager state not found${NC}"
 fi
