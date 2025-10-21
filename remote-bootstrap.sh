@@ -30,7 +30,7 @@ else
 fi
 
 # 2. Clone dotfiles
-DOTFILES_DIR="${HOME}/.dotfiles"
+DOTFILES_DIR="${HOME}/dotfiles"
 if [ ! -d "$DOTFILES_DIR" ]; then
   echo -e "${YELLOW}📥 Cloning dotfiles...${NC}"
   git clone --depth 1 https://github.com/mei28/dotfiles.git "$DOTFILES_DIR"
