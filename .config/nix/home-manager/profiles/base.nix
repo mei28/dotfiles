@@ -60,8 +60,7 @@
       plugin = pkgs.vimPlugins.sqlite-lua;
       config =
         let
-          sqliteLib =
-            if pkgs.stdenv.isDarwin then "libsqlite3.dylib" else "libsqlite3.so";
+          sqliteLib = if pkgs.stdenv.isDarwin then "libsqlite3.dylib" else "libsqlite3.so";
         in
         "vim.g:sqlite_clib_path = '${pkgs.sqlite.out}/lib/${sqliteLib}'";
     }

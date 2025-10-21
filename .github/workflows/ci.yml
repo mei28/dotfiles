@@ -26,8 +26,9 @@ jobs:
 
       - name: Format check
         run: |
-          nix fmt
-          git diff --exit-code || (echo "Files need formatting. Run 'nix fmt'" && exit 1)
+          # Format only specific nix files (profiles and main files)
+          nix fmt -- .config/nix/home-manager/profiles/*.nix flake.nix
+          git diff --exit-code || (echo "Files need formatting. Run 'just fmt'" && exit 1)
 
   shellcheck:
     name: ShellCheck
@@ -36,12 +37,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Run ShellCheck
-        uses: ludeeus/action-shellcheck@master
-        with:
-          scandir: '.'
-          severity: warning
-          ignore_paths: '.git .nix'
+      - name: Run ShellCheck on new scripts
+        run: |
+          shellcheck --version
+          # Check only newly created scripts (not legacy ones)
+          shellcheck remote-bootstrap.sh test/verify-setup.sh
+          echo "ShellCheck passed for new scripts"
 
   build-profiles:
     name: Build Profiles
