@@ -5,8 +5,8 @@ in
 {
   programs.git = {
     enable = true;
-    userName = gitUsername;
-    userEmail = gitEmail;
+    # userName = gitUsername;
+    # userEmail = gitEmail;
 
     attributes = [
       "*.ipynb filter=clean_ipynb"
@@ -21,7 +21,11 @@ in
       "target"
     ];
 
-    extraConfig = {
+    settings = {
+      user = {
+        name = gitUsername;
+        email = gitEmail;
+      };
       # Core settings
       core.excludesFile = "/Users/${username}/.gitignore_global";
       core.editor = "nvim";

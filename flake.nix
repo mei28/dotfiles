@@ -59,11 +59,18 @@
         legacyPackages = {
           inherit (pkgs) home-manager;
 
-          # Home Manager configuration
+          # Home Manager configuration (macOS)
           homeConfigurations."${username}" = home-manager.lib.homeManagerConfiguration {
             pkgs = pkgs;
             extraSpecialArgs = { inherit inputs system pkgsUnstable; };
-            modules = [ ./.config/nix/home-manager/home.nix ];
+            modules = [ ./.config/nix/home-manager/profiles/macos.nix ];
+          };
+
+          # Home Manager configuration (Remote/EC2)
+          homeConfigurations."${username}-remote" = home-manager.lib.homeManagerConfiguration {
+            pkgs = pkgs;
+            extraSpecialArgs = { inherit inputs system pkgsUnstable; };
+            modules = [ ./.config/nix/home-manager/profiles/remote.nix ];
           };
 
           # macOS (nix-darwin)

@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(just info:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
