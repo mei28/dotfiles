@@ -1,7 +1,7 @@
 { ... }:
 {
   programs.gitui = {
-    enable = true;
+    enable = false;
 
     # Key bindings configuration
     # // bit for modifiers

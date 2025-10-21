@@ -8,7 +8,6 @@
   # 基本的なCLIツールとユーティリティ
   home.packages = with pkgs; [
     # 基本ツール
-    # git は modules/git.nix で programs.git.enable = true で管理
     gh
     bat
     just
@@ -26,10 +25,9 @@
     trash-cli
 
     # エディタ
-    # neovim は programs.neovim.plugins で管理
+    neovim
 
     # セッション管理
-    # tmux は modules/tmux.nix で programs.tmux.enable = true で管理
     tmux-mem-cpu-load
 
     # その他便利ツール
