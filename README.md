@@ -51,8 +51,8 @@ tmux       # tmuxセッション開始
 
 ```bash
 # 1. dotfilesクローン
-git clone https://github.com/mei28/dotfiles.git ~/.dotfiles
-cd ~/.dotfiles
+git clone https://github.com/mei28/dotfiles.git ~/dotfiles
+cd ~/dotfiles
 
 # 2. Nixインストール
 curl --proto '=https' --tlsv1.2 -sSf -L \
@@ -67,7 +67,7 @@ nix run home-manager/master -- switch --flake .#mei-remote --impure
 リモート環境で設定を更新する場合：
 
 ```bash
-cd ~/.dotfiles
+cd ~/dotfiles
 git pull
 home-manager switch --flake .#mei-remote --impure
 ```
@@ -184,7 +184,7 @@ curl -sSL https://raw.githubusercontent.com/mei28/dotfiles/main/remote-bootstrap
 4. 検証：
 ```bash
 exec bash
-bash ~/.dotfiles/test/verify-setup.sh
+bash ~/dotfiles/test/verify-setup.sh
 ```
 
 ### CI/CD による自動検証
@@ -208,13 +208,13 @@ exec bash
 
 ### 設定の再適用
 ```bash
-cd ~/.dotfiles
+cd ~/dotfiles
 just remote-apply
 ```
 
 ### 完全なクリーンインストール
 ```bash
-rm -rf ~/.dotfiles ~/.local/state/nix/profiles/home-manager
+rm -rf ~/dotfiles ~/.local/state/nix/profiles/home-manager
 curl -sSL https://raw.githubusercontent.com/mei28/dotfiles/main/remote-bootstrap.sh | bash
 ```
 

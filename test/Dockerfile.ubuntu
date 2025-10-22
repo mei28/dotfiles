@@ -22,10 +22,10 @@ USER ubuntu
 WORKDIR /home/ubuntu
 
 # Copy dotfiles to container
-COPY --chown=ubuntu:ubuntu . /home/ubuntu/.dotfiles
+COPY --chown=ubuntu:ubuntu . /home/ubuntu/dotfiles
 
 # Run bootstrap script
-RUN cd /home/ubuntu/.dotfiles && \
+RUN cd /home/ubuntu/dotfiles && \
     bash remote-bootstrap.sh
 
 # Verify installation

@@ -12,7 +12,7 @@ set shell := ["bash", "-eu", "-o", "pipefail", "-c"]
 # Define variables
 username := "mei"
 darwinHost := "mei-darwin"
-dotfilesDir := env_var_or_default("DOTFILES_DIR", env_var("HOME") + "/.dotfiles")
+dotfilesDir := env_var_or_default("DOTFILES_DIR", env_var("HOME") + "/dotfiles")
 
 # ========================================
 # Local Environment (macOS)

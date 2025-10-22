@@ -25,10 +25,10 @@ USER ec2-user
 WORKDIR /home/ec2-user
 
 # Copy dotfiles to container
-COPY --chown=ec2-user:ec2-user . /home/ec2-user/.dotfiles
+COPY --chown=ec2-user:ec2-user . /home/ec2-user/dotfiles
 
 # Run bootstrap script
-RUN cd /home/ec2-user/.dotfiles && \
+RUN cd /home/ec2-user/dotfiles && \
     bash remote-bootstrap.sh
 
 # Verify installation

@@ -91,12 +91,12 @@ echo ""
 
 # Check dotfiles directory
 echo -n "Checking dotfiles directory... "
-if [ -d "$HOME/.dotfiles" ]; then
+if [ -d "$HOME/dotfiles" ]; then
     echo -e "${GREEN}✓${NC}"
-    echo "  Location: $HOME/.dotfiles"
-    echo "  Git branch: $(cd ~/.dotfiles && git branch --show-current 2>/dev/null || echo 'not a git repo')"
+    echo "  Location: $HOME/dotfiles"
+    echo "  Git branch: $(cd ~/dotfiles && git branch --show-current 2>/dev/null || echo 'not a git repo')"
 else
-    echo -e "${YELLOW}⚠ ~/.dotfiles not found${NC}"
+    echo -e "${YELLOW}⚠ ~/dotfiles not found${NC}"
 fi
 
 echo ""
