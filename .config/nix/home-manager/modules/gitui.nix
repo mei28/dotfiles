@@ -1,7 +1,8 @@
-{ ... }:
+{ pkgsStable, ... }:
 {
   programs.gitui = {
-    enable = false;
+    enable = true;
+    package = pkgsStable.gitui;
 
     # Key bindings configuration
     # // bit for modifiers
@@ -22,10 +23,10 @@
       (
           open_help: Some(( code: F(1), modifiers: "")),
 
-          move_left: Some(( code: Char('h'), modifiers: "")),
-          move_right: Some(( code: Char('l'), modifiers: "")),
-          move_up: Some(( code: Char('k'), modifiers: "")),
-          move_down: Some(( code: Char('j'), modifiers: "")),
+          # move_left: Some(( code: Char('h'), modifiers: "")),
+          # move_right: Some(( code: Char('l'), modifiers: "")),
+          # move_up: Some(( code: Char('k'), modifiers: "")),
+          # move_down: Some(( code: Char('j'), modifiers: "")),
 
           popup_up: Some(( code: Char('p'), modifiers: "CONTROL",)),
           popup_down: Some(( code: Char('n'), modifiers: "CONTROL",)),

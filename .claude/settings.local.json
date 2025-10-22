@@ -1,7 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "Bash(just info:*)"
+      "Bash(just info:*)",
+      "Bash(just update-home:*)",
+      "Read(//Users/mei/**)"
     ],
     "deny": [],
     "ask": []

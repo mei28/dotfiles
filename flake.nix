@@ -6,6 +6,7 @@
     # nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     nixpkgs.url = "github:nixos/nixpkgs/master";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/master";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -39,6 +40,7 @@
       self,
       nixpkgs,
       nixpkgs-unstable,
+      nixpkgs-stable,
       home-manager,
       nix-darwin,
       flake-utils,
@@ -51,6 +53,7 @@
         inherit (import ./.config/nix/home-manager/options.nix) username;
         pkgs = import nixpkgs { inherit system; };
         pkgsUnstable = import inputs.nixpkgs-unstable { inherit system; };
+        pkgsStable = import inputs.nixpkgs-stable { inherit system; };
       in
       {
         formatter = pkgs.nixfmt-rfc-style;
@@ -62,14 +65,14 @@
           # Home Manager configuration (macOS)
           homeConfigurations."${username}" = home-manager.lib.homeManagerConfiguration {
             pkgs = pkgs;
-            extraSpecialArgs = { inherit inputs system pkgsUnstable; };
+            extraSpecialArgs = { inherit inputs system pkgsUnstable pkgsStable; };
             modules = [ ./.config/nix/home-manager/profiles/macos.nix ];
           };
 
           # Home Manager configuration (Remote/EC2)
           homeConfigurations."${username}-remote" = home-manager.lib.homeManagerConfiguration {
             pkgs = pkgs;
-            extraSpecialArgs = { inherit inputs system pkgsUnstable; };
+            extraSpecialArgs = { inherit inputs system pkgsUnstable pkgsStable; };
             modules = [ ./.config/nix/home-manager/profiles/remote.nix ];
           };
 
