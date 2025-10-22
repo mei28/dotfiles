@@ -52,10 +52,9 @@
   # Home Manager自身
   programs.home-manager.enable = true;
 
-  # neovim設定は ~/.dotfiles/.config/nvim/ を直接使用（Lazy.nvim対応）
+  # neovim設定は既存の ~/.config/nvim を使用（Home Managerでは管理しない）
   # neovimパッケージは home.packages に含まれている（28行目）
-  # .config/nvim を dotfiles からシンボリックリンク
-  home.file.".config/nvim".source = ../../../nvim;
+  # home.file.".config/nvim".source = ../../../nvim;
 
   # unfreeパッケージを許可
   nixpkgs.config.allowUnfree = true;
