@@ -65,14 +65,28 @@
           # Home Manager configuration (macOS)
           homeConfigurations."${username}" = home-manager.lib.homeManagerConfiguration {
             pkgs = pkgs;
-            extraSpecialArgs = { inherit inputs system pkgsUnstable pkgsStable; };
+            extraSpecialArgs = {
+              inherit
+                inputs
+                system
+                pkgsUnstable
+                pkgsStable
+                ;
+            };
             modules = [ ./.config/nix/home-manager/profiles/macos.nix ];
           };
 
           # Home Manager configuration (Remote/EC2)
           homeConfigurations."${username}-remote" = home-manager.lib.homeManagerConfiguration {
             pkgs = pkgs;
-            extraSpecialArgs = { inherit inputs system pkgsUnstable pkgsStable; };
+            extraSpecialArgs = {
+              inherit
+                inputs
+                system
+                pkgsUnstable
+                pkgsStable
+                ;
+            };
             modules = [ ./.config/nix/home-manager/profiles/remote.nix ];
           };
 
