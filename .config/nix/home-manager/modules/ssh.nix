@@ -17,6 +17,8 @@
       controlPersist = "4h";
       # 必要であれば他の共通設定もここに追加できます
       # e.g. serverAliveInterval = 60;
+      serverAliveInterval = 60;
+      serverAliveCountMax = 120;
     };
     # HomeUbuntu
     HomeUbuntu = {
