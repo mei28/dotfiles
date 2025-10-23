@@ -11,7 +11,7 @@
     gh
     bat
     just
-    make
+    gnumake
 
     # ファイル管理
     coreutils
