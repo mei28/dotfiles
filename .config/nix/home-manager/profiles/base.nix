@@ -2,6 +2,7 @@
   inputs,
   lib,
   pkgs,
+  config,
   ...
 }:
 {
@@ -53,7 +54,8 @@
   # Home Manager自身
   programs.home-manager.enable = true;
 
-  home.file.".config/nvim".source = ../../../nvim;
+  home.file.".config/nvim".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.config/nvim";
 
   # unfreeパッケージを許可
   nixpkgs.config.allowUnfree = true;
