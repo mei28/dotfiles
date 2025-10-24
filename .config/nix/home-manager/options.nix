@@ -4,5 +4,5 @@
 
   # git
   gitUsername = "mei";
-  gitEmail = "mei28aquarius@gmail.com";
+  gitEmail = "51149822+mei28@users.noreply.github.com";
 }

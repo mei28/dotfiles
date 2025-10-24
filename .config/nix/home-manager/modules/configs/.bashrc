@@ -19,14 +19,14 @@ fi
 
 # git jump
 # git highlight
-if [ -e /usr/local/share/git-core/contrib ]; then
+if [ -e ~/.nix-profile/share/git/contrib ]; then
+    export GIT_CONTRIB_PATH=~/.nix-profile/share/git/contrib
+elif [ -e /usr/local/share/git-core/contrib ]; then
     export GIT_CONTRIB_PATH=/usr/local/share/git-core/contrib
 elif [ -e /opt/homebrew/share/git-core/contrib ]; then
     export GIT_CONTRIB_PATH=/opt/homebrew/share/git-core/contrib
 elif [ -e /usr/share/doc/git/contrib ]; then
     export GIT_CONTRIB_PATH=/usr/share/git/contrib
-elif [ -e ~/.nix-profile/share/git/contrib ]; then
-    export GIT_CONTRIB_PATH=~/.nix-profile/share/git/contrib
 fi
 
 export PATH="$PATH:$GIT_CONTRIB_PATH/git-jump"
@@ -668,6 +668,10 @@ cpwd() {
     fi
 }
 
+
+if [ -f ~/.bashrc.local ]; then
+  . ~/.bashrc.local
+fi
 
 
 #=====================#
