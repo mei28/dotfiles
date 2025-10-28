@@ -43,14 +43,14 @@ function treesitter_setup()
     'make',
     'go',
   }
-  ts.install(installed_parser)
+  ts.install { installed_parser }
 
 
   vim.api.nvim_create_autocmd({ "FileType" }, {
     pattern = installed_parser,
     callback = function()
       -- syntax highlighting, provided by Neovim
-      vim.treesitter.start()
+      -- vim.treesitter.start()
       -- folds, provided by Neovim
       vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
       -- indentation, provided by nvim-treesitter
