@@ -19,14 +19,14 @@ local spec = {
     event = "ModeChanged",
     cmd = { "MakeTable" }
   },
-  {
-    'richardbizik/nvim-toc',
-    ft = { 'markdown' },
-    config = function()
-      require('nvim-toc').setup()
-    end,
-    cmd = { "TOC" }
-  },
+  -- {
+  --   'richardbizik/nvim-toc',
+  --   ft = { 'markdown' },
+  --   config = function()
+  --     require('nvim-toc').setup()
+  --   end,
+  --   cmd = { "TOC" }
+  -- },
   {
     "Zeioth/markmap.nvim",
     build = "yarn global add markmap-cli",
