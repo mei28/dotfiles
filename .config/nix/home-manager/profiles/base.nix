@@ -25,6 +25,7 @@
     unzip
     yazi
     trash-cli
+    dust
 
     # エディタ
     neovim

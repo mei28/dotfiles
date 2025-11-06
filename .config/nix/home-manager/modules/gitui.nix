@@ -57,28 +57,28 @@
     # https://github.com/catppuccin/gitui
     theme = ''
       (
-          selected_tab: Some(Reset),
-          command_fg: Some(Rgb(205, 214, 244)),
-          selection_bg: Some(Rgb(88, 91, 112)),
-          selection_fg: Some(Rgb(205, 214, 244)),
-          cmdbar_bg: Some(Rgb(24, 24, 37)),
-          cmdbar_extra_lines_bg: Some(Rgb(24, 24, 37)),
-          disabled_fg: Some(Rgb(127, 132, 156)),
-          diff_line_add: Some(Rgb(166, 227, 161)),
-          diff_line_delete: Some(Rgb(243, 139, 168)),
-          diff_file_added: Some(Rgb(249, 226, 175)),
-          diff_file_removed: Some(Rgb(235, 160, 172)),
-          diff_file_moved: Some(Rgb(203, 166, 247)),
-          diff_file_modified: Some(Rgb(250, 179, 135)),
-          commit_hash: Some(Rgb(180, 190, 254)),
-          commit_time: Some(Rgb(186, 194, 222)),
-          commit_author: Some(Rgb(116, 199, 236)),
-          danger_fg: Some(Rgb(243, 139, 168)),
-          push_gauge_bg: Some(Rgb(137, 180, 250)),
-          push_gauge_fg: Some(Rgb(30, 30, 46)),
-          tag_fg: Some(Rgb(245, 224, 220)),
-          branch_fg: Some(Rgb(148, 226, 213))
-      )
+          selected_tab: Some("Reset"),
+          command_fg: Some("#DCD7BA"),           // fujiWhite
+          selection_bg: Some("#2D4F67"),         // waveBlue2
+          selection_fg: Some("#DCD7BA"),         // fujiWhite
+          cmdbar_bg: Some("#1F1F28"),            // sumiInk3
+          cmdbar_extra_lines_bg: Some("#1F1F28"), // sumiInk3
+          disabled_fg: Some("#727169"),          // fujiGray
+          diff_line_add: Some("#76946A"),        // autumnGreen
+          diff_line_delete: Some("#C34043"),     // autumnRed
+          diff_file_added: Some("#98BB6C"),      // springGreen
+          diff_file_removed: Some("#E46876"),    // waveRed
+          diff_file_moved: Some("#957FB8"),      // oniViolet
+          diff_file_modified: Some("#DCA561"),   // autumnYellow
+          commit_hash: Some("#7E9CD8"),          // crystalBlue
+          commit_time: Some("#938AA9"),          // springViolet1
+          commit_author: Some("#7FB4CA"),        // springBlue
+          danger_fg: Some("#E82424"),            // samuraiRed
+          push_gauge_bg: Some("#7E9CD8"),        // crystalBlue
+          push_gauge_fg: Some("#1F1F28"),        // sumiInk3
+          tag_fg: Some("#D27E99"),               // sakuraPink
+          branch_fg: Some("#7AA89F")             // waveAqua2
+            )
     '';
   };
 }
