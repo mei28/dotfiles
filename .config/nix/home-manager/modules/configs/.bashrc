@@ -676,6 +676,7 @@ fi
 if type intelli-shell &> /dev/null; then
     eval "$(intelli-shell init bash)"
     export INTELLI_SEARCH_HOTKEY="\C-o"
+    bind -x '"\C-o": "intelli-shell search -i"'
 fi
 
 #=====================#
