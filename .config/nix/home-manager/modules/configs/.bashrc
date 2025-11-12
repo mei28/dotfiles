@@ -673,6 +673,10 @@ if [ -f ~/.bashrc.local ]; then
   . ~/.bashrc.local
 fi
 
+if type intelli-shell &> /dev/null; then
+    eval "$(intelli-shell init bash)"
+    export INTELLI_SEARCH_HOTKEY="\C-o"
+fi
 
 #=====================#
 # change config by OS #

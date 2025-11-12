@@ -111,3 +111,27 @@ local function n_zz()
 end
 
 set('n', 'zz', n_zz)
+
+vim.api.nvim_create_user_command("Mcat", function()
+  local file = vim.fn.expand("%:p")
+  vim.system({
+    "wezterm",
+    "cli",
+    "split-pane",
+    "--right",
+    "--",
+    "mcat",
+    "-t",
+    "kanagawa",
+    "--paging",
+    "always",
+    file,
+  }, {}, function(obj)
+    if obj.code ~= 0 then
+      vim.notify(
+        "Failed to run mcat: " .. (obj.stderr or ""),
+        vim.log.levels.ERROR
+      )
+    end
+  end)
+end, {})

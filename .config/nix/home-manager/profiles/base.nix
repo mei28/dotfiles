@@ -13,6 +13,7 @@
     bat
     just
     gnumake
+    intelli-shell
 
     # ファイル管理
     coreutils
@@ -36,6 +37,7 @@
     # その他便利ツール
     tldr
     csvlens
+    mcat
   ];
 
   # 共通モジュールのインポート
