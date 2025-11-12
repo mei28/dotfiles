@@ -403,6 +403,15 @@ function dmux() {
     echo "detach tmux client"
 }
 
+if type tmux &> /dev/null; then
+    tcap() {
+        if [ -z "$TMUX" ]; then
+            echo "Error: Not in a tmux session" >&2
+            return 1
+        fi
+        tmux capture-pane -p | nvim -R -
+    }
+fi
 # ヒストリーの削除
 export HISTCONTROL=ignoreboth
 
@@ -676,6 +685,7 @@ fi
 if type intelli-shell &> /dev/null; then
     eval "$(intelli-shell init bash)"
     export INTELLI_SEARCH_HOTKEY="\C-o"
+    bind -x '"\C-o": "intelli-shell search -i"'
 fi
 
 #=====================#
