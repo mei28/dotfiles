@@ -13,7 +13,7 @@
     bat
     just
     gnumake
-    intelli-shell
+    # intelli-shell
 
     # ファイル管理
     coreutils

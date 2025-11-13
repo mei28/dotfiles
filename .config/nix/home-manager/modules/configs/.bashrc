@@ -682,11 +682,13 @@ if [ -f ~/.bashrc.local ]; then
   . ~/.bashrc.local
 fi
 
-if type intelli-shell &> /dev/null; then
-    eval "$(intelli-shell init bash)"
-    export INTELLI_SEARCH_HOTKEY="\C-o"
-    bind -x '"\C-o": "intelli-shell search -i"'
-fi
+# if type intelli-shell &> /dev/null; then
+#     eval "$(intelli-shell init bash)"
+#     export INTELLI_SEARCH_HOTKEY="\C-o"
+#     export INTELLI_BOOKMARK_HOTKEY=""
+#     export INTELLI_VARIABLE_HOTKEY=""
+#     bind -x '"\C-o": "intelli-shell search -i"'
+# fi
 
 #=====================#
 # change config by OS #
