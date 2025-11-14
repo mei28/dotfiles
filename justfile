@@ -41,6 +41,12 @@ gc:
   @echo "Garbage collecting..."
   nix store gc
 
+# delete old Nix profiles and generations
+delete-old-profiles:
+  @echo "Deleting old Nix profiles and generations..."
+  nix-collect-garbage -d
+
+
 # ========================================
 # Remote Environment (EC2/Linux)
 # ========================================
