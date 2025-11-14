@@ -76,10 +76,10 @@ local spec = {
       })
     end,
     cmd = {
-      'ConflictOurs',
-      'ConflictTheirs',
-      'ConflictBoth',
-      'ConflictNone',
+      -- 'ConflictOurs',
+      -- 'ConflictTheirs',
+      -- 'ConflictBoth',
+      -- 'ConflictNone',
       'Conflict'
     }
   },

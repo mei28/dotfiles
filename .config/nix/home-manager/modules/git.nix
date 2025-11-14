@@ -34,6 +34,7 @@ in
       # Diff and merge tool settings
       diff.tool = "nvimdiff";
       difftool.nvimdiff.cmd = "nvim -R -d -c \"wincmd l\" -d \"$LOCAL\" \"$REMOTE\"";
+      merge.tool = "nvimdiff";
       mergetool.nvimdiff.cmd = "nvim -d -c \"4wincmd w | wincmd J\" \"$LOCAL\" \"$BASE\" \"$REMOTE\" \"$MERGED\"";
       mergetool.keepBackup = "false";
 
