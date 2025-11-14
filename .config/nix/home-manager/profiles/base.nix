@@ -13,6 +13,7 @@
     bat
     just
     gnumake
+    serie
     # intelli-shell
 
     # ファイル管理
