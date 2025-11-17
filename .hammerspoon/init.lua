@@ -2,6 +2,7 @@ require('window')
 require('ime')
 require('launch')
 -- require('yabai')
+require('grayscale')
 
 
 -- reload config
