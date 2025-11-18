@@ -2,7 +2,7 @@ local spec = {
 	{
 		-- dir = "~/Documents/luminate.nvim/.gardener/refactor/",
 		"mei28/luminate.nvim",
-		branch = "refactor",
+		-- branch = "refactor",
 		keys = { { "u" }, { "U" }, { "<C-r>" }, { "p" }, { "y" }, { "yy" } },
 		event = { "ModeChanged" },
 		config = function()

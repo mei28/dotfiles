@@ -159,6 +159,7 @@ alt-shift-a = ['move-node-to-workspace a', 'workspace a']
 alt-shift-d = ['move-node-to-workspace d', 'workspace d']
 alt-shift-u = ['move-node-to-workspace u', 'workspace u']
 alt-shift-s = ['move-node-to-workspace s', 'workspace s']
+alt-shift-c = ['move-node-to-workspace c', 'workspace c']
 
 alt-p = 'workspace prev'
 alt-n = 'workspace next'
@@ -208,6 +209,7 @@ alt-shift-a = 'move-node-to-workspace a'
 alt-shift-d = 'move-node-to-workspace d'
 alt-shift-u = 'move-node-to-workspace u'
 alt-shift-s = 'move-node-to-workspace s'
+alt-shift-c = 'move-node-to-workspace c'
 
 [mode.resize.binding]
 minus = 'resize smart -50'
@@ -238,3 +240,7 @@ run = "move-node-to-workspace u"
 [[on-window-detected]]
 if.app-id = "com.spotify.client"
 run = "move-node-to-workspace s"
+
+[[on-window-detected]]
+if.app-id = "com.valvesoftware.steam"
+run = "move-node-to-workspace c"
