@@ -19,6 +19,7 @@ in
       "*.swp"
       ".venv"
       "target"
+      ".gardener"
     ];
 
     settings = {
