@@ -131,6 +131,23 @@ local spec = {
 			})
 		end,
 	},
+	{
+		"mei28/slidev.nvim",
+		-- dir = "~/Documents/slidev.nvim",
+		config = function()
+			require("slidev").setup({})
+		end,
+		cmd = {
+			"SlidevPreview",
+			"SlidevWatch",
+			"SlidevStop",
+			"SlidevStopAll",
+			"SlidevExport",
+			"SlidevBuild",
+			"SlidevFormat",
+			"SlidevStatus",
+		},
+	},
 
 	-- {
 	--   "nvim-treesitter/nvim-treesitter-textobjects",

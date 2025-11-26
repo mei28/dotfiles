@@ -42,6 +42,7 @@ in
     terraform
     claude-code
     tree-sitter
+    marp-cli
 
     # lightgbm dependencies
     llvmPackages.openmp
