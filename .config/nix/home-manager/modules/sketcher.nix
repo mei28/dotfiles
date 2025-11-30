@@ -1,22 +1,27 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
-  # Dracula Color Palette
+  # Kanagawa Color Palette
   colors = {
-    background = "0xff282a36";
-    backgroundTransparent = "0xcc282a36";
-    currentLine = "0xff44475a";
-    foreground = "0xfff8f8f2";
-    comment = "0xff6272a4";
-    cyan = "0xff8be9fd";
-    green = "0xff50fa7b";
-    orange = "0xffffb86c";
-    pink = "0xffff79c6";
-    purple = "0xffbd93f9";
-    red = "0xffff5555";
-    yellow = "0xfff1fa8c";
+    background = "0xff1F1F28"; # sumiInk3
+    backgroundTransparent = "0xcc1F1F28"; # sumiInk3 with transparency
+    currentLine = "0xff2A2A37"; # sumiInk4
+    foreground = "0xffDCD7BA"; # fujiWhite
+    comment = "0xff727169"; # fujiGray
+    cyan = "0xff7FB4CA"; # springBlue
+    green = "0xff98BB6C"; # springGreen
+    orange = "0xffFFA066"; # surimiOrange
+    pink = "0xffD27E99"; # sakuraPink
+    purple = "0xff957FB8"; # oniViolet
+    red = "0xffE46876"; # waveRed
+    yellow = "0xffE6C384"; # carpYellow
     # Derived colors
     transparent = "0x00000000";
-    black = "0xff21222c";
+    black = "0xff16161D"; # sumiInk0
   };
 
   # Aerospace workspace plugin script
@@ -85,16 +90,16 @@ let
   '';
 
   # Wi-Fi plugin script
-  wifiPlugin = pkgs.writeShellScript "wifi.sh" ''
-    # ipconfig getsummary で SSID を取得
-    SSID=$(ipconfig getsummary en0 2>/dev/null | grep "^  SSID" | awk -F ' : ' '{print $2}')
-
-    if [ -z "$SSID" ]; then
-      sketchybar --set "$NAME" icon.color=${colors.red} label="Off"
-    else
-      sketchybar --set "$NAME" icon.color=${colors.cyan} label="$SSID"
-    fi
-  '';
+  # wifiPlugin = pkgs.writeShellScript "wifi.sh" ''
+  #   # ipconfig getsummary で SSID を取得
+  #   SSID=$(ipconfig getsummary en0 2>/dev/null | grep "^  SSID" | awk -F ' : ' '{print $2}')
+  #
+  #   if [ -z "$SSID" ]; then
+  #     sketchybar --set "$NAME" icon.color=${colors.red} label="Off"
+  #   else
+  #     sketchybar --set "$NAME" icon.color=${colors.cyan} label="$SSID"
+  #   fi
+  # '';
 
   # Date plugin script
   datePlugin = pkgs.writeShellScript "date.sh" ''
@@ -227,16 +232,11 @@ let
                       click_script="sketchybar --update"
 
     # Aerospace Workspaces
-    SPACE_ICONS=("1" "2" "3" "4" "5" "6" "7" "8" "9" "10")
+    SPACE_ICONS=("0" "1" "2" "3" "4" "5" "6" "7" "8" "9" "a" "d" "c" "s")
 
     for i in "''${!SPACE_ICONS[@]}"; do
       sid="''${SPACE_ICONS[$i]}"
-      # 10番目は表示を "0" にする
-      if [ "$sid" = "10" ]; then
-        display_icon="0"
-      else
-        display_icon="$sid"
-      fi
+      display_icon="$sid"
 
       sketchybar --add item space.$sid left \
                   --set space.$sid \
@@ -326,13 +326,13 @@ let
                 --subscribe volume volume_change
 
     # Wi-Fi
-    sketchybar --add item wifi right \
-                --set wifi \
-                      icon=󰖩 \
-                      icon.font="Hack Nerd Font:Bold:14.0" \
-                      icon.color="$CYAN" \
-                      update_freq=1 \
-                      script="${wifiPlugin}"
+    # sketchybar --add item wifi right \
+    #             --set wifi \
+    #                   icon=󰖩 \
+    #                   icon.font="Hack Nerd Font:Bold:14.0" \
+    #                   icon.color="$CYAN" \
+    #                   update_freq=1 \
+    #                   script="${wifiPlugin}"
 
     # Separator
     sketchybar --add item separator_network right \
@@ -378,7 +378,7 @@ let
                       background.height=32
 
     # Network bracket
-    sketchybar --add bracket network_bracket wifi volume \
+    sketchybar --add bracket network_bracket volume \
                 --set network_bracket \
                       background.color="$CURRENT_LINE" \
                       background.corner_radius=10 \
