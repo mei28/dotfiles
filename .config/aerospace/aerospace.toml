@@ -17,6 +17,12 @@ after-login-command = [
 # ]
 after-startup-command = ['exec-and-forget sketchybar']
 
+# https://www.takeokunn.org/posts/fleeting/20251124235900-setting_sketchybar/
+# exec-on-workspace-change = [
+#   '/bin/bash', '-c',
+#   'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
+# ]
+
 
 
 # Start AeroSpace at login
@@ -61,7 +67,7 @@ inner.horizontal = 2
 inner.vertical   = 2
 outer.left       = 2
 outer.bottom     = 2
-outer.top        = 10
+outer.top        = 2
 outer.right      = 2
 
 # 'main' binding mode declaration

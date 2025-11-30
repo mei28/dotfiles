@@ -15,7 +15,7 @@ in
   imports = [
     ./base.nix
     ./development.nix
-    ../modules/sketcher.nix
+    # ../modules/sketcher.nix
   ];
 
   # ユーザー設定

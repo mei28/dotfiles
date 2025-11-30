@@ -158,7 +158,7 @@ let
   sketchybarConfig = ''
     #!/bin/bash
 
-    ##### Dracula Color Palette #####
+    ##### Kanagawa Color Palette #####
     BACKGROUND="${colors.background}"
     BACKGROUND_TRANSPARENT="${colors.backgroundTransparent}"
     CURRENT_LINE="${colors.currentLine}"
@@ -332,7 +332,7 @@ let
     #                   icon.font="Hack Nerd Font:Bold:14.0" \
     #                   icon.color="$CYAN" \
     #                   update_freq=1 \
-    #                   script="${wifiPlugin}"
+    #                   script="{wifiPlugin}"
 
     # Separator
     sketchybar --add item separator_network right \
