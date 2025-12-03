@@ -61,8 +61,17 @@ vim.opt.splitbelow = true
 vim.opt.splitright = true
 -- カーソルを真ん中に
 vim.opt.scrolloff = 5
--- 自動外部読み込み
+-- 自動外部読み込み https://vim-jp.org/vim-users-jp/2011/03/12/Hack-206.html
 vim.opt.autoread = true
+vim.api.nvim_exec(
+	[[
+  augroup autoread
+    autocmd!
+    autocmd WinEnter,BufEnter * checktime
+  augroup END
+]],
+	false
+)
 -- popupオプション
 vim.opt.wildoptions = "pum"
 -- フォーマットオプション 改行の時コメントアウトさせない ftpluginで上書き
