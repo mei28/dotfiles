@@ -149,6 +149,7 @@ alt-a = 'workspace a'
 alt-d = 'workspace d'
 alt-u = 'workspace u'
 alt-s = 'workspace s'
+alt-c = 'workspace c'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
 alt-shift-0 = ['move-node-to-workspace 0', 'workspace 0']
