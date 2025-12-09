@@ -722,7 +722,7 @@ case ${OSTYPE} in
         }
 
         ## don't write .DS_Store
-        defaults write com.apple.desktopservices DSDontWriteNetworkStores True
+        defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 
         alias tdi='_toggle_desktop_icon'
         _toggle_desktop_icon(){

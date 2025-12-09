@@ -1,10 +1,10 @@
 {
+  "includeCoAuthoredBy": false,
   "statusLine": {
     "type": "command",
     "command": "$HOME/dotfiles/.claude/statusline.sh"
   },
   "alwaysThinkingEnabled": true,
-  "includeCoAuthoredBy": false,
   "feedbackSurveyState": {
     "lastShownTime": 1754308736953
   }

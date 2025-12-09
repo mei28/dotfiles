@@ -93,6 +93,19 @@ vim.opt.path:append({ "**" })
 vim.opt.cmdheight = 0
 vim.opt.laststatus = 2
 vim.opt.showmode = false
+vim.opt.matchpairs:append({
+	"<:>",
+	"「:」",
+	"（:）",
+	"『:』",
+	"【:】",
+	"《:》",
+	"〈:〉",
+	"｛:｝",
+	"［:］",
+	"‘:’",
+	"“:”",
+})
 
 -- remember folds
 vim.api.nvim_exec(
