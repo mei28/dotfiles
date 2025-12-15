@@ -13,7 +13,6 @@
     bat
     just
     gnumake
-    serie
     # intelli-shell
 
     # ファイル管理
@@ -39,6 +38,8 @@
     tldr
     csvlens
     mcat
+    miniserve
+    serie
   ];
 
   # 共通モジュールのインポート
@@ -51,7 +52,7 @@
     ../modules/fastfetch.nix
     ../modules/zoxide.nix
     ../modules/jujutsu.nix
-    ../modules/zellij.nix
+    # ../modules/zellij.nix
     ../modules/ssh.nix
   ];
 
