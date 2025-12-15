@@ -111,3 +111,5 @@ credentials.json
 
 # リモート環境固有の設定ファイル（必要に応じて）
 .config/nix/home-manager/profiles/options-override.nix
+.claude/stats-cache.json
+.claude/plugins/installed_plugins.json
