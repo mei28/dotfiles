@@ -1,8 +1,8 @@
-{ pkgsStable, ... }:
+{ pkgs24, ... }:
 {
   programs.gitui = {
     enable = true;
-    package = pkgsStable.gitui;
+    package = pkgs24.gitui;
 
     # Key bindings configuration
     # // bit for modifiers
