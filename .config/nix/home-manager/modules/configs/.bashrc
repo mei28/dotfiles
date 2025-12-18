@@ -316,26 +316,68 @@ alias shutdownnow="sudo shutdown -h +1"
 # restart
 alias restartnow="sudo shutdown -r +1"
 
-# ssh tmux
+# 独立したポート展開関数
+# 使い方: lpt 6006 8888 -> -L 6006:localhost:6006 -L 8888:localhost:8888
+function lpt() {
+    local result=()
+    for port in "$@"; do
+        result+=("-L" "$port:localhost:$port")
+    done
+    echo "${result[@]}"
+}
+
+# ssh tmux lpt
 function ssh() {
-    # tmux起動時
+    local final_args=()
+    local ports_to_process=()
+    local target=""
+
+    # エスケープシーケンス（echo -e 用）
+    local C_CYAN='\e[36m'
+    local C_GREEN='\e[32m'
+    local C_YELLOW='\e[33m'
+    local C_RESET='\e[0m'
+
+    # 引数をループして、数字はlpt用にストック、それ以外は通常引数として扱う
+    for arg in "$@"; do
+        if [[ "$arg" =~ ^[0-9]+$ ]]; then
+            ports_to_process+=("$arg")
+        else
+            final_args+=("$arg")
+            target="$arg" # 最後に現れた非数値引数をホスト名とみなす
+        fi
+    done
+
+    # ポートが指定されていれば lpt で展開して引数に追加
+    if [[ ${#ports_to_process[@]} -gt 0 ]]; then
+        # 展開された文字列を配列として結合
+        local expanded_ports=$(lpt "${ports_to_process[@]}")
+        # Note: ここでは単純に args の先頭に追加
+        set -- $(lpt "${ports_to_process[@]}") "${final_args[@]}"
+    else
+        set -- "${final_args[@]}"
+    fi
+
+    # 実行コマンドの表示（シアンとグリーンで見やすく）
+    # 接続先(target)をイエローで強調します
+    echo -e "${C_CYAN}[SSH Tunneling]${C_RESET} Executing: ${C_GREEN}ssh${C_RESET} $@ (${C_YELLOW}${target}${C_RESET})"
+
+    # --- tmux ロジック ---
     if [[ -n $(printenv TMUX) ]] ; then
-        # 現在のペインIDの退避と背景色の書き換え
         local pane_id=`tmux display -p '#{pane_id}'`
-        # 接続先ホスト名に応じて背景色、文字色を切り替え
-        if [[ `echo ${!#} | grep -E 'localhost|127\.0\.0\.1'` ]] ; then
+        
+        # 判定は抽出した target を使用
+        if [[ "$target" =~ "localhost|127\.0\.0\.1" ]] ; then
             tmux select-pane -P 'fg=#00BCD4,bg=#263238'
         else
             tmux select-pane -P 'fg=#CDDC39,bg=#263238'
         fi
-        tmux select-pane -T "${!#}"
+        tmux select-pane -T "$target"
 
-        # 通常通りコマンド続行
-        command ssh $@
-        # デフォルトの色設定に戻す
+        command ssh "$@"
         tmux select-pane -t $pane_id -P 'default'
     else
-        command ssh $@
+        command ssh "$@"
     fi
 }
 
