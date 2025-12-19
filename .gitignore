@@ -113,3 +113,6 @@ credentials.json
 .config/nix/home-manager/profiles/options-override.nix
 .claude/stats-cache.json
 .claude/plugins/installed_plugins.json
+.claude/plugins/known_marketplaces.json
+.claude/plugins/marketplaces
+.config/nix/.claude/settings.local.json

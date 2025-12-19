@@ -44,7 +44,6 @@ in
     claude-code
     tree-sitter
     marp-cli
-    autoraise
 
     # lightgbm dependencies
     llvmPackages.openmp

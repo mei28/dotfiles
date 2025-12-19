@@ -1,0 +1,40 @@
+# ls(color)
+alias ls='ls -hG --color=auto'
+alias ll='ls -lhG --color=auto'
+alias la='ls -lahG --color=auto'
+
+# bash_completion
+# Use bash-completion, if available
+
+
+# pbcopy for macOS
+
+pbc(){
+    if [ -f "$1" ]; then
+        cat "$1" | pbcopy
+        echo "Copied $1!!"
+    else
+        echo "Error: File '$1' does not exist."
+    fi
+}
+
+## don't write .DS_Store
+defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+
+alias tdi='_toggle_desktop_icon'
+_toggle_desktop_icon(){
+    local isDisplay=$(defaults read com.apple.finder CreateDesktop)
+    if [ $isDisplay -eq 1 ]; then
+        defaults write com.apple.finder CreateDesktop -boolean false && killall Finder
+        echo "Hide Desktop Icon"
+    else
+        defaults write com.apple.finder CreateDesktop -boolean true && killall Finder
+        echo "Show Desktop Icon"
+    fi
+}
+
+
+## add cmake
+if [ -e /Applications/CMake.app/Contents/bin ]; then
+    export PATH="/Applications/CMake.app/Contents/bin:$PATH"
+fi
