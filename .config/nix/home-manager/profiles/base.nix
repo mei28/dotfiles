@@ -27,6 +27,7 @@
     yazi
     trash-cli
     dust
+    delta
 
     # エディタ
     neovim

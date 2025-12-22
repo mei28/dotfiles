@@ -44,6 +44,7 @@
       home-manager,
       nix-darwin,
       flake-utils,
+      neovim-nightly-overlay,
       ...
     }@inputs:
     flake-utils.lib.eachDefaultSystem (
@@ -51,7 +52,10 @@
       let
         # username = "mei";
         inherit (import ./.config/nix/home-manager/options.nix) username;
-        pkgs = import nixpkgs { inherit system; };
+        pkgs = import nixpkgs {
+          inherit system;
+          overlays = [ neovim-nightly-overlay.overlays.default ];
+        };
         pkgsUnstable = import inputs.nixpkgs-unstable { inherit system; };
         pkgs24 = import inputs.nixpkgs-24 { inherit system; };
       in
