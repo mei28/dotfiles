@@ -60,8 +60,13 @@
   # Home Manager自身
   programs.home-manager.enable = true;
 
-  home.file.".config/nvim".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.config/nvim";
+  home.file = {
+    ".config/nvim".source =
+      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.config/nvim";
+    ".config/nix/home-manager/modules/configs".source =
+      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.config/nix/home-manager/modules/configs";
+
+  };
 
   # unfreeパッケージを許可
   nixpkgs.config.allowUnfree = true;
