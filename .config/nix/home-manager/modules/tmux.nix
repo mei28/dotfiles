@@ -50,7 +50,7 @@ in
           set-option -g status-position top
           set-option -g status-left-length 90
           set-option -g status-right-length 90
-          set-option -g status-left "#[fg=#ECEFF4,bg=#5E81AC] #S:#I.#P #[fg=colour253,bg=colour236] #h "
+          set-option -g status-left "#[fg=#ECEFF4,bg=#5E81AC] #S:#I.#P #[fg=colour253,bg=colour236] #( [ -n \"\$SSH_CONNECTION\" ] && echo \"󰒍 \$(hostname -I | awk '{print \$1}') \" || echo \"\" )"
           set-option -g status-interval 1
           set-option -g status-justify centre
           set-option -g status-bg "colour238"
@@ -60,7 +60,7 @@ in
       {
         plugin = tmux-online-status;
         extraConfig = ''
-          set-option -g status-right "#[fg=colour253,bg=colour236] [%Y/%m/%d(%a) %H:%M]|#[fg=colour250,bg=colour240]#{online_status}"
+          set-option -g status-right "#[fg=colour253,bg=colour236] [%m/%d(%a) %H:%M]|#[fg=colour250,bg=colour240]#{online_status}"
         '';
       }
     ];
