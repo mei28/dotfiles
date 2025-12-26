@@ -64,7 +64,7 @@ in
         '';
       }
     ];
-    shell = "/Users/mei/.nix-profile/bin/bash";
+    shell = "~/.nix-profile/bin/bash";
     terminal = "tmux-256color";
 
     # .tmux.conf の内容を extraConfig に記述
