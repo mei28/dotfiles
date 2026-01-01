@@ -117,3 +117,4 @@ credentials.json
 .claude/plugins/marketplaces
 .config/nix/.claude/settings.local.json
 .config/nix/home-manager/.claude
+.claude/plugins

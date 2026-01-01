@@ -34,6 +34,7 @@ local spec = {
 	{
 		-- dir = "~/Documents/blink-bang-word-light.nvim",
 		"mei28/blink-bang-word-light.nvim",
+		branch = "feat/visual-mode-highlight",
 		event = { "CursorHold", "CursorMoved" },
 		config = function()
 			require("blink-bang-word-light").setup({
