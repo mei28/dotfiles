@@ -4,11 +4,12 @@
     "type": "command",
     "command": "$HOME/dotfiles/.claude/statusline.sh"
   },
+  "enabledPlugins": {
+    "pyright-lsp@claude-plugins-official": true,
+    "deslop@mei-marketplace": true
+  },
   "alwaysThinkingEnabled": true,
   "feedbackSurveyState": {
     "lastShownTime": 1754308736953
-  },
-  "enabledPlugins": {
-    "pyright-lsp@claude-plugins-official": true
   }
 }
