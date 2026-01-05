@@ -24,6 +24,19 @@
 - **Meaningful comments**: Add comments for complex logic (Japanese comments acceptable for domain-specific terms)
 - **Error handling**: Implement proper exception handling
 
+## Error Handling & Implementation Policy
+
+### Prohibited Practices
+- Don't write fallback code
+- Fail explicitly on errors (don't suppress them)
+- Don't add "just in case" defensive code
+- Don't create alternative implementations without confirmation
+
+### Implementation Policy
+- **Fail fast**: Make errors explicit and immediate
+- **Ask questions before implementation** if uncertain
+- **Don't proceed on assumptions**: Seek confirmation when unsure
+
 ## Documentation Philosophy
 - **Code shows HOW**: Implementation details
 - **Tests show WHAT**: Clear test objectives
