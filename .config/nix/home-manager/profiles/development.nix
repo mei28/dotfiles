@@ -27,6 +27,7 @@
       luarocks
       bun
       pnpm
+      ni
 
       # ビルドツール
       cargo-generate
