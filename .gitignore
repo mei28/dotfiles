@@ -118,3 +118,5 @@ credentials.json
 .config/nix/.claude/settings.local.json
 .config/nix/home-manager/.claude
 .claude/plugins
+.claude/cache
+.claude/paste-cache/683358ea74318466.txt
