@@ -95,6 +95,15 @@ result
 .claude/debug
 .config/ruff
 .claude/plans
+.claude/stats-cache.json
+.claude/plugins/installed_plugins.json
+.claude/plugins/known_marketplaces.json
+.claude/plugins/marketplaces
+.config/nix/.claude/settings.local.json
+.config/nix/home-manager/.claude
+.claude/plugins
+.claude/cache
+.claude/paste-cache/
 
 # 機密情報（リモート環境にコミットしない）
 .openai
@@ -111,12 +120,3 @@ credentials.json
 
 # リモート環境固有の設定ファイル（必要に応じて）
 .config/nix/home-manager/profiles/options-override.nix
-.claude/stats-cache.json
-.claude/plugins/installed_plugins.json
-.claude/plugins/known_marketplaces.json
-.claude/plugins/marketplaces
-.config/nix/.claude/settings.local.json
-.config/nix/home-manager/.claude
-.claude/plugins
-.claude/cache
-.claude/paste-cache/683358ea74318466.txt
