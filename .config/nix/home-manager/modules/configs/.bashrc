@@ -140,7 +140,14 @@ function set_prompt {
         ps1_prefix="${ps1_prefix}${BOLD_GREEN}🧊${RESET} "
     fi
 
-    PS1="${ps1_prefix}${ps1_suffix}"
+    # WezTerm Shell Integration: OSC 133 markers
+    if [[ "$TERM_PROGRAM" == "WezTerm" ]]; then
+        local osc_prompt_start='\[\033]133;A\007\]'
+        local osc_input_start='\[\033]133;B\007\]'
+        PS1="${osc_prompt_start}${ps1_prefix}${ps1_suffix}${osc_input_start}"
+    else
+        PS1="${ps1_prefix}${ps1_suffix}"
+    fi
 }
 
 
@@ -152,7 +159,36 @@ function add_line {
     fi
 }
 
-PROMPT_COMMAND='set_prompt; add_line'
+# WezTerm Shell Integration: OSC 133;D (command end) and OSC 133;C (command start)
+if [[ "$TERM_PROGRAM" == "WezTerm" ]]; then
+    __wezterm_osc() { printf "\033]%s\007" "$1"; }
+
+    __wezterm_cmd_executed=""
+
+    __wezterm_precmd() {
+        local exit_code=$?
+        if [[ -n "$__wezterm_cmd_executed" ]]; then
+            __wezterm_osc "133;D;$exit_code"
+        fi
+        __wezterm_cmd_executed=""
+    }
+
+    __wezterm_preexec() {
+        [[ -n "$COMP_LINE" ]] && return
+        [[ "$BASH_COMMAND" == *"__wezterm_"* ]] && return
+        [[ "$BASH_COMMAND" == "set_prompt"* ]] && return
+        [[ "$BASH_COMMAND" == "add_line"* ]] && return
+        if [[ -z "$__wezterm_cmd_executed" ]]; then
+            __wezterm_osc "133;C"
+            __wezterm_cmd_executed="1"
+        fi
+    }
+
+    trap '__wezterm_preexec' DEBUG
+    PROMPT_COMMAND='__wezterm_precmd; set_prompt; add_line'
+else
+    PROMPT_COMMAND='set_prompt; add_line'
+fi
 
 # git completion
 if [ -e $HOME/.git-completion.bash ]
