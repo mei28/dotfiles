@@ -1,116 +1,17 @@
-.config/nvim/archive
-.config/configstore
-.config/gatsby
-.config/gcloud
-.config/iterm2
-.config/nvim/node_modules
-.config/configstore/update-notifier-npm.json
-.config/nvim/plugin/packer_compiled.lua
-
-.config/Code
-.config/NVIDIA\ Corporation
-.config/QtProject.conf
-.config/Slack
-.config/TabNine
-.config/Unknown\ Organization
-.config/dconf
-.config/discord
-.config/enchant
-.config/eog
-.config/enchant
-.config/eog
-.config/evolution
-.config/fcitx
-.config/gedit
-.config/gnome-control-center
-.config/gnome-initial-setup-done
-.config/goa-1.0
-.config/google-chrome
-.config/gtk-3.0
-.config/gtk-4.0
-.config/ibus
-.config/inkscape
-.config/label-studio
-.config/libreoffice
-.config/menus
-.config/mimeapps.list
-.config/nautilus
-node-gyp
-package-lock.json
-package.json
-.config/pulse
-.config/totem
-.config/update-notifier
-.config/user-dirs.dirs
-.config/user-dirs.locale
-.config/vidcutter
-.config/zoomus.conf
-.config/wandb
-tree-sitter-cli@0.13.10
-.config/neofetch
-.config/monitors.xml~
-.config/karabiner
-.config/python_keyring
-.config/htop
-.config/zed
-.config/gh
-.config/pdm
-.config/yarn
-.config/github-copilot
-.config/.gsd-keyboard.settings-ported
-
-.rye/shims
-.rye/uv
-.rye/py
-
-lazy-lock.json
-
-.DS_STORE
-*/.DS_STORE
+# =============================================================================
+# OS固有
+# =============================================================================
 .DS_Store
-*/.DS_Store
+**/.DS_Store
 
-! .config/nvim/*
-! .gitignore/*
-! .git
-! .git-prompt.sh
-
-! .bashrc/*
-! .bashprofile/*
-! .config/nvim/*
-
-! .vscode
-! *.lua
-result
-.config/nix/nix.conf
-.config/fzf-make/history.toml
-.config/raycast/extensions/*
-.config/go
-.claude/projects
-.claude/shell-snapshots
-.claude/statsig
-.claude/todos
-.claude/file-history
-.claude/history.jsonl
-.claude/debug
-.config/ruff
-.claude/plans
-.claude/stats-cache.json
-.claude/plugins/installed_plugins.json
-.claude/plugins/known_marketplaces.json
-.claude/plugins/marketplaces
-.config/nix/.claude/settings.local.json
-.config/nix/home-manager/.claude
-.claude/plugins
-.claude/cache
-.claude/paste-cache/
-
-# 機密情報（リモート環境にコミットしない）
-.openai
+# =============================================================================
+# 機密情報・認証
+# =============================================================================
 .aws/
+.gnupg/
+.openai/
 .ssh/id_*
 .ssh/*.pem
-.gnupg/
 *.key
 *.pem
 .env
@@ -118,5 +19,83 @@ result
 credentials.json
 *credentials*
 
-# リモート環境固有の設定ファイル（必要に応じて）
+# 認証トークンを含むツール
+.config/gcloud/
+.config/gh/
+.config/github-copilot/
+
+# =============================================================================
+# キャッシュ・自動生成
+# =============================================================================
+node_modules/
+package.json
+package-lock.json
+.mypy_cache/
+.config/configstore/
+.config/efm-langserver/
+.config/yarn/
+
+# Python (rye/uv) - 実行環境
+.rye/shims/
+.rye/uv/
+.rye/py/
+
+# =============================================================================
+# 履歴・一時ファイル
+# =============================================================================
+.config/fzf-make/history.toml
+
+# =============================================================================
+# Neovim
+# =============================================================================
+.config/nvim/archive/
+.config/nvim/node_modules/
+.config/nvim/plugin/packer_compiled.lua
+lazy-lock.json
+
+# =============================================================================
+# Karabiner-Elements (自動生成)
+# =============================================================================
+.config/karabiner/assets/
+.config/karabiner/automatic_backups/
+
+# =============================================================================
+# Zed (AI履歴のみ除外、設定は管理)
+# =============================================================================
+.config/zed/conversations/
+.config/zed/prompts/
+
+# =============================================================================
+# Raycast (拡張機能のみ除外)
+# =============================================================================
+.config/raycast/extensions/
+
+# =============================================================================
+# Nix/Home Manager
+# =============================================================================
+result
+.config/nix/nix.conf
+.config/nix/home-manager/.claude/
 .config/nix/home-manager/profiles/options-override.nix
+
+# =============================================================================
+# Claude Code
+# =============================================================================
+.claude/cache/
+.claude/debug/
+.claude/file-history/
+.claude/history.jsonl
+.claude/paste-cache/
+.claude/plans/
+.claude/plugins/cache/
+.claude/plugins/install-counts-cache.json
+.claude/plugins/installed_plugins.json
+.claude/plugins/known_marketplaces.json
+.claude/plugins/marketplaces/
+.claude/projects/
+.claude/shell-snapshots/
+.claude/stats-cache.json
+.claude/statsig/
+.claude/telemetry/*.json
+.claude/todos/
+.config/nix/.claude/settings.local.json
