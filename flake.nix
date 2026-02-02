@@ -2,11 +2,7 @@
   description = "Multi-platform configuration for Mac and Linux";
 
   inputs = {
-    # nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
-    # nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=nixos-unstable";
-    nixpkgs.url = "github:nixos/nixpkgs/master";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/master";
-    nixpkgs-24.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -39,8 +35,6 @@
     {
       self,
       nixpkgs,
-      nixpkgs-unstable,
-      nixpkgs-24,
       home-manager,
       nix-darwin,
       flake-utils,
@@ -56,8 +50,6 @@
           inherit system;
           overlays = [ neovim-nightly-overlay.overlays.default ];
         };
-        pkgsUnstable = import inputs.nixpkgs-unstable { inherit system; };
-        pkgs24 = import inputs.nixpkgs-24 { inherit system; };
       in
       {
         formatter = pkgs.nixfmt-rfc-style;
@@ -73,8 +65,6 @@
               inherit
                 inputs
                 system
-                pkgsUnstable
-                pkgs24
                 ;
             };
             modules = [ ./.config/nix/home-manager/profiles/macos.nix ];
@@ -87,8 +77,6 @@
               inherit
                 inputs
                 system
-                pkgsUnstable
-                pkgs24
                 ;
             };
             modules = [ ./.config/nix/home-manager/profiles/remote.nix ];

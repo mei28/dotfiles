@@ -1,7 +1,6 @@
 {
   inputs,
   pkgs,
-  pkgsUnstable,
   system,
   ...
 }:
@@ -45,7 +44,7 @@
       inputs.portsage.defaultPackage.${system}
       inputs.git-gardener.defaultPackage.${system}
     ]
-    ++ [ pkgsUnstable.fzf-make ];
+    ++ [ fzf-make ];
 
   # ruff設定
   imports = [ ../modules/ruff.nix ];

@@ -2,7 +2,6 @@
   inputs,
   lib,
   pkgs,
-  pkgsUnstable,
   system,
   ...
 }:
@@ -97,7 +96,7 @@ in
       inputs.portsage.defaultPackage.${system}
       inputs.git-gardener.defaultPackage.${system}
     ]
-    ++ [ pkgsUnstable.fzf-make ];
+    ++ [ fzf-make ];
   # 環境変数を sessionVariables に設定
   home.sessionVariables = {
     PKG_CONFIG_PATH = "${pkgs.curl.dev}/lib/pkgconfig";
