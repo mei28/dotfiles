@@ -735,24 +735,43 @@ if type bun &> /dev/null; then
     export PATH="/Users/mei/.bun/bin:$PATH"
 fi
 
-# copy pwd to clipboard
-cpwd() {
-    # macOS
+# clipboard helper: reads from stdin and copies to clipboard
+_copy_to_clipboard() {
     if command -v pbcopy >/dev/null 2>&1; then
-        pwd | pbcopy
-        echo "Copied to clipboard: $(pwd)"
-        # Linux Waylandの場合 (wl-copyコマンドをチェック)
+        pbcopy
     elif command -v wl-copy >/dev/null 2>&1; then
-        pwd | wl-copy
-        echo "Copied to clipboard: $(pwd)"
-        # Linux X11の場合 (xclipコマンドをチェック)
+        wl-copy
     elif command -v xclip >/dev/null 2>&1; then
-        pwd | xclip -selection clipboard
-        echo "Copied to clipboard: $(pwd)"
+        xclip -selection clipboard
+    elif command -v xsel >/dev/null 2>&1; then
+        xsel --clipboard --input
     else
-        echo "Error: No clipboard tool found. Please install pbcopy, wl-copy, or xclip."
+        # OSC52: terminal escape sequence for clipboard
+        local data
+        data=$(base64 | tr -d '\n')
+        if [[ -n "$TMUX" ]]; then
+            printf '\ePtmux;\e\e]52;c;%s\a\e\\' "$data"
+        else
+            printf '\e]52;c;%s\a' "$data"
+        fi
+    fi
+}
+
+# copy file content to clipboard
+pbc() {
+    if [ -f "$1" ]; then
+        _copy_to_clipboard < "$1"
+        echo "Copied $1!!"
+    else
+        echo "Error: File '$1' does not exist."
         return 1
     fi
+}
+
+# copy pwd to clipboard
+cpwd() {
+    pwd | _copy_to_clipboard
+    echo "Copied to clipboard: $(pwd)"
 }
 
 

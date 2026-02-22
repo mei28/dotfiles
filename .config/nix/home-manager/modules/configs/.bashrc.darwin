@@ -7,17 +7,6 @@ alias la='ls -lahG --color=auto'
 # Use bash-completion, if available
 
 
-# pbcopy for macOS
-
-pbc(){
-    if [ -f "$1" ]; then
-        cat "$1" | pbcopy
-        echo "Copied $1!!"
-    else
-        echo "Error: File '$1' does not exist."
-    fi
-}
-
 ## don't write .DS_Store
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 

@@ -75,6 +75,9 @@ in
       set-option -g default-terminal screen-256color
       set -g terminal-overrides 'xterm:colors=256'
 
+      # OSC52 clipboard support
+      set -s set-clipboard on
+
       # # prefixキーをC-qに変更
       # set -g prefix C-q
       #

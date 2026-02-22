@@ -15,16 +15,6 @@ if [ -f /usr/local/share/bash-completion/bash_completion ]; then
     source /usr/share/bash-completion/bash_completion
 fi
 
-# pbcopy for linux
-pbc(){
-    if [ -f "$1" ]; then
-        cat "$1" | xsel --clipboard --input
-        echo "Copied $1!!"
-    else
-        echo "Error: File '$1' does not exist."
-    fi
-}
-
 # cuda
 export PATH="/usr/local/cuda/bin:$PATH"
 export LD_LIBRARY_PATH="/usr/local/cuda/lib64:$LD_LIBRARY_PATH"

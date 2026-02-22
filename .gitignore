@@ -97,4 +97,5 @@ result
 .claude/statsig/
 .claude/telemetry/*.json
 .claude/todos/
+.claude/tasks/
 .config/nix/.claude/settings.local.json
