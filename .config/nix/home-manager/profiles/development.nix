@@ -43,6 +43,7 @@
       inputs.sgh.defaultPackage.${system}
       inputs.portsage.defaultPackage.${system}
       inputs.git-gardener.defaultPackage.${system}
+      inputs.bonsai.packages.${system}.default
     ]
     ++ [ fzf-make ];
 

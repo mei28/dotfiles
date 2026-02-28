@@ -783,6 +783,11 @@ if type claude &> /dev/null; then
   export PATH="$HOME/.local/bin:$PATH"
 fi
 
+if type bonsai &> /dev/null; then
+  eval "$(bonsai completion bash)"
+  eval "$(bonsai shell-init bash)"
+fi
+
 # if type intelli-shell &> /dev/null; then
 #     eval "$(intelli-shell init bash)"
 #     export INTELLI_SEARCH_HOTKEY="\C-o"

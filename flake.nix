@@ -29,6 +29,9 @@
     git-gardener = {
       url = "github:mei28/git-gardener";
     };
+    bonsai = {
+      url = "github:mei28/bonsai";
+    };
   };
 
   outputs =

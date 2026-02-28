@@ -176,9 +176,6 @@ local spec = {
 				end,
 			})
 
-			-- LSP handlers, virtualtext
-			vim.lsp.handlers["textDocument/publishDiagnostics"] =
-				vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, { virtual_text = true })
 			vim.api.nvim_create_autocmd("InsertEnter", {
 				callback = function()
 					vim.diagnostic.hide(nil, vim.api.nvim_get_current_buf())
@@ -191,7 +188,7 @@ local spec = {
 			})
 
 			-- https://zenn.dev/vim_jp/articles/c62b397647e3c9 エラー警告ヒントの順番を固定
-			vim.diagnostic.config({ severity_sort = true })
+			vim.diagnostic.config({ severity_sort = true, virtual_text = true })
 		end,
 	},
 	{
