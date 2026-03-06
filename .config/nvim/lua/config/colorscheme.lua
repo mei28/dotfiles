@@ -19,6 +19,7 @@ local colorschemes = {
   'nightfly',
   'nightcity',
   'sweetie',
+  '0x96f'
 }
 
 local function applyColorScheme(scheme)

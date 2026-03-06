@@ -18,6 +18,12 @@ return {
   { 'bluz71/vim-nightfly-colors' },
   { 'cryptomilk/nightcity.nvim',      version = false },
   { "NTBBloodbath/sweetie.nvim" },
+  {
+    "filipjanevski/0x96f.nvim",
+    config = function()
+      require("0x96f").setup()
+    end,
+  },
   -- { "typicode/bg.nvim",              event = {'BufNewFile', 'BufRead'}  },
   {
     'xiyaowong/transparent.nvim',
