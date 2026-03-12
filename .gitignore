@@ -76,6 +76,7 @@ result
 .config/nix/nix.conf
 .config/nix/home-manager/.claude/
 .config/nix/home-manager/profiles/options-override.nix
+.config/nix/.claude/settings.local.json
 
 # =============================================================================
 # Claude Code
@@ -98,4 +99,4 @@ result
 .claude/telemetry/*.json
 .claude/todos/
 .claude/tasks/
-.config/nix/.claude/settings.local.json
+.claude/usage-data/*
