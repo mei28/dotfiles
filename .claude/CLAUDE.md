@@ -186,3 +186,12 @@ Don't use emphasis prefixes or emoji decorators in lists:
   - **test**: Test additions/modifications
   - **chore**: Build process/tooling changes
 - **Include rationale, context, and purpose**
+
+### Worktree Usage
+- When instructed, use worktrees to isolate feature branch work from the main tree
+- Use `bonsai` command for all worktree operations (avoid raw `git worktree`)
+- Workflow:
+  1. `bonsai add -c <branch> --base <base-branch>` — create a worktree for the feature branch
+  2. `bonsai cd <branch>` — move into the worktree directory
+  3. After merge, `bonsai remove <branch>` — clean up the worktree
+- Check current state with `bonsai list` or `bonsai status`
