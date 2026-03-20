@@ -77,6 +77,7 @@ result
 .config/nix/home-manager/.claude/
 .config/nix/home-manager/profiles/options-override.nix
 .config/nix/.claude/settings.local.json
+.config/jj/repos
 
 # =============================================================================
 # Claude Code
