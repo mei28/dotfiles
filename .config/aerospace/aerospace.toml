@@ -170,8 +170,10 @@ alt-shift-c = ['move-node-to-workspace c', 'workspace c']
 
 alt-p = 'workspace prev'
 alt-n = 'workspace next'
-alt-shift-p = 'move-workspace-to-monitor prev'
-alt-shift-n = 'move-workspace-to-monitor next'
+# alt-shift-p = 'move-workspace-to-monitor prev'
+# alt-shift-n = 'move-workspace-to-monitor next'
+alt-shift-p = 'focus dfs-prev'
+alt-shift-n = 'focus dfs-next'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
 alt-tab = 'workspace-back-and-forth'
