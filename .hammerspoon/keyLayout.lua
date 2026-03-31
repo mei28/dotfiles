@@ -109,8 +109,9 @@ function Layout:remapKey(event)
 	local flags = event:getFlags()
 	local isKeyDown = event:getType() == hs.eventtap.event.types.keyDown
 
-	-- Ctrlキーが押されている場合はリマップしない
-	if flags.ctrl then
+	-- 修飾キー（Ctrl/Cmd/Alt）が押されている場合はリマップしない
+	-- ショートカットは物理配置（QWERTY）のまま機能させる
+	if flags.ctrl or flags.cmd or flags.alt then
 		return false
 	end
 
