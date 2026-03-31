@@ -43,6 +43,7 @@ in
     claude-code
     tree-sitter
     marp-cli
+    azooKey
 
     # lightgbm dependencies
     llvmPackages.openmp

@@ -1,46 +1,14 @@
 local Layout = require('keyLayout')
 
--- キーマップのテーブルを定義
--- qwerty -> ebi
-local ebiKeyMap = {
-  [0x0c] = 0x0c, -- q -> q
-  [0x0d] = 0x25, -- w -> l
-  [0x0e] = 0x2b, -- e -> ,
-  [0x0f] = 0x2f, -- r -> .
-  [0x11] = 0x29, -- t -> ;
-  [0x10] = 0x03, -- y -> f
-  [0x20] = 0x0d, -- u -> w
-  [0x22] = 0x0f, -- i -> r
-  [0x1f] = 0x10, -- o -> y
-  [0x23] = 0x23, -- p -> p
+-- QWERTY (reference):
+-- q  w  e  r  t    y  u  i  o  p
+-- a  s  d  f  g    h  j  k  l  ;
+-- z  x  c  v  b    n  m  ,  .  /
 
-  [0x00] = 0x00, -- a -> a
-  [0x01] = 0x1f, -- s -> o
-  [0x02] = 0x0e, -- d -> e
-  [0x03] = 0x22, -- f -> i
-  [0x05] = 0x20, -- g -> u
-  [0x04] = 0x28, -- h -> k
-  [0x26] = 0x11, -- j -> t
-  [0x28] = 0x2d, -- k -> n
-  [0x25] = 0x01, -- l -> s
-  [0x29] = 0x04, -- ; -> h
-
-  [0x06] = 0x06, -- z -> z
-  [0x07] = 0x07, -- x -> x
-  [0x08] = 0x08, -- c -> c
-  [0x09] = 0x09, -- v -> v
-  [0x0b] = 0x0b, -- b -> b
-  [0x2d] = 0x05, -- n -> g
-  [0x2e] = 0x02, -- m -> d
-  [0x2b] = 0x2e, -- , -> m
-  [0x2f] = 0x26, -- . -> j
-  [0x2c] = 0x2c, -- / -> /
-}
-
--- Keys to skip remapping when Shift is held (avoid conflict with custom KB)
-local shiftPassthrough = {
-  [0x2b] = true, -- ,
-  [0x2f] = true, -- .
-}
-
-return Layout:new("Ebi", ebiKeyMap, shiftPassthrough)
+return Layout:new("Ebi", {
+  "q  l  ,  .  ;    f  w  r  y  p",
+  "a  o  e  i  u    k  t  n  s  h",
+  "z  x  c  v  b    g  d  m  j  /",
+}, {
+  shiftPassthrough = { ",", "." },
+})
