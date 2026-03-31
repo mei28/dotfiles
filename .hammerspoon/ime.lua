@@ -5,11 +5,24 @@ local layouts = {
   qwerty = require('qwerty'),
 }
 
+-- Detect Japanese input method (prefer azooKey if available)
+local function detectJapaneseMethod()
+  local azooKeyName = "azooKey (日本語)"
+  for _, method in ipairs(hs.keycodes.methods()) do
+    if method == azooKeyName then
+      return azooKeyName, "azooKey"
+    end
+  end
+  return "Hiragana", "かな"
+end
+
+local jpMethod, jpDisplayName = detectJapaneseMethod()
+
 local config = {
   showtime = 0.2,
   layout = 'ebi', -- Default layout
-  inputMethods = { en = "Romaji", jp = "Hiragana" },
-  displayName = { en = "ABC", jp = "かな" },
+  inputMethods = { en = "Romaji", jp = jpMethod },
+  displayName = { en = "ABC", jp = jpDisplayName },
 }
 
 -- Validate and initialize layout

@@ -1,7 +1,7 @@
 local Layout = {}
 Layout.__index = Layout
 
-function Layout:new(name, keyMap)
+function Layout:new(name, keyMap, shiftPassthrough)
   local reverseMap = {}
   for key, value in pairs(keyMap) do
     reverseMap[value] = key
@@ -10,6 +10,7 @@ function Layout:new(name, keyMap)
     name = name,
     keyMap = keyMap,
     reverseMap = reverseMap,
+    shiftPassthrough = shiftPassthrough or {},
     eventTap = nil,
     enabled = false,
   }, self)
@@ -24,6 +25,11 @@ function Layout:remapKey(event)
 
   -- Ctrlキーが押されている場合はリマップしない
   if flags.ctrl then
+    return false
+  end
+
+  -- Skip remapping for keys marked as shift-passthrough
+  if flags.shift and self.shiftPassthrough[keyCode] then
     return false
   end
 

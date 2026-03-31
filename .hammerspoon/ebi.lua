@@ -37,4 +37,10 @@ local ebiKeyMap = {
   [0x2c] = 0x2c, -- / -> /
 }
 
-return Layout:new("Ebi", ebiKeyMap)
+-- Keys to skip remapping when Shift is held (avoid conflict with custom KB)
+local shiftPassthrough = {
+  [0x2b] = true, -- ,
+  [0x2f] = true, -- .
+}
+
+return Layout:new("Ebi", ebiKeyMap, shiftPassthrough)
