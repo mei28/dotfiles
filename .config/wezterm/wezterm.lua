@@ -4,6 +4,7 @@ local utils = require 'utils'
 local keys = require 'keys'
 local window = require 'window'
 require 'status'
+require 'claude'
 
 local act = wezterm.action
 

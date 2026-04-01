@@ -15,5 +15,16 @@
   "alwaysThinkingEnabled": true,
   "feedbackSurveyState": {
     "lastShownTime": 1754308736953
+  },
+  "effortLevel": "high",
+  "hooks": {
+    "SessionStart": [{"hooks": [{"type": "command", "command": "$HOME/dotfiles/.claude/hooks/wezterm-state.sh idle", "timeout": 5}]}],
+    "UserPromptSubmit": [{"hooks": [{"type": "command", "command": "$HOME/dotfiles/.claude/hooks/wezterm-state.sh thinking", "timeout": 5}]}],
+    "PreToolUse": [{"hooks": [{"type": "command", "command": "$HOME/dotfiles/.claude/hooks/wezterm-state.sh executing", "timeout": 5}]}],
+    "PostToolUse": [{"hooks": [{"type": "command", "command": "$HOME/dotfiles/.claude/hooks/wezterm-state.sh thinking", "timeout": 5}]}],
+    "PostToolUseFailure": [{"hooks": [{"type": "command", "command": "$HOME/dotfiles/.claude/hooks/wezterm-state.sh thinking", "timeout": 5}]}],
+    "Stop": [{"hooks": [{"type": "command", "command": "$HOME/dotfiles/.claude/hooks/wezterm-state.sh idle", "timeout": 5}]}],
+    "StopFailure": [{"hooks": [{"type": "command", "command": "$HOME/dotfiles/.claude/hooks/wezterm-state.sh idle", "timeout": 5}]}],
+    "SessionEnd": [{"hooks": [{"type": "command", "command": "$HOME/dotfiles/.claude/hooks/wezterm-state.sh", "timeout": 5}]}]
   }
 }
