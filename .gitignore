@@ -102,3 +102,5 @@ result
 .claude/tasks/
 .claude/usage-data/*
 .claude/backups
+.claude/mcp-needs-auth-cache.json
+.claude/sessions/

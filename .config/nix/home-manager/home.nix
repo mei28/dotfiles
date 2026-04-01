@@ -45,7 +45,6 @@ in
       go
       google-cloud-sdk
       pnpm
-      claude-code
       terraform
       postgresql
       bun
@@ -130,6 +129,9 @@ in
 
     # ssh
     ./modules/ssh.nix
+
+    # claude
+    ./modules/claude.nix
 
   ];
 

@@ -26,7 +26,22 @@ update-flake:
 # Apply Home Manager configuration (macOS)
 update-home:
   @echo "Updating Home Manager config (macOS)..."
-  nix run nixpkgs#home-manager -- switch --flake .#{{username}}
+  home-manager switch --flake .#{{username}}
+
+# Bootstrap Home Manager (first-time setup on new machine)
+bootstrap-home:
+  @echo "Bootstrapping Home Manager config (macOS)..."
+  nix run home-manager -- switch --flake .#{{username}}
+
+# Build Home Manager configuration without activating (for verification)
+build-home:
+  @echo "Building Home Manager config (macOS)..."
+  home-manager build --flake .#{{username}}
+
+# Evaluate Home Manager configuration (fast syntax/reference check)
+eval-home:
+  @echo "Evaluating Home Manager config..."
+  nix eval .#legacyPackages.aarch64-darwin.homeConfigurations.{{username}}.activationPackage
 
 # Apply nix-darwin configuration
 update-darwin:
