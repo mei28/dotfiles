@@ -184,6 +184,7 @@ alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
 alt-shift-semicolon = 'mode service'
 
 alt-r = 'mode resize'
+alt-w = 'mode layout'
 
 # 'service' binding mode declaration.
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
@@ -219,6 +220,23 @@ alt-shift-d = 'move-node-to-workspace d'
 alt-shift-u = 'move-node-to-workspace u'
 alt-shift-s = 'move-node-to-workspace s'
 alt-shift-c = 'move-node-to-workspace c'
+
+[mode.layout.binding]
+esc = 'mode main'
+q = 'mode main'
+# Presets (exec-and-forget runs async, mode main returns immediately)
+g = ['exec-and-forget $HOME/.config/aerospace/aerospace-layout.sh grid', 'mode main']
+l = ['exec-and-forget $HOME/.config/aerospace/aerospace-layout.sh main-left', 'mode main']
+r = ['exec-and-forget $HOME/.config/aerospace/aerospace-layout.sh main-right', 'mode main']
+# Flat layouts (no script needed)
+h = ['flatten-workspace-tree', 'layout tiles horizontal', 'mode main']
+v = ['flatten-workspace-tree', 'layout tiles vertical', 'mode main']
+# Manual building blocks (stay in layout mode for chaining)
+f = 'flatten-workspace-tree'
+shift-h = 'join-with left'
+shift-j = 'join-with down'
+shift-k = 'join-with up'
+shift-l = 'join-with right'
 
 [mode.resize.binding]
 minus = 'resize smart -50'
