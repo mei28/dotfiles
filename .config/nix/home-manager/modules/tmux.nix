@@ -78,6 +78,9 @@ in
       # OSC52 clipboard support
       set -s set-clipboard on
 
+      # WezTerm user variable passthrough (Claude Code state hooks)
+      set -g allow-passthrough on
+
       # # prefixキーをC-qに変更
       # set -g prefix C-q
       #

@@ -3,17 +3,26 @@
 # States: idle, thinking, executing (empty to clear)
 
 set_user_var() {
-	printf '\033]1337;SetUserVar=%s=%s\007' "$1" "$(printf '%s' "$2" | base64)" > /dev/tty 2>/dev/null || true
+	local value
+	value=$(printf '%s' "$2" | base64)
+	if [ -n "$TMUX" ]; then
+		# tmux: DCS passthrough で OSC を外側のターミナルへ転送
+		printf '\033Ptmux;\033\033]1337;SetUserVar=%s=%s\007\033\\' "$1" "$value" > /dev/tty 2>/dev/null || true
+	else
+		printf '\033]1337;SetUserVar=%s=%s\007' "$1" "$value" > /dev/tty 2>/dev/null || true
+	fi
 }
 
-prompt_file="/tmp/claude-prompt-${WEZTERM_PANE}"
+# ペーン識別子: WezTerm直接 → WEZTERM_PANE, tmux内 → TMUX_PANE
+pane_id="${WEZTERM_PANE:-${TMUX_PANE}}"
+prompt_file="/tmp/claude-prompt-${pane_id}"
 
 save_prompt() {
-	[ -n "$WEZTERM_PANE" ] && printf '%s' "$1" > "$prompt_file"
+	[ -n "$pane_id" ] && printf '%s' "$1" > "$prompt_file"
 }
 
 load_prompt() {
-	[ -n "$WEZTERM_PANE" ] && [ -f "$prompt_file" ] && cat "$prompt_file"
+	[ -n "$pane_id" ] && [ -f "$prompt_file" ] && cat "$prompt_file"
 }
 
 # Extract human-readable detail from tool_name + tool_input
@@ -71,7 +80,7 @@ case "$state" in
 		title="${title:-Claude Code}"
 		;;
 	"")
-		[ -n "$WEZTERM_PANE" ] && rm -f "$prompt_file"
+		[ -n "$pane_id" ] && rm -f "$prompt_file"
 		;;
 esac
 
