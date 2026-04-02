@@ -21,7 +21,7 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
 		background = state.bg
 		prefix = state.icon .. " "
 	elseif tab.is_active then
-		background = "#ae8b2d"
+		background = "#CD201F"
 	end
 
 	-- Use claude_title when set, otherwise fall back to pane title
