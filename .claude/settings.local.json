@@ -3,7 +3,9 @@
     "allow": [
       "Bash(just info:*)",
       "Bash(just update-home:*)",
-      "Read(//Users/mei/**)"
+      "Read(//Users/mei/**)",
+      "WebFetch(domain:github.com)",
+      "WebSearch"
     ],
     "deny": [],
     "ask": []
