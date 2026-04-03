@@ -1,5 +1,24 @@
 local spec = {
 	{
+
+		dir = "~/Documents/nvim-overleaf/",
+		dependencies = {
+			"vim-denops/denops.vim",
+		},
+		cmd = {
+			"OverleafInit",
+			"OverleafSync",
+			"OverleafOpen",
+			"OverleafStatus",
+			"OverleafDisconnect",
+			"OverleafLogLevel",
+		},
+		config = function()
+			-- Optional: set cookie via environment variable
+			-- vim.env.OVERLEAF_COOKIE = 'overleaf_session2=s%3A...'
+		end,
+	},
+	{
 		-- dir = "~/Documents/luminate.nvim/.gardener/refactor/",
 		"mei28/luminate.nvim",
 		branch = "refactor",
