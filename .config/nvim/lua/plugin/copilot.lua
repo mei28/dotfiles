@@ -1,49 +1,96 @@
--- copilot
+-- copilot (native LSP + vim.lsp.inline_completion)
+
+--- insert_text から可視部分（カーソル以降）の最初の word だけを残す
+---@param item vim.lsp.inline_completion.Item
+---@return vim.lsp.inline_completion.Item?
+local function accept_word(item)
+  local text = type(item.insert_text) == 'string' and item.insert_text or item.insert_text.value
+
+  -- range がある場合、range start〜cursor が既入力分
+  local prefix_len = 0
+  if item.range then
+    local _, start_col = item.range:to_extmark()
+    local cursor_col = vim.api.nvim_win_get_cursor(0)[2]
+    prefix_len = math.max(0, cursor_col - start_col)
+  end
+
+  local remaining = text:sub(prefix_len + 1)
+  -- Vim 的な word: [%w_]+ または非 word 非空白の連続
+  local word = remaining:match('^([%w_]+)') or remaining:match('^([^%w_%s]+)')
+  if word then
+    item.insert_text = text:sub(1, prefix_len) .. word
+    return item
+  end
+end
+
+--- insert_text の最初の行だけを残す
+---@param item vim.lsp.inline_completion.Item
+---@return vim.lsp.inline_completion.Item?
+local function accept_line(item)
+  local text = type(item.insert_text) == 'string' and item.insert_text or item.insert_text.value
+  local line = text:match('^([^\n]+)')
+  if line then
+    item.insert_text = line
+    return item
+  end
+end
 
 local spec = {
   {
     'zbirenbaum/copilot.lua',
-    event = { 'InsertEnter' },
+    -- CopilotChat の認証用に残す（suggestion/panel は無効化）
+    lazy = true,
+    init = function()
+      vim.lsp.enable('copilot')
+      vim.lsp.inline_completion.enable()
+
+      -- バッファローカルのキーマップを LspAttach で設定
+      -- → nvim-cmp のグローバルマッピングより優先される
+      vim.api.nvim_create_autocmd('LspAttach', {
+        callback = function(ev)
+          local client = vim.lsp.get_client_by_id(ev.data.client_id)
+          if not client or client.name ~= 'copilot' then return end
+
+          vim.keymap.set('i', '<C-c>', function()
+            if not vim.lsp.inline_completion.get() then
+              return '<C-c>'
+            end
+          end, { buffer = ev.buf, expr = true, desc = 'Accept inline completion' })
+
+          vim.keymap.set('i', '<C-w>', function()
+            if not vim.lsp.inline_completion.get({ on_accept = accept_word }) then
+              return '<C-w>'
+            end
+          end, { buffer = ev.buf, expr = true, desc = 'Accept inline completion (word)' })
+
+          vim.keymap.set('i', '<C-l>', function()
+            if not vim.lsp.inline_completion.get({ on_accept = accept_line }) then
+              return '<C-l>'
+            end
+          end, { buffer = ev.buf, expr = true, desc = 'Accept inline completion (line)' })
+        end,
+      })
+    end,
     config = function()
-      local status, copilot = pcall(require, 'copilot')
-      if not status then return end
-      -- local status, cop_cmp = pcall(require, 'copilot_cmp')
-      -- if not status then return end
+      local ok, copilot = pcall(require, 'copilot')
+      if not ok then return end
 
       copilot.setup({
         panel = { enabled = false },
-        suggestion = {
-          enabled = true,
-          auto_trigger = true,
-          keymap = {
-            accept = "<C-c>",
-            accept_word = "<C-w>",
-            accept_line = "<C-l>",
-          },
-        },
-        filetypes = { markdown = true, gitcommit = true, },
+        suggestion = { enabled = false },
       })
-      -- cop_cmp.setup({})
     end,
-    cmd = 'Copilot'
+    cmd = 'Copilot',
   },
-  -- {
-  --   'zbirenbaum/copilot-cmp',
-  --   event = { 'InsertEnter' },
-  --   dependencies = { 'copilot.lua' },
-  -- },
   {
-
     "CopilotC-Nvim/CopilotChat.nvim",
-    -- branch = "main",
     dependencies = {
-      { "zbirenbaum/copilot.lua" }, -- or github/copilot.vim
-      { "nvim-lua/plenary.nvim" },  -- for curl, log wrapper
+      { "zbirenbaum/copilot.lua" },
+      { "nvim-lua/plenary.nvim" },
     },
-    build = "make tiktoken",        -- Only on MacOS or Linux
+    build = "make tiktoken",
     opts = {
-      debug = false,                -- Enable debugging
-      -- default prompts
+      debug = false,
       prompts = {
         Commit = {
           prompt =
@@ -90,8 +137,5 @@ Write a commit message following these rules:
     }
   },
 }
-
-
-
 
 return spec

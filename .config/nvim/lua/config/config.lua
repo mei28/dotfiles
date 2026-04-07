@@ -174,6 +174,20 @@ vim.api.nvim_create_user_command("CopyCurrentBufferPath", function()
 	vim.fn.setreg("+", path)
 	print("Copied: " .. path)
 end, { desc = "Copy current buffer full path to clipboard" })
+-- :messages の出力をスクラッチバッファで開く
+vim.api.nvim_create_user_command("Messages", function()
+	local output = vim.api.nvim_exec2("messages", { output = true }).output
+	vim.cmd("botright new")
+	local buf = vim.api.nvim_get_current_buf()
+	vim.api.nvim_buf_set_name(buf, "messages://")
+	vim.bo[buf].buftype = "nofile"
+	vim.bo[buf].bufhidden = "wipe"
+	vim.bo[buf].swapfile = false
+	vim.bo[buf].filetype = "messages"
+	vim.api.nvim_buf_set_lines(buf, 0, -1, false, vim.split(output, "\n"))
+	vim.bo[buf].modifiable = false
+end, { desc = "Open :messages in a scratch buffer" })
+
 -- 外部からファイルを変更されたら反映する
 -- https://minerva.mamansoft.net/Notes/%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%8C%E5%A4%89%E6%9B%B4%E3%81%95%E3%82%8C%E3%81%9F%E3%82%89%E8%87%AA%E5%8B%95%E3%81%A7%E5%86%8D%E8%AA%AD%E3%81%BF%E8%BE%BC%E3%81%BF+(Neovim)
 vim.api.nvim_create_autocmd({ "WinEnter", "FocusGained", "BufEnter" }, {
