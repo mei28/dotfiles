@@ -92,6 +92,62 @@ local spec = {
 
 			vim.lsp.enable(servers)
 
+			vim.api.nvim_create_user_command("LspInfo", function()
+				local bufnr = vim.api.nvim_get_current_buf()
+				local buf_clients = vim.lsp.get_clients({ bufnr = bufnr })
+				local all_clients = vim.lsp.get_clients()
+				local lines = {}
+
+				table.insert(lines, "Buffer: " .. vim.api.nvim_buf_get_name(bufnr))
+				table.insert(lines, "Filetype: " .. vim.bo[bufnr].filetype)
+				table.insert(lines, "")
+				table.insert(lines, "--- Attached clients ---")
+				table.insert(lines, "")
+
+				if #buf_clients == 0 then
+					table.insert(lines, "  (none)")
+				else
+					for _, client in ipairs(buf_clients) do
+						table.insert(lines, string.format("  %s (id: %d)", client.name, client.id))
+						table.insert(lines, "    root_dir: " .. (client.root_dir or "(none)"))
+						if client.config and client.config.cmd then
+							table.insert(lines, "    cmd:      " .. table.concat(client.config.cmd, " "))
+						end
+						table.insert(lines, "")
+					end
+				end
+
+				-- Other active clients not attached to current buffer
+				local buf_ids = {}
+				for _, c in ipairs(buf_clients) do
+					buf_ids[c.id] = true
+				end
+				local others = vim.tbl_filter(function(c)
+					return not buf_ids[c.id]
+				end, all_clients)
+
+				if #others > 0 then
+					table.insert(lines, "--- Other active clients ---")
+					table.insert(lines, "")
+					for _, client in ipairs(others) do
+						local bufs = vim.tbl_keys(client.attached_buffers or {})
+						table.insert(
+							lines,
+							string.format("  %s (id: %d, buffers: %s)", client.name, client.id, table.concat(bufs, ", "))
+						)
+					end
+				end
+
+				vim.cmd("botright new")
+				local buf = vim.api.nvim_get_current_buf()
+				vim.api.nvim_buf_set_name(buf, "lsp-info://")
+				vim.bo[buf].buftype = "nofile"
+				vim.bo[buf].bufhidden = "wipe"
+				vim.bo[buf].swapfile = false
+				vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
+				vim.bo[buf].modifiable = false
+			end, { desc = "Show LSP client information" })
+
 			-- Global mappings
 			local set = vim.keymap.set
 			set("n", "[d", function()
