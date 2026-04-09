@@ -33,6 +33,7 @@ in
       core.excludesFile = "/Users/${username}/.gitignore_global";
       core.editor = "nvim";
       core.attributesFile = "/Users/${username}/.gitattributes";
+      core.hooksPath = "~/.config/git/hooks";
 
       # Diff and merge tool settings
       diff.tool = "nvimdiff";
@@ -111,5 +112,32 @@ in
       filter.clean_ipynb.clean = "jq --indent 1 --monochrome-output '. + if .metadata.git.suppress_outputs | not then { cells: [.cells[] | . + if .cell_type == \"code\" then { outputs: [], execution_count: null } else {} end ] } else {} end'";
       filter.clean_ipynb.smudge = "cat";
     };
+  };
+
+  # Global pre-commit hook: block commits containing unresolved conflict markers
+  # Covers gitui and git aliases (e.g., git fixup) that bypass the shell function
+  home.file.".config/git/hooks/pre-commit" = {
+    text = ''
+      #!/usr/bin/env bash
+      files_with_markers=()
+      while IFS= read -r file; do
+          if git show ":$file" 2>/dev/null | grep -qE '^(<{7}|>{7}) '; then
+              files_with_markers+=("$file")
+          fi
+      done < <(git diff --cached --name-only --diff-filter=ACMR)
+
+      if [[ ''${#files_with_markers[@]} -gt 0 ]]; then
+          echo "Error: Conflict markers detected. Commit aborted." >&2
+          printf '  %s\n' "''${files_with_markers[@]}" >&2
+          exit 1
+      fi
+
+      # Chain to repo-local pre-commit hook
+      LOCAL_HOOK="$(git rev-parse --git-dir)/hooks/pre-commit"
+      if [[ -x "$LOCAL_HOOK" ]]; then
+          exec "$LOCAL_HOOK" "$@"
+      fi
+    '';
+    executable = true;
   };
 }

@@ -647,6 +647,25 @@ if type fzf-make &> /dev/null; then
     alias fh='fzf-make history'
 fi
 
+# Prevent committing unresolved conflict markers
+git() {
+    if [[ "$1" == "commit" ]]; then
+        local files_with_markers=()
+        while IFS= read -r file; do
+            if command git show ":$file" 2>/dev/null | grep -qE '^(<{7}|>{7}) '; then
+                files_with_markers+=("$file")
+            fi
+        done < <(command git diff --cached --name-only --diff-filter=ACMR)
+
+        if [[ ${#files_with_markers[@]} -gt 0 ]]; then
+            echo "Error: Conflict markers detected. Commit aborted." >&2
+            printf '  %s\n' "${files_with_markers[@]}" >&2
+            return 1
+        fi
+    fi
+    command git "$@"
+}
+
 # go to git root
 alias gr='cd $(git rev-parse --show-toplevel)'
 
