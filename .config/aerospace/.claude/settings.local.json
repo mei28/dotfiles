@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(gh search:*)",
+      "WebSearch",
+      "Bash(gh release:*)",
+      "WebFetch(domain:github.com)",
+      "Bash(gh issue:*)",
+      "WebFetch(domain:www.roguelazer.com)",
+      "Bash(aerospace --version)",
+      "Bash(aerospace list-apps:*)"
+    ]
+  }
+}

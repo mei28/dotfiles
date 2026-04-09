@@ -27,7 +27,17 @@ local keys = {
 		action = act.ActivatePaneDirection("Left"),
 	},
 	{
+		key = "LeftArrow",
+		mods = "LEADER",
+		action = act.ActivatePaneDirection("Left"),
+	},
+	{
 		key = "l",
+		mods = "LEADER",
+		action = act.ActivatePaneDirection("Right"),
+	},
+	{
+		key = "RightArrow",
 		mods = "LEADER",
 		action = act.ActivatePaneDirection("Right"),
 	},
@@ -37,7 +47,17 @@ local keys = {
 		action = act.ActivatePaneDirection("Up"),
 	},
 	{
+		key = "UpArrow",
+		mods = "LEADER",
+		action = act.ActivatePaneDirection("Up"),
+	},
+	{
 		key = "j",
+		mods = "LEADER",
+		action = act.ActivatePaneDirection("Down"),
+	},
+	{
+		key = "DownArrow",
 		mods = "LEADER",
 		action = act.ActivatePaneDirection("Down"),
 	},
