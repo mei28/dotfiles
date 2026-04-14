@@ -84,6 +84,26 @@ in
       alias.ss = "!git -c delta.side-by-side=true show";
       alias.lgs = "!git -c delta.side-by-side=true log -p";
 
+      # Project exploration one-liners (reference / not aliased)
+      # Source: https://gigazine.net/news/20260410-git-command-before-reading-code/
+      # Use when onboarding to an unfamiliar codebase. Kept as comments to avoid
+      # bloating `git <tab>` completion for commands that are rarely used.
+      #
+      # 1. Top 20 most-changed files in the last year (active / risky areas):
+      #    git log --format=format: --name-only --since="1 year ago" --no-merges \
+      #      | sort | uniq -c | sort -nr | head -20
+      #
+      # 2. Files most frequently touched by bug-fix commits (bug hotspots):
+      #    git log -i -E --grep='fix|bug|broken' --name-only --format='' --no-merges \
+      #      | grep -v '^$' | sort | uniq -c | sort -nr | head -20
+      #
+      # 3. Monthly commit count (project momentum):
+      #    git log --format='%ad' --date=format:'%Y-%m' --no-merges | sort | uniq -c
+      #
+      # 4. Emergency patches / reverts / hotfixes (deploy stability):
+      #    git log --oneline --since="1 year ago" -i -E \
+      #      --grep='revert|hotfix|emergency|rollback'
+
       # Delta named features for toggling
       "delta \"line-numbers\"" = lib.mkIf hasDelta {
         line-numbers = true;

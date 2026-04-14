@@ -318,7 +318,8 @@ function luasnip_setup()
 	end
 
 	ls.add_snippets("all", {
-		s("@Today", c(1, { t(today(1)), t(today(2)), t(today(3)) })),
+		s(":today", c(1, { t(today(1)), t(today(2)), t(today(3)) })),
+		s(":tdy", c(1, { t(today(1)), t(today(2)), t(today(3)) })),
 		s("TSU", { t("TSUNDOKU") }),
 		s("HCO", { t("HCOMP") }),
 	})

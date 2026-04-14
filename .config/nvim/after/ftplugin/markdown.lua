@@ -46,3 +46,5 @@ vim.api.nvim_buf_create_user_command(
 )
 
 set({ 'i', 'n', 'x' }, '<C-CR>', '<CMD>MarkdownCheckbox<CR>', { buffer = true })
+
+require('config.claude_path').setup_buffer(0)

@@ -18,6 +18,7 @@
       "azookey"
       "marta"
       "raycast"
+      "thaw"
     ];
     brews = [
       "lusingander/tap/serie"
