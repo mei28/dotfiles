@@ -287,3 +287,7 @@ run = "move-node-to-workspace s"
 [[on-window-detected]]
 if.app-id = "com.valvesoftware.steam"
 run = "move-node-to-workspace c"
+
+[[on-window-detected]]
+if.app-id = "com.Unity-Technologies.com.unity.template.urp-blank"
+run = "move-node-to-workspace c"
