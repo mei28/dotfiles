@@ -7,11 +7,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1775395282,
-        "narHash": "sha256-CHbgZ+zikC+yzHWnJwAF/0UUU3/ZGf4N8N4G86NLJOo=",
+        "lastModified": 1776319628,
+        "narHash": "sha256-bNEkJR9GKVxDysZr17yEl9LwLUpj62Kn86jRxC0jYCc=",
         "owner": "mei28",
         "repo": "bonsai",
-        "rev": "79b5abacb52160c347b2f81a08f0ab0a2660da31",
+        "rev": "bee75cecf2ac5514fc7a8d7aac4637f1b8df736b",
         "type": "github"
       },
       "original": {
