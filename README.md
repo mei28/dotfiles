@@ -16,10 +16,19 @@ cd dotfiles
 curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
 ```
 
-### home-manager適用（macOS）
+### 設定の適用（macOS）
+
+ユーザー設定（home-manager）とシステム設定（nix-darwin）を別々に適用します。
 
 ```bash
-home-manager switch --flake .#mei
+# ユーザー設定（CLI ツール、shell、neovim 等）
+just update-home
+
+# システム設定（/etc, launchd, homebrew, フォント等）— root 必要
+sudo just update-darwin
+
+# まとめて: flake 更新 + home + darwin
+just update-all
 ```
 
 ---
@@ -76,29 +85,45 @@ home-manager switch --flake .#mei-remote --impure
 
 ## プロファイル構成
 
-- `mei`: macOS用フルプロファイル（ローカル開発環境）
+home-manager:
+- `mei`: macOS 用フルプロファイル（ローカル開発環境）
 - `mei-remote`: リモート用軽量プロファイル（EC2/Linux）
-  - 自動的に実行ユーザー名を検出（`ubuntu`, `ec2-user`等）
-  - 最小限のCLIツール + Neovim/LSP + Tmux/Zellij
-  - SSH接続時に自動的にtmuxセッション起動
+  - 自動的に実行ユーザー名を検出（`ubuntu`, `ec2-user` 等）
+  - 最小限の CLI ツール + Neovim/LSP + Tmux
+  - SSH 接続時に自動的に tmux セッション起動
+
+nix-darwin:
+- `mei-darwin`: macOS システム設定（`/etc`、launchd、homebrew、フォント等）
 
 ---
 
 ## 含まれるツール
 
-### 共通（base）
-- git, gh, fzf, ripgrep, fd, bat, tree, yazi
-- neovim, tmux, zellij
-- zoxide, jujutsu, gitui
+実体は `.config/nix/home-manager/profiles/{base,development,macos,remote}.nix` と `.config/nix/nix-darwin/config/homebrew.nix` を参照。
 
-### 開発環境（development）
+### 共通（base / 全プロファイル）
+- CLI: gh, bat, just, fd, ripgrep, dust, delta, tldr, csvlens, miniserve, serie
+- ファイル管理: yazi, trash-cli, tree, wget, curl, zip, unzip
+- エディタ/セッション: neovim, tmux, tmux-mem-cpu-load
+- shell 補助 (programs.* 経由): bash, fzf, zoxide, fastfetch
+- VCS: git, gitui, jujutsu
+
+### 開発環境（development / mei・mei-remote）
 - LSP: pyright, gopls, rust-analyzer, efm-langserver
-- ランタイム: Python(uv), Node.js, Rust, Go, Deno
-- ビルドツール: cargo, llvm, sqlite, postgresql
+- ランタイム: Python (uv), Node.js (nodejs_24, bun, pnpm, ni, deno), Rust (cargo, rustc), Go, Lua (luajit, luarocks)
+- ビルド/フォーマッタ: cargo-generate, llvm, sqlite, postgresql, nixfmt-rfc-style, ruff
+- 自作ツール: cliperge, sgh, portsage, git-gardener, bonsai
 
-### macOS専用
-- karabiner, aerospace, yabai（ウィンドウ管理）
-- claude-code, terraform, google-cloud-sdk
+### macOS 専用 (`mei` プロファイル)
+- メディア: ffmpeg, ffmpegthumbnailer, imagemagick, ghostscript, marp-cli
+- クラウド/IaC: google-cloud-sdk, terraform, heroku
+- その他: claude-code, tree-sitter, git-lfs, openssl, arxiv-latex-cleaner
+
+### macOS システム (`mei-darwin` / homebrew 経由)
+- ウィンドウ管理: aerospace, hammerspoon
+- ターミナル: wezterm, wezterm@nightly, ghostty
+- ランチャー/ユーティリティ: raycast, marta, ngrok, azookey, thaw
+- フォント: font-hack-nerd-font, font-symbols-only-nerd-font
 
 ---
 
@@ -108,10 +133,14 @@ home-manager switch --flake .#mei-remote --impure
 
 ### ローカル環境（macOS）
 ```bash
-just update-home      # Home Manager設定を適用
-just update-darwin    # nix-darwin設定を適用
+just update-home      # Home Manager 設定を適用
+just update-darwin    # nix-darwin 設定を適用（root 必要 → sudo 経由で呼ぶ）
+just update-flake     # flake.lock を更新
 just update-all       # すべて更新（flake + home + darwin）
-just gc               # Nixガベージコレクション
+just build-home       # 適用せずビルドだけ（事前検証）
+just eval-home        # 構文/参照のみ評価（高速チェック）
+just gc               # Nix ガベージコレクション
+just delete-old-profiles  # 古い世代を削除
 ```
 
 ### リモート環境
@@ -189,10 +218,11 @@ bash ~/dotfiles/test/verify-setup.sh
 
 ### CI/CD による自動検証
 
-GitHub Actionsでプッシュ時に自動実行されます：
-- Nix flake構文チェック
-- シェルスクリプトlint
-- プロファイルのビルドテスト（Ubuntu/macOS）
+`.github/workflows/ci.yml` で push / PR 時に自動実行:
+- `nix flake check --impure` と nixfmt フォーマットチェック
+- `shellcheck` (`remote-bootstrap.sh`, `test/verify-setup.sh`)
+- `mei-remote` プロファイルのビルド（ubuntu-latest）
+- `remote-bootstrap.sh` の構文 + 必須コマンド検査
 
 ---
 
