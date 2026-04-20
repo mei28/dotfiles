@@ -5,7 +5,17 @@
       "Bash(just update-home:*)",
       "Read(//Users/mei/**)",
       "WebFetch(domain:github.com)",
-      "WebSearch"
+      "WebSearch",
+      "WebFetch(domain:discourse.nixos.org)",
+      "Bash(gh run *)",
+      "Bash(gh issue *)",
+      "Bash(gh api *)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(nix show-config *)",
+      "Bash(nix config *)",
+      "Bash(pbcopy)",
+      "Bash(nix --extra-experimental-features 'nix-command' store info --store https://nix-community.cachix.org /nix/store/g0rq35jpii8sjcvmrnn6mbyxfdw42i5d-neovim-unwrapped-5f6abd3)",
+      "Bash(just update-darwin *)"
     ],
     "deny": [],
     "ask": []
