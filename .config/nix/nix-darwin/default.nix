@@ -12,8 +12,8 @@ in {
   imports = [
     nix
     services
-    fonts 
-    system 
+    fonts
+    system
     homebrew
   ];
 
