@@ -55,6 +55,7 @@
     ../modules/jujutsu.nix
     # ../modules/zellij.nix
     ../modules/ssh.nix
+    ../modules/deno-pin.nix
   ];
 
   # Home Manager自身
