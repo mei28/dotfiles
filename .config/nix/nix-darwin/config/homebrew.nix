@@ -19,6 +19,7 @@
       "marta"
       "raycast"
       "thaw"
+      "itouuuuuuuuu/tap/zmk-battery-bar"
     ];
     brews = [
       "lusingander/tap/serie"
