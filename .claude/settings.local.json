@@ -15,9 +15,17 @@
       "Bash(nix config *)",
       "Bash(pbcopy)",
       "Bash(nix --extra-experimental-features 'nix-command' store info --store https://nix-community.cachix.org /nix/store/g0rq35jpii8sjcvmrnn6mbyxfdw42i5d-neovim-unwrapped-5f6abd3)",
-      "Bash(just update-darwin *)"
+      "Bash(just update-darwin *)",
+      "Bash(gh repo *)",
+      "Bash(python3 -c \"import json,sys; [print\\(x['name'],x['download_url']\\) for x in json.load\\(sys.stdin\\)]\")",
+      "Bash(nix-build --impure)",
+      "Bash(NIXPKGS_ALLOW_UNFREE=1 nix-build --impure)",
+      "Bash(nix build *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)"
     ],
     "deny": [],
     "ask": []
-  }
+  },
+  "outputStyle": "Caveman"
 }
