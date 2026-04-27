@@ -49,6 +49,10 @@ let
         [ finalPkgs.unzip ]
         ++ lib.optional finalPkgs.stdenv.isLinux finalPkgs.autoPatchelfHook;
 
+      buildInputs = lib.optionals finalPkgs.stdenv.isLinux [
+        finalPkgs.stdenv.cc.cc.lib
+      ];
+
       unpackPhase = ''
         runHook preUnpack
         unzip $src
@@ -78,3 +82,4 @@ in
     (final: _prev: { deno = mkDeno final; })
   ];
 }
+

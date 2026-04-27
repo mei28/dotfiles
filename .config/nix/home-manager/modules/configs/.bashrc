@@ -686,7 +686,7 @@ fi
 
 if type claude &> /dev/null; then
     export EDITOR="nvim"
-    export CLAUDE_CODE_EFFORT_LEVEL="max";
+    export CLAUDE_CODE_EFFORT_LEVEL="xhigh";
 fi
 
 if type git-gardener &> /dev/null; then
