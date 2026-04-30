@@ -3,6 +3,7 @@ local layouts = {
 	oonishi = require("oonishi"),
 	ebi = require("ebi"),
 	qwerty = require("qwerty"),
+	waddlier = require("waddlier"),
 }
 
 -- Detect Japanese input method (prefer azooKey if available)
@@ -20,7 +21,7 @@ local jpMethod, jpDisplayName = detectJapaneseMethod()
 
 local config = {
 	showtime = 0.2,
-	layout = "ebi", -- Default layout
+	layout = "waddlier", -- Default layout
 	inputMethods = { en = "Romaji", jp = jpMethod },
 	displayName = { en = "ABC", jp = jpDisplayName },
 }
@@ -101,6 +102,9 @@ Esc2EngEvent = hs.eventtap.new({ hs.eventtap.event.types.keyUp }, Esc2Eng)
 Esc2EngEvent:start()
 
 -- Hotkey bindings for changing layouts
+hs.hotkey.bind({ "ctrl", "alt" }, "4", function()
+	changeLayout("waddlier")
+end)
 hs.hotkey.bind({ "ctrl", "alt" }, "3", function()
 	changeLayout("eucalyn")
 end)

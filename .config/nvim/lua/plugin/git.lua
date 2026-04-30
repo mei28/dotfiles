@@ -50,6 +50,33 @@ local spec = {
 			{ "cb", desc = "Git: choose both" },
 			{ "cn", desc = "Git: choose none" },
 		},
+		init = function()
+			local subcommands = {
+				"ours",
+				"theirs",
+				"both",
+				"none",
+				"diffOursTheirs",
+				"diffBaseOurs",
+				"diffBaseTheirs",
+				"hlRefresh",
+			}
+			vim.api.nvim_create_user_command("Conflict", function(opts)
+				pcall(vim.api.nvim_del_user_command, "Conflict")
+				require("conflict-marker").check(0)
+				if opts.args ~= "" then
+					vim.cmd("Conflict " .. opts.args)
+				end
+			end, {
+				nargs = 1,
+				desc = "conflict-marker: resolve / diff conflicts",
+				complete = function(arg_lead)
+					return vim.tbl_filter(function(s)
+						return vim.startswith(s, arg_lead)
+					end, subcommands)
+				end,
+			})
+		end,
 		config = function()
 			require("conflict-marker").setup({
 				highlights = true,
@@ -85,13 +112,6 @@ local spec = {
 				end,
 			})
 		end,
-		cmd = {
-			-- 'ConflictOurs',
-			-- 'ConflictTheirs',
-			-- 'ConflictBoth',
-			-- 'ConflictNone',
-			"Conflict",
-		},
 	},
 	{
 		"sindrets/diffview.nvim",
