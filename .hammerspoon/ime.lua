@@ -21,7 +21,7 @@ local jpMethod, jpDisplayName = detectJapaneseMethod()
 
 local config = {
 	showtime = 0.2,
-	layout = "waddlier", -- Default layout
+	layout = "ebi", -- Default layout
 	inputMethods = { en = "Romaji", jp = jpMethod },
 	displayName = { en = "ABC", jp = jpDisplayName },
 }
