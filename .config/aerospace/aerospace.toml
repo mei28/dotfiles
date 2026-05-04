@@ -150,6 +150,7 @@ alt-d = 'workspace d'
 alt-u = 'workspace u'
 alt-s = 'workspace s'
 alt-c = 'workspace c'
+alt-g = 'workspace g'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
 alt-shift-0 = ['move-node-to-workspace 0', 'workspace 0']
@@ -167,6 +168,7 @@ alt-shift-d = ['move-node-to-workspace d', 'workspace d']
 alt-shift-u = ['move-node-to-workspace u', 'workspace u']
 alt-shift-s = ['move-node-to-workspace s', 'workspace s']
 alt-shift-c = ['move-node-to-workspace c', 'workspace c']
+alt-shift-g = ['move-node-to-workspace g', 'workspace g']
 
 alt-shift-p = 'workspace prev'
 alt-shift-n = 'workspace next'
@@ -221,6 +223,7 @@ alt-shift-d = 'move-node-to-workspace d'
 alt-shift-u = 'move-node-to-workspace u'
 alt-shift-s = 'move-node-to-workspace s'
 alt-shift-c = 'move-node-to-workspace c'
+alt-shift-g = 'move-node-to-workspace g'
 
 [mode.layout.binding]
 esc = 'mode main'
@@ -261,6 +264,7 @@ esc = 'mode main'
 "u" = ["main" ]
 "s" = ["^built-in retina display$", "secondary"]
 "c" = ["^built-in retina display$", "secondary"]
+"g" = ["^built-in retina display$", "secondary"]
 # 1 = 1                            # Monitor sequence number from left to right. 1-based indexing
 # 2 = 'main'                       # Main monitor
 # 3 = 'secondary'                  # Non-main monitor in case when there are only two monitors
@@ -291,3 +295,7 @@ run = "move-node-to-workspace c"
 [[on-window-detected]]
 if.app-id = "com.Unity-Technologies.com.unity.template.urp-blank"
 run = "move-node-to-workspace c"
+
+[[on-window-detected]]
+if.app-id = "com.anthropic.claudefordesktop"
+run = "move-node-to-workspace g"
