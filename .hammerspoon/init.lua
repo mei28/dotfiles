@@ -4,6 +4,7 @@ require('launch')
 -- require('yabai')
 require('grayscale')
 require('discord')
+require('kanata')
 
 
 -- reload config

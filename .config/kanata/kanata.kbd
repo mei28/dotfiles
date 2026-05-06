@@ -49,3 +49,10 @@
   a       @s_sft  @d_alt  @f_ctl  g       h       @j_ctl  @k_alt  @l_sft  ;
   z       x       c       v       b       n       m       ,       .       /
 )
+
+;; HRM 無効、生 QWERTY (layer-switch で切替)
+(deflayer nomod
+  q       w       e       r       t       y       u       i       o       p
+  a       s       d       f       g       h       j       k       l       ;
+  z       x       c       v       b       n       m       ,       .       /
+)
