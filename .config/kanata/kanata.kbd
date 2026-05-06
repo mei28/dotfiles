@@ -1,0 +1,51 @@
+;; kanata config — Home Row Mods (bilateral)
+;; - 同手キーは tap、反対手キー押下時のみ hold で修飾発火
+;; - tap-hold-release-keys: 反対手キーが押されて離されたら早期 hold
+
+(defcfg
+  process-unmapped-keys yes
+  concurrent-tap-hold yes
+  macos-dev-names-include ("Apple Internal Keyboard / Trackpad")
+)
+
+(defsrc
+  q    w    e    r    t    y    u    i    o    p
+  a    s    d    f    g    h    j    k    l    ;
+  z    x    c    v    b    n    m    ,    .    /
+)
+
+(defvar
+  tap-time 200
+  hold-time 200
+
+  left-hand-keys (
+    q w e r t
+    a s d f g
+    z x c v b
+  )
+  right-hand-keys (
+    y u i o p
+    h j k l ;
+    n m , . /
+  )
+)
+
+(defalias
+  ;; 左手 mods
+  s_sft (tap-hold-release-keys $tap-time $hold-time s lsft $right-hand-keys)
+  d_alt (tap-hold-release-keys $tap-time $hold-time d lalt $right-hand-keys)
+  f_ctl (tap-hold-release-keys $tap-time $hold-time f lctl $right-hand-keys)
+  e_cmd (tap-hold-release-keys $tap-time $hold-time e lmet $right-hand-keys)
+
+  ;; 右手 mods
+  j_ctl (tap-hold-release-keys $tap-time $hold-time j rctl $left-hand-keys)
+  k_alt (tap-hold-release-keys $tap-time $hold-time k lalt $left-hand-keys)
+  l_sft (tap-hold-release-keys $tap-time $hold-time l lsft $left-hand-keys)
+  i_cmd (tap-hold-release-keys $tap-time $hold-time i rmet $left-hand-keys)
+)
+
+(deflayer base
+  q       w       @e_cmd  r       t       y       u       @i_cmd  o       p
+  a       @s_sft  @d_alt  @f_ctl  g       h       @j_ctl  @k_alt  @l_sft  ;
+  z       x       c       v       b       n       m       ,       .       /
+)
