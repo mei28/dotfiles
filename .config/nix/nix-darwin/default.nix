@@ -8,6 +8,7 @@
   services = import ./config/services.nix;
   system = import ./config/system.nix {inherit pkgs;};
   homebrew = import ./config/homebrew.nix;
+  kanata = import ./config/kanata.nix;
 in {
   imports = [
     nix
@@ -15,6 +16,7 @@ in {
     fonts
     system
     homebrew
+    kanata
   ];
 
   system.primaryUser = username;
