@@ -3,6 +3,7 @@ require('ime')
 require('launch')
 -- require('yabai')
 require('grayscale')
+require('discord')
 
 
 -- reload config
