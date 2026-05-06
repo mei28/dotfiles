@@ -58,7 +58,7 @@ in
       gopls
 
       # formatter linter
-      nixfmt-rfc-style
+      nixfmt
 
       # System Utilities and CLI Enhancements
       git-lfs

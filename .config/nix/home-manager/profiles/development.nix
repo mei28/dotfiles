@@ -35,7 +35,7 @@
       postgresql
 
       # formatter/linter
-      nixfmt-rfc-style
+      nixfmt
 
       # ruff設定
       # mei's自作ツール

@@ -55,7 +55,7 @@
         };
       in
       {
-        formatter = pkgs.nixfmt-rfc-style;
+        formatter = pkgs.nixfmt;
 
         # Home Manager + nix-darwin
         legacyPackages = {
