@@ -1,5 +1,12 @@
-{ ... }: {
+{ username, ... }: {
   homebrew.brews = [ "kanata" ];
+
+  # Hammerspoon から sudo 無パスワードで kanata daemon を制御するための sudoers
+  environment.etc."sudoers.d/kanata" = {
+    text = ''
+      ${username} ALL=(root) NOPASSWD: /bin/launchctl bootstrap system /Library/LaunchDaemons/dev.mei.kanata-internal.plist, /bin/launchctl bootout system /Library/LaunchDaemons/dev.mei.kanata-internal.plist, /bin/launchctl kickstart -k system/dev.mei.kanata-internal
+    '';
+  };
 
   # /Applications/kanata に symlink (TCC で選択しやすく)
   system.activationScripts.postActivation.text = ''
