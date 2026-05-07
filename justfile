@@ -69,7 +69,7 @@ delete-old-profiles:
 # Apply Home Manager configuration (Remote)
 remote-apply:
   @echo "Applying Home Manager config (Remote)..."
-  nix run home-manager/master -- switch --flake .#{{username}}-remote --impure
+  nix run home-manager/master -- switch --flake .#remote --impure
 
 # Update and apply remote configuration
 remote-update: update-flake remote-apply
@@ -77,7 +77,7 @@ remote-update: update-flake remote-apply
 # Test remote configuration build (dry-run)
 remote-test:
   @echo "Testing remote configuration build..."
-  nix build .#legacyPackages.$(nix eval --impure --raw --expr 'builtins.currentSystem').homeConfigurations.{{username}}-remote.activationPackage --dry-run
+  nix build .#legacyPackages.$(nix eval --impure --raw --expr 'builtins.currentSystem').homeConfigurations.remote.activationPackage --dry-run
 
 # ========================================
 # Validation & Testing

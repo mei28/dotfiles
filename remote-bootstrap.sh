@@ -48,7 +48,7 @@ echo -e "${YELLOW}🔧 Applying home-manager configuration (user: $(whoami))...$
 echo -e "${YELLOW}   This may take a few minutes${NC}"
 
 # Run home-manager with --impure flag to allow environment variable usage
-nix run home-manager/master -- switch --flake .#mei-remote --impure
+nix run home-manager/master -- switch --flake .#remote --impure
 
 echo ""
 echo -e "${GREEN}✅ Setup completed successfully!${NC}"
@@ -56,7 +56,7 @@ echo ""
 echo -e "${YELLOW}Next steps:${NC}"
 echo "  1. Reload shell: ${GREEN}exec bash${NC}"
 echo "  2. Start tmux session: ${GREEN}tmux${NC}"
-echo "  3. To update configuration: ${GREEN}cd ~/dotfiles && git pull && home-manager switch --flake .#mei-remote --impure${NC}"
+echo "  3. To update configuration: ${GREEN}cd ~/dotfiles && git pull && home-manager switch --flake .#remote --impure${NC}"
 echo ""
 echo -e "${YELLOW}Troubleshooting:${NC}"
 echo "  - If nix is not found: Open a new shell session"

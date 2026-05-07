@@ -74,7 +74,9 @@
           };
 
           # Home Manager configuration (Remote/EC2)
-          homeConfigurations."${username}-remote" = home-manager.lib.homeManagerConfiguration {
+          # 属性名は username 非依存。実 username は profiles/remote.nix が
+          # builtins.getEnv "USER" で動的解決（--impure 必須）。
+          homeConfigurations."remote" = home-manager.lib.homeManagerConfiguration {
             pkgs = pkgs;
             extraSpecialArgs = {
               inherit

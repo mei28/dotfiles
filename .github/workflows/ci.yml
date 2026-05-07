@@ -64,7 +64,7 @@ jobs:
 
       - name: Build remote profile
         run: |
-          nix build .#legacyPackages.$(nix eval --impure --raw --expr 'builtins.currentSystem').homeConfigurations.mei-remote.activationPackage --impure
+          nix build .#legacyPackages.$(nix eval --impure --raw --expr 'builtins.currentSystem').homeConfigurations.remote.activationPackage --impure
 
   test-bootstrap:
     name: Test Bootstrap Script

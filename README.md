@@ -68,7 +68,7 @@ curl --proto '=https' --tlsv1.2 -sSf -L \
   https://install.determinate.systems/nix | sh -s -- install
 
 # 3. home-manager適用（リモートプロファイル）
-nix run home-manager/master -- switch --flake .#mei-remote --impure
+nix run home-manager/master -- switch --flake .#remote --impure
 ```
 
 ### 設定の更新
@@ -78,7 +78,7 @@ nix run home-manager/master -- switch --flake .#mei-remote --impure
 ```bash
 cd ~/dotfiles
 git pull
-home-manager switch --flake .#mei-remote --impure
+home-manager switch --flake .#remote --impure
 ```
 
 ---
@@ -87,8 +87,9 @@ home-manager switch --flake .#mei-remote --impure
 
 home-manager:
 - `mei`: macOS 用フルプロファイル（ローカル開発環境）
-- `mei-remote`: リモート用軽量プロファイル（EC2/Linux）
-  - 自動的に実行ユーザー名を検出（`ubuntu`, `ec2-user` 等）
+- `remote`: リモート用軽量プロファイル（EC2/Linux）
+  - 実行ユーザー名を `$USER` から自動検出（`ubuntu`, `ec2-user` 等）。属性名は username 非依存
+  - 適用には `--impure` 必須（`builtins.getEnv "USER"` のため）
   - 最小限の CLI ツール + Neovim/LSP + Tmux
   - SSH 接続時に自動的に tmux セッション起動
 
@@ -108,7 +109,7 @@ nix-darwin:
 - shell 補助 (programs.* 経由): bash, fzf, zoxide, fastfetch
 - VCS: git, gitui, jujutsu
 
-### 開発環境（development / mei・mei-remote）
+### 開発環境（development / mei・remote）
 - LSP: pyright, gopls, rust-analyzer, efm-langserver
 - ランタイム: Python (uv), Node.js (nodejs_24, bun, pnpm, ni, deno), Rust (cargo, rustc), Go, Lua (luajit, luarocks)
 - ビルド/フォーマッタ: cargo-generate, llvm, sqlite, postgresql, nixfmt-rfc-style, ruff
@@ -221,7 +222,7 @@ bash ~/dotfiles/test/verify-setup.sh
 `.github/workflows/ci.yml` で push / PR 時に自動実行:
 - `nix flake check --impure` と nixfmt フォーマットチェック
 - `shellcheck` (`remote-bootstrap.sh`, `test/verify-setup.sh`)
-- `mei-remote` プロファイルのビルド（ubuntu-latest）
+- `remote` プロファイルのビルド（ubuntu-latest）
 - `remote-bootstrap.sh` の構文 + 必須コマンド検査
 
 ---
