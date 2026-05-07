@@ -12,7 +12,7 @@
   q    w    e    r    t    y    u    i    o    p
   a    s    d    f    g    h    j    k    l    ;
   z    x    c    v    b    n    m    ,    .    /
-  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+  fn   f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
 )
 
 (defvar
@@ -43,13 +43,16 @@
   k_alt (tap-hold-release-keys $tap-time $hold-time k lalt $left-hand-keys)
   l_sft (tap-hold-release-keys $tap-time $hold-time l lsft $left-hand-keys)
   i_cmd (tap-hold-release-keys $tap-time $hold-time i rmet $left-hand-keys)
+
+  ;; fn 押下中は fkeys レイヤー (F1-F12 を生 F キーとして送出)
+  fnh (layer-while-held fkeys)
 )
 
 (deflayer base
   q       w       @e_cmd  r       t       y       u       @i_cmd  o       p
   a       @s_sft  @d_alt  @f_ctl  g       h       @j_ctl  @k_alt  @l_sft  ;
   z       x       c       v       b       n       m       ,       .       /
-  brdn    brup    mctl    lpad    bldn    blup    prev    pp      next    mute    vold    volu
+  @fnh    brdn    brup    mctl    lpad    bldn    blup    prev    pp      next    mute    vold    volu
 )
 
 ;; HRM 無効、生 QWERTY (layer-switch で切替)
@@ -57,5 +60,13 @@
   q       w       e       r       t       y       u       i       o       p
   a       s       d       f       g       h       j       k       l       ;
   z       x       c       v       b       n       m       ,       .       /
-  brdn    brup    mctl    lpad    bldn    blup    prev    pp      next    mute    vold    volu
+  @fnh    brdn    brup    mctl    lpad    bldn    blup    prev    pp      next    mute    vold    volu
+)
+
+;; fn 押下中: F1-F12 を生 F キーとして送出 (macOS デフォルト挙動)
+(deflayer fkeys
+  _       _       _       _       _       _       _       _       _       _
+  _       _       _       _       _       _       _       _       _       _
+  _       _       _       _       _       _       _       _       _       _
+  _       f1      f2      f3      f4      f5      f6      f7      f8      f9      f10     f11     f12
 )
