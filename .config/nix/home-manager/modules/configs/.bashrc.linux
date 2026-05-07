@@ -37,7 +37,7 @@ alias wezterm='flatpak run org.wezfurlong.wezterm'
 #     fi
 # fi
 
-export PATH=/home/mei/.local/bin:$PATH
+export PATH=$HOME/.local/bin:$PATH
 
 toggle_suspend(){
     is_masked=$(systemctl is-enabled sleep.target)

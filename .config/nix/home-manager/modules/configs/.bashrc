@@ -331,7 +331,7 @@ fi
 
 # deno
 if [ -e $HOME/.deno ]; then
-    export DENO_INSTALL="/home/mei/.deno"
+    export DENO_INSTALL="$HOME/.deno"
     export PATH="$DENO_INSTALL/bin:$PATH"
 fi
 
@@ -444,7 +444,7 @@ fi
 
 alias ruge="cargo generate --git https://github.com/mei28/rust-comp-template"
 
-export PATH="$PATH:/Users/mei/.bin"
+export PATH="$PATH:$HOME/.bin"
 
 if [ -e $HOME/.rye  ]; then
     source "$HOME/.rye/env"
@@ -613,7 +613,10 @@ fi
 # https://x.com/walnuts1018/status/1839636079164715262?s=46&t=CQvD0ppkcFnFEeBoG47BZg
 # alias "$"=""
 
-export PNPM_HOME="/Users/mei/Library/pnpm"
+case ${OSTYPE} in
+    darwin*) export PNPM_HOME="$HOME/Library/pnpm" ;;
+    linux*)  export PNPM_HOME="$HOME/.local/share/pnpm" ;;
+esac
 case ":$PATH:" in
     *":$PNPM_HOME:"*) ;;
     *) export PATH="$PNPM_HOME:$PATH" ;;
@@ -758,7 +761,7 @@ jk() {
 }
 
 if type bun &> /dev/null; then
-    export PATH="/Users/mei/.bun/bin:$PATH"
+    export PATH="$HOME/.bun/bin:$PATH"
 fi
 
 # clipboard helper: reads from stdin and copies to clipboard
