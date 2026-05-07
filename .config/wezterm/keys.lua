@@ -94,7 +94,7 @@ local keys = {
 	{ key = "u", mods = "CTRL", action = wezterm.action.EmitEvent("toggle-opacity") },
 	-- Shift + Enter to send a newline
 	{ key = "Enter", mods = "SHIFT", action = act.SendString("\n") },
-	-- Copy previous command (prompt + input + output) to clipboard
+	-- Copy previous command (prompt + input + output) to clipboard.
 	-- ref: https://www.docswell.com/s/mozumasu/5DWPG4-dotfiles-dragon#p16
 	{
 		key = "z",

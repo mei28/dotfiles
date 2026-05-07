@@ -164,6 +164,11 @@ if [[ "$TERM_PROGRAM" == "WezTerm" ]]; then
     __wezterm_osc() { printf "\033]%s\007" "$1"; }
 
     __wezterm_cmd_executed=""
+    # Guard so the DEBUG trap does not fire 133;C while PROMPT_COMMAND
+    # is running (otherwise nested commands inside set_prompt etc. would
+    # emit 133;C before the user's actual command runs, causing the user's
+    # output to be classified as Input by terminals that consume OSC 133).
+    __wezterm_in_prompt=""
 
     __wezterm_precmd() {
         local exit_code=$?
@@ -174,6 +179,7 @@ if [[ "$TERM_PROGRAM" == "WezTerm" ]]; then
     }
 
     __wezterm_preexec() {
+        [[ -n "$__wezterm_in_prompt" ]] && return
         [[ -n "$COMP_LINE" ]] && return
         [[ "$BASH_COMMAND" == *"__wezterm_"* ]] && return
         [[ "$BASH_COMMAND" == "set_prompt"* ]] && return
@@ -185,7 +191,7 @@ if [[ "$TERM_PROGRAM" == "WezTerm" ]]; then
     }
 
     trap '__wezterm_preexec' DEBUG
-    PROMPT_COMMAND='__wezterm_precmd; set_prompt; add_line'
+    PROMPT_COMMAND='__wezterm_in_prompt=1; __wezterm_precmd; set_prompt; add_line; __wezterm_in_prompt=""'
 else
     PROMPT_COMMAND='set_prompt; add_line'
 fi
