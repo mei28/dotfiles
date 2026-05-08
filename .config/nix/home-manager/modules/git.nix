@@ -1,6 +1,6 @@
-{ lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 let
-  inherit (import ../options.nix) username gitUsername gitEmail;
+  inherit (import ../options.nix) gitUsername gitEmail;
   # Deltaが利用可能かチェック
   hasDelta = lib.hasAttr "delta" pkgs;
 in
@@ -30,9 +30,10 @@ in
         email = gitEmail;
       };
       # Core settings
-      core.excludesFile = "/Users/${username}/.gitignore_global";
+      # excludesFile/attributesFile は指定しない。XDG 配置
+      # (~/.config/git/{ignore,attributes}) を home-manager が
+      # programs.git.{ignores,attributes} 経由で自動管理
       core.editor = "nvim";
-      core.attributesFile = "/Users/${username}/.gitattributes";
       core.hooksPath = "~/.config/git/hooks";
 
       # Diff and merge tool settings

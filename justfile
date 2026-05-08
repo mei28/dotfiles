@@ -10,8 +10,10 @@ help:
 set shell := ["bash", "-eu", "-o", "pipefail", "-c"]
 
 # Define variables
-username := "mei"
-darwinHost := "mei-darwin"
+# 属性名は username/host 非依存。実 username は profile 内で
+# builtins.getEnv "USER" で動的解決 (--impure 必須)
+homeAttr := "default"
+darwinAttr := "default"
 dotfilesDir := env_var_or_default("DOTFILES_DIR", env_var("HOME") + "/dotfiles")
 
 # ========================================
@@ -26,27 +28,27 @@ update-flake:
 # Apply Home Manager configuration (macOS)
 update-home:
   @echo "Updating Home Manager config (macOS)..."
-  home-manager switch --flake .#{{username}}
+  home-manager switch --flake .#{{homeAttr}} --impure
 
 # Bootstrap Home Manager (first-time setup on new machine)
 bootstrap-home:
   @echo "Bootstrapping Home Manager config (macOS)..."
-  nix run home-manager -- switch --flake .#{{username}}
+  nix run home-manager -- switch --flake .#{{homeAttr}} --impure
 
 # Build Home Manager configuration without activating (for verification)
 build-home:
   @echo "Building Home Manager config (macOS)..."
-  home-manager build --flake .#{{username}}
+  home-manager build --flake .#{{homeAttr}} --impure
 
 # Evaluate Home Manager configuration (fast syntax/reference check)
 eval-home:
   @echo "Evaluating Home Manager config..."
-  nix eval .#legacyPackages.aarch64-darwin.homeConfigurations.{{username}}.activationPackage
+  nix eval --impure .#legacyPackages.aarch64-darwin.homeConfigurations.{{homeAttr}}.activationPackage
 
 # Apply nix-darwin configuration
 update-darwin:
   @echo "Updating nix-darwin config..."
-  nix run nix-darwin -- switch --flake .#{{darwinHost}}
+  nix run nix-darwin -- switch --flake .#{{darwinAttr}} --impure
 
 # Update everything (flake + home + darwin)
 update-all: update-flake update-home update-darwin
@@ -120,8 +122,9 @@ test-all: check lint-shell test-docker-ubuntu test-docker-amazon
 # Show current configuration info
 info:
   @echo "=== Dotfiles Configuration Info ==="
-  @echo "Username: {{username}}"
-  @echo "Darwin Host: {{darwinHost}}"
+  @echo "Home Attr: {{homeAttr}}"
+  @echo "Darwin Attr: {{darwinAttr}}"
+  @echo "Runtime USER: $USER"
   @echo "Dotfiles Dir: {{dotfilesDir}}"
   @echo "System: $(uname -s)"
   @echo "Architecture: $(uname -m)"

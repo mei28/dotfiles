@@ -47,8 +47,6 @@
     flake-utils.lib.eachDefaultSystem (
       system:
       let
-        # username = "mei";
-        inherit (import ./.config/nix/home-manager/options.nix) username;
         pkgs = import nixpkgs {
           inherit system;
           overlays = [ neovim-nightly-overlay.overlays.default ];
@@ -58,11 +56,13 @@
         formatter = pkgs.nixfmt;
 
         # Home Manager + nix-darwin
+        # 属性名は username 非依存。実 username は各 profile が
+        # builtins.getEnv "USER" で動的解決 (--impure 必須)
         legacyPackages = {
           inherit (pkgs) home-manager;
 
           # Home Manager configuration (macOS)
-          homeConfigurations."${username}" = home-manager.lib.homeManagerConfiguration {
+          homeConfigurations.default = home-manager.lib.homeManagerConfiguration {
             pkgs = pkgs;
             extraSpecialArgs = {
               inherit
@@ -74,9 +74,7 @@
           };
 
           # Home Manager configuration (Remote/EC2)
-          # 属性名は username 非依存。実 username は profiles/remote.nix が
-          # builtins.getEnv "USER" で動的解決（--impure 必須）。
-          homeConfigurations."remote" = home-manager.lib.homeManagerConfiguration {
+          homeConfigurations.remote = home-manager.lib.homeManagerConfiguration {
             pkgs = pkgs;
             extraSpecialArgs = {
               inherit
@@ -88,11 +86,10 @@
           };
 
           # macOS (nix-darwin)
-          darwinConfigurations.mei-darwin = nix-darwin.lib.darwinSystem {
+          darwinConfigurations.default = nix-darwin.lib.darwinSystem {
             system = "aarch64-darwin";
             modules = [
               ./.config/nix/nix-darwin/default.nix
-              { _module.args = { inherit username; }; }
             ];
           };
         };

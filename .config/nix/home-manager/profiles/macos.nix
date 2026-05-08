@@ -6,7 +6,9 @@
   ...
 }:
 let
-  inherit (import ../options.nix) username;
+  # 環境変数からユーザー名を取得 (impure 必須)
+  runtimeUser = builtins.getEnv "USER";
+  username = if runtimeUser != "" then runtimeUser else "user";
   homeRoot = if pkgs.stdenv.isDarwin then "/Users" else "/home";
 in
 {

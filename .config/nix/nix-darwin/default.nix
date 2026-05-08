@@ -1,8 +1,11 @@
 {
   pkgs,
-  username,
   ...
 }: let
+  # 環境変数からユーザー名を取得 (impure 必須)
+  runtimeUser = builtins.getEnv "USER";
+  username = if runtimeUser != "" then runtimeUser else "user";
+
   nix = import ./config/nix.nix;
   fonts = import ./config/fonts.nix {inherit pkgs;};
   services = import ./config/services.nix;
