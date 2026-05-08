@@ -3,7 +3,7 @@ require('ime')
 require('launch')
 -- require('yabai')
 require('grayscale')
-require('discord')
+require('enterSwap')
 require('kanata')
 
 

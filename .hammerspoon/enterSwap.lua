@@ -1,20 +1,27 @@
--- Discord で Enter ↔ Shift+Enter を入れ替え
+-- 指定アプリで Enter ↔ Shift+Enter を入れ替え
 --   Enter        → Shift+Enter (改行)
 --   Cmd+Enter    → Enter        (送信)
+--
+-- 対象アプリを増やす時は BUNDLES に bundle ID を追加するだけ。
+-- bundle ID は `osascript -e 'id of app "AppName"'` で取得可能。
 
-local DISCORD_BUNDLE = "com.hnc.Discord"
+local BUNDLES = {
+  ["com.hnc.Discord"] = true,
+  ["com.anthropic.claudefordesktop"] = true,
+}
+
 local enterKeyCode = hs.keycodes.map["return"]
 
-local function isDiscordFront()
+local function isTargetFront()
   local app = hs.application.frontmostApplication()
-  return app and app:bundleID() == DISCORD_BUNDLE
+  return app and BUNDLES[app:bundleID()] == true
 end
 
 local tap = hs.eventtap.new({
   hs.eventtap.event.types.keyDown,
   hs.eventtap.event.types.keyUp,
 }, function(e)
-  if not isDiscordFront() then return false end
+  if not isTargetFront() then return false end
   if e:getKeyCode() ~= enterKeyCode then return false end
 
   local flags = e:getFlags()
