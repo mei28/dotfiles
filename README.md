@@ -112,19 +112,20 @@ nix-darwin:
 ### 開発環境（development / mei・remote）
 - LSP: pyright, gopls, rust-analyzer, efm-langserver
 - ランタイム: Python (uv), Node.js (nodejs_24, bun, pnpm, ni, deno), Rust (cargo, rustc), Go, Lua (luajit, luarocks)
-- ビルド/フォーマッタ: cargo-generate, llvm, sqlite, postgresql, nixfmt-rfc-style, ruff
-- 自作ツール: cliperge, sgh, portsage, git-gardener, bonsai
+- ビルド/フォーマッタ: cargo-generate, llvm, sqlite, postgresql, nixfmt, ruff
+- 自作ツール: cliperge, sgh, portsage, bonsai
 
 ### macOS 専用 (`mei` プロファイル)
 - メディア: ffmpeg, ffmpegthumbnailer, imagemagick, ghostscript, marp-cli
 - クラウド/IaC: google-cloud-sdk, terraform, heroku
 - その他: claude-code, tree-sitter, git-lfs, openssl, arxiv-latex-cleaner
 
-### macOS システム (`mei-darwin` / homebrew 経由)
-- ウィンドウ管理: aerospace, hammerspoon
-- ターミナル: wezterm, wezterm@nightly, ghostty
-- ランチャー/ユーティリティ: raycast, marta, ngrok, azookey, thaw
-- フォント: font-hack-nerd-font, font-symbols-only-nerd-font
+### macOS システム (`mei-darwin`)
+- ウィンドウ管理 (homebrew cask): aerospace, hammerspoon
+- ターミナル (homebrew cask): wezterm@nightly, ghostty
+- ランチャー/ユーティリティ (homebrew cask): raycast, marta, ngrok, azookey, thaw
+- キーリマップ: kanata (homebrew brew + launchd daemon、Hammerspoon から制御)
+- フォント (nix `fonts.nix`): nerd-fonts.hack, nerd-fonts.symbols-only
 
 ---
 
