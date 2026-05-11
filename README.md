@@ -24,8 +24,9 @@ curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix 
 # ユーザー設定（CLI ツール、shell、neovim 等）
 just update-home
 
-# システム設定（/etc, launchd, homebrew, フォント等）— root 必要
-sudo just update-darwin
+# システム設定（/etc, launchd, homebrew, フォント等）
+# recipe 内で sudo darwin-rebuild が呼ばれるためパスワード入力あり
+just update-darwin
 
 # まとめて: flake 更新 + home + darwin
 just update-all
@@ -136,7 +137,7 @@ nix-darwin:
 ### ローカル環境（macOS）
 ```bash
 just update-home      # Home Manager 設定を適用
-just update-darwin    # nix-darwin 設定を適用（root 必要 → sudo 経由で呼ぶ）
+just update-darwin    # nix-darwin 設定を適用（recipe 内で sudo darwin-rebuild）
 just update-flake     # flake.lock を更新
 just update-all       # すべて更新（flake + home + darwin）
 just build-home       # 適用せずビルドだけ（事前検証）

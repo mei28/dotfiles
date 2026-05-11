@@ -48,7 +48,7 @@ eval-home:
 # Apply nix-darwin configuration
 update-darwin:
   @echo "Updating nix-darwin config..."
-  nix run nix-darwin -- switch --flake .#{{darwinAttr}} --impure
+  sudo darwin-rebuild switch --flake .#{{darwinAttr}} --impure
 
 # Update everything (flake + home + darwin)
 update-all: update-flake update-home update-darwin

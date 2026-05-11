@@ -698,10 +698,6 @@ if type claude &> /dev/null; then
     export CLAUDE_CODE_EFFORT_LEVEL="xhigh";
 fi
 
-if type git-gardener &> /dev/null; then
-    alias ggr='git-gardener'
-fi
-
 # Function to omit '%' for the fg command
 fg() {
     # If there's an argument, run with '%', otherwise run as is
