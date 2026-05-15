@@ -2,14 +2,29 @@
 # Set WezTerm user variables for Claude Code state and title
 # States: idle, thinking, executing (empty to clear)
 
+# フック実行時 controlling TTY 無いケース有り (Claude Code 2.x)。
+# /dev/tty 不可なら親プロセス (Claude Code) の TTY 経由で OSC 送出。
+resolve_target_tty() {
+	if : > /dev/tty 2>/dev/null; then
+		echo /dev/tty
+		return
+	fi
+	local t
+	t=$(ps -o tty= -p "$PPID" 2>/dev/null | tr -d ' ')
+	[ -n "$t" ] && [ "$t" != "?" ] && [ "$t" != "??" ] && [ -w "/dev/$t" ] && echo "/dev/$t"
+}
+
+TARGET_TTY=$(resolve_target_tty)
+
 set_user_var() {
+	[ -z "$TARGET_TTY" ] && return 0
 	local value
 	value=$(printf '%s' "$2" | base64)
 	if [ -n "$TMUX" ]; then
 		# tmux: DCS passthrough で OSC を外側のターミナルへ転送
-		printf '\033Ptmux;\033\033]1337;SetUserVar=%s=%s\007\033\\' "$1" "$value" > /dev/tty 2>/dev/null || true
+		printf '\033Ptmux;\033\033]1337;SetUserVar=%s=%s\007\033\\' "$1" "$value" > "$TARGET_TTY" 2>/dev/null || true
 	else
-		printf '\033]1337;SetUserVar=%s=%s\007' "$1" "$value" > /dev/tty 2>/dev/null || true
+		printf '\033]1337;SetUserVar=%s=%s\007' "$1" "$value" > "$TARGET_TTY" 2>/dev/null || true
 	fi
 }
 
