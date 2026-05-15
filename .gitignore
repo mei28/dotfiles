@@ -104,3 +104,7 @@ result
 .claude/backups
 .claude/mcp-needs-auth-cache.json
 .claude/sessions/
+.claude/settings.local.json
+.claude/.last-cleanup
+
+**/settings.local.json

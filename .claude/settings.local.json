@@ -22,7 +22,12 @@
       "Bash(NIXPKGS_ALLOW_UNFREE=1 nix-build --impure)",
       "Bash(nix build *)",
       "Bash(git add *)",
-      "Bash(git commit -m ' *)"
+      "Bash(git commit -m ' *)",
+      "Bash(env)",
+      "Bash(git -C /Users/mei/dotfiles log --oneline --all --since=\"3 months ago\" -- .claude/)",
+      "Bash(git *)",
+      "Bash(claude --version)",
+      "Bash(bash -x /Users/mei/dotfiles/.claude/hooks/wezterm-state.sh idle)"
     ],
     "deny": [],
     "ask": []
