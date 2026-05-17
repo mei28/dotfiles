@@ -14,17 +14,34 @@
   nix = import ./config/nix.nix;
   fonts = import ./config/fonts.nix {inherit pkgs;};
   services = import ./config/services.nix;
-  system = import ./config/system.nix {inherit pkgs;};
   homebrew = import ./config/homebrew.nix;
   kanata = import ./config/kanata.nix { inherit username; };
+
+  # macOS system.* settings (split per concern under config/system/)
+  system = import ./config/system {inherit pkgs;};
+  systemKeyboard = import ./config/system/keyboard.nix;
+  systemDock = import ./config/system/dock.nix;
+  systemFinder = import ./config/system/finder.nix;
+  systemScreencapture = import ./config/system/screencapture.nix;
+  systemTrackpad = import ./config/system/trackpad.nix;
+  systemMenubar = import ./config/system/menubar.nix;
+  systemPower = import ./config/system/power.nix;
 in {
   imports = [
     nix
     services
     fonts
-    system
     homebrew
     kanata
+
+    system
+    systemKeyboard
+    systemDock
+    systemFinder
+    systemScreencapture
+    systemTrackpad
+    systemMenubar
+    systemPower
   ];
 
   system.primaryUser = username;

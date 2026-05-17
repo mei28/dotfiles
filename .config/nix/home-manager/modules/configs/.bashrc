@@ -680,6 +680,11 @@ if type portsage &> /dev/null; then
     alias psa='portsage'
 fi
 
+## bun global packages
+if type bun &> /dev/null; then
+    export PATH="$HOME/.bun/bin:$PATH"
+fi
+
 ## ccusage
 if type ccusage &> /dev/null; then
     alias ccu='ccusage'
@@ -748,10 +753,6 @@ jk() {
         kill %"$job_num"
     fi
 }
-
-if type bun &> /dev/null; then
-    export PATH="$HOME/.bun/bin:$PATH"
-fi
 
 # clipboard helper: reads from stdin and copies to clipboard
 _copy_to_clipboard() {
