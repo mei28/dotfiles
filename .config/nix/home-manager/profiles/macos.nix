@@ -1,4 +1,5 @@
 {
+  config,
   inputs,
   lib,
   pkgs,
@@ -50,6 +51,10 @@ in
     llvmPackages.openmp
     zlib
   ];
+
+  # Hammerspoon 設定を dotfiles へ symlink (mkOutOfStoreSymlink で編集即反映)
+  home.file.".hammerspoon".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.hammerspoon";
 
   # 環境変数を sessionVariables に設定（既存の設定を維持）
   home.sessionVariables = {
