@@ -50,6 +50,11 @@ update-darwin:
   @echo "Updating nix-darwin config..."
   sudo darwin-rebuild switch --flake .#{{darwinAttr}} --impure
 
+# Bootstrap nix-darwin (first-time setup on new machine)
+bootstrap-darwin:
+  @echo "Bootstrapping nix-darwin config..."
+  sudo nix run nix-darwin -- switch --flake .#{{darwinAttr}} --impure
+
 # Update everything (flake + home + darwin)
 update-all: update-flake update-home update-darwin
 
