@@ -45,4 +45,7 @@ in {
   ];
 
   system.primaryUser = username;
+
+  # /etc/shells に nix bash を登録 (chsh で login shell に指定可能にする)
+  environment.shells = [ pkgs.bash ];
 }
