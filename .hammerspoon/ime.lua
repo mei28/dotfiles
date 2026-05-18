@@ -17,12 +17,27 @@ local function detectJapaneseMethod()
 	return "Hiragana", "かな"
 end
 
+-- Detect English input method (Apple 日本語 IME 入りなら Romaji、無ければ ABC/U.S.)
+local function detectEnglishMethod()
+	local preferred = { "Romaji", "ABC", "U.S.", "English (US)" }
+	local available = hs.keycodes.methods()
+	for _, want in ipairs(preferred) do
+		for _, method in ipairs(available) do
+			if method == want then
+				return want
+			end
+		end
+	end
+	return "ABC"
+end
+
 local jpMethod, jpDisplayName = detectJapaneseMethod()
+local enMethod = detectEnglishMethod()
 
 local config = {
 	showtime = 0.2,
 	layout = "ebi", -- Default layout
-	inputMethods = { en = "Romaji", jp = jpMethod },
+	inputMethods = { en = enMethod, jp = jpMethod },
 	displayName = { en = "ABC", jp = jpDisplayName },
 }
 
