@@ -14,7 +14,7 @@ local function detectJapaneseMethod()
 			return azooKeyName, "azooKey"
 		end
 	end
-	return "Hiragana", "かな"
+	return "Hiragana", "かな", "Japanese"
 end
 
 -- Detect English input method (Apple 日本語 IME 入りなら Romaji、無ければ ABC/U.S.)
