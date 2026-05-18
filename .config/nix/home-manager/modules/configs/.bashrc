@@ -439,9 +439,11 @@ alias ruge="cargo generate --git https://github.com/mei28/rust-comp-template"
 
 export PATH="$PATH:$HOME/.bin"
 
-if [ -e $HOME/.rye  ]; then
+if [ -e "$HOME/.rye/env" ]; then
     source "$HOME/.rye/env"
-    eval "$(rye self completion -s bash)"
+    if command -v rye >/dev/null 2>&1; then
+        eval "$(rye self completion -s bash 2>/dev/null)"
+    fi
 fi
 
 if [ -e $HOME/.config/uv ]; then
