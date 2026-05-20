@@ -1,11 +1,11 @@
 {
-  # Key repeat: macOS defaults.
-  # Faster values (10/1, 15/3) caused chattering-like repeats.
-  # InitialKeyRepeat: delay before repeat starts (unit: 15ms) — 68 ≈ 1s
-  # KeyRepeat:        interval between repeats (unit: 15ms)   — 6  = 90ms
+  # Key repeat (unit: 15ms).
+  # InitialKeyRepeat: delay before repeat starts — 15 ≈ 225ms (macOS UI 最速)
+  # KeyRepeat:        interval between repeats   — 2  = 30ms
+  # Note: KeyRepeat=1 (15ms) は過去にチャタリングしたため避ける。
   system.defaults.NSGlobalDomain = {
-    InitialKeyRepeat = 68;
-    KeyRepeat = 6;
+    InitialKeyRepeat = 15;
+    KeyRepeat = 2;
   };
 
   # Authenticate sudo with Touch ID.
@@ -16,6 +16,13 @@
     reattach = true;
   };
 
-  # system.keyboard left unset to avoid conflict with kanata
-  # Auto-correct / smart quotes also left at macOS defaults
+  # Pin CapsLock → Control at the OS level.
+  # kanata does not map caps, so double-mapping is safe: caps passes through
+  # kanata and macOS converts it to Ctrl.
+  # If kanata ever needs caps (e.g. as a layer key), set remapCapsLockToControl = false.
+  system.keyboard = {
+    enableKeyMapping = true;
+    remapCapsLockToControl = true;
+  };
+  # Auto-correct / smart quotes left at macOS defaults
 }
