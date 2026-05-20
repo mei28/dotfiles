@@ -8,6 +8,9 @@
     minimize-to-application = true;
     mru-spaces = false;
 
+    # Mission Control でアプリごとにウィンドウをグループ化 (aerospace 併用時に有用)
+    expose-group-apps = true;
+
     # Hot corners disabled (1 = no action)
     wvous-tl-corner = 1;
     wvous-tr-corner = 1;
