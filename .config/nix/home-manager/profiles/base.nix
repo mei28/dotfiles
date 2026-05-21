@@ -61,16 +61,11 @@
   # Home Manager自身
   programs.home-manager.enable = true;
 
-  # ~/.config -> ~/dotfiles/.config の大本 symlink を nix で自動作成する。
-  # 既に存在する端末では何もしない (冪等)。これにより全端末で大本 symlink ベース運用に統一。
-  home.activation.linkDotConfig = lib.hm.dag.entryBefore [ "checkLinkTargets" ] ''
-    if [ ! -e "$HOME/.config" ] && [ ! -L "$HOME/.config" ]; then
-      $DRY_RUN_CMD /bin/ln -s "$HOME/dotfiles/.config" "$HOME/.config"
-    fi
-  '';
-
-  # ~/.config 配下以外の dotfile
   home.file = {
+    ".config/nvim".source =
+      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.config/nvim";
+    ".config/nix/home-manager/modules/configs".source =
+      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.config/nix/home-manager/modules/configs";
     ".claude".source =
       config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.claude";
   };
