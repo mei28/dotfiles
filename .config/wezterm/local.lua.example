@@ -1,0 +1,9 @@
+local wezterm = require 'wezterm'
+
+-- Machine-local overrides (copy to local.lua and edit)
+-- local.lua is gitignored — per-machine settings only
+return {
+  -- font = wezterm.font_with_fallback({ 'Your Font', 'Hack Nerd Font Mono' }),
+  -- font_size = 16,
+  -- color_scheme = 'Kanagawa (Gogh)',
+}

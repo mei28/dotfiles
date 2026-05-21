@@ -125,4 +125,12 @@ config.background = window.background
 
 config.quote_dropped_files = "Posix"
 
+-- machine-local overrides (gitignored local.lua)
+local ok, overrides = pcall(require, 'local')
+if ok and type(overrides) == 'table' then
+  for k, v in pairs(overrides) do
+    config[k] = v
+  end
+end
+
 return config
