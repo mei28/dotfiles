@@ -9,28 +9,23 @@
   programs.ssh.enable = true;
   programs.ssh.enableDefaultConfig = false; # デフォルト設定を無効化
 
-  # グローバルなSSHオプションは programs.ssh のトップレベルに配置します
-  programs.ssh.matchBlocks = {
+  # settings は OpenSSH ディレクティブ名 (大文字始まり) を直接使う
+  programs.ssh.settings = {
     "*" = {
-      controlMaster = "auto";
-      controlPath = "~/.ssh/mux-%r@%h:%p";
-      controlPersist = "4h";
-      # 必要であれば他の共通設定もここに追加できます
-      # e.g. serverAliveInterval = 60;
-      serverAliveInterval = 60;
-      serverAliveCountMax = 120;
+      ControlMaster = "auto";
+      ControlPath = "~/.ssh/mux-%r@%h:%p";
+      ControlPersist = "4h";
+      ServerAliveInterval = 60;
+      ServerAliveCountMax = 120;
     };
+
     # HomeUbuntu
     HomeUbuntu = {
-      hostname = "192.168.40.30";
-      user = "mei";
-      port = 22;
-      # GatewayPorts も extraOptions で設定します
-      extraOptions = {
-        GatewayPorts = "yes";
-      };
-      # localForward は localForwards (複数形) を使い、複雑な属性セットのリストで指定します
-      localForwards = [
+      HostName = "192.168.40.30";
+      User = "mei";
+      Port = 22;
+      GatewayPorts = "yes";
+      LocalForward = [
         {
           bind.port = 8888;
           host.address = "localhost";
@@ -42,22 +37,22 @@
           host.port = 9096;
         }
       ];
-      identityFile = "~/.ssh/id_rsa";
+      IdentityFile = "~/.ssh/id_rsa";
     };
 
     # RaspberryPi
     RaspberryPi = {
-      hostname = "raspberrypi.local";
-      user = "pi";
-      identityFile = "~/.ssh/id_rsa";
+      HostName = "raspberrypi.local";
+      User = "pi";
+      IdentityFile = "~/.ssh/id_rsa";
     };
 
     # TailUbuntu
     TailUbuntu = {
-      hostname = "100.84.33.5";
-      user = "mei";
-      identityFile = "~/.ssh/id_rsa";
-      localForwards = [
+      HostName = "100.84.33.5";
+      User = "mei";
+      IdentityFile = "~/.ssh/id_rsa";
+      LocalForward = [
         {
           bind.port = 9096;
           host.address = "localhost";
@@ -68,10 +63,10 @@
 
     # TailBabalab
     TailBabalab = {
-      hostname = "100.112.158.106";
-      user = "babalab";
-      identityFile = "~/.ssh/id_rsa";
-      localForwards = [
+      HostName = "100.112.158.106";
+      User = "babalab";
+      IdentityFile = "~/.ssh/id_rsa";
+      LocalForward = [
         {
           bind.port = 8888;
           host.address = "localhost";
@@ -95,31 +90,19 @@
       ];
     };
 
-    # github と github.com
-    # Host github github.com は、Home ManagerのmatchBlocksのキーとして "github" を使い、
-    # Hostname は "github.com" とします。
-    # github.com のエイリアスとして使いたい場合は、別途 "github.com" の matchBlock を定義するか、
-    # ユーザーが ssh github.com とタイプした時にうまくいくようにする必要があります。
-    # 多くのSSHクライアントは HostName があれば Host エイリアスは最初のものだけで十分です。
+    # github
     github = {
-      hostname = "github.com";
-      user = "git";
-      identityFile = "~/.ssh/id_git_rsa";
+      HostName = "github.com";
+      User = "git";
+      IdentityFile = "~/.ssh/id_git_rsa";
     };
-    # github.com も直接使いたい場合は、別途定義
-    # github.com = {
-    #   hostname = "github.com";
-    #   user = "git";
-    #   identityFile = "~/.ssh/id_git_rsa";
-    # };
 
     # ec2-rag
     "ec2-rag" = {
-      # ハイフンを含む場合はクォートで囲む
-      hostname = "15.168.113.47";
-      user = "ubuntu";
-      identityFile = "~/.ssh/eggai.pem";
-      localForwards = [
+      HostName = "15.168.113.47";
+      User = "ubuntu";
+      IdentityFile = "~/.ssh/eggai.pem";
+      LocalForward = [
         {
           bind.port = 8000;
           host.address = "localhost";
@@ -128,39 +111,21 @@
       ];
     };
 
-    # 外側 (踏み台) as-highreso の設定
+    # 外側 (踏み台) as-highreso
     "as-highreso" = {
-      # ホスト名にドットが含まれるためクォートで囲むのが安全
-      hostname = "as-highreso.com";
-      port = 30022;
-      user = "user";
-      identityFile = "~/.ssh/ackey.txt";
+      HostName = "as-highreso.com";
+      Port = 30022;
+      User = "user";
+      IdentityFile = "~/.ssh/ackey.txt";
     };
 
-    # 内側 (SOROBAN サーバ) の設定
+    # 内側 (SOROBAN サーバ)
     "soroban" = {
-      # 好きなエイリアス名を指定
-      hostname = "172.30.35.52"; # 最終目的サーバーのIPアドレス
-      port = 10022; # soroban サーバーのSSHポート
-      user = "yang"; # soroban サーバーへのログインユーザー名
-      identityFile = "~/.ssh/id_moonshot_rsa"; # soroban サーバーへのログインに使用する鍵
-      proxyJump = "as-highreso"; # ★踏み台サーバーのエイリアス名を指定
-      # 必要であれば、以下を追加して接続が閉じないようにする
-      # serverAliveInterval = 60;
-      # serverAliveCountMax = 5;
+      HostName = "172.30.35.52";
+      Port = 10022;
+      User = "yang";
+      IdentityFile = "~/.ssh/id_moonshot_rsa";
+      ProxyJump = "as-highreso";
     };
-    # もし Moonshot プロジェクト用の新しい設定を追加するならここ
-    # moonshot = {
-    #   hostname = "your_moonshot_server_hostname.com";
-    #   user = "your_moonshot_username";
-    #   identityFile = "~/.ssh/id_moonshot";
-    #   port = 22;
-    #   # strictHostKeyChecking と userKnownHostsFile も extraOptions で設定することが多いです
-    #   # 例えば:
-    #   # extraOptions = {
-    #   #   StrictHostKeyChecking = "no";
-    #   #   UserKnownHostsFile = "/dev/null";
-    #   # };
-    # };
   };
 }

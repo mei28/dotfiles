@@ -61,11 +61,9 @@
   # Home Manager自身
   programs.home-manager.enable = true;
 
+  # ~/.config は手動 symlink (~/.config -> ~/dotfiles/.config) で一括管理しているため、
+  # その配下は home-manager で個別宣言しない。~/.config 配下以外のみここで管理する。
   home.file = {
-    ".config/nvim".source =
-      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.config/nvim";
-    ".config/nix/home-manager/modules/configs".source =
-      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.config/nix/home-manager/modules/configs";
     ".claude".source =
       config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.claude";
   };
