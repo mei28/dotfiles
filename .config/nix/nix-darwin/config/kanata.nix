@@ -20,7 +20,7 @@
       ProgramArguments = [
         "/opt/homebrew/bin/kanata"
         "-c"
-        "/Users/mei/dotfiles/.config/kanata/kanata.kbd"
+        "/Users/${username}/dotfiles/.config/kanata/kanata.kbd"
         "--port"
         "10000"
         "--debug"

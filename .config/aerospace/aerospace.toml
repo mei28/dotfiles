@@ -6,8 +6,7 @@
 # You can use it to add commands that run after login to macOS user session.
 # 'start-at-login' needs to be 'true' for 'after-login-command' to work
 # Available commands: https://nikitabobko.github.io/AeroSpace/commands
-after-login-command = [
-]
+# after-login-command = [ ]
 
 # You can use it to add commands that run after AeroSpace startup.
 # 'after-startup-command' is run after 'after-login-command'
@@ -15,7 +14,7 @@ after-login-command = [
 # after-startup-command = [
 #   'exec-and-forget borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=5.0'
 # ]
-after-startup-command = ['exec-and-forget sketchybar']
+# after-startup-command = ['exec-and-forget sketchybar']
 
 # https://www.takeokunn.org/posts/fleeting/20251124235900-setting_sketchybar/
 # exec-on-workspace-change = [
@@ -249,12 +248,12 @@ q = 'mode main'
 esc = 'mode main'
 
 [workspace-to-monitor-force-assignment]
-"0" = ["main", "^XREAL$"]
-"1" = ["main", "^XREAL$"]
-"2" = ["main", "^XREAL$"]
-"3" = ["main", "^XREAL$"]
-"4" = ["main", "^XREAL$"]
-"5" = ["main", "^XREAL$"]
+"0" = ["main", "^XREAL$", "^LG$"]
+"1" = ["main", "^XREAL$", "^LG$"]
+"2" = ["main", "^XREAL$", "^LG$"]
+"3" = ["main", "^XREAL$", "^LG$"]
+"4" = ["main", "^XREAL$", "^LG$"]
+"5" = ["main", "^XREAL$", "^LG$"]
 "6" = ["^built-in retina display$", "secondary"]
 "7" = ["^built-in retina display$", "secondary"]
 "8" = ["^built-in retina display$", "secondary"]
