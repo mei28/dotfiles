@@ -23,12 +23,10 @@ nix/home-manager が生成する設定ファイル（tmux, git）をローカル
 ### 2. dotfiles をリモートに転送
 
 ```bash
-# rsync の場合
-rsync -azq --exclude .git ~/dotfiles/ superpod:~/dotfiles/
-
-# git clone の場合
-ssh superpod 'git clone <repo-url> ~/dotfiles'
+./remote/hpc-setup.sh sync fc1-login-00
 ```
+
+dotfiles 全体をリモートの `~/dotfiles/` に rsync する。
 
 ### 3. リモートで install
 
@@ -61,11 +59,8 @@ remote/
 ローカルで nix 設定を変更した後:
 
 ```bash
-# 1. ローカルで再収集
 ./remote/hpc-setup.sh collect
-
-# 2. リモートに再転送
-rsync -azq --exclude .git ~/dotfiles/ superpod:~/dotfiles/
+./remote/hpc-setup.sh sync fc1-login-00
 ```
 
 リモート側はシンボリンクなので、ファイルが更新されれば即反映される。
@@ -74,4 +69,3 @@ rsync -azq --exclude .git ~/dotfiles/ superpod:~/dotfiles/
 
 - tmux の `default-shell` がリモートに存在しない場合、tmux 起動時にエラーが出る可能性がある
 - nvim プラグインは初回起動時に lazy.nvim が自動インストールする（ネット接続が必要）
-- `remote/generated/` は `.gitignore` に登録済み。各マシンで `collect` を実行する
