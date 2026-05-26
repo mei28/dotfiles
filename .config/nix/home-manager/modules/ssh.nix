@@ -8,6 +8,7 @@
 {
   programs.ssh.enable = true;
   programs.ssh.enableDefaultConfig = false; # デフォルト設定を無効化
+  programs.ssh.includes = [ "~/.ssh/config.d/*" ];
 
   # settings は OpenSSH ディレクティブ名 (大文字始まり) を直接使う
   programs.ssh.settings = {

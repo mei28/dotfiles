@@ -1,0 +1,30 @@
+# mutagen project config template
+# Copy to project root as `mutagen.yml` and edit
+#
+# Usage:
+#   mutagen project start   -- start all sessions defined here
+#   mutagen project flush   -- force immediate sync
+#   mutagen project pause   -- pause all sessions
+#   mutagen project resume  -- resume all sessions
+#   mutagen project terminate -- stop and remove all sessions
+
+sync:
+  app-code:
+    alpha: "."
+    beta: "REMOTE_HOST:~/projects/PROJECT_NAME"
+    mode: "two-way-resolved"
+    ignore:
+      vcs: true
+      paths:
+        - ".DS_Store"
+        - "node_modules/"
+        - ".venv/"
+        - "__pycache__/"
+        - "*.pyc"
+        - ".direnv/"
+        - "result"
+
+# forward:
+#   web:
+#     source: "tcp:localhost:3000"
+#     destination: "REMOTE_HOST:tcp:localhost:3000"

@@ -46,8 +46,11 @@
     ]
     ++ [ fzf-make ];
 
-  # ruff設定
-  imports = [ ../modules/ruff.nix ];
+  # ruff設定 + mutagen
+  imports = [
+    ../modules/ruff.nix
+    ../modules/mutagen.nix
+  ];
 
   # 環境変数（開発用）
   home.sessionVariables = {
