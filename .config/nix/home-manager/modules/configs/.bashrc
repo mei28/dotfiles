@@ -809,6 +809,10 @@ if type bonsai &> /dev/null; then
   eval "$(bonsai shell-init bash)"
 fi
 
+if type ferment &> /dev/null; then
+  eval "$(ferment completion bash)"
+fi
+
 # if type intelli-shell &> /dev/null; then
 #     eval "$(intelli-shell init bash)"
 #     export INTELLI_SEARCH_HOTKEY="\C-o"
