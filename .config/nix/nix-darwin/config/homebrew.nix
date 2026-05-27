@@ -9,7 +9,7 @@
     casks = [
       "hammerspoon"
       "nikitabobko/tap/aerospace"
-      "ngrok"
+      # "ngrok"
       "wezterm@nightly"
       "ghostty"
       "azookey"
