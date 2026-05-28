@@ -1,8 +1,10 @@
 font-family = "Hack Nerd Font Mono"
+font-family-fallback = "GenInterfaceJP"
 font-size = 14
 theme = "kanagawabones"
 window-padding-x = 10
 window-padding-y = 10
 window-padding-balance = true
+background-opacity = 0.8
 background-blur-radius = 20
 macos-titlebar-style = transparent

@@ -12,6 +12,7 @@
       # "ngrok"
       "wezterm@nightly"
       "ghostty"
+      "cmux"
       "azookey"
       "marta"
       "raycast"
