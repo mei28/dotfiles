@@ -66,13 +66,13 @@ in
     ];
     shell = "~/.nix-profile/bin/bash";
     terminal = "tmux-256color";
+    mouse = true;
 
     # .tmux.conf の内容を extraConfig に記述
     extraConfig = ''
       # tmux起動時のシェルをbashにする
       # set-option -g default-shell /bin/bash
-      # tmuxを256色表示できるようにする
-      set-option -g default-terminal screen-256color
+      # 256色: default-terminal は programs.tmux.terminal = "tmux-256color" で設定済み
       set -g terminal-overrides 'xterm:colors=256'
 
       # OSC52 clipboard support
@@ -108,8 +108,7 @@ in
       # 番号基準値を変更
       set-option -g base-index 1
 
-      # マウス操作を有効にする
-      set-option -g mouse on
+      # マウス操作は programs.tmux.mouse = true で有効化
       bind -n WheelUpPane if-shell -F -t = "#{mouse_any_flag}" "send-keys -M" "if -Ft= '#{pane_in_mode}' 'send-keys -M' 'copy-mode -e'"
 
       # OS が Linux の時は xsel を使う
@@ -141,6 +140,12 @@ in
 
       # 'Y' で行ヤンク
       bind -T copy-mode-vi Y send -X copy-line
+
+      # マウスホイールのスクロール速度を遅くする（既定 5 行/ノッチ → 2 行）
+      bind -T copy-mode    WheelUpPane   send-keys -X -N 2 scroll-up
+      bind -T copy-mode    WheelDownPane send-keys -X -N 2 scroll-down
+      bind -T copy-mode-vi WheelUpPane   send-keys -X -N 2 scroll-up
+      bind -T copy-mode-vi WheelDownPane send-keys -X -N 2 scroll-down
 
       # 'C-p'でペースト
       bind-key C-p paste-buffer
