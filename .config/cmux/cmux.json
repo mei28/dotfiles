@@ -225,7 +225,8 @@
     "copyOnSelect": true
   },
   "app": {
-    "focusPaneOnFirstClick": true
+    "focusPaneOnFirstClick": true,
+    "reorderOnNotification": false
   },
   "actions": {
     "copy-last-cmd": {
