@@ -20,6 +20,7 @@
     ];
     brews = [
       "lusingander/tap/serie"
+      "displayplacer"
     ];
   };
 }

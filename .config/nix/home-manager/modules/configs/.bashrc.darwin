@@ -28,6 +28,83 @@ if [ -e /Applications/CMake.app/Contents/bin ]; then
     export PATH="/Applications/CMake.app/Contents/bin:$PATH"
 fi
 
+## display-setup: arrange external display relative to built-in screen
+if type displayplacer &> /dev/null; then
+    display-setup() {
+        local position="${1:-up}"
+        local list_output
+        list_output="$(displayplacer list 2>&1)"
+
+        local internal_id="" external_id=""
+        local internal_res="" external_res=""
+        local internal_settings="" external_settings=""
+        local current_id="" current_type="" current_res=""
+        local current_hz="" current_cd="" current_scaling=""
+
+        while IFS= read -r line; do
+            case "$line" in
+                "Persistent screen id: "*)
+                    current_id="${line#Persistent screen id: }" ;;
+                "Type: "*)
+                    current_type="${line#Type: }" ;;
+                "Resolution: "*)
+                    current_res="${line#Resolution: }" ;;
+                "Hertz: "*)
+                    current_hz="${line#Hertz: }" ;;
+                "Color Depth: "*)
+                    current_cd="${line#Color Depth: }" ;;
+                "Scaling: "*)
+                    current_scaling="${line#Scaling: }"
+                    local settings="res:${current_res} hz:${current_hz} color_depth:${current_cd} enabled:true scaling:${current_scaling}"
+                    if [[ "$current_type" == *"built in"* ]]; then
+                        internal_id="$current_id"
+                        internal_res="$current_res"
+                        internal_settings="$settings"
+                    else
+                        external_id="$current_id"
+                        external_res="$current_res"
+                        external_settings="$settings"
+                    fi
+                    ;;
+            esac
+        done <<< "$list_output"
+
+        if [[ -z "$external_id" ]]; then
+            echo "No external display detected."
+            return 1
+        fi
+
+        local iw ih ew eh
+        IFS='x' read -r iw ih <<< "$internal_res"
+        IFS='x' read -r ew eh <<< "$external_res"
+
+        # external = main display (0,0), internal = extend
+        local ext_x=0 ext_y=0 int_x int_y
+        case "$position" in
+            up)
+                int_x=$(( (ew - iw) / 2 ))
+                int_y=$eh ;;
+            down)
+                int_x=$(( (ew - iw) / 2 ))
+                int_y=$(( -ih )) ;;
+            left)
+                int_x=$ew
+                int_y=$(( (eh - ih) / 2 )) ;;
+            right)
+                int_x=$(( -iw ))
+                int_y=$(( (eh - ih) / 2 )) ;;
+            *)
+                echo "Usage: display-setup [up|down|left|right]"
+                return 1 ;;
+        esac
+
+        echo "External(main): (0,0) | Internal(extend): (${int_x},${int_y}) | position: ${position}"
+        displayplacer \
+            "id:${external_id} ${external_settings} origin:(${ext_x},${ext_y}) degree:0" \
+            "id:${internal_id} ${internal_settings} origin:(${int_x},${int_y}) degree:0"
+    }
+fi
+
 ## Android SDK for Tauri
 export JAVA_HOME=/opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home
 export ANDROID_HOME=/opt/homebrew/share/android-commandlinetools
