@@ -159,6 +159,21 @@ function add_line {
     fi
 }
 
+# OSC 7: report cwd so terminals open new tabs/panes in the current directory.
+# WezTerm can read the process cwd on macOS, but Ghostty (embedded by cmux)
+# relies on OSC 7. Emitted for every terminal; ignored by those that don't parse it.
+__osc7_cwd() {
+    local enc="" c i
+    for (( i=0; i<${#PWD}; i++ )); do
+        c="${PWD:i:1}"
+        case "$c" in
+            [-_.~a-zA-Z0-9/]) enc+="$c" ;;
+            *) printf -v c '%%%02X' "'$c"; enc+="$c" ;;
+        esac
+    done
+    printf '\033]7;file://%s%s\033\\' "${HOSTNAME}" "$enc"
+}
+
 # WezTerm Shell Integration: OSC 133;D (command end) and OSC 133;C (command start)
 if [[ "$TERM_PROGRAM" == "WezTerm" ]]; then
     __wezterm_osc() { printf "\033]%s\007" "$1"; }
@@ -191,9 +206,9 @@ if [[ "$TERM_PROGRAM" == "WezTerm" ]]; then
     }
 
     trap '__wezterm_preexec' DEBUG
-    PROMPT_COMMAND='__wezterm_in_prompt=1; __wezterm_precmd; set_prompt; add_line; __wezterm_in_prompt=""'
+    PROMPT_COMMAND='__wezterm_in_prompt=1; __wezterm_precmd; set_prompt; add_line; __osc7_cwd; __wezterm_in_prompt=""'
 else
-    PROMPT_COMMAND='set_prompt; add_line'
+    PROMPT_COMMAND='set_prompt; add_line; __osc7_cwd'
 fi
 
 # git completion
