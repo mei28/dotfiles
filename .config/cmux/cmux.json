@@ -226,7 +226,8 @@
   },
   "app": {
     "focusPaneOnFirstClick": true,
-    "reorderOnNotification": false
+    "reorderOnNotification": false,
+    "workspaceInheritWorkingDirectory": true
   },
   "actions": {
     "copy-last-cmd": {
