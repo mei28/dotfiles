@@ -24,5 +24,11 @@
     enableKeyMapping = true;
     remapCapsLockToControl = true;
   };
-  # Auto-correct / smart quotes left at macOS defaults
+  # Auto-correct / smart quotes: macOS defaults のまま運用中。
+  # 無効化したい場合は NSGlobalDomain に以下を追加:
+  #   NSAutomaticCapitalizationEnabled = false;
+  #   NSAutomaticDashSubstitutionEnabled = false;
+  #   NSAutomaticPeriodSubstitutionEnabled = false;
+  #   NSAutomaticQuoteSubstitutionEnabled = false;
+  #   NSAutomaticSpellingCorrectionEnabled = false;
 }

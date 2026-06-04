@@ -8,7 +8,10 @@
     minimize-to-application = true;
     mru-spaces = false;
 
-    # Mission Control でアプリごとにウィンドウをグループ化 (aerospace 併用時に有用)
+    # Remove all pinned apps from Dock
+    persistent-apps = [ ];
+
+    # Mission Control: group windows by application (useful with aerospace)
     expose-group-apps = true;
 
     # Hot corners disabled (1 = no action)
