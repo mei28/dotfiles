@@ -771,35 +771,48 @@ jk() {
     fi
 }
 
+# OSC52: terminal escape sequence to reach the LOCAL terminal's clipboard
+_osc52_copy() {
+    local data
+    data=$(base64 | tr -d '\n')
+    if [[ -n "$TMUX" ]]; then
+        printf '\ePtmux;\e\e]52;c;%s\a\e\\' "$data"
+    else
+        printf '\e]52;c;%s\a' "$data"
+    fi
+}
+
 # clipboard helper: reads from stdin and copies to clipboard
 _copy_to_clipboard() {
+    # ssh 中はリモートの X ではなく手元端末の clipboard を OSC52 で狙う
+    if [[ -n "$SSH_TTY" || -n "$SSH_CONNECTION" ]]; then
+        _osc52_copy
+        return
+    fi
     if command -v pbcopy >/dev/null 2>&1; then
         pbcopy
-    elif command -v wl-copy >/dev/null 2>&1; then
+    elif [[ -n "$WAYLAND_DISPLAY" ]] && command -v wl-copy >/dev/null 2>&1; then
         wl-copy
-    elif command -v xclip >/dev/null 2>&1; then
+    elif [[ -n "$DISPLAY" ]] && command -v xclip >/dev/null 2>&1; then
         xclip -selection clipboard
-    elif command -v xsel >/dev/null 2>&1; then
+    elif [[ -n "$DISPLAY" ]] && command -v xsel >/dev/null 2>&1; then
         xsel --clipboard --input
     else
-        # OSC52: terminal escape sequence for clipboard
-        local data
-        data=$(base64 | tr -d '\n')
-        if [[ -n "$TMUX" ]]; then
-            printf '\ePtmux;\e\e]52;c;%s\a\e\\' "$data"
-        else
-            printf '\e]52;c;%s\a' "$data"
-        fi
+        # GUI クリップボードツールが無い/使えない時は OSC52 にフォールバック
+        _osc52_copy
     fi
 }
 
 # copy file content to clipboard
 pbc() {
-    if [ -f "$1" ]; then
-        _copy_to_clipboard < "$1"
+    if [ ! -f "$1" ]; then
+        echo "Error: File '$1' does not exist."
+        return 1
+    fi
+    if _copy_to_clipboard < "$1"; then
         echo "Copied $1!!"
     else
-        echo "Error: File '$1' does not exist."
+        echo "Error: failed to copy '$1' to clipboard."
         return 1
     fi
 }
