@@ -58,35 +58,51 @@
         legacyPackages = {
           inherit (pkgs) home-manager;
 
-          # Home Manager configuration (macOS)
-          homeConfigurations.default = home-manager.lib.homeManagerConfiguration {
+          # Home Manager configurations (per host)
+          homeConfigurations.babalab-mac = home-manager.lib.homeManagerConfiguration {
             pkgs = pkgs;
             extraSpecialArgs = {
-              inherit
-                inputs
-                system
-                ;
+              inherit inputs system;
             };
-            modules = [ ./.config/nix/home-manager/profiles/macos.nix ];
+            modules = [ ./.config/nix/home-manager/hosts/babalab-mac.nix ];
           };
 
-          # Home Manager configuration (Remote/EC2)
-          homeConfigurations.remote = home-manager.lib.homeManagerConfiguration {
+          homeConfigurations.sbi-mac = home-manager.lib.homeManagerConfiguration {
             pkgs = pkgs;
             extraSpecialArgs = {
-              inherit
-                inputs
-                system
-                ;
+              inherit inputs system;
             };
-            modules = [ ./.config/nix/home-manager/profiles/remote.nix ];
+            modules = [ ./.config/nix/home-manager/hosts/sbi-mac.nix ];
           };
 
-          # macOS (nix-darwin)
-          darwinConfigurations.default = nix-darwin.lib.darwinSystem {
+          homeConfigurations.qia-aws = home-manager.lib.homeManagerConfiguration {
+            pkgs = pkgs;
+            extraSpecialArgs = {
+              inherit inputs system;
+            };
+            modules = [ ./.config/nix/home-manager/hosts/qia-aws.nix ];
+          };
+
+          homeConfigurations.sbi-superpod = home-manager.lib.homeManagerConfiguration {
+            pkgs = pkgs;
+            extraSpecialArgs = {
+              inherit inputs system;
+            };
+            modules = [ ./.config/nix/home-manager/hosts/sbi-superpod.nix ];
+          };
+
+          # macOS (nix-darwin, per host)
+          darwinConfigurations.babalab-mac = nix-darwin.lib.darwinSystem {
             system = "aarch64-darwin";
             modules = [
-              ./.config/nix/nix-darwin/default.nix
+              ./.config/nix/nix-darwin/hosts/babalab-mac.nix
+            ];
+          };
+
+          darwinConfigurations.sbi-mac = nix-darwin.lib.darwinSystem {
+            system = "aarch64-darwin";
+            modules = [
+              ./.config/nix/nix-darwin/hosts/sbi-mac.nix
             ];
           };
         };

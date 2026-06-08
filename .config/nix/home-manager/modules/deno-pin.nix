@@ -33,8 +33,7 @@ let
     finalPkgs:
     let
       system = finalPkgs.stdenv.hostPlatform.system;
-      src =
-        sources.${system} or (throw "deno-pin: unsupported system ${system}");
+      src = sources.${system} or (throw "deno-pin: unsupported system ${system}");
     in
     finalPkgs.stdenvNoCC.mkDerivation {
       pname = "deno";
@@ -45,9 +44,10 @@ let
         hash = src.hash;
       };
 
-      nativeBuildInputs =
-        [ finalPkgs.unzip ]
-        ++ lib.optional finalPkgs.stdenv.isLinux finalPkgs.autoPatchelfHook;
+      nativeBuildInputs = [
+        finalPkgs.unzip
+      ]
+      ++ lib.optional finalPkgs.stdenv.isLinux finalPkgs.autoPatchelfHook;
 
       buildInputs = lib.optionals finalPkgs.stdenv.isLinux [
         finalPkgs.stdenv.cc.cc.lib
@@ -82,4 +82,3 @@ in
     (final: _prev: { deno = mkDeno final; })
   ];
 }
-

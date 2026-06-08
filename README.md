@@ -1,248 +1,279 @@
 # Dotfiles
 
-## macOS (Local) Setup
+## アーキテクチャ
 
-### install
+三層構造でホストごとの構成を管理:
 
-``` bash
+```
+modules/   → 個々の設定 (tmux, bash, git, fzf ...)
+profiles/  → 機能グループ (base, development, macos)
+hosts/     → 端末ごとの定義 (何を使うかを宣言)
+```
+
+### ホスト一覧
+
+| ホスト名 | OS | profiles | darwin |
+|----------|-----|----------|--------|
+| `babalab-mac` | macOS | base + development + macos | あり (brew含む) |
+| `sbi-mac` | macOS | base + development + macos | あり (brew含む) |
+| `qia-aws` | Linux | base + development | なし |
+| `sbi-superpod` | Linux | base + development | なし |
+
+### 編集ガイド
+
+**パッケージを特定のホストだけに追加したい:**
+→ `hosts/<host>.nix` の `home.packages` に追加
+
+```nix
+# .config/nix/home-manager/hosts/babalab-mac.nix
+home.packages = with pkgs; [
+  claude-code
+  marp-cli
+  # ← ここに追加
+];
+```
+
+**全ホスト共通のツールを追加したい:**
+→ `profiles/base.nix` (CLI基本) or `profiles/development.nix` (開発ツール) に追加
+
+**macOS 固有の symlink や環境変数を追加したい:**
+→ `profiles/macos.nix` に追加
+
+**特定ホストで module を除外したい:**
+→ そのホストの `hosts/<host>.nix` の `imports` から該当 profile を外す
+
+```nix
+# 例: development を入れないホスト
+imports = [
+  ../profiles/base.nix
+  # ../profiles/development.nix  ← コメントアウト
+];
+```
+
+**Homebrew cask/brew を変更したい:**
+→ `nix-darwin/config/homebrew.nix` (共通) を編集。ホスト固有にしたい場合は `nix-darwin/hosts/<host>.nix` に直接書く
+
+**新しい module を作りたい (例: 新ツールの設定):**
+→ `modules/<tool>.nix` を作成し、使いたい profile か host の `imports` に追加
+
+### ホストの追加方法
+
+1. `hosts/<new-host>.nix` を作成:
+
+```nix
+{ inputs, lib, pkgs, system, ... }:
+let
+  runtimeUser = builtins.getEnv "USER";
+  username = if runtimeUser != "" then runtimeUser else "user";
+  homeRoot = if pkgs.stdenv.isDarwin then "/Users" else "/home";
+in
+{
+  imports = [
+    ../profiles/base.nix
+    ../profiles/development.nix
+    # ../profiles/macos.nix  # macOS の場合は追加
+  ];
+
+  home.username = username;
+  home.homeDirectory = lib.mkDefault "${homeRoot}/${username}";
+  home.stateVersion = "25.05";
+
+  # ホスト固有のパッケージ
+  home.packages = with pkgs; [];
+}
+```
+
+2. `flake.nix` に追記:
+
+```nix
+homeConfigurations.new-host = home-manager.lib.homeManagerConfiguration {
+  pkgs = pkgs;
+  extraSpecialArgs = { inherit inputs system; };
+  modules = [ ./.config/nix/home-manager/hosts/new-host.nix ];
+};
+```
+
+3. macOS の場合は `nix-darwin/hosts/<new-host>.nix` も作成し `darwinConfigurations` に追記
+
+4. `justfile` の `info` レシピにホスト情報を追加
+
+5. 適用:
+
+```bash
+git add .config/nix/home-manager/hosts/new-host.nix
+just build new-host    # ビルド確認
+just update new-host   # 適用
+```
+
+---
+
+## セットアップ
+
+### macOS
+
+```bash
 git clone https://github.com/mei28/dotfiles.git
 cd dotfiles
 ./setup.sh
 ```
 
-### nix
+Nix:
 
 ```bash
 curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
 ```
 
-### 設定の適用（macOS）
-
-ユーザー設定（home-manager）とシステム設定（nix-darwin）を別々に適用します。
+初回適用:
 
 ```bash
-# ユーザー設定（CLI ツール、shell、neovim 等）
-just update-home
-
-# システム設定（/etc, launchd, homebrew, フォント等）
-# recipe 内で sudo darwin-rebuild が呼ばれるためパスワード入力あり
-just update-darwin
-
-# まとめて: flake 更新 + home + darwin
-just update-all
+just bootstrap babalab-mac       # Home Manager
+just bootstrap-darwin babalab-mac  # nix-darwin
 ```
 
----
+### リモート (EC2/Linux)
 
-## Remote (EC2/Linux) Setup
-
-リモート環境（EC2インスタンス等）で軽量な開発環境をセットアップします。
-
-### クイックスタート（推奨）
-
-以下のワンコマンドでセットアップが完了します：
+ワンコマンド (ホスト名を引数で指定):
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/mei28/dotfiles/main/remote-bootstrap.sh | bash
+curl -sSL https://raw.githubusercontent.com/mei28/dotfiles/main/remote-bootstrap.sh | bash -s -- qia-aws
 ```
 
-このスクリプトは以下を自動的に実行します：
-1. Nixのインストール
-2. dotfilesのクローン
-3. home-managerの適用（リモートプロファイル）
-
-セットアップ完了後：
-```bash
-exec bash  # シェルを再読み込み
-tmux       # tmuxセッション開始
-```
-
-### 手動セットアップ
+手動:
 
 ```bash
-# 1. dotfilesクローン
 git clone https://github.com/mei28/dotfiles.git ~/dotfiles
 cd ~/dotfiles
-
-# 2. Nixインストール
-curl --proto '=https' --tlsv1.2 -sSf -L \
-  https://install.determinate.systems/nix | sh -s -- install
-
-# 3. home-manager適用（リモートプロファイル）
-nix run home-manager/master -- switch --flake .#remote --impure
+curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
+just bootstrap qia-aws  # ホスト名を指定
 ```
-
-### 設定の更新
-
-リモート環境で設定を更新する場合：
-
-```bash
-cd ~/dotfiles
-git pull
-home-manager switch --flake .#remote --impure
-```
-
----
-
-## プロファイル構成
-
-home-manager:
-- `mei`: macOS 用フルプロファイル（ローカル開発環境）
-- `remote`: リモート用軽量プロファイル（EC2/Linux）
-  - 実行ユーザー名を `$USER` から自動検出（`ubuntu`, `ec2-user` 等）。属性名は username 非依存
-  - 適用には `--impure` 必須（`builtins.getEnv "USER"` のため）
-  - 最小限の CLI ツール + Neovim/LSP + Tmux
-  - SSH 接続時に自動的に tmux セッション起動
-
-nix-darwin:
-- `mei-darwin`: macOS システム設定（`/etc`、launchd、homebrew、フォント等）
-
----
-
-## 含まれるツール
-
-実体は `.config/nix/home-manager/profiles/{base,development,macos,remote}.nix` と `.config/nix/nix-darwin/config/homebrew.nix` を参照。
-
-### 共通（base / 全プロファイル）
-- CLI: gh, bat, just, fd, ripgrep, dust, delta, tldr, csvlens, miniserve, serie
-- ファイル管理: yazi, trash-cli, tree, wget, curl, zip, unzip
-- エディタ/セッション: neovim, tmux, tmux-mem-cpu-load
-- shell 補助 (programs.* 経由): bash, fzf, zoxide, fastfetch
-- VCS: git, gitui, jujutsu
-
-### 開発環境（development / mei・remote）
-- LSP: pyright, gopls, rust-analyzer, efm-langserver
-- ランタイム: Python (uv), Node.js (nodejs_24, bun, pnpm, ni, deno), Rust (cargo, rustc), Go, Lua (luajit, luarocks)
-- ビルド/フォーマッタ: cargo-generate, llvm, sqlite, postgresql, nixfmt, ruff
-- 自作ツール: cliperge, sgh, portsage, bonsai
-
-### macOS 専用 (`mei` プロファイル)
-- メディア: ffmpeg, ffmpegthumbnailer, imagemagick, ghostscript, marp-cli
-- クラウド/IaC: google-cloud-sdk, terraform, heroku
-- その他: claude-code, tree-sitter, git-lfs, openssl, arxiv-latex-cleaner
-
-### macOS システム (`mei-darwin`)
-- ウィンドウ管理 (homebrew cask): aerospace, hammerspoon
-- ターミナル (homebrew cask): wezterm@nightly, ghostty
-- ランチャー/ユーティリティ (homebrew cask): raycast, marta, ngrok, azookey, thaw
-- キーリマップ: kanata (homebrew brew + launchd daemon、Hammerspoon から制御)
-- フォント (nix `fonts.nix`): nerd-fonts.hack, nerd-fonts.symbols-only
 
 ---
 
 ## Just Commands
 
-便利なタスクランナーコマンド（`just`コマンドが必要）
+### ホスト操作 (引数にホスト名を指定)
 
-### ローカル環境（macOS）
 ```bash
-just update-home      # Home Manager 設定を適用
-just update-darwin    # nix-darwin 設定を適用（recipe 内で sudo darwin-rebuild）
-just update-flake     # flake.lock を更新
-just update-all       # すべて更新（flake + home + darwin）
-just build-home       # 適用せずビルドだけ（事前検証）
-just eval-home        # 構文/参照のみ評価（高速チェック）
-just gc               # Nix ガベージコレクション
+just update babalab-mac        # Home Manager 適用
+just update-darwin babalab-mac # nix-darwin 適用 (macOS のみ)
+just update-all babalab-mac    # flake 更新 + home + darwin
+just build babalab-mac         # 適用せずビルド確認
+just eval babalab-mac          # 構文/参照の高速チェック
+just bootstrap babalab-mac     # 初回セットアップ
+just bootstrap-darwin babalab-mac  # nix-darwin 初回セットアップ
+```
+
+### 共通
+
+```bash
+just update-flake         # flake.lock 更新
+just gc                   # ガベージコレクション
 just delete-old-profiles  # 古い世代を削除
+just info                 # ホスト一覧と設定情報
 ```
 
-### リモート環境
+### 検証
+
 ```bash
-just remote-apply     # リモートプロファイルを適用
-just remote-update    # flake更新 + リモートプロファイル適用
-just remote-test      # リモート設定のビルドテスト（dry-run）
+just check                # flake 構文チェック
+just fmt                  # Nix ファイルのフォーマット
+just lint-shell           # shellcheck
+just test-docker-ubuntu   # Ubuntu Docker テスト
+just test-docker-amazon   # Amazon Linux Docker テスト
+just test-all             # 全テスト実行
 ```
 
-### 検証とテスト
-```bash
-just check            # Nix flakeの構文チェック
-just fmt              # Nixファイルのフォーマット
-just lint-shell       # シェルスクリプトのlint（shellcheck）
-just test-docker-ubuntu    # Ubuntu Dockerでテスト
-just test-docker-amazon    # Amazon Linux Dockerでテスト
-just test-all         # すべてのテストを実行
+---
+
+## ディレクトリ構成
+
+```
+.config/nix/
+├── home-manager/
+│   ├── hosts/          # 端末ごとの定義
+│   │   ├── babalab-mac.nix
+│   │   ├── sbi-mac.nix
+│   │   ├── qia-aws.nix
+│   │   └── sbi-superpod.nix
+│   ├── profiles/       # 機能グループ
+│   │   ├── base.nix         # CLI 基本 (全ホスト共通)
+│   │   ├── development.nix  # 開発ツール (LSP, 言語ランタイム)
+│   │   └── macos.nix        # macOS 固有 (symlink, env vars)
+│   ├── modules/        # 個々のツール設定
+│   │   ├── bash.nix
+│   │   ├── git.nix
+│   │   ├── tmux.nix
+│   │   └── ...
+│   └── options.nix     # 共有オプション (git user 等)
+└── nix-darwin/
+    ├── default.nix     # macOS システム共通設定
+    ├── hosts/          # 端末ごとの darwin 設定
+    │   ├── babalab-mac.nix
+    │   └── sbi-mac.nix
+    └── config/         # 個別設定 (fonts, homebrew, system...)
 ```
 
-### ユーティリティ
-```bash
-just info             # 現在の設定情報を表示
-just clean            # ビルド成果物をクリーンアップ
-```
+---
+
+## 含まれるツール
+
+### 共通 (base)
+- CLI: gh, bat, just, fd, ripgrep, dust, delta, tldr, csvlens, miniserve, serie
+- ファイル管理: yazi, trash-cli, tree, wget, curl, zip, unzip
+- エディタ/セッション: neovim, tmux, tmux-mem-cpu-load
+- shell: bash, fzf, zoxide, fastfetch
+- VCS: git, gitui, jujutsu
+
+### 開発環境 (development)
+- LSP: pyright, gopls, rust-analyzer, efm-langserver
+- ランタイム: Python (uv), Node.js (nodejs_24, bun, pnpm, ni, deno), Rust (cargo, rustc), Go, Lua (luajit, luarocks)
+- ビルド/フォーマッタ: cargo-generate, llvm, sqlite, postgresql, nixfmt, ruff
+- 自作ツール: cliperge, sgh, portsage, bonsai
+
+### macOS (macos profile + darwin)
+- symlink: hammerspoon, aerospace, wezterm, ghostty, karabiner, cmux, raycast
+- Homebrew cask: aerospace, hammerspoon, wezterm@nightly, ghostty, raycast, marta, azookey, thaw, cmux
+- フォント: nerd-fonts.hack, nerd-fonts.symbols-only
+- キーリマップ: kanata
 
 ---
 
 ## 検証方法
 
-### 方法1: Docker でのテスト（推奨）
-
-ローカル環境を汚さずにテストできます：
+### Docker テスト
 
 ```bash
-# Ubuntu環境でテスト
 just test-docker-ubuntu
-
-# Amazon Linux環境でテスト
 just test-docker-amazon
 ```
 
-または直接：
-
-```bash
-# Ubuntu
-docker build -f test/Dockerfile.ubuntu -t dotfiles-test-ubuntu .
-docker run --rm -it dotfiles-test-ubuntu
-
-# Amazon Linux
-docker build -f test/Dockerfile.amazonlinux -t dotfiles-test-amazon .
-docker run --rm -it dotfiles-test-amazon
-```
-
-### 方法2: 検証スクリプト
-
-セットアップ後に正しくインストールされたか確認：
+### 検証スクリプト
 
 ```bash
 bash test/verify-setup.sh
 ```
 
-### 方法3: 実際のEC2インスタンス
+### EC2 インスタンス
 
-1. EC2インスタンスを起動（Ubuntu 22.04 または Amazon Linux 2023）
-2. SSHで接続
-3. Bootstrapスクリプトを実行：
 ```bash
-curl -sSL https://raw.githubusercontent.com/mei28/dotfiles/main/remote-bootstrap.sh | bash
-```
-4. 検証：
-```bash
+curl -sSL https://raw.githubusercontent.com/mei28/dotfiles/main/remote-bootstrap.sh | bash -s -- qia-aws
 exec bash
 bash ~/dotfiles/test/verify-setup.sh
 ```
-
-### CI/CD による自動検証
-
-`.github/workflows/ci.yml` で push / PR 時に自動実行:
-- `nix flake check --impure` と nixfmt フォーマットチェック
-- `shellcheck` (`remote-bootstrap.sh`, `test/verify-setup.sh`)
-- `remote` プロファイルのビルド（ubuntu-latest）
-- `remote-bootstrap.sh` の構文 + 必須コマンド検査
 
 ---
 
 ## トラブルシューティング
 
-### リモート環境でNixが見つからない
+### Nix が見つからない
 ```bash
-# シェルを再起動
 exec bash
-
-# または新しいシェルセッションを開く
 ```
 
 ### 設定の再適用
 ```bash
 cd ~/dotfiles
-just remote-apply
+just update <host>
 ```
 
 ### 完全なクリーンインストール
@@ -250,4 +281,3 @@ just remote-apply
 rm -rf ~/dotfiles ~/.local/state/nix/profiles/home-manager
 curl -sSL https://raw.githubusercontent.com/mei28/dotfiles/main/remote-bootstrap.sh | bash
 ```
-

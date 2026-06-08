@@ -10,53 +10,50 @@ help:
 set shell := ["bash", "-eu", "-o", "pipefail", "-c"]
 
 # Define variables
-# 属性名は username/host 非依存。実 username は profile 内で
-# builtins.getEnv "USER" で動的解決 (--impure 必須)
-homeAttr := "default"
-darwinAttr := "default"
 dotfilesDir := env_var_or_default("DOTFILES_DIR", env_var("HOME") + "/dotfiles")
 
 # ========================================
-# Local Environment (macOS)
+# Host-based Configuration
 # ========================================
+# Hosts: babalab-mac, sbi-mac, qia-aws, sbi-superpod
 
 # Update flake.lock
 update-flake:
   @echo "Updating flake..."
   nix flake update
 
-# Apply Home Manager configuration (macOS)
-update-home:
-  @echo "Updating Home Manager config (macOS)..."
-  home-manager switch --flake .#{{homeAttr}} --impure
+# Apply Home Manager configuration for a host
+update host:
+  @echo "Updating Home Manager config for {{host}}..."
+  home-manager switch --flake .#{{host}} --impure
 
-# Bootstrap Home Manager (first-time setup on new machine)
-bootstrap-home:
-  @echo "Bootstrapping Home Manager config (macOS)..."
-  nix run home-manager -- switch --flake .#{{homeAttr}} --impure
+# Bootstrap Home Manager (first-time setup)
+bootstrap host:
+  @echo "Bootstrapping Home Manager config for {{host}}..."
+  nix run home-manager/master -- switch --flake .#{{host}} --impure
 
 # Build Home Manager configuration without activating (for verification)
-build-home:
-  @echo "Building Home Manager config (macOS)..."
-  home-manager build --flake .#{{homeAttr}} --impure
+build host:
+  @echo "Building Home Manager config for {{host}}..."
+  home-manager build --flake .#{{host}} --impure
 
 # Evaluate Home Manager configuration (fast syntax/reference check)
-eval-home:
-  @echo "Evaluating Home Manager config..."
-  nix eval --impure .#legacyPackages.aarch64-darwin.homeConfigurations.{{homeAttr}}.activationPackage
+eval host:
+  @echo "Evaluating Home Manager config for {{host}}..."
+  nix eval --impure .#legacyPackages.aarch64-darwin.homeConfigurations.{{host}}.activationPackage
 
-# Apply nix-darwin configuration
-update-darwin:
-  @echo "Updating nix-darwin config..."
-  sudo darwin-rebuild switch --flake .#{{darwinAttr}} --impure
+# Apply nix-darwin configuration for a host
+update-darwin host:
+  @echo "Updating nix-darwin config for {{host}}..."
+  sudo darwin-rebuild switch --flake .#{{host}} --impure
 
-# Bootstrap nix-darwin (first-time setup on new machine)
-bootstrap-darwin:
-  @echo "Bootstrapping nix-darwin config..."
-  sudo nix run nix-darwin -- switch --flake .#{{darwinAttr}} --impure
+# Bootstrap nix-darwin (first-time setup)
+bootstrap-darwin host:
+  @echo "Bootstrapping nix-darwin config for {{host}}..."
+  sudo nix run nix-darwin -- switch --flake .#{{host}} --impure
 
-# Update everything (flake + home + darwin)
-update-all: update-flake update-home update-darwin
+# Update everything for a mac host (flake + home + darwin)
+update-all host: update-flake (update host) (update-darwin host)
 
 # Run garbage collection
 gc:
@@ -68,23 +65,6 @@ delete-old-profiles:
   @echo "Deleting old Nix profiles and generations..."
   nix-collect-garbage -d
 
-
-# ========================================
-# Remote Environment (EC2/Linux)
-# ========================================
-
-# Apply Home Manager configuration (Remote)
-remote-apply:
-  @echo "Applying Home Manager config (Remote)..."
-  nix run home-manager/master -- switch --flake .#remote --impure
-
-# Update and apply remote configuration
-remote-update: update-flake remote-apply
-
-# Test remote configuration build (dry-run)
-remote-test:
-  @echo "Testing remote configuration build..."
-  nix build .#legacyPackages.$(nix eval --impure --raw --expr 'builtins.currentSystem').homeConfigurations.remote.activationPackage --dry-run
 
 # ========================================
 # Validation & Testing
@@ -127,15 +107,16 @@ test-all: check lint-shell test-docker-ubuntu test-docker-amazon
 # Show current configuration info
 info:
   @echo "=== Dotfiles Configuration Info ==="
-  @echo "Home Attr: {{homeAttr}}"
-  @echo "Darwin Attr: {{darwinAttr}}"
   @echo "Runtime USER: $USER"
   @echo "Dotfiles Dir: {{dotfilesDir}}"
   @echo "System: $(uname -s)"
   @echo "Architecture: $(uname -m)"
   @echo ""
-  @echo "Available profiles:"
-  @nix flake show 2>/dev/null | grep homeConfigurations || echo "  Run 'nix flake show' for details"
+  @echo "Available hosts:"
+  @echo "  babalab-mac   - Personal Mac (base + development + macos + darwin)"
+  @echo "  sbi-mac       - Work Mac (base + development + macos + darwin)"
+  @echo "  qia-aws       - AWS remote (base + development)"
+  @echo "  sbi-superpod  - Superpod remote (base + development)"
 
 # Clean up build artifacts
 clean:

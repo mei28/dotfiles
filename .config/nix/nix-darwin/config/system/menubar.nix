@@ -2,7 +2,7 @@
   # Clock: 24h + date + day of week, no seconds
   system.defaults.menuExtraClock = {
     Show24Hour = true;
-    ShowDate = 1;        # 0=auto, 1=always show, 2=never
+    ShowDate = 1; # 0=auto, 1=always show, 2=never
     ShowDayOfWeek = true;
     ShowSeconds = false;
   };

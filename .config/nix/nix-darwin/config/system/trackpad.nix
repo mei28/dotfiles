@@ -1,7 +1,7 @@
 {
   system.defaults.trackpad = {
-    Clicking = true;             # tap to click
-    TrackpadRightClick = true;   # two-finger right click
+    Clicking = true; # tap to click
+    TrackpadRightClick = true; # two-finger right click
     TrackpadThreeFingerDrag = true;
   };
 

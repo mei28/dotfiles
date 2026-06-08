@@ -26,8 +26,7 @@ jobs:
 
       - name: Format check
         run: |
-          # Format only specific nix files (profiles and main files)
-          nix fmt -- .config/nix/home-manager/profiles/*.nix flake.nix
+          nix fmt -- .config/nix/home-manager/profiles/*.nix .config/nix/home-manager/hosts/*.nix .config/nix/nix-darwin/hosts/*.nix flake.nix
           git diff --exit-code || (echo "Files need formatting. Run 'just fmt'" && exit 1)
 
   shellcheck:
@@ -51,7 +50,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        profile: [remote]
+        host: [qia-aws, sbi-superpod]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -62,9 +61,9 @@ jobs:
       - name: Setup Nix cache
         uses: DeterminateSystems/magic-nix-cache-action@v7
 
-      - name: Build remote profile
+      - name: Build ${{ matrix.host }} profile
         run: |
-          nix build .#legacyPackages.$(nix eval --impure --raw --expr 'builtins.currentSystem').homeConfigurations.remote.activationPackage --impure
+          nix build .#legacyPackages.$(nix eval --impure --raw --expr 'builtins.currentSystem').homeConfigurations.${{ matrix.host }}.activationPackage --impure
 
   test-bootstrap:
     name: Test Bootstrap Script
