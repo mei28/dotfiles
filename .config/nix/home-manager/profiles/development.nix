@@ -5,7 +5,7 @@
   ...
 }:
 {
-  # 開発環境用のパッケージ
+  # Development packages
   home.packages =
     with pkgs;
     [
@@ -15,7 +15,7 @@
       rust-analyzer
       efm-langserver
 
-      # 言語ランタイム
+      # Language runtimes
       uv
       nodejs_24
       cargo
@@ -28,7 +28,10 @@
       pnpm
       ni
 
-      # ビルドツール
+      # Cloud
+      google-cloud-sdk
+
+      # Build tools
       cargo-generate
       llvm
       sqlite
@@ -37,8 +40,7 @@
       # formatter/linter
       nixfmt
 
-      # ruff設定
-      # mei's自作ツール
+      # Custom tools
       inputs.cliperge.defaultPackage.${system}
       inputs.sgh.defaultPackage.${system}
       inputs.portsage.defaultPackage.${system}
@@ -46,13 +48,13 @@
     ]
     ++ [ fzf-make ];
 
-  # ruff設定 + mutagen
+  # ruff + mutagen
   imports = [
     ../modules/ruff.nix
     ../modules/mutagen.nix
   ];
 
-  # 環境変数（開発用）
+  # Environment variables
   home.sessionVariables = {
     PKG_CONFIG_PATH = "${pkgs.curl.dev}/lib/pkgconfig";
     LDFLAGS = "-L${pkgs.curl.dev}/lib";

@@ -25,7 +25,6 @@ in
   home.packages = with pkgs; [
     claude-code
     marp-cli
-    google-cloud-sdk
     terraform
     heroku
 
