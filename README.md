@@ -12,12 +12,10 @@ hosts/     → 端末ごとの定義 (何を使うかを宣言)
 
 ### ホスト一覧
 
-| ホスト名 | OS | profiles | darwin |
-|----------|-----|----------|--------|
-| `babalab-mac` | macOS | base + development + macos | あり (brew含む) |
-| `sbi-mac` | macOS | base + development + macos | あり (brew含む) |
-| `qia-aws` | Linux | base + development | なし |
-| `sbi-superpod` | Linux | base + development | なし |
+| OS | profiles | darwin |
+|-----|----------|--------|
+| macOS | base + development + macos | あり (brew含む) |
+| Linux | base + development | なし |
 
 ### 編集ガイド
 
