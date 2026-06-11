@@ -824,6 +824,11 @@ cpwd() {
 }
 
 
+# cmux: route dev-server browser opens to embedded browser
+if [[ -n "$CMUX_SURFACE_ID" ]]; then
+    export BROWSER="$HOME/.config/cmux/scripts/cmux-open-url.sh"
+fi
+
 if [ -f ~/.bashrc.local ]; then
   . ~/.bashrc.local
 fi

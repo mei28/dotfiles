@@ -110,31 +110,21 @@
   //     "claudeBinaryPath" : "",
   //     "claudeCodeIntegration" : true
   //   },
-  //   "browser" : {
-  //     "discardHiddenWebViews" : true,
-  //     "hiddenWebViewDiscardDelaySeconds" : 300,
-  //     "interceptTerminalOpenCommandInCmuxBrowser" : true,
-  //     "hostsToOpenInEmbeddedBrowser" : [
-  //
-  //     ],
-  //     "insecureHttpHostsAllowedInEmbeddedBrowser" : [
-  //       "localhost",
-  //       "*.localhost",
-  //       "127.0.0.1",
-  //       "::1",
-  //       "0.0.0.0",
-  //       "*.localtest.me"
-  //     ],
-  //     "showImportHintOnBlankTabs" : true,
-  //     "urlsToAlwaysOpenExternally" : [
-  //
-  //     ],
-  //     "openTerminalLinksInCmuxBrowser" : true,
-  //     "showSearchSuggestions" : true,
-  //     "defaultSearchEngine" : "google",
-  //     "theme" : "system",
-  //     "reactGrabVersion" : "0.1.29"
-  //   },
+  "browser": {
+    "interceptTerminalOpenCommandInCmuxBrowser": true,
+    "openTerminalLinksInCmuxBrowser": true,
+    "hostsToOpenInEmbeddedBrowser": [
+      "*"
+    ],
+    "insecureHttpHostsAllowedInEmbeddedBrowser": [
+      "localhost",
+      "*.localhost",
+      "127.0.0.1",
+      "::1",
+      "0.0.0.0",
+      "*.localtest.me"
+    ]
+  },
   // tmux-style shortcuts (ctrl+q prefix, mirroring WezTerm leader)
   "shortcuts": {
     "bindings": {
