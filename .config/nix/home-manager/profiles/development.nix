@@ -28,9 +28,6 @@
       pnpm
       ni
 
-      # Cloud
-      google-cloud-sdk
-
       # Build tools
       cargo-generate
       llvm
@@ -46,6 +43,8 @@
       inputs.portsage.defaultPackage.${system}
       inputs.bonsai.packages.${system}.default
     ]
+    # Cloud: nixpkgs の google-cloud-sdk は Linux ビルドが不安定なため macOS のみ
+    ++ lib.optionals stdenv.isDarwin [ google-cloud-sdk ]
     ++ [ fzf-make ];
 
   # ruff + mutagen

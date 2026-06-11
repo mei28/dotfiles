@@ -13,13 +13,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@v13
-
-      - name: Setup Nix cache
-        uses: DeterminateSystems/magic-nix-cache-action@v7
 
       - name: Check flake
         run: nix flake check --impure
@@ -34,7 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Run ShellCheck on new scripts
         run: |
@@ -53,13 +50,10 @@ jobs:
         host: [qia-aws, sbi-superpod]
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@v13
-
-      - name: Setup Nix cache
-        uses: DeterminateSystems/magic-nix-cache-action@v7
 
       - name: Build ${{ matrix.host }} profile
         run: |
@@ -70,7 +64,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Test bootstrap script
         run: |
