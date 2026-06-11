@@ -145,6 +145,28 @@ curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix 
 just bootstrap qia-aws  # ホスト名を指定
 ```
 
+### HPC (sbi-superpod)
+
+Nix/sudo が使えない共有マシン向け。nix 生成ファイルをローカルで収集し、rsync で転送する方式。
+
+```bash
+# 1. ローカル: nix 生成ファイルを収集 (tmux.conf, gitconfig)
+./remote/hpc-setup.sh collect
+
+# 2. ローカル: dotfiles をリモートに転送
+./remote/hpc-setup.sh sync <superpod-host>
+
+# 3. リモート: symlink 配置 + bashrc hook
+cd ~/dotfiles
+./remote/hpc-setup.sh install
+source ~/.bashrc
+```
+
+配置されるもの: nvim, tmux.conf, gitconfig, bashrc hook, TPM。
+ローカルで nix 設定を変更した場合のみ `collect` + `sync` を再実行。
+
+詳細: [remote/README.md](remote/README.md)
+
 ---
 
 ## Just Commands

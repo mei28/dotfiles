@@ -24,6 +24,16 @@ let
       sha256 = "1hy3vg8v2sir865ylpm2r4ip1zgd4wlrf24jbwh16m23qdcvc19r";
     };
   };
+  tmux-mutagen-status = pkgs.tmuxPlugins.mkTmuxPlugin {
+    pluginName = "mutagen-status";
+    version = "0.1.0";
+    src = pkgs.fetchFromGitHub {
+      owner = "mei28";
+      repo = "tmux-mutagen-status";
+      rev = "631fd8ac859c77b59619904eece429769307e2fd";
+      sha256 = "17qi09jlj7n10mz1a5zqw525whgpp0c2fzk583kn5m0766v0lzy1";
+    };
+  };
 in
 {
   programs.tmux = {
@@ -60,7 +70,18 @@ in
       {
         plugin = tmux-online-status;
         extraConfig = ''
-          set-option -g status-right "#[fg=colour253,bg=colour236] [%m/%d(%a) %H:%M]|#[fg=colour250,bg=colour240]#{online_status}"
+          set-option -g status-right "#{mutagen_status} #[fg=colour253,bg=colour236] [%m/%d(%a) %H:%M]|#[fg=colour250,bg=colour240]#{online_status}"
+        '';
+      }
+      {
+        plugin = tmux-mutagen-status;
+        extraConfig = ''
+          set-option -g @mutagen_status_icon_synced "mut:✓"
+          set-option -g @mutagen_status_icon_syncing "mut:⟳"
+          set-option -g @mutagen_status_icon_paused "mut:⏸"
+          set-option -g @mutagen_status_icon_error "mut:✗"
+          set-option -g @mutagen_status_icon_forward "mut:⇄"
+          set-option -g @mutagen_status_cache_seconds "5"
         '';
       }
     ];
@@ -77,6 +98,10 @@ in
 
       # OSC52 clipboard support
       set -s set-clipboard on
+
+      # Extended keys (CSI u) — Shift+Enter 等の修飾キーをアプリに渡す
+      set -s extended-keys on
+      set -as terminal-features 'xterm*:extkeys'
 
       # WezTerm user variable passthrough (Claude Code state hooks)
       set -g allow-passthrough on
