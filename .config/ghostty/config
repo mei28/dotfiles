@@ -8,3 +8,12 @@ window-padding-balance = true
 background-opacity = 0.8
 background-blur-radius = 20
 macos-titlebar-style = transparent
+
+# OSC 52: allow programs to read/write the local clipboard over SSH/tmux.
+# write -> yank (nvim) lands in the local clipboard.
+# read  -> paste pulls the local clipboard into nvim.
+# Default `ask` silently fails over tmux/ssh because no prompt is shown.
+# (WezTerm allowed this by default; Ghostty/cmux requires it explicitly.)
+# Note: read lets a remote program read your local clipboard contents.
+clipboard-write = allow
+clipboard-read = allow

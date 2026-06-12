@@ -98,7 +98,7 @@ in
 
       # OSC52 clipboard support
       set -s set-clipboard on
-      # 内側アプリ(nvim)の OSC 52 を外側端末へ転送するため clipboard capability を宣言
+      # Advertise clipboard capability so tmux forwards inner-app (nvim) OSC 52 to the outer terminal
       set -as terminal-features 'xterm*:clipboard'
 
       # Extended keys (CSI u) — Shift+Enter 等の修飾キーをアプリに渡す
