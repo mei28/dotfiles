@@ -18,6 +18,11 @@ if is_mac then require 'config.macos' end
 if is_ubuntu then require 'config.macos' end
 if is_win then require 'config.windows' end
 
+-- SSH 接続中は OSC 52 で yank をローカル clipboard へ送る（macos.lua の設定を上書き）
+if vim.env.SSH_CONNECTION or vim.env.SSH_TTY then
+  require 'config.clipboard'
+end
+
 -- 再読み込みコマンド
 function _G.reload_module(name)
   package.loaded[name] = nil
