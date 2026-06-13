@@ -113,9 +113,10 @@
   "browser": {
     "interceptTerminalOpenCommandInCmuxBrowser": true,
     "openTerminalLinksInCmuxBrowser": true,
-    "hostsToOpenInEmbeddedBrowser": [
-      "*"
-    ],
+    // Empty = all hosts open in the embedded browser. A non-empty list is
+    // restrictive (only listed hosts embedded, everything else external), and
+    // "*" is NOT a catch-all, so it routed every link to the system browser.
+    "hostsToOpenInEmbeddedBrowser": [],
     "insecureHttpHostsAllowedInEmbeddedBrowser": [
       "localhost",
       "*.localhost",
