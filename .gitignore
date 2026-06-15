@@ -117,5 +117,9 @@ result
 .claude/sessions/
 .claude/settings.local.json
 .claude/.last-cleanup
+.claude/.last-update-result.json
+.claude/plugins/.last_inuse_sweep
+.claude/policy-limits.json
+.claude/remote-settings.json
 
 **/settings.local.json
