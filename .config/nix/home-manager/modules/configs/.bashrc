@@ -702,10 +702,10 @@ if type bun &> /dev/null; then
     export PATH="$HOME/.bun/bin:$PATH"
 fi
 
-## ccusage
-if type ccusage &> /dev/null; then
-    alias ccu='ccusage'
-    alias ccl='ccusage blocks --live'
+## ccusage (npm 配布のみ; bun x で実行。別途インストール不要)
+if type bun &> /dev/null; then
+    alias ccu='bun x ccusage'
+    alias ccl='bun x ccusage blocks --live'
 fi
 
 if type claude &> /dev/null; then
