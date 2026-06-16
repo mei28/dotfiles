@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  inputs,
   ...
 }:
 let
@@ -26,13 +27,14 @@ let
   };
   tmux-mutagen-status = pkgs.tmuxPlugins.mkTmuxPlugin {
     pluginName = "mutagen-status";
-    version = "0.1.0";
-    src = pkgs.fetchFromGitHub {
-      owner = "mei28";
-      repo = "tmux-mutagen-status";
-      rev = "631fd8ac859c77b59619904eece429769307e2fd";
-      sha256 = "17qi09jlj7n10mz1a5zqw525whgpp0c2fzk583kn5m0766v0lzy1";
-    };
+    version = "unstable";
+    src = inputs.tmux-mutagen-status;
+    # mkTmuxPlugin は pluginName のハイフンをアンダースコアに変換したファイル名を探す
+    # プラグインの実ファイルは mutagen-status.tmux なのでリネームして合わせる
+    postInstall = ''
+      mv $out/share/tmux-plugins/mutagen-status/mutagen-status.tmux \
+         $out/share/tmux-plugins/mutagen-status/mutagen_status.tmux
+    '';
   };
 in
 {

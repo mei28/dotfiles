@@ -29,6 +29,10 @@
     bonsai = {
       url = "github:mei28/bonsai";
     };
+    tmux-mutagen-status = {
+      url = "github:mei28/tmux-mutagen-status";
+      flake = false;
+    };
   };
 
   outputs =
