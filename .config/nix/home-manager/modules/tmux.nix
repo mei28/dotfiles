@@ -94,18 +94,18 @@ in
       # tmux起動時のシェルをbashにする
       # set-option -g default-shell /bin/bash
       # 256色: default-terminal は programs.tmux.terminal = "tmux-256color" で設定済み
-      set -g terminal-overrides 'xterm:colors=256'
+      set -g terminal-overrides 'xterm*:colors=256'
 
       # OSC52 clipboard support
       set -s set-clipboard on
       # Advertise clipboard capability so tmux forwards inner-app (nvim) OSC 52 to the outer terminal
       set -as terminal-features 'xterm*:clipboard'
 
-      # Extended keys (CSI u) — Shift+Enter 等の修飾キーをアプリに渡す
-      set -s extended-keys on
-      set -as terminal-features 'xterm*:extkeys'
+      # Bracketed paste: 外側ターミナルと内側ペインの間で正しく協調させる
+      set -as terminal-features 'xterm*:bpaste'
 
-      # WezTerm user variable passthrough (Claude Code state hooks)
+      # allow-passthrough で nvim が直接 Ghostty と kitty keyboard protocol を交渉する
+      # (tmux 側で extended-keys を有効にするとペースト内の改行が ESC[27;5;106~ に化けるため削除)
       set -g allow-passthrough on
 
       # # prefixキーをC-qに変更
@@ -163,7 +163,7 @@ in
 
       # 'y' でヤンク
       # bind -T copy-mode-vi y send -X copy-selection
-      bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "xsel -bi"
+      bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel
 
       # 'Y' で行ヤンク
       bind -T copy-mode-vi Y send -X copy-line
