@@ -299,3 +299,7 @@ run = "move-node-to-workspace c"
 [[on-window-detected]]
 if.app-id = "com.anthropic.claudefordesktop"
 run = "move-node-to-workspace g"
+
+[[on-window-detected]]
+if.app-id = "com.1password.1password"
+run = "layout floating"
