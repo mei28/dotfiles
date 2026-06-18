@@ -829,6 +829,34 @@ if [[ -n "$CMUX_SURFACE_ID" ]]; then
     export BROWSER="$HOME/.config/cmux/scripts/cmux-open-url.sh"
 fi
 
+# cmux: reset to a single fresh workspace at $HOME.
+# Closes the calling workspace LAST — closing it kills this shell, so any
+# workspace still queued after it in the loop would never get closed.
+cmxfr() {
+    if ! command -v cmux >/dev/null 2>&1; then
+        echo "cmxfr: cmux CLI not found" >&2
+        return 1
+    fi
+    if [[ -z "$CMUX_WORKSPACE_ID" ]]; then
+        echo "cmxfr: run this inside a cmux terminal" >&2
+        return 1
+    fi
+    local -x CMUX_QUIET=1   # silence alias-migration notices for child cmux calls
+    local workspaces cur="$CMUX_WORKSPACE_ID"
+    workspaces=$(cmux list-workspaces --id-format uuids 2>/dev/null | awk '{print $1}')
+    if [[ -z "$workspaces" ]]; then
+        echo "cmxfr: no workspaces found" >&2
+        return 1
+    fi
+    cmux new-workspace --cwd "$HOME" --focus true 2>/dev/null
+    sleep 0.3
+    while IFS= read -r ws; do
+        [[ "$ws" == "$cur" ]] && continue
+        cmux close-workspace --workspace "$ws" 2>/dev/null
+    done <<< "$workspaces"
+    cmux close-workspace --workspace "$cur" 2>/dev/null
+}
+
 if [ -f ~/.bashrc.local ]; then
   . ~/.bashrc.local
 fi
