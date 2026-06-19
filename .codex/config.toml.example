@@ -1,0 +1,20 @@
+# ~/.codex/config.toml への推奨追記（参考）。このファイルは codex に読み込まれない。
+#
+# config.toml は codex が trust_level / UI フラグを実行時に書き込むため symlink しない。
+# 必要な設定だけを ~/.codex/config.toml に手動で追記する（codex 所有のまま）。
+#
+# MCP（Codex → Claude）は別途コマンドで設定済み:
+#   codex mcp add claude -- claude mcp serve   （または `just setup-ai-mcp`）
+#
+# 連携スキルは実行時にフラグで上書きするため（`codex exec -s workspace-write`,
+# `codex review --uncommitted`）、下記グローバル既定は任意。設定するとデフォルト挙動が変わる。
+#
+# 注意: TOML ではトップレベルのキーは最初の [table] より前に置く必要がある。
+# ~/.codex/config.toml が [projects...] で始まる場合、下記キーはファイル先頭（[projects] の上）に挿入する。
+
+model_reasoning_effort = "high"
+sandbox_mode           = "workspace-write"
+approval_policy        = "on-request"
+
+# AGENTS.md が無い既存 repo では CLAUDE.md を指示ファイルとして読む
+project_doc_fallback_filenames = ["CLAUDE.md"]

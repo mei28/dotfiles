@@ -16,6 +16,9 @@ in
     ../profiles/base.nix
     ../profiles/development.nix
     ../profiles/macos.nix
+    # AI コーディング CLI（claude.nix が CLAUDE_CODE_EFFORT_LEVEL も設定）
+    ../modules/claude.nix
+    ../modules/codex.nix
   ];
 
   home.username = username;
@@ -23,7 +26,6 @@ in
   home.stateVersion = "25.05";
 
   home.packages = with pkgs; [
-    claude-code
     marp-cli
     terraform
     heroku
@@ -32,8 +34,4 @@ in
     llvmPackages.openmp
     zlib
   ];
-
-  home.sessionVariables = {
-    CLAUDE_CODE_EFFORT_LEVEL = "max";
-  };
 }
