@@ -67,6 +67,20 @@ delete-old-profiles:
 
 
 # ========================================
+# AI Tooling (Claude Code / Codex)
+# ========================================
+# 運用ガイド: docs/claude-codex.md
+
+# Claude<->Codex の MCP を相互登録（冪等, 各ホストで一度）。状態ファイルに書くため symlink 不可。
+setup-ai-mcp:
+  @claude mcp get codex >/dev/null 2>&1 || \
+    claude mcp add -s user --transport stdio codex -- codex mcp-server
+  @env -C "$HOME" codex mcp get claude >/dev/null 2>&1 || \
+    env -C "$HOME" codex mcp add claude -- claude mcp serve
+  @echo "AI MCP wired. Verify: claude mcp list / codex mcp list"
+
+
+# ========================================
 # Validation & Testing
 # ========================================
 
