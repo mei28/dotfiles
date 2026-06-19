@@ -168,6 +168,11 @@ Don't use emphasis prefixes or emoji decorators in lists:
 - Target ~50 characters per sentence
 - Remove unnecessary connectives
 
+### Japanese Technical Writing
+When writing or revising Japanese technical prose — documentation, READMEs, design notes, articles, book/manuscript drafts, and other substantial written output — follow the `japanese-tech-writing` standards.
+- Claude Code: consult/invoke the `japanese-tech-writing` skill.
+- Codex: read and apply `~/.claude/skills/japanese-tech-writing/SKILL.md`.
+
 ## Git Workflow
 
 ### Pre-execution Confirmation Rules
