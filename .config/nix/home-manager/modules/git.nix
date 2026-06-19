@@ -26,7 +26,8 @@ in
       "*.swp"
       ".venv"
       "target"
-      ".gardener"
+      ".bonsai"
+      ".tmp"
     ];
 
     settings = {

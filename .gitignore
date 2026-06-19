@@ -123,3 +123,4 @@ result
 .claude/remote-settings.json
 
 **/settings.local.json
+.tmp
