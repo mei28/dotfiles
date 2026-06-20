@@ -1,0 +1,22 @@
+# Codex 共有プロファイル（profile v2）。dotfiles で symlink 管理する宣言的既定値。
+#
+# 有効化: `codex -p shared` / `codex exec -p shared ...`
+#   （TUI 設定で一度 active profile に選べば `-p shared` 省略可。user_config_profile が永続化される）
+#
+# なぜ symlink 可能か:
+#   `-p <name>` は ~/.codex/<name>.config.toml を base config の上に重ねる別ファイルで、
+#   codex はこの profile ファイルには書き込まない（trust_level/nux は base config.toml にのみ書く）。
+#   そのため modules/codex.nix が mkOutOfStoreSymlink で安全に symlink できる。
+#   base の ~/.codex/config.toml は codex 所有のまま（symlink しない）。
+#
+# 運用メモ:
+#   approval_policy=on-request は TUI 対話時のみ実効。exec/MCP 委譲では機能せず、
+#   自動実行は `-c approval_policy=never` で上書きする（承認待ち停止を避ける）。
+#   背景は docs/claude-codex.md「承認と進捗の可視化（3レーン）」を参照。
+
+model_reasoning_effort = "high"
+sandbox_mode           = "workspace-write"
+approval_policy        = "on-request"
+
+# AGENTS.md が無い既存 repo では CLAUDE.md を指示ファイルとして読む
+project_doc_fallback_filenames = ["CLAUDE.md"]

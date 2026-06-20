@@ -1,20 +1,19 @@
-# ~/.codex/config.toml への推奨追記（参考）。このファイルは codex に読み込まれない。
+# base ~/.codex/config.toml の役割メモ（参考）。このファイルは codex に読み込まれない。
 #
-# config.toml は codex が trust_level / UI フラグを実行時に書き込むため symlink しない。
-# 必要な設定だけを ~/.codex/config.toml に手動で追記する（codex 所有のまま）。
+# 宣言的な共有既定値は .codex/shared.config.toml（profile v2）へ移動した。
+#   有効化: `codex -p shared`（model_reasoning_effort / sandbox_mode / approval_policy /
+#   project_doc_fallback_filenames はそちらで管理し、dotfiles で symlink 管理する）。
 #
-# MCP（Codex → Claude）は別途コマンドで設定済み:
+# base ~/.codex/config.toml は codex 所有のまま symlink しない。
+# codex が runtime に書き込む次の要素だけを残す:
+#   - [projects."<path>"].trust_level   （信頼設定）
+#   - [tui.model_availability_nux] 等    （UI/NUX フラグ）
+#   - model                              （選択モデル）
+#   - [mcp_servers.*]                    （MCP 登録。`just setup-ai-mcp` / `codex mcp add` が書く）
+#   - [tui]                              （status_line など）
+#
+# symlink しない理由: codex が上記を実行時に書くため、nix store の read-only symlink と衝突する
+#   （~/.claude.json を管理しないのと同じ理由）。宣言的既定は shared.config.toml 側に置く。
+#
+# MCP（Codex → Claude）の登録:
 #   codex mcp add claude -- claude mcp serve   （または `just setup-ai-mcp`）
-#
-# 連携スキルは実行時にフラグで上書きするため（`codex exec -s workspace-write`,
-# `codex review --uncommitted`）、下記グローバル既定は任意。設定するとデフォルト挙動が変わる。
-#
-# 注意: TOML ではトップレベルのキーは最初の [table] より前に置く必要がある。
-# ~/.codex/config.toml が [projects...] で始まる場合、下記キーはファイル先頭（[projects] の上）に挿入する。
-
-model_reasoning_effort = "high"
-sandbox_mode           = "workspace-write"
-approval_policy        = "on-request"
-
-# AGENTS.md が無い既存 repo では CLAUDE.md を指示ファイルとして読む
-project_doc_fallback_filenames = ["CLAUDE.md"]

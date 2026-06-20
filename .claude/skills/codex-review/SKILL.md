@@ -10,7 +10,7 @@ See `docs/claude-codex.md`.
 
 ## Steps
 1. Determine what to review: working-tree diff by default. Confirm the base branch (usually `main`). Use `$ARGUMENTS` to override scope (e.g. a PR number or file set).
-2. Run Codex's built-in review (read-only by design; it never edits files):
+2. Run Codex's built-in review (read-only by design; it never edits files, so approval is less of a concern):
    ```bash
    codex review --uncommitted "For each issue give file:line, severity, problem, and a fix. Cover correctness, security, error handling, missing tests, and ~/.codex/AGENTS.md standards. End with one verdict: APPROVED / WARNING / BLOCKED."
    ```
@@ -21,4 +21,5 @@ See `docs/claude-codex.md`.
 
 ## Notes
 - `codex review` is read-only; Codex will not modify files.
+- The MCP path returns final-only output, while `codex review` streams progress in the CLI.
 - This is a complement to, not a replacement for, Claude's `/code-review`.

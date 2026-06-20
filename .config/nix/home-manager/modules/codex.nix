@@ -13,6 +13,9 @@
     # AGENTS.md は Claude Code と共有（単一の真実）。codex はこのファイルに書き込まない。
     ".codex/AGENTS.md".source =
       config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.claude/AGENTS.md";
+    # profile-v2 ファイルは codex が書き込まないため、symlink で安全に管理できる。
+    ".codex/shared.config.toml".source =
+      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.codex/shared.config.toml";
     # Codex のカスタムプロンプト（slash commands）
     ".codex/prompts".source =
       config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.codex/prompts";
