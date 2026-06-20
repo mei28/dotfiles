@@ -29,6 +29,9 @@
     bonsai = {
       url = "github:mei28/bonsai";
     };
+    wabi = {
+      url = "github:mei28/wabi";
+    };
     tmux-mutagen-status = {
       url = "github:mei28/tmux-mutagen-status";
       flake = false;

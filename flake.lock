@@ -282,6 +282,22 @@
         "type": "github"
       }
     },
+    "nixpkgs_7": {
+      "locked": {
+        "lastModified": 1781607440,
+        "narHash": "sha256-rxO+uc/KFbSJp+pgyXRuAX6QlG9hJdnt0BXpEQRXY+U=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "3e41b24abd260e8f71dbe2f5737d24122f972158",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "portsage": {
       "inputs": {
         "nixpkgs": "nixpkgs_5"
@@ -312,7 +328,8 @@
         "portsage": "portsage",
         "rust-overlay": "rust-overlay",
         "sgh": "sgh",
-        "tmux-mutagen-status": "tmux-mutagen-status"
+        "tmux-mutagen-status": "tmux-mutagen-status",
+        "wabi": "wabi"
       }
     },
     "rust-overlay": {
@@ -396,6 +413,24 @@
       "original": {
         "owner": "mei28",
         "repo": "tmux-mutagen-status",
+        "type": "github"
+      }
+    },
+    "wabi": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_7"
+      },
+      "locked": {
+        "lastModified": 1781940356,
+        "narHash": "sha256-a0HqhxOqRE82BZP9Ek0waeHd6IctfVmBE1kTk8qOS2s=",
+        "owner": "mei28",
+        "repo": "wabi",
+        "rev": "f7c1931998aa2b227770c00f45a7f3521ae661ca",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mei28",
+        "repo": "wabi",
         "type": "github"
       }
     }

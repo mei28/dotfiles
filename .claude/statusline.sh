@@ -68,5 +68,25 @@ today_info=$(echo "$money_info" | cut -d '/' -f 2 | xargs)
 block_info_raw=$(echo "$money_info" | cut -d '/' -f 3 | xargs)
 time_left=$(echo "$block_info_raw" | sed 's/.*(\(.*\))/\1/')
 
+# Codex レートリミット（wabi キャッシュから。横断比較用）
+# wabi: TTL 超過時のみバックグラウンド更新を駆動（非ブロッキング、未導入なら no-op）
+command -v wabi >/dev/null 2>&1 && wabi tick >/dev/null 2>&1 &
+WABI_STATE="${XDG_STATE_HOME:-$HOME/.local/state}/wabi/state.json"
+CODEX_DISPLAY=""
+if [ -f "$WABI_STATE" ]; then
+    cx_5h=$(jq -r '.codex.five_hour.used_percentage // empty' "$WABI_STATE")
+    cx_wk=$(jq -r '.codex.secondary.used_percentage // empty' "$WABI_STATE")
+    if [ -n "$cx_5h" ]; then
+        c5=$(printf "%.0f" "$cx_5h")
+        c5_fmt=$(colorize_pct "$c5")
+        cwk_fmt=""
+        if [ -n "$cx_wk" ]; then
+            cwk=$(printf "%.0f" "$cx_wk")
+            cwk_fmt="/wk $(colorize_pct "$cwk")"
+        fi
+        CODEX_DISPLAY=" | cx: 5h ${c5_fmt}${cwk_fmt}"
+    fi
+fi
+
 echo "󰚩 ${MODEL_DISPLAY} |  ${CURRENT_DIR##*/}${GIT_BRANCH} | 󰍛 ctx: ${CTX_DISPLAY}"
-echo "󰃰 ${today_info}/${SESSION_COST} session${RATE_DISPLAY} | 󰔟 ${time_left}"
+echo "󰃰 ${today_info}/${SESSION_COST} session${RATE_DISPLAY}${CODEX_DISPLAY} | 󰔟 ${time_left}"
