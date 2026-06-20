@@ -15,6 +15,20 @@ colorize_pct() {
     echo -e "${color}${pct}%${RESET}"
 }
 
+# RFC3339(UTC) -> "XhYm" 残り時間（過去は "now"、パース不能は空文字）
+reset_left() {
+    local iso="$1"
+    [ -z "$iso" ] && return 0
+    local epoch
+    epoch=$(date -u -d "$iso" +%s 2>/dev/null) || return 0
+    [ -z "$epoch" ] && return 0
+    local now rem
+    now=$(date +%s)
+    rem=$((epoch - now))
+    if [ "$rem" -le 0 ]; then echo "now"; return 0; fi
+    printf '%dh%dm' $((rem/3600)) $(((rem%3600)/60))
+}
+
 # Read JSON input from stdin
 input=$(cat)
 
@@ -47,26 +61,28 @@ SESSION_COST=$(printf "$%.2f" "$session_cost")
 rate_5h=$(echo "$input" | jq -r '.rate_limits.five_hour.used_percentage // empty')
 rate_7d=$(echo "$input" | jq -r '.rate_limits.seven_day.used_percentage // empty')
 
-RATE_DISPLAY=""
-if [ -n "$rate_5h" ]; then
-    r5=$(printf "%.0f" "$rate_5h")
-    r5_fmt=$(colorize_pct "$r5")
-
-    r7_fmt=""
-    if [ -n "$rate_7d" ]; then
-        r7=$(printf "%.0f" "$rate_7d")
-        r7_fmt="/7d $(colorize_pct "$r7")"
-    fi
-
-    RATE_DISPLAY=" | 󱎫 lmt: 5h ${r5_fmt}${r7_fmt}"
-fi
-
 # ccusage から today コストと残り時間を取得
 full_status_line=$(echo "$input" | bun x ccusage@latest statusline "$@")
 money_info=$(echo "$full_status_line" | cut -d '|' -f 2)
 today_info=$(echo "$money_info" | cut -d '/' -f 2 | xargs)
 block_info_raw=$(echo "$money_info" | cut -d '/' -f 3 | xargs)
-time_left=$(echo "$block_info_raw" | sed 's/.*(\(.*\))/\1/')
+time_left=$(echo "$block_info_raw" | sed -n 's/.*(\(.*\)).*/\1/p')
+
+RATE_DISPLAY=""
+if [ -n "$rate_5h" ]; then
+    r5=$(printf "%.0f" "$rate_5h")
+    r5_fmt=$(colorize_pct "$r5")
+    time_left_fmt=""
+    [ -n "$time_left" ] && time_left_fmt="·${time_left}"
+
+    r7_fmt=""
+    if [ -n "$rate_7d" ]; then
+        r7=$(printf "%.0f" "$rate_7d")
+        r7_fmt=" /7d $(colorize_pct "$r7")"
+    fi
+
+    RATE_DISPLAY=" | CL 5h ${r5_fmt}${time_left_fmt}${r7_fmt}"
+fi
 
 # Codex レートリミット（wabi キャッシュから。横断比較用）
 # wabi: TTL 超過時のみバックグラウンド更新を駆動（非ブロッキング、未導入なら no-op）
@@ -75,18 +91,22 @@ WABI_STATE="${XDG_STATE_HOME:-$HOME/.local/state}/wabi/state.json"
 CODEX_DISPLAY=""
 if [ -f "$WABI_STATE" ]; then
     cx_5h=$(jq -r '.codex.five_hour.used_percentage // empty' "$WABI_STATE")
+    cx_resets_at=$(jq -r '.codex.five_hour.resets_at // empty' "$WABI_STATE")
     cx_wk=$(jq -r '.codex.secondary.used_percentage // empty' "$WABI_STATE")
     if [ -n "$cx_5h" ]; then
         c5=$(printf "%.0f" "$cx_5h")
         c5_fmt=$(colorize_pct "$c5")
+        c5_left=$(reset_left "$cx_resets_at")
+        c5_left_fmt=""
+        [ -n "$c5_left" ] && c5_left_fmt="·${c5_left}"
         cwk_fmt=""
         if [ -n "$cx_wk" ]; then
             cwk=$(printf "%.0f" "$cx_wk")
-            cwk_fmt="/wk $(colorize_pct "$cwk")"
+            cwk_fmt=" /wk $(colorize_pct "$cwk")"
         fi
-        CODEX_DISPLAY=" | cx: 5h ${c5_fmt}${cwk_fmt}"
+        CODEX_DISPLAY=" | CX 5h ${c5_fmt}${c5_left_fmt}${cwk_fmt}"
     fi
 fi
 
 echo "󰚩 ${MODEL_DISPLAY} |  ${CURRENT_DIR##*/}${GIT_BRANCH} | 󰍛 ctx: ${CTX_DISPLAY}"
-echo "󰃰 ${today_info}/${SESSION_COST} session${RATE_DISPLAY}${CODEX_DISPLAY} | 󰔟 ${time_left}"
+echo "󰃰 ${today_info}/${SESSION_COST} session${RATE_DISPLAY}${CODEX_DISPLAY}"
