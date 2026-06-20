@@ -310,13 +310,17 @@ runWabi = function(args, alertWhenMissing)
       hs.alert.show("wabi " .. args[1] .. " failed: " .. compactError(output), 1.4)
     end
     hs.timer.doAfter(4, render)
-  end, nil, args)
+  end, args)
 
   if not task then
     hs.alert.show("wabi task failed to start", 1.0)
     return
   end
 
+  task:setEnvironment({
+    PATH = HOME .. "/.nix-profile/bin:/nix/var/nix/profiles/default/bin:/usr/bin:/bin",
+    HOME = HOME,
+  })
   runningTask = task
   if not task:start() then
     runningTask = nil
@@ -332,8 +336,8 @@ end
 hs.hotkey.bind(HUD_HOTKEY, HUD_KEY, toggleHUD)
 
 refreshTimer = hs.timer.doEvery(REFRESH_SEC, function()
-  runWabi({ "tick" }, false)
   render()
+  runWabi({ "tick" }, false)
 end)
 
 return {
