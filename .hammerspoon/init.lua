@@ -5,6 +5,7 @@ require('launch')
 require('grayscale')
 require('enterSwap')
 require('kanata')
+require('wabi')
 
 
 -- reload config
