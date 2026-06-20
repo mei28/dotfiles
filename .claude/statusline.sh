@@ -86,7 +86,7 @@ fi
 
 # Codex レートリミット（wabi キャッシュから。横断比較用）
 # wabi: TTL 超過時のみバックグラウンド更新を駆動（非ブロッキング、未導入なら no-op）
-command -v wabi >/dev/null 2>&1 && wabi tick >/dev/null 2>&1 &
+command -v wabi >/dev/null 2>&1 && wabi tick --max-age 900 >/dev/null 2>&1 &
 WABI_STATE="${XDG_STATE_HOME:-$HOME/.local/state}/wabi/state.json"
 CODEX_DISPLAY=""
 if [ -f "$WABI_STATE" ]; then

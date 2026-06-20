@@ -337,7 +337,7 @@ hs.hotkey.bind(HUD_HOTKEY, HUD_KEY, toggleHUD)
 
 refreshTimer = hs.timer.doEvery(REFRESH_SEC, function()
   render()
-  runWabi({ "tick" }, false)
+  runWabi({ "tick", "--max-age", "900" }, false)
 end)
 
 return {
