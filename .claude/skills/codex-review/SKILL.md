@@ -9,15 +9,20 @@ Run a read-only Codex review of the current changes as a cross-check against Cla
 See `docs/claude-codex.md`.
 
 ## Steps
-1. Determine what to review: working-tree diff by default. Confirm the base branch (usually `main`). Use `$ARGUMENTS` to override scope (e.g. a PR number or file set).
-2. Run Codex's built-in review (read-only by design; it never edits files, so approval is less of a concern):
+1. Check that Codex is available:
+   ```bash
+   command -v codex
+   ```
+   If not found, stop and report: "Codex is not installed on this machine. Install via nix (`just build <host>`) or run `/antigravity-review` as an alternative."
+2. Determine what to review: working-tree diff by default. Confirm the base branch (usually `main`). Use `$ARGUMENTS` to override scope (e.g. a PR number or file set).
+3. Run Codex's built-in review (read-only by design; it never edits files, so approval is less of a concern):
    ```bash
    codex review --uncommitted "For each issue give file:line, severity, problem, and a fix. Cover correctness, security, error handling, missing tests, and ~/.codex/AGENTS.md standards. End with one verdict: APPROVED / WARNING / BLOCKED."
    ```
    - `--uncommitted` reviews staged + unstaged + untracked changes. Use `--base <branch>` to review against a base branch, or `--commit <sha>` for a single commit.
    - Alternatively, if the `codex` MCP server is connected, call its tool with the same instructions.
-3. Relay Codex's findings and the final verdict verbatim, then add your own brief take (agree/disagree, anything Codex missed).
-4. If issues are actionable, offer to fix them (Claude) or delegate via `codex-implement`.
+4. Relay Codex's findings and the final verdict verbatim, then add your own brief take (agree/disagree, anything Codex missed).
+5. If issues are actionable, offer to fix them (Claude) or delegate via `codex-implement`.
 
 ## Notes
 - `codex review` is read-only; Codex will not modify files.

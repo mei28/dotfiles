@@ -13,9 +13,14 @@ See `docs/claude-codex.md` for the full workflow.
 - You want to spend Codex's budget on implementation instead of Claude's.
 
 ## Steps
-1. Identify the task source, in this order: `$ARGUMENTS` → the approved plan file → the newest `.tmp/plan*.md`. If none exists, ask the user what to implement.
-2. Make sure `.tmp/progress.md` reflects the current Goal/Plan (run the `handoff` skill first if it is stale).
-3. Choose the delegation lane:
+1. Check that Codex is available:
+   ```bash
+   command -v codex
+   ```
+   If not found, stop and report: "Codex is not installed on this machine. Install via nix (`just build <host>`) or run `/antigravity-implement` as an alternative."
+2. Identify the task source, in this order: `$ARGUMENTS` → the approved plan file → the newest `.tmp/plan*.md`. If none exists, ask the user what to implement.
+3. Make sure `.tmp/progress.md` reflects the current Goal/Plan (run the `handoff` skill first if it is stale).
+4. Choose the delegation lane:
    - Default autonomous lane for approved implementation: run Codex non-interactively with `run_in_background`, and start a Monitor for the JSON stream:
      ```bash
      codex exec -p shared -c approval_policy=never --json -o .tmp/codex-implement.jsonl "Implement the plan in <plan-file>. Follow the standards in ~/.codex/AGENTS.md. Keep changes focused; do not commit."
@@ -28,8 +33,8 @@ See `docs/claude-codex.md` for the full workflow.
      ```
      When Codex returns work to Claude, ask it to run `/handoff` so `.tmp/progress.md` is current.
    - Final-only short lane: use the MCP `codex` tool only with `approval-policy: never` when no progress stream and no human approval are needed.
-4. When Codex finishes, run `git diff` (and `git status`) and summarize what changed, file by file.
-5. Update `.tmp/progress.md` (Done/Next/Open). Flag anything that needs review with `codex-review` or Claude's `/code-review`.
+5. When Codex finishes, run `git diff` (and `git status`) and summarize what changed, file by file.
+6. Update `.tmp/progress.md` (Done/Next/Open). Flag anything that needs review with `codex-review` or Claude's `/code-review`.
 
 ## Notes
 - MCP `codex` human approval is currently unusable because Codex issue #18268 makes compliant approval responses fall back to Denied. Use TUI for human approval.

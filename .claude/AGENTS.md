@@ -203,18 +203,49 @@ When writing or revising Japanese technical prose — documentation, READMEs, de
   3. After merge, `bonsai remove <branch>` — clean up the worktree
 - Check current state with `bonsai list` or `bonsai status`
 
-## Claude/Codex Collaboration Workflow
+## Multi-Tool AI Collaboration Workflow
 
-Two AI CLIs are used together. Claude Code is the base (research & planning); Codex handles
-implementation & review. Either tool may cover the other when one nears its usage limit.
+Three AI CLIs are used together. Claude Code is the primary orchestrator; Codex and Antigravity are
+execution agents that receive tasks, act, and return results for Claude to evaluate.
+
+Note: Antigravity CLI (`agy`) is the successor to Google Gemini CLI (deprecated 2026-06-18 for individual accounts).
 
 ### Role Split
-- **Research / Planning**: Claude Code (Plan mode, Explore/Plan subagents). Produces a plan file and `.tmp/progress.md`.
-- **Implementation / Review**: Codex (`codex exec`, TUI, or via MCP from Claude). Claude's `/code-review` cross-checks.
-- **Fallback**: When one tool nears its limit, switch to the other. Shared standards (this file) keep behavior consistent.
+
+| Role | Tool | Notes |
+|---|---|---|
+| Orchestrate / Plan / Evaluate | Claude Code (primary) | Issues tasks; judges output before accepting |
+| Implement | Codex (primary), Antigravity (secondary) | Receive task → execute → return result |
+| Review | All three | Multi-perspective cross-check |
+| Fallback orchestration | Any of the three | When one nears its limit, another takes over |
+
+### Delegation Principle
+
+Claude does not blindly accept output from Codex or Antigravity.
+After each delegation, Claude evaluates the result — correctness, standards adherence, quality
+— before accepting it or requesting changes.
+
+### Fallback
+
+When any tool nears its usage limit:
+- Claude near limit → hand off to Codex or Antigravity as temporary orchestrator
+- Codex near limit → Claude + Antigravity continue
+- Antigravity near limit → Claude + Codex continue
+
+All three tools share `.claude/AGENTS.md` for behavioral consistency.
+
+### Delegation Skills (Claude-driven)
+
+| Action | Skill | Tool |
+|---|---|---|
+| Implement | `/codex-implement` | Codex |
+| Implement | `/antigravity-implement` | Antigravity CLI (`agy`) |
+| Review | `/codex-review` | Codex |
+| Review | `/antigravity-review` | Antigravity CLI (`agy`) |
+| Handoff | `/handoff` | Writes `.tmp/progress.md` |
 
 ### Handoff Note (`.tmp/progress.md`)
-When work spans both tools, keep this file current so either side can resume:
+When work spans tools, keep this file current so any tool can resume:
 
 ```
 # Goal:   <what we are achieving>
@@ -225,5 +256,6 @@ When work spans both tools, keep this file current so either side can resume:
 # Resume: <files/commands the next tool should read first>
 ```
 
-The full operational guide (commands for both directions, fallback drill, troubleshooting)
-lives in `docs/claude-codex.md`.
+Operational guides:
+- Claude ↔ Codex: `docs/claude-codex.md`
+- Antigravity CLI: `docs/antigravity.md`

@@ -6,7 +6,8 @@
 local HOME = os.getenv("HOME")
 local WABI_BIN = HOME .. "/.nix-profile/bin/wabi"
 local STATE_PATH = HOME .. "/.local/state/wabi/state.json"
-local REFRESH_SEC = 90
+local RENDER_SEC = 90   -- UI 再描画間隔
+local TICK_SEC = 900    -- API tick 間隔 (wabi tick --max-age と揃える)
 local HUD_HOTKEY = { "cmd", "alt", "ctrl" }
 local HUD_KEY = "l"
 
@@ -22,8 +23,10 @@ local COLORS = {
 
 local menubar = hs.menubar.new()
 local hud = nil
-local refreshTimer = nil
+local renderTimer = nil
+local tickTimer = nil
 local runningTask = nil
+local paused = false
 local render = nil
 local toggleHUD = nil
 local runWabi = nil
@@ -173,6 +176,22 @@ local function buildMenu()
   table.insert(items, { title = "-" })
   table.insert(items, { title = "Refresh now", fn = function() runWabi({ "update" }, true) end })
   table.insert(items, { title = "Toggle HUD (⌘⌥⌃L)", fn = function() toggleHUD() end })
+  table.insert(items, { title = "-" })
+  if paused then
+    table.insert(items, { title = "▶ Resume", fn = function()
+      paused = false
+      renderTimer:start()
+      tickTimer:start()
+      render()
+    end })
+  else
+    table.insert(items, { title = "⏸ Pause", fn = function()
+      paused = true
+      renderTimer:stop()
+      tickTimer:stop()
+      renderMenubar(nil)
+    end })
+  end
 
   return items
 end
@@ -333,16 +352,30 @@ if menubar then
   menubar:setMenu(buildMenu)
 end
 
+local function hasActiveWindow()
+  local state = readState()
+  if not state then return false end
+  return (state.claude and state.claude.five_hour ~= nil)
+      or (state.codex  and state.codex.five_hour  ~= nil)
+end
+
 hs.hotkey.bind(HUD_HOTKEY, HUD_KEY, toggleHUD)
 
-refreshTimer = hs.timer.doEvery(REFRESH_SEC, function()
-  render()
-  runWabi({ "tick", "--max-age", "900" }, false)
+-- UI 再描画のみ: API は叩かないので常時 OK
+renderTimer = hs.timer.doEvery(RENDER_SEC, render)
+
+-- API tick: アクティブウィンドウがある場合のみ実行
+-- (未使用時は5時間ウィンドウを開始しない / バイナリ未インストールを安全にスキップ)
+tickTimer = hs.timer.doEvery(TICK_SEC, function()
+  if hasActiveWindow() then
+    runWabi({ "tick", "--max-age", tostring(TICK_SEC) }, false)
+  end
 end)
 
 return {
   render = render,
   toggle = toggleHUD,
   refresh = function() runWabi({ "update" }, true) end,
-  timer = refreshTimer,
+  renderTimer = renderTimer,
+  tickTimer = tickTimer,
 }
