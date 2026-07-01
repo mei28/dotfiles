@@ -121,6 +121,9 @@ result
 .claude/plugins/.last_inuse_sweep
 .claude/policy-limits.json
 .claude/remote-settings.json
+.claude/daemon.log
+.claude/daemon/
+.claude/jobs/
 
 **/settings.local.json
 .tmp

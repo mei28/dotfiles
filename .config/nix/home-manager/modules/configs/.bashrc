@@ -1,3 +1,8 @@
+# Guard: some dirs (e.g. ~/Documents/*) block getcwd() for Nix/Homebrew binaries
+# due to macOS TCC. Run all init commands from $HOME, then restore the original dir.
+_bashrc_saved_pwd="$PWD"
+builtin cd "$HOME"
+
 # Set PATH, MANPATH, etc., for Homebrew.
 if [ -e /opt/homebrew/bin/brew ]
 then
@@ -898,5 +903,11 @@ case ${OSTYPE} in
         fi
         ;;
 esac
+
+# Restore original working directory after init (see guard at top of file)
+if [[ -d "$_bashrc_saved_pwd" ]]; then
+    builtin cd "$_bashrc_saved_pwd"
+fi
+unset _bashrc_saved_pwd
 
 #==========#
