@@ -23,6 +23,11 @@ _toggle_desktop_icon(){
 }
 
 
+## codex: supervised lane (see docs/claude-codex.md)
+if type codex &> /dev/null; then
+    alias codexa='codex -p shared -a on-request'
+fi
+
 ## add cmake
 if [ -e /Applications/CMake.app/Contents/bin ]; then
     export PATH="/Applications/CMake.app/Contents/bin:$PATH"

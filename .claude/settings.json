@@ -1,6 +1,5 @@
 {
   "includeCoAuthoredBy": false,
-  "model": "claude-opus-4-6[1M]",
   "hooks": {
     "SessionStart": [
       {
