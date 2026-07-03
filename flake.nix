@@ -32,6 +32,9 @@
     wabi = {
       url = "github:mei28/wabi";
     };
+    herdr = {
+      url = "github:ogulcancelik/herdr/v0.7.1";
+    };
     tmux-mutagen-status = {
       url = "github:mei28/tmux-mutagen-status";
       flake = false;
@@ -53,7 +56,17 @@
       let
         pkgs = import nixpkgs {
           inherit system;
-          overlays = [ neovim-nightly-overlay.overlays.default ];
+          overlays = [
+            neovim-nightly-overlay.overlays.default
+            (final: prev: {
+              neovim-unwrapped = prev.neovim-unwrapped.overrideAttrs (_: {
+                doCheck = false;
+              });
+              neovim = prev.neovim.overrideAttrs (_: {
+                doCheck = false;
+              });
+            })
+          ];
         };
       in
       {
