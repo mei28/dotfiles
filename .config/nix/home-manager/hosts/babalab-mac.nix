@@ -33,5 +33,8 @@ in
     # lightgbm dependencies
     llvmPackages.openmp
     zlib
+
+    # herdr: AIエージェント向けターミナルワークスペースマネージャ
+    inputs.herdr.packages.${system}.default
   ];
 }
