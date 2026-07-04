@@ -24,4 +24,8 @@ in
   home.username = username;
   home.homeDirectory = lib.mkDefault "${homeRoot}/${username}";
   home.stateVersion = "25.05";
+
+  home.packages = with pkgs; [
+    inputs.herdr.packages.${system}.default
+  ];
 }
