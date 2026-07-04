@@ -77,6 +77,10 @@ Antigravity は `GEMINI.md` を読む（AGENTS.md より優先される）。
 `--headless --approve all` は Codex の `approval_policy=never` に相当する。
 自動実行時も OS レベルのサンドボックス（macOS: `sandbox-exec`）が有効なため、任意コード実行のリスクは低い。
 
+herdr内での自動化（`codex-implement`のherdrレーン、`docs/claude-codex.md`参照）はAntigravityには適用しない。
+herdrの公式対応エージェント一覧に`agy`は含まれておらず、`agent_status`の検出が機能するかは未検証のため、動かない可能性があるレシピを文書化するリスクがある。
+検証が取れるまで、Antigravityは本ガイド記載の手動運用（対話`agy`）のみとする。
+
 ## Claude → Antigravity（Claude 主導で実装 / レビューを委譲）
 
 ### スキルで委譲

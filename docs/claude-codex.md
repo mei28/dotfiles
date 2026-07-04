@@ -78,6 +78,132 @@ codex -p shared -a on-request
 # Claude へ戻す前: /handoff
 ```
 
+### herdr 経由の監督レーン自動化（$HERDR_ENV=1 のとき）
+
+この節は herdr 管理下で Claude Code が動いている場合だけ使う。
+次の条件が偽なら使わず、既存の手動手順へフォールバックする。
+
+```bash
+[ "$HERDR_ENV" = "1" ] && command -v herdr >/dev/null 2>&1
+```
+
+1. `$HERDR_PANE_ID` から右隣に Codex 用ペインを作り、リポジトリ直下で Codex を起動する。
+   自分のペインは `herdr pane list` から探さず、環境変数を使う。
+
+   ```bash
+   REPO_ROOT=$(pwd)
+   CLAUDE_PANE=$HERDR_PANE_ID
+   CODEX_PANE=$(
+     herdr pane split "$CLAUDE_PANE" --direction right --no-focus |
+       python3 -c 'import sys,json; print(json.load(sys.stdin)["result"]["pane"]["pane_id"])'
+   )
+   export CODEX_PANE
+
+   herdr pane run "$CODEX_PANE" "cd \"$REPO_ROOT\" && codex -p shared -a on-request"
+   ```
+
+2. Codex ペインだけの `agent_status` を読む関数を定義する。
+   `herdr wait agent-status` は edge-triggered なので、発火を逃すと timeout する。
+   timeout は「実行中」の確証ではないため、状態は毎回 `pane list` から読み直す。
+
+   ```bash
+   codex_status() {
+     herdr pane list |
+       python3 -c 'import sys,json,os
+data=json.load(sys.stdin)
+target=os.environ["CODEX_PANE"]
+for pane in data["result"]["panes"]:
+    if pane["pane_id"] == target:
+        print(pane.get("agent_status", "unknown"))
+        raise SystemExit(0)
+raise SystemExit(f"pane not found: {target}")'
+   }
+   ```
+
+3. Codex が `idle` になるのを待ち、Lane A と同様に計画をそのまま送る。
+   `/resume` は使わない。実機確認したところ、このcodexバージョン(0.142.3)では
+   `/resume` はカスタム prompt(`.codex/prompts/resume.md`)ではなく
+   Codex 組み込みのセッション選択ピッカーとして扱われ、`.tmp/progress.md` を読まない。
+   Claude はすでに計画内容を把握しているので、`/resume` に頼らず直接埋め込んで送れば問題ない。
+
+   ```bash
+   wait_until_idle() {
+     while [ "$(codex_status)" != "idle" ]; do
+       sleep 1
+     done
+   }
+
+   wait_until_idle
+   herdr pane run "$CODEX_PANE" '<full plan content here>
+Follow the standards in ~/.codex/AGENTS.md. Keep changes focused; do not commit.'
+   ```
+
+4. `blocked` または `idle` になるまで待つヘルパーを使う。
+   このループの戻り値に応じた次の処理は、次の Bash 呼び出しに継続してよい。
+   ただし `blocked` の場合はそこで会話のターンを終え、人間の実回答を待つ。
+
+   ```bash
+   wait_for_change() {
+     while :; do
+       status=$(codex_status)
+       case "$status" in
+         blocked|idle)
+           printf '%s\n' "$status"
+           return 0
+           ;;
+       esac
+       sleep 1
+     done
+   }
+
+   status=$(wait_for_change)
+   ```
+
+5. `blocked` の場合は、承認画面をそのまま人間に提示する。
+   実際に表示されている文言と番号に沿って、人間に選んでもらう。
+   Enter でデフォルトの "Yes, proceed" を選ぶ動作は実機確認済み。
+   "don't ask again" と "No, tell Codex what to do differently" のキー操作は未検証。
+   回答送信後は手順4へ戻る。
+
+   ```bash
+   if [ "$status" = "blocked" ]; then
+     herdr pane read "$CODEX_PANE" --source recent --lines 80
+     # ここで Bash 呼び出しを終える。
+     # 人間の回答を待ち、次の Bash 呼び出しで選択内容だけを送る。
+   fi
+   ```
+
+   人間が承認した後の送信例:
+
+   ```bash
+   herdr pane send-keys "$CODEX_PANE" Enter
+   status=$(wait_for_change)
+   ```
+
+6. `idle` になったら完了。`/handoff` は送らない。
+   実機確認したところ、このcodexバージョン(0.142.3)では `/handoff` は
+   カスタム prompt(`.codex/prompts/handoff.md`)として認識されず、
+   "Unrecognized command" になる(`~/.codex/prompts/` への symlink 自体は正しい)。
+   代わりに `git diff` / `git status` で変更内容を確認し、
+   Claude 自身が `handoff` skill で `.tmp/progress.md` を更新してから、Codex ペインを閉じる。
+
+   ```bash
+   git diff --stat
+   git status --porcelain
+   herdr pane close "$CODEX_PANE"
+   ```
+
+herdr の公式対応エージェント一覧に `agy` は含まれない。
+この自動化は Codex 専用とし、Antigravity には適用しない。
+
+既知の別問題（herdrとは無関係、今回の実機検証で判明）: このリポジトリの
+`.codex/prompts/{resume,review,handoff}.md` はカスタム slash command として
+運用する設計だが、現在の Codex CLI(0.142.3)では `/resume` が組み込みの
+セッション選択ピッカーと衝突し、`/handoff` は未認識になる。既存の Lane B
+手動フロー（本節より上）やフォールバック運用の `/resume`・`/handoff` 手順も
+同じ影響を受ける可能性があるため、Codex 側のリリースノートを確認するか、
+別のプロンプト名への変更を別タスクとして検討する。
+
 ## Claude → Codex（Claude 主導で実装/レビューを委譲）
 
 Claude Code セッション内から Codex に作業を渡す。

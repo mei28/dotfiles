@@ -55,3 +55,4 @@ agy
 - Antigravity does not have a built-in `--json` progress stream like Codex's `codex exec --json`. Use `run_in_background` and check terminal output when it completes.
 - Antigravity edits files itself; do not also edit them from Claude in parallel.
 - If Codex is available and the task is complex, prefer `/codex-implement` — Codex has a more mature autonomous implementation workflow in this setup.
+- herdrによる監督レーン自動化(`codex-implement`のherdr連携を参照)はAntigravityには未対応。herdrの公式エージェント検出一覧に`agy`は含まれず、`agent_status`検出の精度が未検証のため、当面は本skillを従来どおり手動運用のまま据え置く。

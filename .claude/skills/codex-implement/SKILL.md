@@ -29,7 +29,17 @@ See `docs/claude-codex.md` for the full workflow.
    ```
    Run with `run_in_background`. Use `codex exec resume --last` to inspect a finished run.
 
-   **Lane B — Supervised TUI**: Use when the task is complex, approval is needed, or Lane A keeps failing. Present this exact block to the user as copy-paste for a **separate terminal pane**:
+   **Lane B — Supervised TUI**: Use when the task is complex, approval is needed, or Lane A keeps failing.
+
+   If `$HERDR_ENV=1` and `command -v herdr` succeeds, use the herdr-assisted supervised lane. Use `$HERDR_PANE_ID` as Claude's own pane id; do not search `herdr pane list` for the current Claude pane. Split a right-hand pane with `herdr pane split "$HERDR_PANE_ID" --direction right --no-focus`, then start Codex in the repo with `herdr pane run "$CODEX_PANE" "cd <repo> && codex -p shared -a on-request"`.
+
+   Poll `herdr pane list` for the Codex pane's `agent_status`. Do not treat a `herdr wait agent-status` timeout as proof that Codex is still running; status must be re-read from `pane list`. Wait for initial `idle`, then send the plan content directly with `pane run` (Lane A style — do not send `/resume`; on codex 0.142.3 it collides with Codex's built-in session-resume picker instead of running the custom prompt).
+
+   Use a polling helper that returns when the Codex pane becomes `blocked` or `idle`. If it becomes `blocked`, end that Bash invocation immediately, show the exact `herdr pane read` output to the human, and wait for the user's real answer. Do not choose or send an approval automatically. After the user answers, send the selected key/text with `herdr pane send-keys` or `herdr pane send-text`, then resume polling.
+
+   When the Codex pane becomes `idle`, it is done — do not send `/handoff` (on codex 0.142.3 it is unrecognized, not the custom prompt). Instead run `git diff`/`git status` yourself and update `.tmp/progress.md` with the `handoff` skill, then close the pane with `herdr pane close`. Keep the detailed command sequence in `docs/claude-codex.md` as the source of truth.
+
+   If herdr is unavailable, present this exact block to the user as copy-paste for a **separate terminal pane**:
 
    ```
    別ペインで以下を実行してください:
