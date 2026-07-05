@@ -245,7 +245,7 @@ just test-all             # 全テスト実行
 - VCS: git, gitui, jujutsu
 
 ### 開発環境 (development)
-- LSP: pyright, gopls, rust-analyzer, efm-langserver
+- LSP: pyright, gopls, rust-analyzer, efm-langserver, harper
 - ランタイム: Python (uv), Node.js (nodejs_24, bun, pnpm, ni, deno), Rust (cargo, rustc), Go, Lua (luajit, luarocks)
 - ビルド/フォーマッタ: cargo-generate, llvm, sqlite, postgresql, nixfmt, ruff
 - 自作ツール: cliperge, sgh, portsage, bonsai

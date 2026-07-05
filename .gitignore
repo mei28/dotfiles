@@ -136,3 +136,4 @@ result
 
 **/settings.local.json
 .tmp
+.config/herdr
