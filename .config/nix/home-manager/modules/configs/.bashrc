@@ -494,8 +494,9 @@ function tmux() {
 
 
 function kmux() {
-    tmux kill-server
-    echo "Kill tmux server"
+    local name="${1:-default}"
+    tmux kill-session -t "$name"
+    echo "Killed tmux session: $name"
 }
 function dmux() {
     tmux detach-client
@@ -511,6 +512,56 @@ if type tmux &> /dev/null; then
         tmux capture-pane -p | nvim -R -
     }
 fi
+
+# herdr named sessions
+if type herdr &> /dev/null; then
+    function herdr() {
+        if [ $# -eq 0 ]; then
+            command herdr --session main
+        else
+            command herdr "$@"
+        fi
+    }
+
+    alias hdr='herdr'
+
+    function nhdr() {
+        local name="${1:-main}"
+        herdr --session "$name"
+    }
+
+    function lhdr() {
+        herdr session list
+    }
+
+    function dhdr() {
+        local name="${1:-main}"
+        if [ "$name" = "default" ]; then
+            herdr session stop default && echo "Stopped herdr session: default"
+        else
+            herdr session stop "$name" &&
+                herdr session delete "$name" &&
+                echo "Deleted herdr session: $name"
+        fi
+    }
+
+    function khdr() {
+        dhdr "$@"
+    }
+
+    if type fzf &> /dev/null && type jq &> /dev/null; then
+        function phdr() {
+            local selection name
+            selection=$(herdr session list --json | jq -r '.sessions[].name' | fzf --prompt="herdr session> " --print-query)
+            name=$(printf '%s\n' "$selection" | tail -n 1)
+            if [ -n "$name" ]; then
+                herdr --session "$name"
+            fi
+        }
+    fi
+fi
+
+source "$HOME/dotfiles/.config/nix/home-manager/modules/configs/completions/herdr.bash"
 # ヒストリーの削除
 export HISTCONTROL=ignoreboth
 
