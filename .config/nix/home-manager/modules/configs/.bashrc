@@ -873,10 +873,21 @@ pbc() {
     fi
 }
 
-# copy pwd to clipboard
-cpwd() {
-    pwd | _copy_to_clipboard
-    echo "Copied to clipboard: $(pwd)"
+# copy pwd to clipboard; with an arg, copy that file/dir's absolute path instead
+cpth() {
+    if [ $# -eq 0 ]; then
+        pwd | _copy_to_clipboard
+        echo "Copied to clipboard: $(pwd)"
+        return
+    fi
+    if [ ! -e "$1" ]; then
+        echo "Error: '$1' does not exist." >&2
+        return 1
+    fi
+    local abspath
+    abspath="$(cd -- "$(dirname -- "$1")" >/dev/null && pwd)/$(basename -- "$1")"
+    echo "$abspath" | _copy_to_clipboard
+    echo "Copied to clipboard: $abspath"
 }
 
 
