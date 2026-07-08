@@ -62,7 +62,6 @@ package-lock.json
 .config/nvim/archive/
 .config/nvim/node_modules/
 .config/nvim/plugin/packer_compiled.lua
-lazy-lock.json
 
 # =============================================================================
 # Karabiner-Elements (自動生成)
@@ -131,6 +130,8 @@ result
 .claude/policy-limits.json
 .claude/remote-settings.json
 .claude/daemon.log
+.claude/daemon.lock
+.claude/daemon.status.json
 .claude/daemon/
 .claude/jobs/
 

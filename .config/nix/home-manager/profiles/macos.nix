@@ -11,10 +11,6 @@
   # ホーム直下
   home.file.".hammerspoon".source =
     config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.hammerspoon";
-  home.file.".skhdrc".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.skhdrc";
-  home.file.".yabairc".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.yabairc";
   home.file.".rye".source =
     config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.rye";
   home.file.".wezterm.lua".source =

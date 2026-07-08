@@ -51,7 +51,10 @@ in
 
       # Other Git settings
       init.defaultBranch = "main";
-      credential.helper = "store";
+      # 平文の ~/.git-credentials を避ける: macOS は Keychain、
+      # Linux はメモリキャッシュ(1時間)に保持
+      credential.helper =
+        if pkgs.stdenv.isDarwin then "osxkeychain" else "cache --timeout=3600";
       fetch.prune = "true";
       pull.ff = "only";
       pull.rebase = "false";

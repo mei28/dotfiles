@@ -106,5 +106,6 @@
   "verbose": true,
   "feedbackSurveyState": {
     "lastShownTime": 1754308736953
-  }
+  },
+  "model": "fable"
 }

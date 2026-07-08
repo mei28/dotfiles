@@ -1,6 +1,7 @@
 #!/bin/bash
 
-DOT_FILES=(.config .rye .claude)
+# .claude は home-manager (profiles/base.nix) が mkOutOfStoreSymlink で管理する
+DOT_FILES=(.config .rye)
 
 for file in "${DOT_FILES[@]}"; do
     TARGET="$HOME/$file"

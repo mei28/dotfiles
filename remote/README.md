@@ -49,7 +49,7 @@ install が行うこと:
 ```
 remote/
   hpc-setup.sh          # セットアップスクリプト
-  generated/            # collect で自動生成（gitignore 対象）
+  generated/            # collect で自動生成（コミットして sync で配布）
     tmux.conf
     gitconfig
 ```

@@ -53,7 +53,6 @@
     ../modules/fastfetch.nix
     ../modules/zoxide.nix
     ../modules/jujutsu.nix
-    # ../modules/zellij.nix
     ../modules/ssh.nix
     ../modules/deno-pin.nix
   ];

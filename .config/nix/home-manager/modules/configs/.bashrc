@@ -14,7 +14,8 @@ if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
     . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
 fi
 if type nix &> /dev/null; then
-    export PATH="~/.nix-profile/bin:$PATH"
+    # NOTE: "~" does not expand inside double quotes; use $HOME
+    export PATH="$HOME/.nix-profile/bin:$PATH"
 fi
 
 # .bashrc
@@ -239,7 +240,6 @@ alias gv='nvim'
 alias vn='nvim'
 alias nn='export NVIM_APPNAME=nvim; nvim'
 alias nvc='nvim --clean'
-alias nvi='export NVIM_APPNAME=nvim-minimal; nvim'
 
 # if [ -e $HOME/.nvm ]; then
 #     export NVM_DIR="$HOME/.nvm"
@@ -248,8 +248,9 @@ alias nvi='export NVIM_APPNAME=nvim-minimal; nvim'
 # fi
 
 if type npm &> /dev/null; then
-    mkdir -p "$HOME/.npm-global"
-    npm config set prefix "$HOME/.npm-global"
+    # env var instead of `npm config set` — invoking npm here costs
+    # hundreds of ms on every shell startup
+    export NPM_CONFIG_PREFIX="$HOME/.npm-global"
     export PATH="$HOME/.npm-global/bin:$PATH"
 fi
 
@@ -261,7 +262,7 @@ mkcd(){
 
 # ruby env
 if [ -e ~/.rbenv/shims ]; then
-    export PATH="~/.rbenv/shims:/usr/local/bin:$PATH"
+    export PATH="$HOME/.rbenv/shims:/usr/local/bin:$PATH"
     if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 fi
 
@@ -627,8 +628,8 @@ fi
 
 if type jj &> /dev/null;
 then
-    (jj util completion bash) > /tmp/jj_completion.sh
-    source /tmp/jj_completion.sh
+    # fixed world-readable /tmp path is a symlink/clobber footgun; eval instead
+    eval "$(jj util completion bash)"
 
     jjb() {
         if [ $# -eq 0 ]; then
@@ -644,7 +645,6 @@ if type wezterm  &> /dev/null;
 then
     alias imgcat='wezterm imgcat'
     eval "$(wezterm shell-completion --shell bash)"
-    ln -snf ~/.config/wezterm/wezterm.lua ~/.wezterm.lua
 fi
 
 

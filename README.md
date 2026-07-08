@@ -298,6 +298,7 @@ just update <host>
 
 ### 完全なクリーンインストール
 ```bash
+# <host> は flake.nix の homeConfigurations 名 (例: qia-aws)
 rm -rf ~/dotfiles ~/.local/state/nix/profiles/home-manager
-curl -sSL https://raw.githubusercontent.com/mei28/dotfiles/main/remote-bootstrap.sh | bash
+curl -sSL https://raw.githubusercontent.com/mei28/dotfiles/main/remote-bootstrap.sh | bash -s -- <host>
 ```
