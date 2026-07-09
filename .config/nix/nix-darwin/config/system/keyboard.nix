@@ -10,7 +10,7 @@
 
   # Authenticate sudo with Touch ID.
   # reattach = true wires up pam_reattach so it also works inside
-  # tmux / screen / zellij (which otherwise can't reach the GUI).
+  # tmux / screen (which otherwise can't reach the GUI).
   security.pam.services.sudo_local = {
     touchIdAuth = true;
     reattach = true;

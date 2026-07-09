@@ -8,7 +8,12 @@ local spec = {
       action.setup({})
     end,
     keys = {
-      { "ga", function() require("actions-preview").code_actions() end, { "v", "n" } }
+      {
+        "<leader>ca",
+        function() require("actions-preview").code_actions() end,
+        mode = { "n", "v" },
+        desc = "LSP: code action (preview)",
+      },
     }
   }
 }

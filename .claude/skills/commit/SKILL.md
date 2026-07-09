@@ -34,6 +34,7 @@ Follow Angular.js commit guideline prefixes:
 - **Format**: `<prefix>: <concise description>`
 - **Length**: Keep first line under 72 characters when possible
 - **Detail**: Add body with more context if needed (use heredoc format)
+- **No signatures**: Never add CLAUDE CODE signatures or `Co-Authored-By` trailers to commit messages
 
 ### Language Configuration
 

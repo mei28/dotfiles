@@ -14,7 +14,8 @@ if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
     . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
 fi
 if type nix &> /dev/null; then
-    export PATH="~/.nix-profile/bin:$PATH"
+    # NOTE: "~" does not expand inside double quotes; use $HOME
+    export PATH="$HOME/.nix-profile/bin:$PATH"
 fi
 
 # .bashrc
@@ -249,8 +250,9 @@ alias nvr='nvim -R'
 # fi
 
 if type npm &> /dev/null; then
-    mkdir -p "$HOME/.npm-global"
-    npm config set prefix "$HOME/.npm-global"
+    # env var instead of `npm config set` — invoking npm here costs
+    # hundreds of ms on every shell startup
+    export NPM_CONFIG_PREFIX="$HOME/.npm-global"
     export PATH="$HOME/.npm-global/bin:$PATH"
 fi
 
@@ -262,7 +264,7 @@ mkcd(){
 
 # ruby env
 if [ -e ~/.rbenv/shims ]; then
-    export PATH="~/.rbenv/shims:/usr/local/bin:$PATH"
+    export PATH="$HOME/.rbenv/shims:/usr/local/bin:$PATH"
     if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 fi
 
@@ -495,8 +497,9 @@ function tmux() {
 
 
 function kmux() {
-    tmux kill-server
-    echo "Kill tmux server"
+    local name="${1:-default}"
+    tmux kill-session -t "$name"
+    echo "Killed tmux session: $name"
 }
 function dmux() {
     tmux detach-client
@@ -512,6 +515,56 @@ if type tmux &> /dev/null; then
         tmux capture-pane -p | nvim -R -
     }
 fi
+
+# herdr named sessions
+if type herdr &> /dev/null; then
+    function herdr() {
+        if [ $# -eq 0 ]; then
+            command herdr --session main
+        else
+            command herdr "$@"
+        fi
+    }
+
+    alias hdr='herdr'
+
+    function nhdr() {
+        local name="${1:-main}"
+        herdr --session "$name"
+    }
+
+    function lhdr() {
+        herdr session list
+    }
+
+    function dhdr() {
+        local name="${1:-main}"
+        if [ "$name" = "default" ]; then
+            herdr session stop default && echo "Stopped herdr session: default"
+        else
+            herdr session stop "$name" &&
+                herdr session delete "$name" &&
+                echo "Deleted herdr session: $name"
+        fi
+    }
+
+    function khdr() {
+        dhdr "$@"
+    }
+
+    if type fzf &> /dev/null && type jq &> /dev/null; then
+        function phdr() {
+            local selection name
+            selection=$(herdr session list --json | jq -r '.sessions[].name' | fzf --prompt="herdr session> " --print-query)
+            name=$(printf '%s\n' "$selection" | tail -n 1)
+            if [ -n "$name" ]; then
+                herdr --session "$name"
+            fi
+        }
+    fi
+fi
+
+source "$HOME/dotfiles/.config/nix/home-manager/modules/configs/completions/herdr.bash"
 # ヒストリーの削除
 export HISTCONTROL=ignoreboth
 
@@ -577,8 +630,8 @@ fi
 
 if type jj &> /dev/null;
 then
-    (jj util completion bash) > /tmp/jj_completion.sh
-    source /tmp/jj_completion.sh
+    # fixed world-readable /tmp path is a symlink/clobber footgun; eval instead
+    eval "$(jj util completion bash)"
 
     jjb() {
         if [ $# -eq 0 ]; then
@@ -594,7 +647,6 @@ if type wezterm  &> /dev/null;
 then
     alias imgcat='wezterm imgcat'
     eval "$(wezterm shell-completion --shell bash)"
-    ln -snf ~/.config/wezterm/wezterm.lua ~/.wezterm.lua
 fi
 
 
@@ -823,10 +875,21 @@ pbc() {
     fi
 }
 
-# copy pwd to clipboard
-cpwd() {
-    pwd | _copy_to_clipboard
-    echo "Copied to clipboard: $(pwd)"
+# copy pwd to clipboard; with an arg, copy that file/dir's absolute path instead
+cpth() {
+    if [ $# -eq 0 ]; then
+        pwd | _copy_to_clipboard
+        echo "Copied to clipboard: $(pwd)"
+        return
+    fi
+    if [ ! -e "$1" ]; then
+        echo "Error: '$1' does not exist." >&2
+        return 1
+    fi
+    local abspath
+    abspath="$(cd -- "$(dirname -- "$1")" >/dev/null && pwd)/$(basename -- "$1")"
+    echo "$abspath" | _copy_to_clipboard
+    echo "Copied to clipboard: $abspath"
 }
 
 

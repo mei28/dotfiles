@@ -245,7 +245,7 @@ just test-all             # 全テスト実行
 - VCS: git, gitui, jujutsu
 
 ### 開発環境 (development)
-- LSP: pyright, gopls, rust-analyzer, efm-langserver
+- LSP: pyright, gopls, rust-analyzer, efm-langserver, harper
 - ランタイム: Python (uv), Node.js (nodejs_24, bun, pnpm, ni, deno), Rust (cargo, rustc), Go, Lua (luajit, luarocks)
 - ビルド/フォーマッタ: cargo-generate, llvm, sqlite, postgresql, nixfmt, ruff
 - 自作ツール: cliperge, sgh, portsage, bonsai
@@ -298,6 +298,7 @@ just update <host>
 
 ### 完全なクリーンインストール
 ```bash
+# <host> は flake.nix の homeConfigurations 名 (例: qia-aws)
 rm -rf ~/dotfiles ~/.local/state/nix/profiles/home-manager
-curl -sSL https://raw.githubusercontent.com/mei28/dotfiles/main/remote-bootstrap.sh | bash
+curl -sSL https://raw.githubusercontent.com/mei28/dotfiles/main/remote-bootstrap.sh | bash -s -- <host>
 ```

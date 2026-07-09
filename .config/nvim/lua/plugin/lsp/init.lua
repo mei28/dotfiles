@@ -43,7 +43,7 @@ local spec = {
 				"svelte",
 				"tailwindcss",
 				"emmet_ls",
-				"typos_lsp",
+				"harper_ls",
 				"nil_ls",
 				"gopls",
 			}

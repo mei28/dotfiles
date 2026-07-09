@@ -10,21 +10,16 @@
 - **You must think exclusively in English**. However, you are required to **respond in Japanese**.
 - For temporary notes for design, create a markdown in `.tmp` and save it.
 - Please respond critically and without pandering to my opinions, but please don't be forceful in your criticism.
+- Proactively propose improvements and superior implementation patterns when you notice them.
 
-## File and Directory Structure
-- **Prioritize maintainability**: Split files and directories appropriately for code clarity
-- **Functional separation**: Organize directories by related features
-- **Separation of concerns**: Follow single responsibility principle - one file, one clear role
+## Code Design & Quality
 
-## Function and Module Design
-- **Function decomposition**: Break down long functions into smaller, readable units
-- **Reusability**: Modularize common operations to avoid duplication
-- **Naming conventions**: Use clear, purpose-driven names for functions and classes
-
-## Code Quality
-- **Readability first**: Write code that other developers can easily understand
-- **Meaningful comments**: Add comments for complex logic (Japanese comments acceptable for domain-specific terms)
-- **Error handling**: Implement proper exception handling
+- **Separation of concerns**: one file, one clear role; organize directories by related features
+- **Function decomposition**: break long functions into small, readable units
+- **Reusability**: modularize common operations to avoid duplication
+- **Naming**: use clear, purpose-driven names for functions and classes
+- **Readability first**: write code other developers can easily understand
+- **Meaningful comments**: comment complex logic (Japanese comments acceptable for domain-specific terms)
 
 ## Error Handling & Implementation Policy
 
@@ -40,133 +35,51 @@
 - **Don't proceed on assumptions**: Seek confirmation when unsure
 
 ## Documentation Philosophy
+
 - **Code shows HOW**: Implementation details
 - **Tests show WHAT**: Clear test objectives
 - **Commits show WHY**: Rationale for changes
 - **Comments show WHY NOT**: Reasoning for alternative approaches not taken
 
 ## Design Principles
+
 - **YAGNI (You Aren't Gonna Need It)**: Don't build features not currently needed
 - **DRY (Don't Repeat Yourself)**: Avoid code duplication
 - **KISS (Keep It Simple Stupid)**: Maintain simplicity
 
 ## TDD Workflow (t-wada style)
 
-### Core Process
-- 🔴 Red: Write failing test
-- 🟢 Green: Minimal implementation to pass
-- 🔵 Refactor: Improve code structure
-- Take small steps
-- Start with fake implementation
-- Triangulate to generalize
-- Direct implementation when obvious
-- Continuously update test list
-- Test uncertain areas first
-
-### TDD Best Practices
-1. **First test**: Start with failing test (compile errors OK)
-2. **Fake implementation**: Hardcoded returns acceptable (`return 42`)
-3. **Triangulation**: Generalize with 2nd/3rd test cases
-4. **Refactoring**: Clean up after tests pass
-5. **TODO list**: Immediately add new ideas
-6. **One at a time**: Don't write multiple tests simultaneously
-7. **Frequent commits**: Commit when tests pass
-
-### Commit Convention
-- 🔴 Test written: `test: add failing test for [feature]`
-- 🟢 Test passing: `feat: implement [feature] to pass test`
-- 🔵 Refactored: `refactor: [description]`
-- Small, atomic commits (one feature per commit)
-
-## AI Collaboration: Trust-Based Approach
-
-### Core Philosophy
-This project embraces AI partnership through trust rather than constraints. We maximize AI capabilities to co-create value with users.
-
-### Thinking Process
-Execute tasks through quality-assured analysis:
-
-**[ANALYSIS START] Pre-execution Review**
-- **Why-Why-Why Analysis**: Three levels of root cause exploration
-- **Triple Perspective**: Technical, User, Operational viewpoints
-- **Quality Self-Score**: Execute only with 4+ points (5-point scale)
-
-### Quality Criteria (5 items)
-1. **Purpose Alignment**: Addresses true user needs
-2. **Technical Validity**: Appropriate, maintainable implementation
-3. **User Experience**: Intuitive, user-friendly design
-4. **Operational Feasibility**: Production-ready functionality
-5. **Value Creation**: Delivers new value
-
-### Autonomous Initiative
-- Proactively identify and propose improvements
-- Anticipate potential issues before they arise
-- Suggest superior implementation patterns independently
-
-### Partnership Practice
-- Deeply understand user intent, exceed expectations
-- Share technical decisions with clear reasoning
-- Embrace failure as learning opportunity
+- 🔴 Red: write one failing test at a time (compile errors OK) → 🟢 Green: minimal implementation to pass (fake implementation / hardcoded returns acceptable) → 🔵 Refactor: clean up after tests pass
+- Take small steps; triangulate with 2nd/3rd test cases to generalize; direct implementation when obvious
+- Test uncertain areas first; immediately add new ideas to the test TODO list
+- Commit frequently when tests pass, one feature per commit:
+  - 🔴 `test: add failing test for [feature]`
+  - 🟢 `feat: implement [feature] to pass test`
+  - 🔵 `refactor: [description]`
 
 ## Task Management
-- **Task Runner**: Use `just` for all project commands
-- **Command Centralization**: Define all build, test, deploy commands in justfile
-- **Reproducibility**: Ensure consistent execution across team members
-- **Reusability**: Document recurring commands as just recipes
+
+- Use `just` as the task runner: centralize build, test, deploy commands in the justfile
+- Ensures reproducible execution across team members; document recurring commands as recipes
 
 ## Technical Writing Guidelines
 
 ### Avoid AI-style List Formatting
-Don't use emphasis prefixes or emoji decorators in lists:
-- Avoid: `**Important**:`, `✅`, `💡`, `🔥`, `🚀`, etc.
-- Use clean, undecorated list items
+- No emphasis prefixes or emoji decorators in lists: avoid `**Important**:`, `✅`, `💡`, `🔥`, `🚀`, etc.
 
 ### Avoid Hyperbolic Expressions
-
-#### Absoluteness
-- Replace "revolutionary" → describe specific transformation
-- Replace "game-changer" → explain significant impact
-- Replace "ultimate" → provide measurable performance metrics
-- Replace "completely/all" → specify scope ("many", "major")
-
-#### Abstract/Sensational
-- Replace "magical" → describe smooth operation
-- Replace "unleash potential" → explain new opportunities
-- Replace "democratize AI" → describe accessibility improvements
-- Replace "supercharge" → specify efficiency gains
-
-#### Authoritative/Prophetic
-- Replace "redefine industry" → explain new perspectives
-- Replace "change the future" → describe specific impacts
-- Replace "paradigm shift" → detail the transformation
-- Replace "inevitable change" → explain why change matters
+Replace vague superlatives with specifics:
+- "revolutionary" / "game-changer" / "paradigm shift" → describe the specific transformation or impact
+- "ultimate" / "fast" / "significantly" / "efficient" → give measurable metrics ("under 50ms", "200% improvement", "30% memory reduction")
+- "completely/all" → specify scope ("many", "major")
+- "magical" / "supercharge" / "unleash potential" → describe the concrete gain or new opportunity
+- "redefine industry" / "change the future" / "inevitable change" → explain the specific new perspective and why it matters
 
 ### Writing Clarity
-
-#### Conciseness
-- "first and foremost" → "first" or "foremost"
-- "be able to" → "can"
-- "need to" → imperative form
-- "make changes to" → "change"
-
-#### Active Voice
-- Prefer active over passive constructions
-- Use direct subject-verb-object structure
-
-#### Specificity
-- "fast" → "under 50ms"
-- "significantly" → "200% improvement"
-- "efficient" → "30% memory reduction"
-
-#### Consistency
-- Unify terminology for same concepts
-- Standardize UI element names
-- Maintain consistent tone throughout
-
-#### Structure
-- One idea per sentence
-- Target ~50 characters per sentence
-- Remove unnecessary connectives
+- Conciseness: "first and foremost" → "first"; "be able to" → "can"; "need to" → imperative; "make changes to" → "change"
+- Active voice with direct subject-verb-object structure
+- One idea per sentence (target ~50 characters); remove unnecessary connectives
+- Unify terminology, UI element names, and tone throughout
 
 ### Japanese Technical Writing
 When writing or revising Japanese technical prose — documentation, READMEs, design notes, articles, book/manuscript drafts, and other substantial written output — follow the `japanese-tech-writing` standards.
@@ -176,86 +89,36 @@ When writing or revising Japanese technical prose — documentation, READMEs, de
 ## Git Workflow
 
 ### Pre-execution Confirmation Rules
-- **Before commit**: Always request user confirmation
-- **Before push**: Always request user confirmation
-- **Before PR creation**: Always request user confirmation
-- **Confirmation content**: Present clear summary of changes and impact scope
+- Always request user confirmation before commit, push, and PR creation
+- Present a clear summary of changes and impact scope
 
-### Commit Message Convention
+### Commit Messages
+- Angular.js prefixes: `feat` / `fix` / `docs` / `style` / `refactor` / `perf` / `test` / `chore`; include rationale, context, and purpose
 - **No CLAUDE CODE signatures in commits**
-- **Required prefixes** (Angular.js guidelines):
-  - **feat**: New feature
-  - **fix**: Bug fix
-  - **docs**: Documentation only
-  - **style**: Formatting (no code change)
-  - **refactor**: Code restructuring (no behavior change)
-  - **perf**: Performance improvements
-  - **test**: Test additions/modifications
-  - **chore**: Build process/tooling changes
-- **Include rationale, context, and purpose**
+- Grouping strategy and message details: `commit` skill (Codex: read `~/.claude/skills/commit/SKILL.md`)
 
 ### Worktree Usage
-- When instructed, use worktrees to isolate feature branch work from the main tree
-- Use `bonsai` command for all worktree operations (avoid raw `git worktree`)
-- Workflow:
-  1. `bonsai add -c <branch> --base <base-branch>` — create a worktree for the feature branch
-  2. `bonsai cd <branch>` — move into the worktree directory
-  3. After merge, `bonsai remove <branch>` — clean up the worktree
+- When instructed, isolate feature-branch work in a worktree via `bonsai` (avoid raw `git worktree`):
+  `bonsai add -c <branch> --base <base-branch>` → `bonsai cd <branch>` → after merge `bonsai remove <branch>`
 - Check current state with `bonsai list` or `bonsai status`
 
-## Multi-Tool AI Collaboration Workflow
+## Multi-Tool AI Collaboration
 
-Three AI CLIs are used together. Claude Code is the primary orchestrator; Codex and Antigravity are
-execution agents that receive tasks, act, and return results for Claude to evaluate.
+Three AI CLIs work together: Claude Code orchestrates; Codex and Antigravity (`agy`) execute tasks and return results.
+Claude does not blindly accept delegated output — it evaluates correctness, standards adherence, and quality before accepting.
 
-Note: Antigravity CLI (`agy`) is the successor to Google Gemini CLI (deprecated 2026-06-18 for individual accounts).
+| Role | Tool |
+|---|---|
+| Orchestrate / Plan / Evaluate | Claude Code (primary) |
+| Implement | Codex (primary), Antigravity (secondary) |
+| Review | All three (multi-perspective cross-check) |
 
-### Role Split
+| Action | Skill |
+|---|---|
+| Implement | `/codex-implement`, `/antigravity-implement` |
+| Review | `/codex-review`, `/antigravity-review` |
+| Handoff | `/handoff` (writes `.tmp/progress.md`) |
 
-| Role | Tool | Notes |
-|---|---|---|
-| Orchestrate / Plan / Evaluate | Claude Code (primary) | Issues tasks; judges output before accepting |
-| Implement | Codex (primary), Antigravity (secondary) | Receive task → execute → return result |
-| Review | All three | Multi-perspective cross-check |
-| Fallback orchestration | Any of the three | When one nears its limit, another takes over |
-
-### Delegation Principle
-
-Claude does not blindly accept output from Codex or Antigravity.
-After each delegation, Claude evaluates the result — correctness, standards adherence, quality
-— before accepting it or requesting changes.
-
-### Fallback
-
-When any tool nears its usage limit:
-- Claude near limit → hand off to Codex or Antigravity as temporary orchestrator
-- Codex near limit → Claude + Antigravity continue
-- Antigravity near limit → Claude + Codex continue
-
-All three tools share `.claude/AGENTS.md` for behavioral consistency.
-
-### Delegation Skills (Claude-driven)
-
-| Action | Skill | Tool |
-|---|---|---|
-| Implement | `/codex-implement` | Codex |
-| Implement | `/antigravity-implement` | Antigravity CLI (`agy`) |
-| Review | `/codex-review` | Codex |
-| Review | `/antigravity-review` | Antigravity CLI (`agy`) |
-| Handoff | `/handoff` | Writes `.tmp/progress.md` |
-
-### Handoff Note (`.tmp/progress.md`)
-When work spans tools, keep this file current so any tool can resume:
-
-```
-# Goal:   <what we are achieving>
-# Plan:   <path to plan file, or bullet plan>
-# Done:   <changes already made>
-# Next:   <immediate next steps>
-# Open:   <unresolved questions / decisions>
-# Resume: <files/commands the next tool should read first>
-```
-
-Operational guides:
-- Claude ↔ Codex: `docs/claude-codex.md`
-- Antigravity CLI: `docs/antigravity.md`
+When any tool nears its usage limit, run `/handoff` and let another tool resume from `.tmp/progress.md`.
+Operational guides: `docs/claude-codex.md` (Claude ↔ Codex), `docs/antigravity.md` (Antigravity CLI).
+All three tools share this file for behavioral consistency.

@@ -14,6 +14,7 @@
       gopls
       rust-analyzer
       efm-langserver
+      harper
 
       # Language runtimes
       uv
