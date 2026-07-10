@@ -29,9 +29,6 @@
     config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.config/cmux";
   xdg.configFile."raycast".source =
     config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.config/raycast";
-  # herdr: symlink config.toml only (sessions/ is runtime state, don't symlink the whole dir)
-  xdg.configFile."herdr/config.toml".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.config/herdr/config.toml";
 
   # macOS 固有の環境変数
   home.sessionVariables = {

@@ -1,46 +1,24 @@
 {
-  "includeCoAuthoredBy": false,
+  "alwaysThinkingEnabled": true,
+  "editorMode": "normal",
+  "effortLevel": "xhigh",
+  "enabledPlugins": {
+    "frontend-design@claude-plugins-official": true,
+    "pyright-lsp@claude-plugins-official": true,
+    "rust-analyzer-lsp@claude-plugins-official": true,
+    "swift-lsp@claude-plugins-official": true
+  },
+  "feedbackSurveyState": {
+    "lastShownTime": 1754308736953
+  },
   "hooks": {
-    "SessionStart": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "$HOME/dotfiles/.claude/hooks/wezterm-state.sh idle",
-            "timeout": 5
-          }
-        ]
-      }
-    ],
-    "UserPromptSubmit": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "$HOME/dotfiles/.claude/hooks/wezterm-state.sh thinking",
-            "timeout": 5
-          }
-        ]
-      }
-    ],
-    "PreToolUse": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "$HOME/dotfiles/.claude/hooks/wezterm-state.sh executing",
-            "timeout": 5
-          }
-        ]
-      }
-    ],
     "PostToolUse": [
       {
         "hooks": [
           {
-            "type": "command",
             "command": "$HOME/dotfiles/.claude/hooks/wezterm-state.sh thinking",
-            "timeout": 5
+            "timeout": 5,
+            "type": "command"
           }
         ]
       }
@@ -49,31 +27,20 @@
       {
         "hooks": [
           {
-            "type": "command",
             "command": "$HOME/dotfiles/.claude/hooks/wezterm-state.sh thinking",
-            "timeout": 5
+            "timeout": 5,
+            "type": "command"
           }
         ]
       }
     ],
-    "Stop": [
+    "PreToolUse": [
       {
         "hooks": [
           {
-            "type": "command",
-            "command": "$HOME/dotfiles/.claude/hooks/wezterm-state.sh idle",
-            "timeout": 5
-          }
-        ]
-      }
-    ],
-    "StopFailure": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "$HOME/dotfiles/.claude/hooks/wezterm-state.sh idle",
-            "timeout": 5
+            "command": "$HOME/dotfiles/.claude/hooks/wezterm-state.sh executing",
+            "timeout": 5,
+            "type": "command"
           }
         ]
       }
@@ -82,30 +49,73 @@
       {
         "hooks": [
           {
-            "type": "command",
             "command": "$HOME/dotfiles/.claude/hooks/wezterm-state.sh",
-            "timeout": 5
+            "timeout": 5,
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "command": "$HOME/dotfiles/.claude/hooks/wezterm-state.sh idle",
+            "timeout": 5,
+            "type": "command"
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "command": "bash '/home/ubuntu/.claude/hooks/herdr-agent-state.sh' session",
+            "timeout": 10,
+            "type": "command"
+          }
+        ],
+        "matcher": "*"
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "command": "$HOME/dotfiles/.claude/hooks/wezterm-state.sh idle",
+            "timeout": 5,
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "StopFailure": [
+      {
+        "hooks": [
+          {
+            "command": "$HOME/dotfiles/.claude/hooks/wezterm-state.sh idle",
+            "timeout": 5,
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "command": "$HOME/dotfiles/.claude/hooks/wezterm-state.sh thinking",
+            "timeout": 5,
+            "type": "command"
           }
         ]
       }
     ]
   },
+  "includeCoAuthoredBy": false,
+  "model": "sonnet",
   "statusLine": {
-    "type": "command",
-    "command": "$HOME/dotfiles/.claude/statusline.sh"
+    "command": "$HOME/dotfiles/.claude/statusline.sh",
+    "type": "command"
   },
-  "enabledPlugins": {
-    "pyright-lsp@claude-plugins-official": true,
-    "rust-analyzer-lsp@claude-plugins-official": true,
-    "swift-lsp@claude-plugins-official": true,
-    "frontend-design@claude-plugins-official": true
-  },
-  "alwaysThinkingEnabled": true,
-  "effortLevel": "xhigh",
-  "editorMode": "normal",
-  "verbose": true,
-  "feedbackSurveyState": {
-    "lastShownTime": 1754308736953
-  },
-  "model": "fable"
+  "verbose": true
 }
