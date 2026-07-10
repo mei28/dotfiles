@@ -375,11 +375,26 @@ alias shutdownnow="sudo shutdown -h +1"
 alias restartnow="sudo shutdown -r +1"
 
 # 独立したポート展開関数
-# 使い方: lpt 6006 8888 -> -L 6006:localhost:6006 -L 8888:localhost:8888
+# port token を -L に展開。 形式: [local:]remote[@host]
+# 例: lpt 6006 8888        -> -L 6006:localhost:6006 -L 8888:localhost:8888
+#     lpt 8222@fcdgx00223  -> -L 8222:fcdgx00223:8222      (worker node 転送)
+#     lpt 18222:8222@node  -> -L 18222:node:8222           (local≠remote + worker)
 function lpt() {
     local result=()
-    for port in "$@"; do
-        result+=("-L" "$port:localhost:$port")
+    for spec in "$@"; do
+        local host="localhost" lp rp
+        if [[ "$spec" == *"@"* ]]; then
+            host="${spec##*@}"
+            spec="${spec%@*}"
+        fi
+        if [[ "$spec" == *":"* ]]; then
+            lp="${spec%%:*}"
+            rp="${spec##*:}"
+        else
+            lp="$spec"
+            rp="$spec"
+        fi
+        result+=("-L" "${lp}:${host}:${rp}")
     done
     echo "${result[@]}"
 }
@@ -398,7 +413,7 @@ function ssh() {
 
     # 引数をループして、数字はlpt用にストック、それ以外は通常引数として扱う
     for arg in "$@"; do
-        if [[ "$arg" =~ ^[0-9]+$ ]]; then
+        if [[ "$arg" =~ ^[0-9]+(:[0-9]+)?(@[A-Za-z0-9._-]+)?$ ]]; then
             ports_to_process+=("$arg")
         else
             final_args+=("$arg")

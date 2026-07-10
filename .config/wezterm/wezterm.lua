@@ -93,7 +93,7 @@ local config = {}
 config.default_prog = { first_existing(candidates), '-l' }
 -- font
 config.font = wezterm.font_with_fallback(utils:switchFonts())
-config.font_size = 20
+config.font_size = 16
 -- color scheme
 config.color_scheme = utils:randomColorScheme()
 -- turn off beep
