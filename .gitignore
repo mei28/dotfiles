@@ -134,6 +134,7 @@ result
 .claude/daemon.status.json
 .claude/daemon/
 .claude/jobs/
+.claude/runcat-usage.json
 
 **/settings.local.json
 .tmp

@@ -86,6 +86,10 @@ When writing or revising Japanese technical prose — documentation, READMEs, de
 - Claude Code: consult/invoke the `japanese-tech-writing` skill.
 - Codex: read and apply `~/.claude/skills/japanese-tech-writing/SKILL.md`.
 
+For prose meant to be read straight through — book chapters, articles, explanatory pieces — apply `cognitive-rhythm-writing` on top of the above. Also use it to diagnose drafts that are accurate but flat.
+- Claude Code: consult/invoke the `cognitive-rhythm-writing` skill.
+- Codex: read and apply `~/.claude/skills/cognitive-rhythm-writing/SKILL.md` together with `japanese-tech-writing`.
+
 ## Git Workflow
 
 ### Pre-execution Confirmation Rules

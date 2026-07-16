@@ -32,6 +32,11 @@ reset_left() {
 # Read JSON input from stdin
 input=$(cat)
 
+# RunCat Neo custom metrics card. statusLine allows a single command, so the
+# upstream sample is fed the same payload here and kept verbatim for updates.
+# Its stdout (the model name) is dropped; the status line below is ours.
+printf '%s' "$input" | "$HOME/dotfiles/.claude/runcat-statusline.py" >/dev/null
+
 MODEL_DISPLAY=$(echo "$input" | jq -r '.model.display_name')
 CURRENT_DIR=$(echo "$input" | jq -r '.workspace.current_dir')
 

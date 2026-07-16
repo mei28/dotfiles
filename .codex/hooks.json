@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/mei/.codex/runcat-hook.py",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  }
+}

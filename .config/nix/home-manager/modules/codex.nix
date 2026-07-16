@@ -19,5 +19,12 @@
     # Codex のカスタムプロンプト（slash commands）
     ".codex/prompts".source =
       config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.codex/prompts";
+    # RunCat Neo custom metrics: Stop hook writes ~/.codex/runcat-usage.json each turn.
+    # Upstream sample, kept verbatim: RunCatNeo docs/samples/codex/
+    ".codex/runcat-hook.py".source =
+      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.codex/runcat-hook.py";
+    # Hook trust state lives in Codex's own store, not here, so this file stays symlinkable.
+    ".codex/hooks.json".source =
+      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.codex/hooks.json";
   };
 }
