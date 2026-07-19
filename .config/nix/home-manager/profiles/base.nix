@@ -69,9 +69,11 @@
       config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.claude";
   };
 
-  # herdr: symlink config.toml only (sessions/ is runtime state, don't symlink the whole dir)
+  # herdr: symlink config.toml and bin/ only (sessions/ is runtime state, don't symlink the whole dir)
   xdg.configFile."herdr/config.toml".source =
     config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.config/herdr/config.toml";
+  xdg.configFile."herdr/bin".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.config/herdr/bin";
 
   # unfreeパッケージを許可
   nixpkgs.config.allowUnfree = true;

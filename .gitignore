@@ -87,6 +87,8 @@ package-lock.json
 .config/herdr/*.sock
 .config/herdr/session.json
 .config/herdr/session-history.json
+.config/herdr/release-notes.json
+.config/herdr/sessions/
 
 # =============================================================================
 # Nix/Home Manager
@@ -138,4 +140,3 @@ result
 
 **/settings.local.json
 .tmp
-.config/herdr

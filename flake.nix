@@ -33,7 +33,7 @@
       url = "github:mei28/wabi";
     };
     herdr = {
-      url = "github:ogulcancelik/herdr/v0.7.1";
+      url = "github:ogulcancelik/herdr/v0.7.4";
     };
     tmux-mutagen-status = {
       url = "github:mei28/tmux-mutagen-status";

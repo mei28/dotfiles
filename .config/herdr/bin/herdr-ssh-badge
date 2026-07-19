@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+# Push the ssh server IP into every herdr workspace as the $ssh_host token,
+# so the sidebar shows which machine this herdr server runs on.
+#
+# Replaces the tmux status-left equivalent:
+#   #( [ -n "$SSH_CONNECTION" ] && echo "󰒍 $(hostname -I | awk '{print $1}') " || echo "" )
+#
+# SSH_CONNECTION is "<client_ip> <client_port> <server_ip> <server_port>", so
+# field 3 is the address the client actually connected to. That beats
+# `hostname -I`, which lists every interface and can lead with a docker bridge
+# address, and it needs no Linux-only flags.
+#
+# Local sessions leave SSH_CONNECTION unset, so the token is cleared and the
+# sidebar row collapses to nothing.
+
+set -euo pipefail
+
+SOURCE_ID="ssh-badge"
+
+workspace_ids() {
+    herdr workspace list |
+        python3 -c 'import json,sys; print("\n".join(w["workspace_id"] for w in json.load(sys.stdin)["result"]["workspaces"]))'
+}
+
+if [ -n "${SSH_CONNECTION:-}" ]; then
+    token="ssh_host=󰒍 $(awk '{print $3}' <<<"$SSH_CONNECTION")"
+    for ws in $(workspace_ids); do
+        herdr workspace report-metadata "$ws" --source "$SOURCE_ID" --token "$token"
+    done
+else
+    for ws in $(workspace_ids); do
+        herdr workspace report-metadata "$ws" --source "$SOURCE_ID" --clear-token ssh_host
+    done
+fi

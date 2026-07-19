@@ -533,6 +533,14 @@ fi
 
 # herdr named sessions
 if type herdr &> /dev/null; then
+    # Refresh the sidebar ssh badge. Runs per pane shell so workspaces created
+    # after the server started pick it up too; backgrounded to keep it off the
+    # prompt's critical path.
+    if [ "${HERDR_ENV:-}" = "1" ] && [ -x "$HOME/.config/herdr/bin/herdr-ssh-badge" ]; then
+        "$HOME/.config/herdr/bin/herdr-ssh-badge" &>/dev/null &
+        disown
+    fi
+
     function herdr() {
         if [ $# -eq 0 ]; then
             command herdr --session main

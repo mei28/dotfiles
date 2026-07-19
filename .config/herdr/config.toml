@@ -198,6 +198,12 @@ show_agent_labels_on_pane_borders = true
 # "workspaces" is accepted as an alias for "spaces".
 # agent_panel_sort = "spaces"
 
+# Expanded space rows. $ssh_host carries the ssh server IP and is pushed by
+# bin/herdr-ssh-badge; it stays empty on local sessions, mirroring the
+# tmux status-left `[ -n "$SSH_CONNECTION" ]` guard this replaces.
+[ui.sidebar.spaces]
+rows = [["state_icon", "workspace", "$ssh_host"], ["branch", "git_status"]]
+
 # Accent color for highlights, borders, and navigation UI.
 # Accepts: hex (#89b4fa), named colors (cyan, blue, magenta), or rgb(r,g,b)
 # accent = "cyan"
