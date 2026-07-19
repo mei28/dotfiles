@@ -72,10 +72,6 @@ local function RightUpdate(window, pane)
 	window:set_right_status(wezterm.format(elems))
 end
 
-wezterm.on("update-status", function(window, pane)
-	RightUpdate(window, pane)
-end)
-
 -- change cursor color https://github.com/mozumasu/dotfiles/blob/main/.config/wezterm/statusbar.lua
 
 local WORKSPACE_COLORS = {
@@ -86,8 +82,12 @@ local WORKSPACE_COLORS = {
 
 -- 前回の色を記録（不要な更新を避けるため）
 local last_color = nil
--- ステータスバー更新（ワークスペース名表示 & カーソル色変更）
+
+-- 右ステータスの描画とカーソル色の変更をまとめて行う。
+-- 以前は update-status に 2 つ別々に登録していた。
 wezterm.on("update-status", function(window, pane)
+	RightUpdate(window, pane)
+
 	local key_table = window:active_key_table()
 	local color = WORKSPACE_COLORS[key_table] or WORKSPACE_COLORS.default
 

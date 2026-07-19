@@ -3,7 +3,7 @@ local spec = {
     'brenoprata10/nvim-highlight-colors',
     event = { 'BufNewFile', 'BufRead' },
     config = function()
-      vim.opt.termguicolors = true
+      -- termguicolors は config/colorscheme.lua が起動時に設定する
       require('nvim-highlight-colors').setup {
         enable_tailwind = true,
         render = 'virtual',
@@ -17,8 +17,6 @@ local spec = {
   {
     'uga-rosa/ccc.nvim',
     config = function()
-      -- Enable true color
-      vim.opt.termguicolors = true
       local status, ccc = pcall(require, "ccc")
       if not status then return end
       local mapping = ccc.mapping

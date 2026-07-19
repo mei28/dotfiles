@@ -69,6 +69,9 @@ cmd_sync() {
         exit 1
     fi
 
+    # rsync のリモート側パスはリモートのシェルが展開するため ~ のままでよい。
+    # $HOME にするとローカルのホームパスが送られてしまう。
+    # shellcheck disable=SC2088
     local remote_dest="~/dotfiles/"
     log_info "Syncing dotfiles to $host:$remote_dest ..."
 

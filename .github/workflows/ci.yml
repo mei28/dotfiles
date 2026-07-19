@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [main, remote-nix]  # remote-nixブランチも追加
+    branches: [main]
   pull_request:
     branches: [main]
   workflow_dispatch:
@@ -21,9 +21,11 @@ jobs:
       - name: Check flake
         run: nix flake check --impure
 
+      # 対象は justfile の fmt レシピと同じ定義（追跡下の全 .nix）にする。
+      # 以前は profiles/hosts/flake.nix のみで、modules/ の未整形を取りこぼしていた。
       - name: Format check
         run: |
-          nix fmt -- .config/nix/home-manager/profiles/*.nix .config/nix/home-manager/hosts/*.nix .config/nix/nix-darwin/hosts/*.nix flake.nix
+          nix fmt -- $(git ls-files '*.nix')
           git diff --exit-code || (echo "Files need formatting. Run 'just fmt'" && exit 1)
 
   shellcheck:
@@ -33,13 +35,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
 
-      - name: Run ShellCheck on new scripts
+      # 対象は justfile の lint-shell レシピと同じ定義（追跡下の全 .sh）にする。
+      - name: Run ShellCheck
         run: |
           shellcheck --version
-          # Check only newly created scripts (not legacy ones)
-          # Only check for errors and warnings, ignore info-level messages
-          shellcheck --severity=warning remote-bootstrap.sh test/verify-setup.sh
-          echo "ShellCheck passed for new scripts"
+          shellcheck --severity=warning $(git ls-files '*.sh')
 
   build-profiles:
     name: Build Profiles

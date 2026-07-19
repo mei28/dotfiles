@@ -2,7 +2,7 @@ local status, wezterm = pcall(require, "wezterm")
 if not status then
 	return
 end
-require("status")
+-- status は wezterm.lua が読み込む（ここでの require は重複）
 
 wezterm.on("toggle-opacity", require("window").toggle_opacity)
 

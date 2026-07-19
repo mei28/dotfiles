@@ -97,6 +97,22 @@ result
 .config/nix/nix.conf
 .config/nix/home-manager/.claude/
 .config/nix/home-manager/profiles/options-override.nix
+
+# home-manager が生成する symlink。~/.config がこのリポジトリへの symlink なので
+# 生成物が作業ツリー内に落ちてくる。実体は /nix/store で switch のたびにハッシュが
+# 変わるため、追跡すると永久に dirty になる。定義元は .config/nix/home-manager/modules/ 側。
+.config/git/config
+.config/git/ignore
+.config/git/attributes
+.config/git/hooks/
+.config/gitui/theme.ron
+.config/gitui/key_bindings.ron
+.config/jj/config.toml
+.config/tmux/tmux.conf
+.config/ruff/ruff.toml
+.config/mutagen/mutagen.yml
+.config/environment.d/
+.config/systemd/
 .config/nix/.claude/settings.local.json
 .config/jj/repos
 

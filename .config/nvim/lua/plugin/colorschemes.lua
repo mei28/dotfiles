@@ -1,3 +1,5 @@
+-- 起動時のランダム選択の候補は config/colorscheme.lua が持つ。
+-- ここを増減したら向こうの colorschemes テーブルも更新すること。
 return {
   -- color scheme
   { 'cocopon/iceberg.vim' },

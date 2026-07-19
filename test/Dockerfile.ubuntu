@@ -26,7 +26,7 @@ COPY --chown=ubuntu:ubuntu . /home/ubuntu/dotfiles
 
 # Run bootstrap script
 RUN cd /home/ubuntu/dotfiles && \
-    bash remote-bootstrap.sh
+    bash remote-bootstrap.sh qia-aws
 
 # Verify installation
 RUN bash -c 'source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh && \

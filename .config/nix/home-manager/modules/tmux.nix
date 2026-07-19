@@ -178,7 +178,7 @@ in
 
       # 'C-p'でペースト
       bind-key C-p paste-buffer
-      
+
       # 'Shift Enter'で改行
       bind -n S-Enter send-keys Escape "[13;2u"
     '';

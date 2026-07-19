@@ -12,11 +12,11 @@ Performs comprehensive automated code review to identify bugs, security vulnerab
 
 ## When to Use
 
-- ✅ Before creating a pull request
-- ✅ After implementing a feature
-- ✅ During refactoring
-- ✅ When receiving feedback about code quality
-- ✅ For learning best practices
+- Before creating a pull request
+- After implementing a feature
+- During refactoring
+- When receiving feedback about code quality
+- For learning best practices
 
 ## Usage
 
@@ -31,7 +31,7 @@ Performs comprehensive automated code review to identify bugs, security vulnerab
 
 ## Review Categories
 
-### 1. **Code Quality** 🎯
+### 1. **Code Quality**
 
 Analyzes code maintainability and readability:
 
@@ -43,7 +43,7 @@ Analyzes code maintainability and readability:
 
 **Example Issues**:
 ```javascript
-// ❌ High complexity (cyclomatic complexity: 12)
+// Bad: High complexity (cyclomatic complexity: 12)
 function processUser(user, action, options) {
   if (user.isActive) {
     if (action === 'update') {
@@ -56,7 +56,7 @@ function processUser(user, action, options) {
   }
 }
 
-// ✅ Refactored (complexity: 3)
+// Good: Refactored (complexity: 3)
 function processUser(user, action, options) {
   if (!canProcessUser(user, action, options)) return;
 
@@ -65,7 +65,7 @@ function processUser(user, action, options) {
 }
 ```
 
-### 2. **Bug Detection** 🐛
+### 2. **Bug Detection**
 
 Identifies potential runtime errors and logical bugs:
 
@@ -77,18 +77,18 @@ Identifies potential runtime errors and logical bugs:
 
 **Example Issues**:
 ```typescript
-// ❌ Potential null pointer
+// Bad: Potential null pointer
 function getUserName(user: User): string {
   return user.profile.name; // user.profile might be undefined
 }
 
-// ✅ Safe null handling
+// Good: Safe null handling
 function getUserName(user: User): string {
   return user.profile?.name ?? 'Unknown';
 }
 ```
 
-### 3. **Security** 🔒
+### 3. **Security**
 
 Detects security vulnerabilities and risks:
 
@@ -100,15 +100,15 @@ Detects security vulnerabilities and risks:
 
 **Example Issues**:
 ```javascript
-// ❌ SQL Injection vulnerability
+// Bad: SQL Injection vulnerability
 const query = `SELECT * FROM users WHERE id = ${userId}`;
 
-// ✅ Parameterized query
+// Good: Parameterized query
 const query = 'SELECT * FROM users WHERE id = ?';
 db.execute(query, [userId]);
 ```
 
-### 4. **Performance** ⚡
+### 4. **Performance**
 
 Identifies performance bottlenecks:
 
@@ -120,11 +120,11 @@ Identifies performance bottlenecks:
 
 **Example Issues**:
 ```python
-# ❌ N+1 query problem
+# Bad: N+1 query problem
 for user in users:
     posts = db.query(f"SELECT * FROM posts WHERE user_id = {user.id}")
 
-# ✅ Single query with join
+# Good: Single query with join
 posts_by_user = db.query("""
     SELECT users.*, posts.*
     FROM users
@@ -132,7 +132,7 @@ posts_by_user = db.query("""
 """)
 ```
 
-### 5. **Best Practices** 📚
+### 5. **Best Practices**
 
 Ensures adherence to language and framework conventions:
 
@@ -142,7 +142,7 @@ Ensures adherence to language and framework conventions:
 - **Documentation**: Missing docstrings, outdated comments
 - **Dependencies**: Deprecated APIs, unnecessary dependencies
 
-### 6. **Accessibility** ♿
+### 6. **Accessibility**
 
 For frontend code:
 
@@ -206,16 +206,16 @@ Create structured review report with:
 
 **Files Reviewed**: 3
 **Total Issues**: 12
-**Critical**: 2 🔴
-**High**: 4 🟠
-**Medium**: 4 🟡
-**Low**: 2 ⚪
+**Critical**: 2
+**High**: 4
+**Medium**: 4
+**Low**: 2
 
 ## Issues by Category
 
-### Security 🔒 (2 Critical, 1 High)
+### Security (2 Critical, 1 High)
 
-#### 🔴 CRITICAL: SQL Injection Vulnerability
+#### CRITICAL: SQL Injection Vulnerability
 **File**: `src/api/users.ts:45`
 **Issue**: User input directly interpolated into SQL query
 **Risk**: Attacker can execute arbitrary SQL commands
@@ -235,7 +235,7 @@ const result = await db.execute(query, [email]);
 
 ---
 
-#### 🔴 CRITICAL: Hardcoded API Key
+#### CRITICAL: Hardcoded API Key
 **File**: `src/config/api.ts:12`
 **Issue**: API key stored in source code
 **Risk**: Key exposure in version control
@@ -257,9 +257,9 @@ if (!API_KEY) throw new Error('API_KEY not configured');
 
 ---
 
-### Bug Detection 🐛 (2 High, 1 Medium)
+### Bug Detection (2 High, 1 Medium)
 
-#### 🟠 HIGH: Potential Null Pointer Exception
+#### HIGH: Potential Null Pointer Exception
 **File**: `src/auth/login.ts:78`
 **Issue**: `user.profile` accessed without null check
 **Impact**: Runtime crash for users without profile
@@ -278,9 +278,9 @@ function getDisplayName(user: User): string {
 
 ---
 
-### Code Quality 🎯 (1 High, 2 Medium)
+### Code Quality (1 High, 2 Medium)
 
-#### 🟠 HIGH: Excessive Complexity
+#### HIGH: Excessive Complexity
 **File**: `src/utils/validator.ts:34-89`
 **Issue**: Function has cyclomatic complexity of 18 (threshold: 10)
 **Impact**: Hard to test, maintain, and understand
@@ -318,9 +318,9 @@ function validateForm(data) {
 
 ---
 
-### Performance ⚡ (1 Medium, 1 Low)
+### Performance (1 Medium, 1 Low)
 
-#### 🟡 MEDIUM: N+1 Query Problem
+#### MEDIUM: N+1 Query Problem
 **File**: `src/api/posts.ts:23-27`
 **Issue**: Loading comments in loop causes N+1 queries
 **Impact**: Slow response time (O(n) database calls)
@@ -342,9 +342,9 @@ const posts = await Post.findAll({
 
 ---
 
-### Best Practices 📚 (1 Medium, 1 Low)
+### Best Practices (1 Medium, 1 Low)
 
-#### 🟡 MEDIUM: Missing Error Handling
+#### MEDIUM: Missing Error Handling
 **File**: `src/api/upload.ts:45`
 **Issue**: Async function without error handling
 **Impact**: Unhandled promise rejections
@@ -435,10 +435,10 @@ Run code review:
 ### 2. Fix High-Severity First
 
 Priority order:
-1. 🔴 Critical (Security, Data Loss)
-2. 🟠 High (Bugs, Major Quality Issues)
-3. 🟡 Medium (Performance, Best Practices)
-4. ⚪ Low (Code Style, Documentation)
+1. Critical (Security, Data Loss)
+2. High (Bugs, Major Quality Issues)
+3. Medium (Performance, Best Practices)
+4. Low (Code Style, Documentation)
 
 ### 3. Learn from Findings
 
@@ -528,12 +528,12 @@ The plugin adapts to:
 
 ## Tips
 
-- 💡 Run after `/deslop` to catch remaining issues
-- 💡 Fix critical/high issues before creating PR
-- 💡 Use report to learn best practices
-- 💡 Configure project standards in CLAUDE.md
-- 💡 Combine with `/refactor` for code improvements
-- 💡 Re-run after fixes to verify resolution
+- Run after `/deslop` to catch remaining issues
+- Fix critical/high issues before creating PR
+- Use report to learn best practices
+- Configure project standards in CLAUDE.md
+- Combine with `/refactor` for code improvements
+- Re-run after fixes to verify resolution
 
 ## References
 

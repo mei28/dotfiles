@@ -48,9 +48,7 @@ local spec = {
     "shellRaining/hlchunk.nvim",
     event = { 'BufNewFile', 'BufRead' },
     config = function()
-      vim.opt.list = true
-      vim.opt.listchars:append "space: "
-      -- vim.opt.listchars:append "eol:↴"
+      -- list / listchars は上の ibl 側で設定済み
       require("hlchunk").setup({
         line_num = {
           enable = true,

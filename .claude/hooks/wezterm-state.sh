@@ -43,14 +43,16 @@ load_prompt() {
 # Extract human-readable detail from tool_name + tool_input
 extract_tool_detail() {
 	local json="$1"
-	local tool=$(printf '%s' "$json" | jq -r '.tool_name // empty' 2>/dev/null)
+	local tool
+	tool=$(printf '%s' "$json" | jq -r '.tool_name // empty' 2>/dev/null)
 	local detail=""
 	case "$tool" in
 		Bash)
 			detail=$(printf '%s' "$json" | jq -r '.tool_input.command // empty' 2>/dev/null | head -1 | cut -c1-40)
 			;;
 		Read|Edit|Write|Glob)
-			local path=$(printf '%s' "$json" | jq -r '.tool_input.file_path // .tool_input.pattern // empty' 2>/dev/null)
+			local path
+			path=$(printf '%s' "$json" | jq -r '.tool_input.file_path // .tool_input.pattern // empty' 2>/dev/null)
 			detail=$(basename "$path" 2>/dev/null || echo "$path")
 			;;
 		Grep)

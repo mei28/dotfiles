@@ -16,7 +16,7 @@ in
     ../profiles/base.nix
     ../profiles/development.nix
     ../profiles/macos.nix
-    # AI コーディング CLI（claude.nix が CLAUDE_CODE_EFFORT_LEVEL も設定）
+    # AI コーディング CLI
     ../modules/claude.nix
     ../modules/codex.nix
   ];

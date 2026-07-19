@@ -45,12 +45,15 @@ See `docs/claude-codex.md` for the full workflow.
    別ペインで以下を実行してください:
 
    codex -p shared -a on-request
-
-   起動後: /resume
-   完了後: /handoff
    ```
 
-   When Codex finishes and runs `/handoff`, `.tmp/progress.md` is updated — Claude reads it to continue.
+   Do **not** instruct the user to send `/resume` or `/handoff`. On the Codex CLI versions
+   verified so far, `/resume` is captured by Codex's built-in session picker (it never reads
+   `.tmp/progress.md`) and `/handoff` comes back as "Unrecognized command". See the
+   "既知の別問題" note in `docs/claude-codex.md`.
+
+   Instead: paste the plan directly into the Codex pane, and when Codex goes idle, inspect
+   `git diff` / `git status` yourself and update `.tmp/progress.md` via the `handoff` skill.
 
    **Lane C — Final-only MCP**: Use only for short, self-contained tasks where no progress stream is needed. Use the MCP `codex` tool with `approval-policy: never`.
 

@@ -19,7 +19,7 @@
       "thaw"
     ];
     brews = [
-      "lusingander/tap/serie"
+      # serie は base.nix の nix パッケージ側に一本化（Linux ホストでも効くため）
       "displayplacer"
     ];
   };

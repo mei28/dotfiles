@@ -1,12 +1,23 @@
 {
   "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "command": "bash -c 'exec \"$HOME/.codex/herdr-agent-state.sh\" session'",
+            "timeout": 10,
+            "type": "command"
+          }
+        ]
+      }
+    ],
     "Stop": [
       {
         "hooks": [
           {
-            "type": "command",
-            "command": "/Users/mei/.codex/runcat-hook.py",
-            "timeout": 5
+            "command": "bash -c 'exec \"$HOME/.codex/runcat-hook.py\"'",
+            "timeout": 5,
+            "type": "command"
           }
         ]
       }

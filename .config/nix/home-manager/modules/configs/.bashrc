@@ -3,6 +3,23 @@
 _bashrc_saved_pwd="$PWD"
 builtin cd "$HOME"
 
+# PATH に未登録のときだけ追加する。hm-session-vars.sh や launchd が既に
+# 通しているパスを無条件に再追加すると PATH が重複して伸び続けるため。
+path_prepend() {
+    [ -n "$1" ] || return 0
+    case ":$PATH:" in
+        *":$1:"*) ;;
+        *) export PATH="$1:$PATH" ;;
+    esac
+}
+path_append() {
+    [ -n "$1" ] || return 0
+    case ":$PATH:" in
+        *":$1:"*) ;;
+        *) export PATH="$PATH:$1" ;;
+    esac
+}
+
 # Set PATH, MANPATH, etc., for Homebrew.
 if [ -e /opt/homebrew/bin/brew ]
 then
@@ -15,7 +32,7 @@ if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
 fi
 if type nix &> /dev/null; then
     # NOTE: "~" does not expand inside double quotes; use $HOME
-    export PATH="$HOME/.nix-profile/bin:$PATH"
+    path_prepend "$HOME/.nix-profile/bin"
 fi
 
 # .bashrc
@@ -35,8 +52,8 @@ elif [ -e /usr/share/doc/git/contrib ]; then
     export GIT_CONTRIB_PATH=/usr/share/git/contrib
 fi
 
-export PATH="$PATH:$GIT_CONTRIB_PATH/git-jump"
-export PATH="$PATH:$GIT_CONTRIB_PATH/diff-highlight"
+path_append "$GIT_CONTRIB_PATH/git-jump"
+path_append "$GIT_CONTRIB_PATH/diff-highlight"
 
 # prompt
 if [ -e $GIT_CONTRIB_PATH/completion/git-prompt.sh ]; then
@@ -224,13 +241,13 @@ then
 fi
 
 if [ -e $HOME/.y/bin ]; then
-    export PATH="$HOME/.y/bin:$PATH"
+    path_prepend "$HOME/.y/bin"
 fi
 if [ -e $HOME/.config/yarn/global/node_modules/.bin ]; then
-    export PATH="$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+    path_prepend "$HOME/.config/yarn/global/node_modules/.bin"
 fi
-# export PATH="$HOME/.y/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-# export PATH="/usr/local/bin/git:$PATH"
+# path_prepend "$HOME/.y/bin:$HOME/.config/yarn/global/node_modules/.bin"
+# path_prepend "/usr/local/bin/git"
 
 
 
@@ -253,7 +270,7 @@ if type npm &> /dev/null; then
     # env var instead of `npm config set` — invoking npm here costs
     # hundreds of ms on every shell startup
     export NPM_CONFIG_PREFIX="$HOME/.npm-global"
-    export PATH="$HOME/.npm-global/bin:$PATH"
+    path_prepend "$HOME/.npm-global/bin"
 fi
 
 # mkdir and change directory
@@ -264,21 +281,22 @@ mkcd(){
 
 # ruby env
 if [ -e ~/.rbenv/shims ]; then
-    export PATH="$HOME/.rbenv/shims:/usr/local/bin:$PATH"
+    path_prepend "/usr/local/bin"
+    path_prepend "$HOME/.rbenv/shims"
     if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 fi
 
 # rust env  for rust
 if [[ -f $HOME/.cargo/env ]]; then
     source $HOME/.cargo/env
-    # export PATH="$HOME/.cargo/bin:$PATH"
-    # export PATH="$HOME/.rustup/toolchains/nightly-aarch64-apple-darwin/bin:$PATH"
+    # path_prepend "$HOME/.cargo/bin"
+    # path_prepend "$HOME/.rustup/toolchains/nightly-aarch64-apple-darwin/bin"
 fi
 
 # pyenv env
 if [ -e $HOME/.pyenv ]; then
     export PYENV_ROOT="$HOME/.pyenv"
-    export PATH="$PYENV_ROOT/bin:$PATH"
+    path_prepend "$PYENV_ROOT/bin"
 fi
 
 # if which pyenv > /dev/null; then eval "$(pyenv init --path)"; fi
@@ -296,10 +314,10 @@ actpyenv(){
 # clang for nvim, c++
 # brew install llvm
 if [ -d /usr/local/opt/llvm ]; then
-    export PATH="/usr/local/opt/llvm/bin:$PATH"
+    path_prepend "/usr/local/opt/llvm/bin"
 fi
 if [ -d /opt/homebrew/opt/llvm ]; then
-    export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
+    path_prepend "/opt/homebrew/opt/llvm/bin"
     export LDFLAGS="-L/opt/homebrew/opt/llvm/lib"
     export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
     export LLVM_SYMBOLIZER_PATH=/opt/homebrew/opt/llvm/bin/llvm-symbolizer
@@ -475,7 +493,7 @@ fi
 
 alias ruge="cargo generate --git https://github.com/mei28/rust-comp-template"
 
-export PATH="$PATH:$HOME/.bin"
+path_append "$HOME/.bin"
 
 if [ -e "$HOME/.rye/env" ]; then
     source "$HOME/.rye/env"
@@ -489,7 +507,7 @@ if [ -e $HOME/.config/uv ]; then
 fi
 
 if [ -e $HOME/go/bin ]; then
-    export PATH="$HOME/go/bin:$PATH"
+    path_prepend "$HOME/go/bin"
 fi
 
 # show completion
@@ -593,7 +611,7 @@ export HISTCONTROL=ignoreboth
 
 if [[ -e "$HOME/.modular" ]]; then
     export MODULAR_HOME="$HOME/.modular"
-    export PATH="$MODULAR_HOME/pkg/packages.modular.com_mojo/bin:$PATH"
+    path_prepend "$MODULAR_HOME/pkg/packages.modular.com_mojo/bin"
 fi
 
 
@@ -708,10 +726,7 @@ case ${OSTYPE} in
     darwin*) export PNPM_HOME="$HOME/Library/pnpm" ;;
     linux*)  export PNPM_HOME="$HOME/.local/share/pnpm" ;;
 esac
-case ":$PATH:" in
-    *":$PNPM_HOME:"*) ;;
-    *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
+path_prepend "$PNPM_HOME"
 
 if type pnpm &> /dev/null; then
     eval "$(pnpm completion bash)"
@@ -780,7 +795,7 @@ fi
 
 ## bun global packages
 if type bun &> /dev/null; then
-    export PATH="$HOME/.bun/bin:$PATH"
+    path_prepend "$HOME/.bun/bin"
 fi
 
 ## ccusage (npm 配布のみ; bun x で実行。別途インストール不要)
@@ -791,7 +806,6 @@ fi
 
 if type claude &> /dev/null; then
     export EDITOR="nvim"
-    export CLAUDE_CODE_EFFORT_LEVEL="xhigh";
 fi
 
 # Function to omit '%' for the fg command
@@ -953,9 +967,8 @@ if [ -f ~/.bashrc.local ]; then
   . ~/.bashrc.local
 fi
 
-if type claude &> /dev/null; then
-  export PATH="$HOME/.local/bin:$PATH"
-fi
+# .bashrc.linux でも追加していたため二重に入っていた。OS 共通のここに一本化する。
+path_prepend "$HOME/.local/bin"
 
 if type bonsai &> /dev/null; then
   eval "$(bonsai completion bash)"

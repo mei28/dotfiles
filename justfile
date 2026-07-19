@@ -37,11 +37,6 @@ build host:
   @echo "Building Home Manager config for {{host}}..."
   home-manager build --flake .#{{host}} --impure
 
-# Evaluate Home Manager configuration (fast syntax/reference check)
-eval host:
-  @echo "Evaluating Home Manager config for {{host}}..."
-  nix eval --impure .#legacyPackages.aarch64-darwin.homeConfigurations.{{host}}.activationPackage
-
 # Apply nix-darwin configuration for a host
 update-darwin host:
   @echo "Updating nix-darwin config for {{host}}..."
@@ -51,9 +46,6 @@ update-darwin host:
 bootstrap-darwin host:
   @echo "Bootstrapping nix-darwin config for {{host}}..."
   sudo nix run nix-darwin -- switch --flake .#{{host}} --impure
-
-# Update everything for a mac host (flake + home + darwin)
-update-all host: update-flake (update host) (update-darwin host)
 
 # Run garbage collection
 gc:
@@ -85,19 +77,21 @@ setup-ai-mcp:
 # ========================================
 
 # Check flake syntax and build all outputs
+# --impure が要る: profile が builtins.getEnv "USER" で username を解決するため
 check:
   @echo "Checking flake..."
-  nix flake check
+  nix flake check --impure
 
 # Format all Nix files
+# nixfmt は引数なしだと stdin を読むので、対象を明示的に渡す必要がある
 fmt:
   @echo "Formatting Nix files..."
-  nix fmt
+  nix fmt -- $(git ls-files '*.nix')
 
 # Lint shell scripts (requires shellcheck)
 lint-shell:
   @echo "Linting shell scripts..."
-  shellcheck remote-bootstrap.sh setup.sh || echo "shellcheck not found, skipping..."
+  shellcheck --severity=warning $(git ls-files '*.sh')
 
 # Test remote setup in Docker (Ubuntu)
 test-docker-ubuntu:

@@ -16,7 +16,7 @@ if [ -f /usr/local/share/bash-completion/bash_completion ]; then
 fi
 
 # cuda
-export PATH="/usr/local/cuda/bin:$PATH"
+path_prepend "/usr/local/cuda/bin"
 export LD_LIBRARY_PATH="/usr/local/cuda/lib64:$LD_LIBRARY_PATH"
 
 # suspend
@@ -28,8 +28,6 @@ alias powtop='sudo powertop'
 
 # wezterm
 alias wezterm='flatpak run org.wezfurlong.wezterm'
-
-export PATH=$HOME/.local/bin:$PATH
 
 toggle_suspend(){
     is_masked=$(systemctl is-enabled sleep.target)

@@ -1,9 +1,6 @@
 {
   config,
-  inputs,
   lib,
-  pkgs,
-  system,
   ...
 }:
 {
@@ -30,15 +27,6 @@
   xdg.configFile."raycast".source =
     config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.config/raycast";
 
-  # macOS 固有の環境変数
-  home.sessionVariables = {
-    PKG_CONFIG_PATH = "${pkgs.curl.dev}/lib/pkgconfig";
-    LDFLAGS = "-L${pkgs.curl.dev}/lib";
-    CPPFLAGS = "-I${pkgs.curl.dev}/include";
-    DYLD_FALLBACK_LIBRARY_PATH =
-      "${pkgs.llvmPackages.openmp}/lib:"
-      + "${pkgs.zlib}/lib:"
-      + "${pkgs.llvmPackages.libcxx}/lib:"
-      + "/usr/lib";
-  };
+  # 環境変数は development.nix が定義する。mac ホストは両方 import するため、
+  # ここに同じ定義を置くと重複になる。
 }

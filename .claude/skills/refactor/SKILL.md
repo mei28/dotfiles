@@ -12,11 +12,11 @@ Analyzes code to identify refactoring opportunities and suggests improvements to
 
 ## When to Use
 
-- ✅ When code becomes hard to understand
-- ✅ Before adding new features to complex code
-- ✅ After receiving code review feedback
-- ✅ When test coverage is low (hard to test = needs refactoring)
-- ✅ Periodically for technical debt reduction
+- When code becomes hard to understand
+- Before adding new features to complex code
+- After receiving code review feedback
+- When test coverage is low (hard to test = needs refactoring)
+- Periodically for technical debt reduction
 
 ## Usage
 
@@ -35,14 +35,14 @@ Analyzes code to identify refactoring opportunities and suggests improvements to
 
 ## Refactoring Categories
 
-### 1. **Complexity Reduction** 🔻
+### 1. **Complexity Reduction**
 
 #### High Cyclomatic Complexity
 
 **Problem**: Too many decision points (if/else, switch, loops)
 
 ```typescript
-// ❌ Before: Complexity 15
+// Before: Complexity 15
 function calculatePrice(item, user, promotion) {
   let price = item.basePrice;
 
@@ -77,7 +77,7 @@ function calculatePrice(item, user, promotion) {
   return price;
 }
 
-// ✅ After: Complexity 4
+// After: Complexity 4
 function calculatePrice(item, user, promotion) {
   let price = item.basePrice;
   price = applyUserDiscount(price, user);
@@ -128,12 +128,12 @@ function addWarranty(price, item) {
 
 ---
 
-### 2. **Extract Method** 🔨
+### 2. **Extract Method**
 
 **Problem**: Long methods doing multiple things
 
 ```python
-# ❌ Before: 45 lines
+# Before: 45 lines
 def process_order(order_data):
     # Validate order
     if not order_data.get('customer_id'):
@@ -172,7 +172,7 @@ def process_order(order_data):
     db.commit()
     return order_id
 
-# ✅ After: Each function < 10 lines
+# After: Each function < 10 lines
 def process_order(order_data):
     validate_order(order_data)
     totals = calculate_totals(order_data)
@@ -216,12 +216,12 @@ def insert_order_items(order_id, items):
 
 ---
 
-### 3. **Remove Code Duplication** 🔄
+### 3. **Remove Code Duplication**
 
 **Problem**: Same logic repeated in multiple places
 
 ```javascript
-// ❌ Before: Duplicated validation
+// Before: Duplicated validation
 function createUser(userData) {
   if (!userData.email || !/@/.test(userData.email)) {
     throw new Error('Invalid email');
@@ -242,7 +242,7 @@ function updateUser(userId, userData) {
   // ... update user
 }
 
-// ✅ After: Extracted validation
+// After: Extracted validation
 function validateUserData(userData) {
   const validators = {
     email: (email) => email && /@/.test(email),
@@ -269,12 +269,12 @@ function updateUser(userId, userData) {
 
 ---
 
-### 4. **Replace Conditional with Polymorphism** 🎭
+### 4. **Replace Conditional with Polymorphism**
 
 **Problem**: Type checking with if/else or switch
 
 ```java
-// ❌ Before: Type checking
+// Before: Type checking
 class PaymentProcessor {
     public void processPayment(Payment payment) {
         if (payment.getType().equals("CREDIT_CARD")) {
@@ -287,7 +287,7 @@ class PaymentProcessor {
     }
 }
 
-// ✅ After: Polymorphism
+// After: Polymorphism
 interface Payment {
     void process();
 }
@@ -319,12 +319,12 @@ class PaymentProcessor {
 
 ---
 
-### 5. **Introduce Parameter Object** 📦
+### 5. **Introduce Parameter Object**
 
 **Problem**: Long parameter lists
 
 ```typescript
-// ❌ Before: 8 parameters
+// Before: 8 parameters
 function createInvoice(
   customerId: string,
   customerName: string,
@@ -338,7 +338,7 @@ function createInvoice(
   // ...
 }
 
-// ✅ After: Parameter object
+// After: Parameter object
 interface InvoiceData {
   customer: {
     id: string;
@@ -368,10 +368,10 @@ createInvoice({
 
 ---
 
-### 6. **Replace Magic Numbers with Constants** 🔢
+### 6. **Replace Magic Numbers with Constants**
 
 ```python
-# ❌ Before: Magic numbers
+# Before: Magic numbers
 def calculate_shipping(weight):
     if weight < 5:
         return 10
@@ -380,7 +380,7 @@ def calculate_shipping(weight):
     else:
         return 25
 
-# ✅ After: Named constants
+# After: Named constants
 LIGHT_WEIGHT_THRESHOLD = 5
 MEDIUM_WEIGHT_THRESHOLD = 20
 LIGHT_PACKAGE_COST = 10
@@ -464,7 +464,7 @@ Skip complex refactorings requiring human judgment.
 
 ## Recommendations
 
-### 🔴 HIGH PRIORITY
+### HIGH PRIORITY
 
 #### 1. Reduce Complexity in `processOrder` (Lines 45-120)
 
@@ -503,7 +503,7 @@ Skip complex refactorings requiring human judgment.
 
 ---
 
-### 🟡 MEDIUM PRIORITY
+### MEDIUM PRIORITY
 
 #### 3. Replace Magic Numbers (Lines 55, 89, 92)
 
@@ -538,7 +538,7 @@ Skip complex refactorings requiring human judgment.
 
 ---
 
-### ⚪ LOW PRIORITY
+### LOW PRIORITY
 
 #### 5. Reduce Nesting Depth (Lines 200-250)
 
@@ -555,10 +555,10 @@ Skip complex refactorings requiring human judgment.
 
 The following can be applied automatically with `--apply`:
 
-- ✅ Extract constants for magic numbers
-- ✅ Rename variables to follow conventions
-- ✅ Format code (indentation, spacing)
-- ✅ Remove unused imports
+- Extract constants for magic numbers
+- Rename variables to follow conventions
+- Format code (indentation, spacing)
+- Remove unused imports
 
 Would you like to apply these? Run: `/refactor --apply`
 
@@ -566,9 +566,9 @@ Would you like to apply these? Run: `/refactor --apply`
 
 These require human judgment and testing:
 
-- ⚠️ Extract methods (need to determine boundaries)
-- ⚠️ Introduce polymorphism (need to understand business logic)
-- ⚠️ Restructure classes (architectural decision)
+- Extract methods (need to determine boundaries)
+- Introduce polymorphism (need to understand business logic)
+- Restructure classes (architectural decision)
 
 ## Next Steps
 
@@ -660,12 +660,12 @@ Clean up before adding complexity.
 
 ## Tips
 
-- 💡 Run `/code-review` first to identify what needs refactoring
-- 💡 Always have tests before refactoring
-- 💡 Use `--suggest` to learn refactoring patterns
-- 💡 Refactor incrementally, not all at once
-- 💡 Commit after each successful refactoring
-- 💡 Focus on high-impact, low-effort refactorings first
+- Run `/code-review` first to identify what needs refactoring
+- Always have tests before refactoring
+- Use `--suggest` to learn refactoring patterns
+- Refactor incrementally, not all at once
+- Commit after each successful refactoring
+- Focus on high-impact, low-effort refactorings first
 
 ## References
 
