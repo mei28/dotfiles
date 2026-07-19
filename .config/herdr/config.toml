@@ -214,7 +214,14 @@ rows = [["state_icon", "workspace", "$ssh_host"], ["branch", "git_status"]]
 # herdr = show in-app toasts
 # terminal = ask the outer terminal to show a desktop notification
 # system = ask the OS notification service directly
-delivery = "system"
+#
+# "system" on macOS shells out to /usr/bin/osascript, so the banner is attributed
+# to Script Editor and clicking it goes nowhere. "terminal" emits an OSC escape
+# instead, letting WezTerm post the banner itself: WezTerm's icon, and clicking it
+# activates WezTerm. It also survives `herdr --remote`, where "system" would fire
+# the banner on the remote host. Use prefix+o inside herdr to jump to the
+# workspace that raised the notification.
+delivery = "terminal"
 # delay_seconds = 1
 
 [ui.toast.herdr]
