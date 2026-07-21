@@ -111,7 +111,6 @@
     "swift-lsp@claude-plugins-official": true
   },
   "alwaysThinkingEnabled": true,
-  "effortLevel": "xhigh",
   "editorMode": "normal",
   "verbose": true,
   "feedbackSurveyState": {

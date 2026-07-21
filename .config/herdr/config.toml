@@ -9,7 +9,7 @@ onboarding = false
 # Built-in themes: catppuccin, terminal, tokyo-night, dracula, nord,
 #                  gruvbox, one-dark, solarized, kanagawa, rose-pine,
 #                  vesper
-name = "gruvbox"
+name = "nord"
 
 # Follow host terminal light/dark appearance and switch Herdr UI themes.
 # Existing manual behavior is unchanged unless this is true.
@@ -19,6 +19,7 @@ name = "gruvbox"
 
 # Override individual color tokens on top of the base theme.
 # Accepts: hex (#rrggbb), named colors, rgb(r,g,b), or panel_bg = "reset"
+auto_switch = false
 [theme.custom]
 panel_bg = "reset"
 accent = "#f5c2e7"
@@ -201,6 +202,7 @@ show_agent_labels_on_pane_borders = true
 # Expanded space rows. $ssh_host carries the ssh server IP and is pushed by
 # bin/herdr-ssh-badge; it stays empty on local sessions, mirroring the
 # tmux status-left `[ -n "$SSH_CONNECTION" ]` guard this replaces.
+agent_panel_sort = "spaces"
 [ui.sidebar.spaces]
 rows = [["state_icon", "workspace", "$ssh_host"], ["branch", "git_status"]]
 

@@ -12,15 +12,33 @@ from pathlib import Path
 OUT = Path(os.environ.get("RUNCAT_OUT_FILE", str(Path.home() / ".codex" / "runcat-usage.json")))
 
 
-def percentage_metric(title, used_percentage):
+def time_left(resets_at):
+    """Unix epoch seconds -> "3d4h" / "2h13m" / "47m" ("0m" once the window has passed)."""
+    if not isinstance(resets_at, (int, float)):
+        return None
+    minutes = int((resets_at - datetime.now(timezone.utc).timestamp()) // 60)
+    if minutes <= 0:
+        return "0m"
+    hours, minutes = divmod(minutes, 60)
+    days, hours = divmod(hours, 24)
+    if days:
+        return f"{days}d{hours}h"
+    if hours:
+        return f"{hours}h{minutes:02d}m"
+    return f"{minutes}m"
+
+
+def percentage_metric(title, used_percentage, resets_at=None):
     if not isinstance(used_percentage, (int, float)):
         return None
     clamped_percentage = max(0.0, min(float(used_percentage), 100.0))
     normalized_value = clamped_percentage / 100
     formatted_percentage = f"{clamped_percentage:.1f}".rstrip("0").rstrip(".")
+    left = time_left(resets_at)
+    formatted = f"{formatted_percentage}%" if left is None else f"{formatted_percentage}% · {left}"
     return {
         "title": title,
-        "formattedValue": f"{formatted_percentage}%",
+        "formattedValue": formatted,
         "normalizedValue": round(normalized_value, 4),
     }
 
@@ -72,7 +90,7 @@ def rate_limit_metrics(token_count):
     for key in ("primary", "secondary"):
         limit = rate_limits.get(key) or {}
         title = window_title(limit.get("window_minutes"))
-        metric = percentage_metric(title, limit.get("used_percent")) if title else None
+        metric = percentage_metric(title, limit.get("used_percent"), limit.get("resets_at")) if title else None
         if metric is not None and title not in titles:
             metrics.append(metric)
             titles.add(title)
@@ -88,11 +106,14 @@ def write_snapshot(hook_input):
     if not model:
         model = "Codex"
     token_count = latest_token_count(hook_input.get("transcript_path"))
+    rate_metrics = rate_limit_metrics(token_count)
+    if OUT.exists() and (token_count is None or not rate_metrics):
+        return
     context = context_metric(token_count)
     metrics = [{"title": "Model", "formattedValue": model}]
     if context is not None:
         metrics.append(context)
-    metrics.extend(rate_limit_metrics(token_count))
+    metrics.extend(rate_metrics)
     snapshot = {
         "title": "Codex",
         "symbol": "camera.aperture",
