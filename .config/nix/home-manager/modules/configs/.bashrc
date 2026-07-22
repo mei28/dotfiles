@@ -260,12 +260,6 @@ alias nvc='nvim --clean'
 alias nvi='export NVIM_APPNAME=nvim-minimal; nvim'
 alias nvr='nvim -R'
 
-# if [ -e $HOME/.nvm ]; then
-#     export NVM_DIR="$HOME/.nvm"
-#     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-#     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-# fi
-
 if type npm &> /dev/null; then
     # env var instead of `npm config set` — invoking npm here costs
     # hundreds of ms on every shell startup
@@ -298,18 +292,6 @@ if [ -e $HOME/.pyenv ]; then
     export PYENV_ROOT="$HOME/.pyenv"
     path_prepend "$PYENV_ROOT/bin"
 fi
-
-# if which pyenv > /dev/null; then eval "$(pyenv init --path)"; fi
-# eval "$(pyenv init --path)"
-# eval "$(pyenv virtualenv-init -)"
-
-actpyenv(){
-    eval "$(pyenv init --path)"
-    eval "$(pyenv virtualenv-init -)"
-    echo "activate pyenv!!"
-}
-
-
 
 # clang for nvim, c++
 # brew install llvm
@@ -798,7 +780,6 @@ if type bun &> /dev/null; then
     path_prepend "$HOME/.bun/bin"
 fi
 
-## ccusage (npm 配布のみ; bun x で実行。別途インストール不要)
 if type bun &> /dev/null; then
     alias ccu='bun x ccusage'
     alias ccl='bun x ccusage blocks --live'
@@ -978,14 +959,6 @@ fi
 if type ferment &> /dev/null; then
   eval "$(ferment completion bash)"
 fi
-
-# if type intelli-shell &> /dev/null; then
-#     eval "$(intelli-shell init bash)"
-#     export INTELLI_SEARCH_HOTKEY="\C-o"
-#     export INTELLI_BOOKMARK_HOTKEY=""
-#     export INTELLI_VARIABLE_HOTKEY=""
-#     bind -x '"\C-o": "intelli-shell search -i"'
-# fi
 
 #=====================#
 # change config by OS #
