@@ -70,4 +70,4 @@ if [ -n "$rate_5h" ]; then
     RATE_DISPLAY=" | 5h ${r5_fmt}${time_left_fmt}"
 fi
 
-echo "󰚩 ${MODEL_DISPLAY} |  ${CURRENT_DIR##*/}${GIT_BRANCH} | 󰍛 ctx: ${CTX_DISPLAY} | 󰃰 ${today_info}/${SESSION_COST} session${RATE_DISPLAY}"
+echo -e "󰚩 ${MODEL_DISPLAY} |  ${CURRENT_DIR##*/}${GIT_BRANCH} | 󰍛 ctx: ${CTX_DISPLAY}\n󰃰 ${today_info}/${SESSION_COST} session${RATE_DISPLAY}"
