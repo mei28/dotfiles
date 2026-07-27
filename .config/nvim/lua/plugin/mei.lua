@@ -134,6 +134,43 @@ local spec = {
 		end,
 	},
 	{
+		-- "mei28/pine.nvim",
+		dir = "~/Documents/pine.nvim",
+		name = "pine.nvim",
+		keys = { "<Leader>p", "<Leader>P" },
+		cmd = { "PineToggle", "PineOpen", "PineClose", "PineFocus", "PineSwap" },
+		config = function()
+			require("pine").setup({
+				-- Reference window on top; writing happens in the bottom window.
+				position = "above",
+				edit = {
+					-- Keep 1 screen line above and below the cursor while writing.
+					-- The edit window is a 3 line strip; the reference window
+					-- takes the rest of the screen.
+					lines_above = 1,
+					lines_below = 1,
+				},
+				ref = {
+					-- Only used when position is "left" or "right".
+					size = 0.45,
+				},
+				auto_focus = {
+					-- Insert mode writes in the edit window, normal mode reads
+					-- in the reference window. Set false to keep the cursor put
+					-- on <Esc>.
+					on_insert_leave = true,
+					bounce = true,
+				},
+				keymaps = {
+					toggle = "<Leader>p",
+					focus = "<Leader>P",
+					-- swap is unmapped; :PineSwap trades the two windows' roles.
+					swap = nil,
+				},
+			})
+		end,
+	},
+	{
 		"mei28/slidev.nvim",
 		-- dir = "~/Documents/slidev.nvim",
 		config = function()
