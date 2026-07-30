@@ -1,12 +1,12 @@
 # org-mode helpers. Sourced from .bashrc.
-# Files live in ~/org; the nvim side is .config/nvim/lua/plugin/orgmode.lua
+# Files live in ~/organon; the nvim side is .config/nvim/lua/plugin/orgmode.lua
 # Run `oh` for the full cheatsheet.
 #
-# Same shape as ot/obm in .bashrc, but writes to ~/org/journal instead of the
+# Same shape as ot/obm in .bashrc, but writes to ~/organon/journal instead of the
 # Obsidian vault. Kept separate so ot/obm keep working unchanged.
 
 function createOrgDailyFileIfNeeded() {
-    local target_dir="$HOME/org/journal"
+    local target_dir="$HOME/organon/journal"
     local today=$(date +"%Y-%m-%d")
     local file_path="$target_dir/$today.org"
 
@@ -36,8 +36,8 @@ function oj() {
     nvim "$(createOrgDailyFileIfNeeded)" # open today's journal
 }
 
-alias org='nvim ~/org/tasks.org'
-alias oi='nvim ~/org/inbox.org'
+alias org='nvim ~/organon/tasks.org'
+alias oi='nvim ~/organon/inbox.org'
 
 # Cheatsheet: the workflow, the commands, and the keys inside nvim.
 function oh() {
@@ -135,11 +135,11 @@ function oh() {
   g?            全キーのヘルプ
 
 ━━ ファイル ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  ~/org/tasks.org              やること
-  ~/org/journal/YYYY-MM-DD.org 流し書き（om / oj）
-  ~/org/inbox.org              分類が決まらないもの
-  ~/org/tasks.org_archive      アーカイブ済み（agenda には出ない）
-  ~/org は private git リポジトリ（github.com/mei28/organon）。同期は os
+  ~/organon/tasks.org              やること
+  ~/organon/journal/YYYY-MM-DD.org 流し書き（om / oj）
+  ~/organon/inbox.org              分類が決まらないもの
+  ~/organon/tasks.org_archive      アーカイブ済み（agenda には出ない）
+  ~/organon は private git リポジトリ（github.com/mei28/organon）。同期は os
 EOM
 }
 
@@ -160,7 +160,7 @@ function ol() {
         }
         t=""
       }
-    ' "$HOME"/org/*.org "$HOME"/org/journal/*.org "$HOME"/org/*.org_archive 2>/dev/null \
+    ' "$HOME"/organon/*.org "$HOME"/organon/journal/*.org "$HOME"/organon/*.org_archive 2>/dev/null \
       | sort -r | head -n "${1:-20}"
 }
 
@@ -182,7 +182,7 @@ function og() {
         if ($0 ~ /^\*+ /) printf "%-12s %s\n", f, h
         else              printf "%-12s %s | %s\n", f, h, $0
       }
-    ' "$HOME"/org/*.org "$HOME"/org/journal/*.org "$HOME"/org/*.org_archive 2>/dev/null
+    ' "$HOME"/organon/*.org "$HOME"/organon/journal/*.org "$HOME"/organon/*.org_archive 2>/dev/null
 }
 
 # Daily report draft. Fills the sections from what is already recorded:
@@ -200,7 +200,7 @@ function on() {
         if (index($0, "CLOSED: [" d)) printf "- %s\n", t
         t=""
       }
-    ' "$HOME"/org/*.org "$HOME"/org/*.org_archive 2>/dev/null
+    ' "$HOME"/organon/*.org "$HOME"/organon/*.org_archive 2>/dev/null
     printf '\n'
 
     printf '### メモ\n'
@@ -209,21 +209,21 @@ function on() {
       /^[[:space:]]*$/ { next }
       /^#\+/ { next }
       { printf "- %s  %s\n", tm, $0 }
-    ' "$HOME/org/journal/$day.org" 2>/dev/null
+    ' "$HOME/organon/journal/$day.org" 2>/dev/null
     printf '\n'
 
     printf '### 明日やること\n'
-    grep -hE '^\*+ NEXT ' "$HOME"/org/*.org 2>/dev/null | sed -E 's/^\*+ +NEXT +/- /; s/[[:space:]]*:[^:]+:$//'
+    grep -hE '^\*+ NEXT ' "$HOME"/organon/*.org 2>/dev/null | sed -E 's/^\*+ +NEXT +/- /; s/[[:space:]]*:[^:]+:$//'
     printf '\n'
 
     printf '### 止まっていること\n'
-    grep -hE '^\*+ WAITING ' "$HOME"/org/*.org 2>/dev/null | sed -E 's/^\*+ +WAITING +/- /; s/[[:space:]]*:[^:]+:$//'
+    grep -hE '^\*+ WAITING ' "$HOME"/organon/*.org 2>/dev/null | sed -E 's/^\*+ +WAITING +/- /; s/[[:space:]]*:[^:]+:$//'
 }
 
-# Sync ~/org with its private remote. Pull first so a rebase conflict surfaces
+# Sync ~/organon with its private remote. Pull first so a rebase conflict surfaces
 # before anything is pushed. Run it when you sit down and when you stop.
 function os() {
-    local dir="$HOME/org"
+    local dir="$HOME/organon"
     git -C "$dir" rev-parse --git-dir >/dev/null 2>&1 || {
         echo "os: $dir is not a git repository" >&2
         return 1
@@ -235,14 +235,20 @@ function os() {
         return 1
     fi
 
-    if [ -z "$(git -C "$dir" status --porcelain)" ]; then
-        echo "os: 変更なし（remote と同期済み）"
-        return 0
+    if [ -n "$(git -C "$dir" status --porcelain)" ]; then
+        git -C "$dir" add -A
+        git -C "$dir" commit -q -m "notes: $(date +'%Y-%m-%d %H:%M') from $(scutil --get LocalHostName 2>/dev/null || hostname -s)"
     fi
 
-    git -C "$dir" add -A
-    git -C "$dir" commit -q -m "notes: $(date +'%Y-%m-%d %H:%M') from $(scutil --get LocalHostName 2>/dev/null || hostname -s)"
-    git -C "$dir" push -q && echo "os: 同期しました"
+    # Push even with a clean tree: commits made by hand (or by an earlier run
+    # that only committed) would otherwise sit here unnoticed.
+    local ahead
+    ahead=$(git -C "$dir" rev-list --count @{u}..HEAD 2>/dev/null || echo 0)
+    if [ "$ahead" -gt 0 ]; then
+        git -C "$dir" push -q && echo "os: 同期しました（$ahead commit を push）"
+    else
+        echo "os: 変更なし（remote と同期済み）"
+    fi
 }
 
 # Tag search. No argument falls back to :他人待ち:, the one worth checking weekly.

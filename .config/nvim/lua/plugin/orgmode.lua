@@ -1,6 +1,6 @@
 -- org-mode as a task engine only. Prose stays in markdown.
--- Files live in ~/org (local, not synced). The shell side (om/oj/oa/oc)
--- lives in .config/nix/home-manager/modules/configs/.bashrc
+-- Files live in ~/organon, a private repo synced with `os`. The shell side
+-- (org/oa/om/...) lives in .config/nix/home-manager/modules/configs/org.bash
 local spec = {
   {
     'nvim-orgmode/orgmode',
@@ -11,8 +11,8 @@ local spec = {
     cmd = { 'Org' },
     config = function()
       require('orgmode').setup({
-        org_agenda_files = '~/org/**/*',
-        org_default_notes_file = '~/org/inbox.org',
+        org_agenda_files = '~/organon/**/*',
+        org_default_notes_file = '~/organon/inbox.org',
 
         -- Open agenda/capture as a split pinned to the top of the screen.
         -- Other values: 'horizontal', 'vertical', 'auto', 'tabnew', {'float', 0.9}.
@@ -39,24 +39,24 @@ local spec = {
           t = {
             description = 'times (流し書き)',
             template = '* %U\n%?',
-            target = '~/org/journal/%<%Y-%m-%d>.org',
+            target = '~/organon/journal/%<%Y-%m-%d>.org',
           },
           T = {
             -- %a links back to the file:line capture was invoked from,
             -- so a thought jotted mid-coding keeps its way back.
             description = 'times + 現在地リンク',
             template = '* %U\n%?\n%a',
-            target = '~/org/journal/%<%Y-%m-%d>.org',
+            target = '~/organon/journal/%<%Y-%m-%d>.org',
           },
           i = {
             description = 'inbox (あとで整理)',
             template = '* TODO %?\n  %U',
-            target = '~/org/inbox.org',
+            target = '~/organon/inbox.org',
           },
           n = {
             description = 'NEXT (今から着手)',
             template = '* NEXT %?\n  %U',
-            target = '~/org/tasks.org',
+            target = '~/organon/tasks.org',
           },
         },
 
