@@ -139,7 +139,7 @@ function oh() {
   ~/org/journal/YYYY-MM-DD.org 流し書き（om / oj）
   ~/org/inbox.org              分類が決まらないもの
   ~/org/tasks.org_archive      アーカイブ済み（agenda には出ない）
-  ~/org は private git リポジトリ（github.com/mei28/org）。同期は os
+  ~/org は private git リポジトリ（github.com/mei28/organon）。同期は os
 EOM
 }
 
