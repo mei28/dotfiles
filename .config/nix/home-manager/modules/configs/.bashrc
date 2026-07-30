@@ -255,9 +255,12 @@ fi
 alias nv='nvim'
 alias gv='nvim'
 alias vn='nvim'
-alias nn='export NVIM_APPNAME=nvim; nvim'
+# Scope NVIM_APPNAME to the single invocation. `export` leaked it into the rest
+# of the shell session, so every later nvim (nv/gv/oa/oc/oj) silently picked up
+# the last appname used.
+alias nn='NVIM_APPNAME=nvim nvim'
 alias nvc='nvim --clean'
-alias nvi='export NVIM_APPNAME=nvim-minimal; nvim'
+alias nvi='NVIM_APPNAME=nvim-minimal nvim'
 alias nvr='nvim -R'
 
 if type npm &> /dev/null; then
@@ -597,49 +600,12 @@ if [[ -e "$HOME/.modular" ]]; then
 fi
 
 
-# obsidian
-function createDailyFileIfNeeded() {
-    local target_dir="$HOME/Documents/ovault/vault"
-    local today=$(date +"%Y-%m-%d")
-    local file_path="$target_dir/$today.md"
+# obsidian daily notes (ot / obm) — disabled in favour of org-mode.
+# Uncomment to bring them back; the code lives in obsidian.bash.
+# source "$HOME/dotfiles/.config/nix/home-manager/modules/configs/obsidian.bash"
 
-    mkdir -p "$target_dir" # ディレクトリが存在しない場合は作成
-
-    if [ ! -f "$file_path" ]; then
-        # ファイルが存在しない場合は新規作成
-        cat > "$file_path" <<- EOM
----
-id: $today
-aliases:
-  - $(date +"%B %d, %Y")
-tags:
-  - daily-notes
----
-
-# $(date +"%B %d, %Y")
-EOM
-    fi
-    echo "$file_path"
-}
-
-function ot() {
-    local file_path=$(createDailyFileIfNeeded)
-    nvim "$file_path" # nvimでファイルを開く
-}
-
-function obm() {
-    local file_path=$(createDailyFileIfNeeded)
-
-    local time_stamp=$(date +"[%H:%M]")
-    local last_time_stamp=$(grep "\[$(date +"%H:%M")\]" "$file_path")
-
-    if [ -z "$last_time_stamp" ]; then
-        echo "" >> "$file_path"
-        echo "$time_stamp" >> "$file_path"
-    fi
-
-    echo "$*" >> "$file_path"
-}
+# org-mode commands (org / oa / ow / om / oj / oi / oc / oh)
+source "$HOME/dotfiles/.config/nix/home-manager/modules/configs/org.bash"
 
 if command -v ngrok &>/dev/null; then
     eval "$(ngrok completion)"
