@@ -80,7 +80,8 @@ function oh() {
                 標準出力のみ。保存やコピーはリダイレクトで:
                   on | pbcopy          クリップボードへ
                   on > ~/nippou.md     ファイルへ
-  os            端末間の同期（pull → commit → push）
+  os            端末間の同期。何をするか表示して確認を求める
+                （os -y で確認を省略）
   om <text>     journal に 1 行追記
   oj            今日の journal を開く
   oi            inbox.org を開く
@@ -220,14 +221,56 @@ function on() {
     grep -hE '^\*+ WAITING ' "$HOME"/organon/*.org 2>/dev/null | sed -E 's/^\*+ +WAITING +/- /; s/[[:space:]]*:[^:]+:$//'
 }
 
-# Sync ~/organon with its private remote. Pull first so a rebase conflict surfaces
-# before anything is pushed. Run it when you sit down and when you stop.
+# Sync ~/organon with its private remote.
+# `add -A`, `rebase` and `push` all rewrite or publish state, so show exactly
+# what each one will touch and ask first. `os -y` skips the prompt.
+# Only `fetch` runs before the confirmation; it changes nothing locally.
 function os() {
     local dir="$HOME/organon"
+    local assume_yes=""
+    [ "$1" = "-y" ] && assume_yes=1
+
     git -C "$dir" rev-parse --git-dir >/dev/null 2>&1 || {
         echo "os: $dir is not a git repository" >&2
         return 1
     }
+
+    if ! git -C "$dir" fetch -q; then
+        echo "os: fetch に失敗しました" >&2
+        return 1
+    fi
+
+    local dirty incoming outgoing
+    dirty=$(git -C "$dir" status --porcelain)
+    incoming=$(git -C "$dir" rev-list --count HEAD..@{u} 2>/dev/null || echo 0)
+    outgoing=$(git -C "$dir" rev-list --count @{u}..HEAD 2>/dev/null || echo 0)
+
+    if [ -z "$dirty" ] && [ "$incoming" -eq 0 ] && [ "$outgoing" -eq 0 ]; then
+        echo "os: 変更なし（remote と同期済み）"
+        return 0
+    fi
+
+    if [ "$incoming" -gt 0 ]; then
+        echo "取り込む（$incoming commit）:"
+        git -C "$dir" log --oneline "HEAD..@{u}" | sed 's/^/  /'
+    fi
+    if [ -n "$dirty" ]; then
+        echo "コミットする:"
+        printf '%s\n' "$dirty" | sed 's/^/  /'
+    fi
+    if [ "$outgoing" -gt 0 ]; then
+        echo "push 待ち（$outgoing commit）:"
+        git -C "$dir" log --oneline "@{u}..HEAD" | sed 's/^/  /'
+    fi
+
+    if [ -z "$assume_yes" ]; then
+        local answer
+        read -r -p "実行しますか? [y/N] " answer
+        case "$answer" in
+            [yY] | [yY][eE][sS]) ;;
+            *) echo "os: 中止しました（何も変更していません）"; return 1 ;;
+        esac
+    fi
 
     if ! git -C "$dir" pull --rebase --autostash -q; then
         echo "os: pull で競合しました。$dir で解決してください" >&2
@@ -242,12 +285,11 @@ function os() {
 
     # Push even with a clean tree: commits made by hand (or by an earlier run
     # that only committed) would otherwise sit here unnoticed.
-    local ahead
-    ahead=$(git -C "$dir" rev-list --count @{u}..HEAD 2>/dev/null || echo 0)
-    if [ "$ahead" -gt 0 ]; then
-        git -C "$dir" push -q && echo "os: 同期しました（$ahead commit を push）"
+    outgoing=$(git -C "$dir" rev-list --count "@{u}..HEAD" 2>/dev/null || echo 0)
+    if [ "$outgoing" -gt 0 ]; then
+        git -C "$dir" push -q && echo "os: 同期しました（$outgoing commit を push）"
     else
-        echo "os: 変更なし（remote と同期済み）"
+        echo "os: 同期しました"
     fi
 }
 
