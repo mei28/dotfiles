@@ -20,7 +20,25 @@ function createOrgDailyFileIfNeeded() {
 
 # Append a thought without opening an editor. Timestamp format matches the
 # capture template's %U, so both paths produce the same file.
+# Confirms first: a stray Enter used to write the line immediately. Enter or y
+# accepts, anything else aborts. Nothing is created or written before that —
+# createOrgDailyFileIfNeeded would leave an empty journal file behind.
 function om() {
+    local text="$*"
+
+    if [ -z "$text" ]; then
+        echo "usage: om <text>" >&2
+        return 1
+    fi
+
+    local answer
+    printf 'append: %s\n' "$text"
+    read -r -p "ok? [Y/n] " answer
+    case "$answer" in
+        "" | [yY] | [yY][eE][sS]) ;;
+        *) echo "om: aborted (nothing written)"; return 1 ;;
+    esac
+
     local file_path=$(createOrgDailyFileIfNeeded)
     local time_stamp=$(date +"[%Y-%m-%d %a %H:%M]")
 
@@ -82,7 +100,8 @@ function oh() {
                   on > ~/nippou.md     ファイルへ
   os            端末間の同期。何をするか表示して確認を求める
                 （os -y で確認を省略）
-  om <text>     journal に 1 行追記
+  om <text>     journal に 1 行追記。内容を表示して確認を求める
+                （Enter か y で追記、それ以外は中止）
   oj            今日の journal を開く
   oi            inbox.org を開く
   oc            capture（t=times / T=times+リンク / i=inbox / n=NEXT）

@@ -1,5 +1,10 @@
 {
   "includeCoAuthoredBy": false,
+  "attribution": {
+    "commit": "",
+    "pr": "",
+    "sessionUrl": false
+  },
   "hooks": {
     "PostToolUse": [
       {
@@ -111,10 +116,10 @@
     "swift-lsp@claude-plugins-official": true
   },
   "alwaysThinkingEnabled": true,
+  "effortLevel": "xhigh",
   "editorMode": "normal",
   "verbose": true,
   "feedbackSurveyState": {
     "lastShownTime": 1754308736953
-  },
-  "model": "opus"
+  }
 }

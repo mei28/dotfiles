@@ -4,7 +4,8 @@ require('launch')
 require('grayscale')
 require('enterSwap')
 require('kanata')
-require('wabi')
+-- disabled: Claude/Codex limit HUD is unused for now (re-enable to restore the menubar item)
+-- require('wabi')
 
 
 -- reload config

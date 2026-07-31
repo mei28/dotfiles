@@ -147,8 +147,8 @@ local spec = {
 					-- Keep 1 screen line above and below the cursor while writing.
 					-- The edit window is a 3 line strip; the reference window
 					-- takes the rest of the screen.
-					lines_above = 1,
-					lines_below = 1,
+					lines_above = 2,
+					lines_below = 2,
 				},
 				ref = {
 					-- Only used when position is "left" or "right".
