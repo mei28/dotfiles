@@ -206,6 +206,21 @@ local spec = {
 			-- vim.env.OVERLEAF_COOKIE = 'overleaf_session2=s%3A...'
 		end,
 	},
+	{
+		-- "mei28/pry.nvim",
+		dir = "~/Documents/pry.nvim",
+		name = "pry.nvim",
+		build = "deno task build",
+		ft = { "markdown" },
+		cmd = { "Pry", "PryClose" },
+		config = function()
+			require("pry").setup({
+				-- pairs with "LocalForward 8000 127.0.0.1:8000" in ~/.ssh/config
+				port = 8000,
+				theme = "dark",
+			})
+		end,
+	},
 
 	-- {
 	--   'mei28/codelens.nvim',
