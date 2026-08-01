@@ -1,6 +1,6 @@
 ---
 name: dig
-description: Identifies ambiguities in requirements and architecture through structured questions, helping clarify implementation plans before coding begins
+description: Surfaces ambiguities in requirements and architecture through structured questions, so the gaps get settled before implementation starts. Use before writing code from a vague or verbally-specified requirement, or when a plan review keeps circling the same undecided point.
 ---
 
 # Dig - Requirements Clarification Tool
@@ -391,14 +391,14 @@ Please answer the questions above to proceed with implementation.
 
 ## Anti-Patterns to Avoid
 
-❌ **Don't**:
+Don't:
 - Ask questions without reading context files first
 - Present too many questions (>15) - prioritize
 - Ask vague questions like "How should this work?"
 - Forget to offer concrete options
 - Ignore existing project patterns
 
-✅ **Do**:
+Do:
 - Read CLAUDE.md and relevant docs first
 - Focus on high-impact ambiguities
 - Provide 2-4 specific options per question

@@ -6,7 +6,7 @@ description: Get a second-opinion code review from OpenAI Codex (read-only) on t
 # codex-review
 
 Run a read-only Codex review of the current changes as a cross-check against Claude's `/code-review`.
-See `docs/claude-codex.md`.
+See `~/dotfiles/docs/claude-codex.md`.
 
 ## Steps
 1. Check that Codex is available:

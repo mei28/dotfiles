@@ -6,7 +6,7 @@ description: Delegate implementation of an approved plan to Antigravity CLI (agy
 # antigravity-implement
 
 Hand implementation work to Antigravity CLI while Claude Code stays the orchestrator/evaluator.
-See `docs/antigravity.md` for the full workflow.
+See `~/dotfiles/docs/antigravity.md` for the full workflow.
 
 ## When to use
 - A plan is ready and Codex is unavailable or near its limit.

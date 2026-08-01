@@ -1,68 +1,72 @@
 # Development Standards & Coding Conventions
 
-> Single source of truth shared by all AI coding agents (Claude Code, Codex, ...).
+> Single source of truth shared by all AI coding agents (Claude Code, Codex, Antigravity).
 > Claude Code loads this via `@AGENTS.md` in `CLAUDE.md`; Codex reads `~/.codex/AGENTS.md`
-> (symlinked to this file). See `docs/claude-codex.md` for the dual-tool workflow.
+> (symlinked to this file); Antigravity reaches it via each repo's `GEMINI.md`.
 
-## Top-Level Rules
+## Skills
 
-- To maximize efficiency, **if you need to execute multiple independent processes, invoke those tools concurrently, not sequentially**.
-- **You must think exclusively in English**. However, you are required to **respond in Japanese**.
-- For temporary notes for design, create a markdown in `.tmp` and save it.
-- Please respond critically and without pandering to my opinions, but please don't be forceful in your criticism.
+Skills live in `~/.claude/skills/<name>/SKILL.md`. That path resolves for all three tools.
+- Claude Code: invoke the skill by name.
+- Codex / Antigravity: read the file before starting the work it covers.
+
+Below, "the `x` skill" means exactly this. Each skill's `description` states its own trigger.
+
+## Language
+
+- Think exclusively in English. Respond to me in Japanese.
+- Code, comments, commit messages, and PR bodies are English. Japanese is acceptable for
+  domain-specific terms in comments.
+- Japanese prose written for humans follows the `japanese-tech-writing` skill. Add the
+  `cognitive-rhythm-writing` skill for anything meant to be read straight through, and to
+  diagnose drafts that are accurate but flat.
+
+## Hard Rules
+
+Violating any of these sends the work back. There are no exceptions.
+
+- No fallback code.
+- Fail explicitly on errors. Never suppress them.
+- Fail fast: make errors explicit and immediate.
+- No "just in case" defensive code.
+- Never create an alternative implementation without confirming first.
+- Never proceed on an assumption. Ask before implementing when uncertain.
+- No implementation code before a failing test has been run and watched fail: the `tdd` skill.
+- Structural and behavioral changes never share a commit; the structural one goes first:
+  the `tidy-first` skill.
+- Ask before commit, push, and PR creation. Present what changed and its blast radius.
+- Never add CLAUDE CODE signatures or `Co-Authored-By` trailers to commits.
+- Commit only when the test suite passes and linter/type warnings are resolved.
+
+## Defaults
+
+Principles, not absolutes. Departing from one is fine; say why.
+
+- Separation of concerns: one file, one clear role; organize directories by related features.
+- Function decomposition: break long functions into small, readable units.
+- Reusability: modularize common operations to avoid duplication.
+- Naming: use clear, purpose-driven names for functions and classes.
+- Readability first: write code other developers can easily understand.
+- Meaningful comments: comment complex logic.
+- YAGNI: don't build features not currently needed.
+- DRY: avoid code duplication.
+- KISS: maintain simplicity.
+- Code shows HOW, tests show WHAT, commits show WHY, comments show WHY NOT.
+- Keep documentation up to date with code changes.
+
+## Working Rules
+
+- Run independent operations concurrently, not sequentially.
+- Keep design scratch notes in `.tmp/*.md`.
+- Respond critically and without pandering to my opinions, but don't be forceful about it.
 - Proactively propose improvements and superior implementation patterns when you notice them.
-
-## Code Design & Quality
-
-- **Separation of concerns**: one file, one clear role; organize directories by related features
-- **Function decomposition**: break long functions into small, readable units
-- **Reusability**: modularize common operations to avoid duplication
-- **Naming**: use clear, purpose-driven names for functions and classes
-- **Readability first**: write code other developers can easily understand
-- **Meaningful comments**: comment complex logic (Japanese comments acceptable for domain-specific terms)
-
-## Error Handling & Implementation Policy
-
-### Prohibited Practices
-- Don't write fallback code
-- Fail explicitly on errors (don't suppress them)
-- Don't add "just in case" defensive code
-- Don't create alternative implementations without confirmation
-
-### Implementation Policy
-- **Fail fast**: Make errors explicit and immediate
-- **Ask questions before implementation** if uncertain
-- **Don't proceed on assumptions**: Seek confirmation when unsure
-
-## Documentation Philosophy
-
-- **Code shows HOW**: Implementation details
-- **Tests show WHAT**: Clear test objectives
-- **Commits show WHY**: Rationale for changes
-- **Comments show WHY NOT**: Reasoning for alternative approaches not taken
-
-## Design Principles
-
-- **YAGNI (You Aren't Gonna Need It)**: Don't build features not currently needed
-- **DRY (Don't Repeat Yourself)**: Avoid code duplication
-- **KISS (Keep It Simple Stupid)**: Maintain simplicity
-
-## TDD Workflow (t-wada style)
-
-- 🔴 Red: write one failing test at a time (compile errors OK) → 🟢 Green: minimal implementation to pass (fake implementation / hardcoded returns acceptable) → 🔵 Refactor: clean up after tests pass
-- Take small steps; triangulate with 2nd/3rd test cases to generalize; direct implementation when obvious
-- Test uncertain areas first; immediately add new ideas to the test TODO list
-- Commit frequently when tests pass, one feature per commit:
-  - 🔴 `test: add failing test for [feature]`
-  - 🟢 `feat: implement [feature] to pass test`
-  - 🔵 `refactor: [description]`
-
-## Task Management
-
-- Use `just` as the task runner: centralize build, test, deploy commands in the justfile
-- Ensures reproducible execution across team members; document recurring commands as recipes
+- Use `just` as the task runner: centralize build, test, and deploy commands in the justfile
+  so execution is reproducible across machines. Document recurring commands as recipes.
 
 ## Technical Writing Guidelines
+
+Applies to every text you produce: chat replies, commit messages, PR bodies, code comments,
+and generated documentation. Worked examples and the full norms: the `tech-writing` skill.
 
 ### Avoid AI-style List Formatting
 - No emphasis prefixes or emoji decorators in lists: avoid `**Important**:`, `✅`, `💡`, `🔥`, `🚀`, etc.
@@ -81,35 +85,23 @@ Replace vague superlatives with specifics:
 - One idea per sentence (target ~50 characters); remove unnecessary connectives
 - Unify terminology, UI element names, and tone throughout
 
-### Japanese Technical Writing
-When writing or revising Japanese technical prose — documentation, READMEs, design notes, articles, book/manuscript drafts, and other substantial written output — follow the `japanese-tech-writing` standards.
-- Claude Code: consult/invoke the `japanese-tech-writing` skill.
-- Codex: read and apply `~/.claude/skills/japanese-tech-writing/SKILL.md`.
-
-For prose meant to be read straight through — book chapters, articles, explanatory pieces — apply `cognitive-rhythm-writing` on top of the above. Also use it to diagnose drafts that are accurate but flat.
-- Claude Code: consult/invoke the `cognitive-rhythm-writing` skill.
-- Codex: read and apply `~/.claude/skills/cognitive-rhythm-writing/SKILL.md` together with `japanese-tech-writing`.
-
 ## Git Workflow
 
-### Pre-execution Confirmation Rules
-- Always request user confirmation before commit, push, and PR creation
-- Present a clear summary of changes and impact scope
+Confirmation, signatures, and the test gate are in Hard Rules.
 
-### Commit Messages
-- Angular.js prefixes: `feat` / `fix` / `docs` / `style` / `refactor` / `perf` / `test` / `chore`; include rationale, context, and purpose
-- **No CLAUDE CODE signatures in commits**
-- Grouping strategy and message details: `commit` skill (Codex: read `~/.claude/skills/commit/SKILL.md`)
-
-### Worktree Usage
+- Angular.js prefixes: `feat` / `fix` / `docs` / `style` / `refactor` / `perf` / `test` / `chore`;
+  include rationale, context, and purpose in the body.
+- Grouping strategy and message details: the `commit` skill.
 - When instructed, isolate feature-branch work in a worktree via `bonsai` (avoid raw `git worktree`):
-  `bonsai add -c <branch> --base <base-branch>` → `bonsai cd <branch>` → after merge `bonsai remove <branch>`
-- Check current state with `bonsai list` or `bonsai status`
+  `bonsai add -c <branch> --base <base-branch>` → `bonsai cd <branch>` → after merge `bonsai remove <branch>`.
+  Check current state with `bonsai list` or `bonsai status`.
+  Skip the worktree when the change is too small to be worth one, or when the files have to be
+  edited in place to take effect. Say which of the two applies and keep working in the main tree.
 
 ## Multi-Tool AI Collaboration
 
-Three AI CLIs work together: Claude Code orchestrates; Codex and Antigravity (`agy`) execute tasks and return results.
-Claude does not blindly accept delegated output — it evaluates correctness, standards adherence, and quality before accepting.
+Claude does not blindly accept delegated output — it evaluates correctness, standards adherence,
+and quality before accepting.
 
 | Role | Tool |
 |---|---|
@@ -119,10 +111,11 @@ Claude does not blindly accept delegated output — it evaluates correctness, st
 
 | Action | Skill |
 |---|---|
-| Implement | `/codex-implement`, `/antigravity-implement` |
-| Review | `/codex-review`, `/antigravity-review` |
-| Handoff | `/handoff` (writes `.tmp/progress.md`) |
+| Implement | `codex-implement`, `antigravity-implement` |
+| Review | `codex-review`, `antigravity-review` |
+| Handoff | `handoff` (writes `.tmp/progress.md`) |
 
-When any tool nears its usage limit, run `/handoff` and let another tool resume from `.tmp/progress.md`.
-Operational guides: `docs/claude-codex.md` (Claude ↔ Codex), `docs/antigravity.md` (Antigravity CLI).
+When any tool nears its usage limit, run `handoff` and let another tool resume from `.tmp/progress.md`.
+Operational guides: `~/dotfiles/docs/claude-codex.md` (Claude ↔ Codex),
+`~/dotfiles/docs/antigravity.md` (Antigravity CLI).
 All three tools share this file for behavioral consistency.

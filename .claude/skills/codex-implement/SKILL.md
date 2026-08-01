@@ -6,7 +6,7 @@ description: Delegate implementation of an approved plan to OpenAI Codex via `co
 # codex-implement
 
 Hand implementation work to Codex while Claude Code stays the planner/orchestrator.
-See `docs/claude-codex.md` for the full workflow.
+See `~/dotfiles/docs/claude-codex.md` for the full workflow.
 
 ## When to use
 - A plan is ready (Plan mode output, a plan file, or `$ARGUMENTS`) and the change should be implemented by Codex.
@@ -37,7 +37,7 @@ See `docs/claude-codex.md` for the full workflow.
 
    Use a polling helper that returns when the Codex pane becomes `blocked` or `idle`. If it becomes `blocked`, end that Bash invocation immediately, show the exact `herdr pane read` output to the human, and wait for the user's real answer. Do not choose or send an approval automatically. After the user answers, send the selected key/text with `herdr pane send-keys` or `herdr pane send-text`, then resume polling.
 
-   When the Codex pane becomes `idle`, it is done — do not send `/handoff` (on codex 0.142.3 it is unrecognized, not the custom prompt). Instead run `git diff`/`git status` yourself and update `.tmp/progress.md` with the `handoff` skill, then close the pane with `herdr pane close`. Keep the detailed command sequence in `docs/claude-codex.md` as the source of truth.
+   When the Codex pane becomes `idle`, it is done — do not send `/handoff` (on codex 0.142.3 it is unrecognized, not the custom prompt). Instead run `git diff`/`git status` yourself and update `.tmp/progress.md` with the `handoff` skill, then close the pane with `herdr pane close`. Keep the detailed command sequence in `~/dotfiles/docs/claude-codex.md` as the source of truth.
 
    If herdr is unavailable, present this exact block to the user as copy-paste for a **separate terminal pane**:
 
@@ -50,7 +50,7 @@ See `docs/claude-codex.md` for the full workflow.
    Do **not** instruct the user to send `/resume` or `/handoff`. On the Codex CLI versions
    verified so far, `/resume` is captured by Codex's built-in session picker (it never reads
    `.tmp/progress.md`) and `/handoff` comes back as "Unrecognized command". See the
-   "既知の別問題" note in `docs/claude-codex.md`.
+   "既知の別問題" note in `~/dotfiles/docs/claude-codex.md`.
 
    Instead: paste the plan directly into the Codex pane, and when Codex goes idle, inspect
    `git diff` / `git status` yourself and update `.tmp/progress.md` via the `handoff` skill.

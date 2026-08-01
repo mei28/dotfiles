@@ -5,7 +5,7 @@ description: Write or update `.tmp/progress.md` so work can be resumed by the ot
 
 # handoff
 
-Create the handoff note that lets the other tool pick up seamlessly. See `docs/claude-codex.md`.
+Create the handoff note that lets the other tool pick up seamlessly. See `~/dotfiles/docs/claude-codex.md`.
 
 ## When to use
 - About to switch from Claude Code to Codex (or back) — e.g. a usage limit is near.

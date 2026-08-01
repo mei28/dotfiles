@@ -6,7 +6,7 @@ description: Get a second-opinion code review from Antigravity CLI (agy) on the 
 # antigravity-review
 
 Run a read-only Antigravity review of the current changes as a cross-check against Claude's `/code-review` and `/codex-review`.
-See `docs/antigravity.md`.
+See `~/dotfiles/docs/antigravity.md`.
 
 ## Prerequisites
 
