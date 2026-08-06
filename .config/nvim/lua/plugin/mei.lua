@@ -134,8 +134,8 @@ local spec = {
 		end,
 	},
 	{
-		-- "mei28/pine.nvim",
-		dir = "~/Documents/pine.nvim",
+		"mei28/pine.nvim",
+		-- dir = "~/Documents/pine.nvim",
 		name = "pine.nvim",
 		keys = { "<Leader>p", "<Leader>P" },
 		cmd = { "PineToggle", "PineOpen", "PineClose", "PineFocus", "PineSwap" },
@@ -207,8 +207,8 @@ local spec = {
 		end,
 	},
 	{
-		-- "mei28/pry.nvim",
-		dir = "~/Documents/pry.nvim",
+		"mei28/pry.nvim",
+		-- dir = "~/Documents/pry.nvim",
 		name = "pry.nvim",
 		build = "deno task build",
 		ft = { "markdown" },
