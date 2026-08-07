@@ -74,6 +74,15 @@ local spec = {
                 match = 'TODO="NEXT"',
                 org_agenda_overriding_header = 'いま手を付けているもの',
               },
+              {
+                -- `t` cycles forward only, so overshooting into DONE used to
+                -- drop the item off the agenda entirely. It lands here instead,
+                -- close enough to reach with <Tab> and walk back with ciT.
+                -- Undoing clears CLOSED, so it leaves this block on its own.
+                type = 'tags',
+                match = 'CLOSED>="<today>"',
+                org_agenda_overriding_header = '今日 DONE にしたもの',
+              },
             },
           },
           w = {

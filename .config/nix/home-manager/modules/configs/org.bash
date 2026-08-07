@@ -89,7 +89,7 @@ function oh() {
 
 ━━ コマンド ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   org           tasks.org を開く
-  oa            今日の締切と NEXT
+  oa            今日の締切と NEXT と、今日 DONE にしたもの
   ow            他人待ちの一覧
   ow <タグ>     任意のタグで検索（例: ow 急ぎ）
   ol [件数]     完了したものを新しい順に（既定 20 件。archive も含む）
@@ -126,8 +126,11 @@ function oh() {
   確認: org で開いて TODO に色が付いていれば正しい
 
 ━━ agenda の中（oa / ow） ━━━━━━━━━━━━━━━━━━━
-  t             状態を回す  TODO → NEXT → WAITING → DONE
-                ※ WAITING と DONE は画面から消える（消えても消滅ではない）
+  t             状態を回す  TODO → NEXT → WAITING → DONE → CANCELLED → 状態なし
+                ※ WAITING は画面から消える（消えても消滅ではない）
+                ※ DONE にすると一番下の「今日 DONE にしたもの」へ移る。消えない
+                ※ 行き過ぎたら、そこで <Tab> → ciT。DONE → WAITING → NEXT と
+                  戻せる（t を回し続けると「状態なし」でまた見えなくなる）
   <Tab>         split で開く（agenda を残す）
   <CR>          同じ窓で開く（agenda は消える）
   K             プレビューだけ

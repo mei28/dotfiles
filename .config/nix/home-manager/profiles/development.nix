@@ -38,6 +38,9 @@
       # formatter/linter
       nixfmt
 
+      # Media: ImageMagick delegates APNG decoding to ffmpeg
+      ffmpeg
+
       # Custom tools
       inputs.cliperge.defaultPackage.${system}
       inputs.sgh.defaultPackage.${system}
