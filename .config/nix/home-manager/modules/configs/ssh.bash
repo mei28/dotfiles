@@ -81,7 +81,8 @@ function ssh() {
         pane_id=$(tmux display -p '#{pane_id}')
 
         # 判定は抽出した target を使用
-        if [[ "$target" =~ "localhost|127\.0\.0\.1" ]] ; then
+        local loopback_re='localhost|127\.0\.0\.1'
+        if [[ "$target" =~ $loopback_re ]]; then
             tmux select-pane -P 'fg=#00BCD4,bg=#263238'
         else
             tmux select-pane -P 'fg=#CDDC39,bg=#263238'
