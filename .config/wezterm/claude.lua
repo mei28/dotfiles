@@ -32,8 +32,13 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
 		foreground = "#aaaaaa"
 	end
 
+	-- The Claude title stays authoritative; a manual rename via tab:set_title() only
+	-- applies while Claude is not driving this tab.
 	local claude_title = tab.active_pane.user_vars.claude_title or ""
-	local tab_title = claude_title ~= "" and claude_title or tab.active_pane.title
+	local tab_title = claude_title
+	if tab_title == "" then
+		tab_title = tab.tab_title ~= "" and tab.tab_title or tab.active_pane.title
+	end
 	local title = " " .. edge .. " " .. prefix .. wezterm.truncate_right(tab_title, max_width - 1) .. "   "
 
 	return {

@@ -109,6 +109,7 @@ config.leader = { key = 'q', mods = 'CTRL', timeout_milliseconds = 1000 }
 -- tmux like key bind
 config.keys = keys.keys
 config.key_tables = keys.key_tables
+config.mouse_bindings = keys.mouse_bindings
 -- hyperlink
 config.hyperlink_rules = hyperlink_rules
 -- window padding

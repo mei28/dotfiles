@@ -8,6 +8,18 @@ wezterm.on("toggle-opacity", require("window").toggle_opacity)
 
 local act = wezterm.action
 local M = {}
+
+-- Prompt for a new title and apply it to the active tab.
+local rename_tab = act.PromptInputLine({
+	description = "Enter new name for tab",
+	-- line is nil when cancelled; an empty line clears the title and restores the automatic one.
+	action = wezterm.action_callback(function(window, _, line)
+		if line then
+			window:active_tab():set_title(line)
+		end
+	end),
+})
+
 local keys = {
 	{
 		key = "\\",
@@ -134,6 +146,17 @@ local key_tables = {
 	},
 }
 
+-- WezTerm has no hook for clicks on the tab bar, so the rename prompt is
+-- triggered from inside a pane. The modifiers keep the default right-click paste intact.
+local mouse_bindings = {
+	{
+		event = { Down = { streak = 1, button = "Right" } },
+		mods = "CMD|ALT",
+		action = rename_tab,
+	},
+}
+
 M.keys = keys
 M.key_tables = key_tables
+M.mouse_bindings = mouse_bindings
 return M
