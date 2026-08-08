@@ -197,6 +197,20 @@ __osc7_cwd() {
     printf '\033]7;file://%s%s\033\\' "${HOSTNAME}" "$enc"
 }
 
+# Applications that turn on mouse or focus reporting are responsible for turning
+# it back off when they exit. One killed mid-flight never gets the chance -- an
+# ssh session dropped by a sleep/wake cycle is the usual culprit -- and the
+# terminal keeps encoding wheel, click and focus events as escape sequences that
+# the shell then echoes as literal text.
+#
+# The prompt is the one moment where no foreground application owns those modes,
+# so disabling them here is always safe. Turning off every tracking mode (9,
+# 1000-1003) stops the reports regardless of which encoding (1005/1006/1015/1016)
+# was negotiated; 1004 is focus reporting, which is independent of the rest.
+__reset_input_reporting() {
+    printf '\033[?9l\033[?1000l\033[?1001l\033[?1002l\033[?1003l\033[?1004l'
+}
+
 # WezTerm Shell Integration: OSC 133;D (command end) and OSC 133;C (command start)
 if [[ "$TERM_PROGRAM" == "WezTerm" ]]; then
     __wezterm_osc() { printf "\033]%s\007" "$1"; }
@@ -229,9 +243,11 @@ if [[ "$TERM_PROGRAM" == "WezTerm" ]]; then
     }
 
     trap '__wezterm_preexec' DEBUG
-    PROMPT_COMMAND='__wezterm_in_prompt=1; __wezterm_precmd; set_prompt; add_line; __osc7_cwd; __wezterm_in_prompt=""'
+    # __reset_input_reporting stays after __wezterm_precmd: precmd is the element
+    # that reads $?, so nothing new goes in front of it.
+    PROMPT_COMMAND='__wezterm_in_prompt=1; __wezterm_precmd; __reset_input_reporting; set_prompt; add_line; __osc7_cwd; __wezterm_in_prompt=""'
 else
-    PROMPT_COMMAND='set_prompt; add_line; __osc7_cwd'
+    PROMPT_COMMAND='__reset_input_reporting; set_prompt; add_line; __osc7_cwd'
 fi
 
 # git completion
