@@ -44,6 +44,18 @@ function ssh() {
         if [[ "$arg" =~ ^[0-9]+(:[0-9]+)?(@[A-Za-z0-9._-]+)?$ ]]; then
             ports_to_process+=("$arg")
         else
+            # AWS のコンソールからコピペしたコマンドは root@host になっている。
+            # 実行前にログインユーザを聞き直す (root のままにしたいなら root と打つ)。
+            if [[ "$arg" == root@* ]]; then
+                local login_host="${arg#root@}"
+                local login_user=""
+                read -e -r -p "login user for ${login_host}: " login_user
+                if [[ -z "$login_user" ]]; then
+                    echo "ssh: login user is empty" >&2
+                    return 1
+                fi
+                arg="${login_user}@${login_host}"
+            fi
             final_args+=("$arg")
             target="$arg" # 最後に現れた非数値引数をホスト名とみなす
         fi
