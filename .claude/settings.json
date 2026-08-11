@@ -269,18 +269,6 @@
           }
         ]
       }
-    ],
-    "PermissionRequest": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "http",
-            "url": "http://127.0.0.1:23333/permission",
-            "timeout": 600
-          }
-        ]
-      }
     ]
   },
   "statusLine": {
