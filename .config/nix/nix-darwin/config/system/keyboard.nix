@@ -1,10 +1,15 @@
 {
   # Key repeat (unit: 15ms).
-  # InitialKeyRepeat: delay before repeat starts — 15 ≈ 225ms (macOS UI 最速)
+  # InitialKeyRepeat: delay before repeat starts — 20 = 300ms
   # KeyRepeat:        interval between repeats   — 2  = 30ms
   # Note: KeyRepeat=1 (15ms) は過去にチャタリングしたため避ける。
+  #
+  # 制約: InitialKeyRepeat は kanata の hold-time (250ms) より必ず長くすること。
+  # 15 (225ms) だと kanata が tap か hold か判定し終える前に macOS が連射を始め、
+  # HRM キー (s d f e j k l i) を叩き直したときに同じ文字が大量に入る。
+  # 対になる値は .config/kanata/kanata.kbd の hold-time / tap-repress-time。
   system.defaults.NSGlobalDomain = {
-    InitialKeyRepeat = 15;
+    InitialKeyRepeat = 20;
     KeyRepeat = 2;
   };
 

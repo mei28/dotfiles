@@ -3,7 +3,10 @@ require('ime')
 require('launch')
 require('grayscale')
 require('enterSwap')
-require('kanata')
+-- disabled: kanata is off (enableKanata = false in nix-darwin/config/kanata.nix), which
+-- removes the LaunchDaemon plist, so the HRM toggle and daemon controls have nothing to
+-- talk to. Re-enable this together with that flag.
+-- require('kanata')
 -- disabled: Claude/Codex limit HUD is unused for now (re-enable to restore the menubar item)
 -- require('wabi')
 

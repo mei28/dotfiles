@@ -16,7 +16,12 @@
 )
 
 (defvar
-  tap-time 200
+  ;; tap-hold の第1引数は kanata 公式ドキュメントで $tap-repress-timeout と呼ばれる。
+  ;; タップ後この時間内に同じキーを押し直すと、tap/hold の判定をせず文字を押しっぱなしにする
+  ;; (キーリピート用の仕様)。vim の j/k 長押しスクロールはこの経路で動いているので、
+  ;; 下げるとスクロールが壊れる。macOS 側の InitialKeyRepeat と対で調整すること
+  ;; (.config/nix/nix-darwin/config/system/keyboard.nix)。
+  tap-repress-time 200
   hold-time 250
 
   left-hand-keys (
@@ -33,16 +38,16 @@
 
 (defalias
   ;; 左手 mods
-  s_sft (tap-hold-release-keys $tap-time $hold-time s lsft $right-hand-keys)
-  d_alt (tap-hold-release-keys $tap-time $hold-time d lalt $right-hand-keys)
-  f_ctl (tap-hold-release-keys $tap-time $hold-time f lctl $right-hand-keys)
-  e_cmd (tap-hold-release-keys $tap-time $hold-time e lmet $right-hand-keys)
+  s_sft (tap-hold-release-keys $tap-repress-time $hold-time s lsft $right-hand-keys)
+  d_alt (tap-hold-release-keys $tap-repress-time $hold-time d lalt $right-hand-keys)
+  f_ctl (tap-hold-release-keys $tap-repress-time $hold-time f lctl $right-hand-keys)
+  e_cmd (tap-hold-release-keys $tap-repress-time $hold-time e lmet $right-hand-keys)
 
   ;; 右手 mods
-  j_ctl (tap-hold-release-keys $tap-time $hold-time j rctl $left-hand-keys)
-  k_alt (tap-hold-release-keys $tap-time $hold-time k lalt $left-hand-keys)
-  l_sft (tap-hold-release-keys $tap-time $hold-time l lsft $left-hand-keys)
-  i_cmd (tap-hold-release-keys $tap-time $hold-time i rmet $left-hand-keys)
+  j_ctl (tap-hold-release-keys $tap-repress-time $hold-time j rctl $left-hand-keys)
+  k_alt (tap-hold-release-keys $tap-repress-time $hold-time k lalt $left-hand-keys)
+  l_sft (tap-hold-release-keys $tap-repress-time $hold-time l lsft $left-hand-keys)
+  i_cmd (tap-hold-release-keys $tap-repress-time $hold-time i rmet $left-hand-keys)
 
   ;; fn 押下中は fkeys レイヤー (F1-F12 を生 F キーとして送出)
   fnh (layer-while-held fkeys)
