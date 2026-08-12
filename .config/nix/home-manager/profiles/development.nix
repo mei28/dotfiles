@@ -49,7 +49,6 @@
     ]
     # Cloud: nixpkgs の google-cloud-sdk は Linux ビルドが不安定なため macOS のみ
     ++ lib.optionals stdenv.isDarwin [ google-cloud-sdk ]
-    ++ lib.optionals stdenv.isDarwin [ inputs.wabi.packages.${system}.default ]
     ++ [ fzf-make ];
 
   # ruff + mutagen

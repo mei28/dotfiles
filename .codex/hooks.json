@@ -9,6 +9,15 @@
             "type": "command"
           }
         ]
+      },
+      {
+        "hooks": [
+          {
+            "command": "\"/usr/local/bin/node\" \"/Applications/Clawd on Desk.app/Contents/Resources/app.asar.unpacked/hooks/codex-hook.js\"",
+            "timeout": 30,
+            "type": "command"
+          }
+        ]
       }
     ],
     "Stop": [
@@ -17,6 +26,48 @@
           {
             "command": "bash -c 'exec \"$HOME/.codex/runcat-hook.py\"'",
             "timeout": 5,
+            "type": "command"
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "command": "\"/usr/local/bin/node\" \"/Applications/Clawd on Desk.app/Contents/Resources/app.asar.unpacked/hooks/codex-hook.js\"",
+            "timeout": 30,
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "command": "\"/usr/local/bin/node\" \"/Applications/Clawd on Desk.app/Contents/Resources/app.asar.unpacked/hooks/codex-hook.js\"",
+            "timeout": 30,
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "\"/usr/local/bin/node\" \"/Applications/Clawd on Desk.app/Contents/Resources/app.asar.unpacked/hooks/codex-hook.js\"",
+            "timeout": 30,
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "\"/usr/local/bin/node\" \"/Applications/Clawd on Desk.app/Contents/Resources/app.asar.unpacked/hooks/codex-hook.js\"",
+            "timeout": 30,
             "type": "command"
           }
         ]

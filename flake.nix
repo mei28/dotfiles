@@ -29,9 +29,6 @@
     bonsai = {
       url = "github:mei28/bonsai";
     };
-    wabi = {
-      url = "github:mei28/wabi";
-    };
     herdr = {
       url = "github:ogulcancelik/herdr/v0.7.4";
     };
