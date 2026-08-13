@@ -14,7 +14,8 @@ Below, "the `x` skill" means exactly this. Each skill's `description` states its
 
 ## Language
 
-- Think exclusively in English. Respond to me in Japanese.
+- Think in whichever language you perform best in; English and Chinese are both fine.
+- Always respond to me in Japanese, whatever language you thought in. No exceptions.
 - Code, comments, commit messages, and PR bodies are English. Japanese is acceptable for
   domain-specific terms in comments.
 - Japanese prose written for humans follows the `japanese-tech-writing` skill. Add the
