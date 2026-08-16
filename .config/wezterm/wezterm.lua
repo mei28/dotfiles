@@ -119,7 +119,9 @@ config.skip_close_confirmation_for_processes_named = skip_close_confirmation_for
 -- inactive_pane_hsb
 config.inactive_pane_hsb = window.inactive_pane_hsb
 config.check_for_updates = false
-config.window_decorations = "INTEGRATED_BUTTONS|RESIZE|MACOS_FORCE_ENABLE_SHADOW"
+-- The window shadow triggers a compositor hot loop on macOS 26 (Tahoe),
+-- burning GPU in WindowServer. See wezterm/wezterm#7271, #7275.
+config.window_decorations = "INTEGRATED_BUTTONS|RESIZE|MACOS_FORCE_DISABLE_SHADOW"
 
 -- background
 config.background = window.background
