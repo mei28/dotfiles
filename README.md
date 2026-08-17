@@ -258,6 +258,90 @@ just test-all             # 全テスト実行
 
 ---
 
+## AI ツール構成
+
+Claude Code / Codex / Antigravity の設定をこの repo で管理する。
+開発標準は 1 ファイルに集約し、各ツールへ symlink で配る。
+
+| 役割 | ツール |
+|------|--------|
+| 調査・計画・オーケストレーション | Claude Code |
+| 実装・レビュー | Codex |
+| レビュー (別視点)・大規模コンテキスト解析 | Antigravity |
+
+### 開発標準の単一の真実
+
+`.claude/AGENTS.md` が全ツール共通の規約 (ハードルール、コーディング規約、Git 運用) を持つ。
+ルートに `AGENTS.md` は置かず、この 1 ファイルを各ツールの読み込み先へ配る:
+
+```
+.claude/AGENTS.md ─┬→ ~/.claude/AGENTS.md  (.claude ごと symlink / profiles/base.nix)
+                   └→ ~/.codex/AGENTS.md   (modules/codex.nix)
+
+GEMINI.md          → Antigravity が repo ルートで自動読込
+```
+
+`.claude/CLAUDE.md` は `@AGENTS.md` で上記を取り込み、Claude Code 固有の指示だけを足す。
+`GEMINI.md` も同様に本体を持たず、`.claude/AGENTS.md` を読ませる。
+
+### .claude/
+
+`profiles/base.nix` が `~/.claude` へ symlink する。
+repo を編集すればそのまま全プロジェクトのセッションに反映される。
+
+| パス | 役割 |
+|------|------|
+| `AGENTS.md` | 全ツール共通の開発標準 |
+| `CLAUDE.md` | Claude Code 固有の指示 |
+| `settings.json` | model, effortLevel, hooks, statusLine, プラグイン有効/無効 |
+| `skills/` | スキル定義 (`<name>/SKILL.md`) |
+| `hooks/` | セッション状態を外部ツールへ通知するフック |
+| `statusline.sh` | ステータスライン本体 |
+| `runcat-statusline.py` | `statusline.sh` から呼ばれ `~/.claude/runcat-usage.json` を書く |
+| `output-styles/` `plugins/` | 出力スタイルとプラグイン設定 |
+
+skills は 4 系統:
+
+- 委譲: `codex-implement`, `codex-review`, `antigravity-implement`, `antigravity-review`, `handoff`
+- 開発規律: `tdd`, `tidy-first`, `commit`, `deslop`, `dig`
+- 文章: `tech-writing`, `japanese-tech-writing`, `cognitive-rhythm-writing`
+- 並行作業: `bonsai-herdr`, `herdr`
+
+hooks は `settings.json` から呼ばれる:
+
+- `wezterm-state.sh` — 状態 (idle/thinking/executing) を WezTerm に反映
+- `herdr-agent-state.sh` — herdr にエージェント状態を通知
+
+### .codex/
+
+`modules/codex.nix` が `~/.codex/` 配下へ個別に symlink する。
+`config.toml` は codex が trust_level や MCP 登録を実行時に書き換えるため symlink しない。
+
+| パス | 役割 |
+|------|------|
+| `shared.config.toml` | 宣言的な共有既定値 (profile v2)。`codex -p shared` で有効化 |
+| `prompts/` | slash commands (`handoff`, `resume`, `review`) |
+| `hooks.json` `runcat-hook.py` | 使用量を書き出す Stop フック |
+| `config.toml.example` | `~/.codex/config.toml` の役割メモ (codex は読まない) |
+
+### MCP の相互登録
+
+Claude と Codex を互いに MCP サーバとして登録する。
+状態ファイルに書き込むため symlink できず、コマンドで行う。冪等なので再実行しても安全。
+
+```bash
+just setup-ai-mcp   # 各ホストで一度
+claude mcp list     # 確認
+codex mcp list
+```
+
+### 運用ガイド
+
+- [docs/claude-codex.md](docs/claude-codex.md) — Claude ↔ Codex の役割分担、委譲コマンド、承認レーン、上限時のフォールバック
+- [docs/antigravity.md](docs/antigravity.md) — Antigravity CLI のセットアップと三ツール運用
+
+---
+
 ## 検証方法
 
 ### Docker テスト
