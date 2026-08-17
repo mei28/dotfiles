@@ -6,11 +6,15 @@
 #
 # Output: one `name<TAB>status<TAB>pane_id` line per requested name, in the order given.
 #         A name herdr does not know is reported as `missing`.
+#         A named pane herdr has not detected an agent in yet is reported as `starting`.
 #
 # Modes:
 #   (default)     print one snapshot and exit
-#   --registered  poll until every name appears (herdr needs a moment to detect a new agent)
+#   --registered  poll until every name has a detected agent behind it
 #   --wait        poll until someone is blocked or everyone has settled
+#
+# The skill names a pane before launching claude in it, so a name on its own proves nothing.
+# `starting` is the window between the rename and herdr recognizing the agent.
 #
 # Exit codes:
 #   0  everyone settled (idle / done / unknown), or --registered succeeded
@@ -68,6 +72,9 @@ for name in wanted:
     if agent is None:
         print("\t".join([name, "missing", "-"]))
         continue
+    if not agent.get("agent"):
+        print("\t".join([name, "starting", agent["pane_id"]]))
+        continue
     print("\t".join([name, agent.get("agent_status") or "unknown", agent["pane_id"]]))
 ' "$@"
 }
@@ -77,7 +84,11 @@ has_status() {
 }
 
 has_pending() {
-  awk -F'\t' '$2 == "working" || $2 == "missing" { found = 1 } END { exit !found }'
+  awk -F'\t' '$2 == "working" || $2 == "missing" || $2 == "starting" { found = 1 } END { exit !found }'
+}
+
+has_unregistered() {
+  awk -F'\t' '$2 == "missing" || $2 == "starting" { found = 1 } END { exit !found }'
 }
 
 deadline=$((SECONDS + timeout))
@@ -89,7 +100,7 @@ case "$mode" in
   registered)
     while :; do
       out=$(snapshot "$@")
-      if ! printf '%s\n' "$out" | has_status missing; then
+      if ! printf '%s\n' "$out" | has_unregistered; then
         printf '%s\n' "$out"
         exit 0
       fi

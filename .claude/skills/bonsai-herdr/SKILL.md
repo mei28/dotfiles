@@ -16,7 +16,8 @@ then supervise all of them from here.
 
 Read the `herdr` skill first. It is the source of truth for herdr's concepts and CLI, including
 the rule that workspace/tab/pane ids compact when things close. This skill adds only what a
-fan-out needs on top: `worktree open`, `agent start`, and status polling by agent name.
+fan-out needs on top: `worktree open`, launching an agent in the workspace's own pane, and status
+polling by agent name.
 
 Agent names are the durable handle. Ids are not — re-read them from `herdr agent list` at the
 moment you need them.
@@ -39,6 +40,7 @@ Every check is a stop condition. Report the failure and stop; do not route aroun
 command -v herdr
 command -v bonsai
 git status --porcelain
+[ -f .bonsai.toml ]
 bonsai list
 ```
 
@@ -48,7 +50,12 @@ resolves, so a single call would pass with bonsai missing.
 - Not inside herdr, or either tool missing → stop.
 - `git status` non-empty → stop and ask the user to commit or stash. Worktrees branch from the
   base commit, so uncommitted work would not be in them.
-- `bonsai list` prints `not initialized` → ask before running `bonsai init`; it writes to the repo.
+- No `.bonsai.toml` → bonsai is not initialized here. Test the file, not the output of
+  `bonsai list`: without it `bonsai list` still prints a normal table and only `bonsai add`
+  fails. Ask before running `bonsai init` — it writes `.bonsai.toml` and appends `.bonsai/` to
+  `.gitignore`. Do not reach for `bonsai init --dry-run` to preview that; as of bonsai 0.1.5 it
+  performs the write.
+- `bonsai list` is for reading existing worktrees, so a branch name already taken shows up here.
 
 ## 2. Decompose and get approval
 
@@ -78,20 +85,25 @@ supervision, which watches all of them at once.
 BRANCH=docs-readme
 BASE=main
 bonsai add -c "$BRANCH" --base "$BASE"
-WT=$(bonsai cd "$BRANCH")
+WT=$(command bonsai cd "$BRANCH")
 [ -d "$WT/.git" ] || [ -f "$WT/.git" ]
 ```
 
-The last line is the guard: everything downstream keys off `$WT`, so confirm `bonsai cd` printed
-a bare path and nothing else. If it did not, read the path out of
-`git worktree list --porcelain` instead and fix this skill.
+`command` is required. bonsai's shell integration defines `bonsai` as a function that intercepts
+the `cd` subcommand and runs `builtin cd` on the path instead of printing it, so a bare
+`bonsai cd` assigns an empty string. Only `cd` is intercepted; every other subcommand passes
+through, which is why `bonsai add` above needs nothing special.
+
+The last line is the guard: everything downstream keys off `$WT`, so confirm the path arrived.
+If it did not, read it out of `git worktree list --porcelain` instead and fix this skill.
 
 ## 4. Open each worktree and start its agent
 
-Run all three calls in one shell invocation. `herdr worktree open` always creates a root shell
-pane — herdr has no flag to suppress it — and `herdr agent start` lands the agent as a split of
-that pane. The workspace is down to the agent alone only once the root pane is closed, so keep
-the window where both exist as short as possible.
+`herdr worktree open` always creates a root shell pane and herdr has no flag to suppress it, so
+run claude *in* that pane rather than adding a second one. The workspace stays at one pane, and
+claude runs as a child of an interactive shell — Ctrl-Z drops to the prompt and the pane
+survives. `herdr agent start` would make claude the pane's own process instead, so suspending or
+exiting it takes the pane down and the work with it.
 
 ```bash
 OPEN=$(herdr worktree open --path "$WT" --label "$BRANCH" --no-focus --json) || exit 1
@@ -101,22 +113,24 @@ r = json.load(sys.stdin)["result"]
 print(r["workspace"]["workspace_id"], r["root_pane"]["pane_id"], str(r["already_open"]).lower())
 ')"
 
-herdr agent start "$BRANCH" --cwd "$WT" --workspace "$WS" --no-focus -- claude || exit 1
-[ "$REUSED" = "true" ] || herdr pane close "$ROOT"
+if [ "$REUSED" = "true" ]; then
+  ROOT=$(herdr tab create --workspace "$WS" --cwd "$WT" --label "$BRANCH" --no-focus |
+    python3 -c 'import sys,json; print(json.load(sys.stdin)["result"]["root_pane"]["pane_id"])') || exit 1
+fi
+
+herdr agent rename "$ROOT" "$BRANCH" || exit 1
+herdr pane run "$ROOT" "claude"
 ```
 
 Keep `--no-focus` so the user stays in the pane they are in.
 
-Close the root pane here, before briefing. Pane ids compact when a pane closes, and step 5 reads
-the agent's pane id out of `herdr agent list` after this point.
-
-Do not close it when `agent start` failed. It is the workspace's only pane, so closing it takes
-the workspace down with whatever the failure left on screen.
-
 `already_open: true` means the path already had a workspace and `$ROOT` is a pane someone else is
-using. Reuse the workspace and leave that pane alone.
+using. Reuse the workspace, but give this task its own tab so nothing lands in that pane.
 
-For `claude-glm`, check that it resolves first:
+Name the pane before launching claude. `herdr agent rename` takes a pane with no agent detected
+in it yet, so the durable handle exists from the start instead of racing claude's startup.
+
+For `claude-glm`, check that it resolves first, then pass it to `pane run` in place of `claude`:
 
 ```bash
 command -v claude-glm
@@ -127,7 +141,8 @@ task the user wanted on another model would run on this one without them knowing
 
 ## 5. Brief each agent
 
-Wait for herdr to detect the agents, then send each task through its pane:
+Step 4 named the pane before claude was up, so the name alone does not mean claude is ready.
+`--registered` waits for herdr to actually detect the agent, which is the real signal:
 
 ```bash
 STATUS=~/.claude/skills/bonsai-herdr/scripts/agent-status.sh
