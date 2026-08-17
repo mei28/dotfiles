@@ -339,6 +339,7 @@ codex mcp list
 
 - [docs/claude-codex.md](docs/claude-codex.md) — Claude ↔ Codex の役割分担、委譲コマンド、承認レーン、上限時のフォールバック
 - [docs/antigravity.md](docs/antigravity.md) — Antigravity CLI のセットアップと三ツール運用
+- [docs/herdr-bonsai.md](docs/herdr-bonsai.md) — herdr と bonsai による worktree 並列作業
 
 ---
 
