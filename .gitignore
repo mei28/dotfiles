@@ -157,3 +157,4 @@ result
 **/settings.local.json
 .tmp
 .claude/runcat-prices.json
+.bonsai/

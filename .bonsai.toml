@@ -1,0 +1,7 @@
+version = "1"
+
+[defaults]
+worktree_dir = ".bonsai"
+
+[hooks]
+post_create = []
