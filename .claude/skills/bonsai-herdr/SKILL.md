@@ -71,7 +71,7 @@ for a name already in use — another repo's run may hold it — and prefix the 
 
 ## 3. Create a worktree per task
 
-Steps 3 to 6 are per task. Run them for each row of the approved table before moving on to
+Steps 3 to 5 are per task. Run them for each row of the approved table before moving on to
 supervision, which watches all of them at once.
 
 ```bash
@@ -86,20 +86,35 @@ The last line is the guard: everything downstream keys off `$WT`, so confirm `bo
 a bare path and nothing else. If it did not, read the path out of
 `git worktree list --porcelain` instead and fix this skill.
 
-## 4. Open each worktree as its own workspace
+## 4. Open each worktree and start its agent
+
+Run all three calls in one shell invocation. `herdr worktree open` always creates a root shell
+pane — herdr has no flag to suppress it — and `herdr agent start` lands the agent as a split of
+that pane. The workspace is down to the agent alone only once the root pane is closed, so keep
+the window where both exist as short as possible.
 
 ```bash
-WS=$(herdr worktree open --path "$WT" --label "$BRANCH" --no-focus --json |
-  python3 -c 'import sys,json; print(json.load(sys.stdin)["result"]["workspace"]["workspace_id"])')
+OPEN=$(herdr worktree open --path "$WT" --label "$BRANCH" --no-focus --json) || exit 1
+read -r WS ROOT REUSED <<<"$(printf '%s' "$OPEN" | python3 -c '
+import sys, json
+r = json.load(sys.stdin)["result"]
+print(r["workspace"]["workspace_id"], r["root_pane"]["pane_id"], str(r["already_open"]).lower())
+')"
+
+herdr agent start "$BRANCH" --cwd "$WT" --workspace "$WS" --no-focus -- claude || exit 1
+[ "$REUSED" = "true" ] || herdr pane close "$ROOT"
 ```
 
 Keep `--no-focus` so the user stays in the pane they are in.
 
-## 5. Start one agent per worktree
+Close the root pane here, before briefing. Pane ids compact when a pane closes, and step 5 reads
+the agent's pane id out of `herdr agent list` after this point.
 
-```bash
-herdr agent start "$BRANCH" --cwd "$WT" --workspace "$WS" --no-focus -- claude
-```
+Do not close it when `agent start` failed. It is the workspace's only pane, so closing it takes
+the workspace down with whatever the failure left on screen.
+
+`already_open: true` means the path already had a workspace and `$ROOT` is a pane someone else is
+using. Reuse the workspace and leave that pane alone.
 
 For `claude-glm`, check that it resolves first:
 
@@ -110,7 +125,7 @@ command -v claude-glm
 If it is not on PATH, stop and ask the user how it is invoked. Do not start `claude` instead — a
 task the user wanted on another model would run on this one without them knowing.
 
-## 6. Brief each agent
+## 5. Brief each agent
 
 Wait for herdr to detect the agents, then send each task through its pane:
 
@@ -133,7 +148,7 @@ Task text template. It is one line; keep it that way when you fill it in.
 Task: <one line>. Branch: <branch>, already checked out in this worktree — stay in it. In scope: <paths you may change>. Out of scope: everything else; other agents own the rest of the repo. Done when: <observable condition, e.g. `just test` passes>. Do not commit; leave the changes in the working tree. When you finish, print a summary: what you changed, which files, what you verified.
 ```
 
-## 7. Supervise
+## 6. Supervise
 
 Watch every agent from one call, using the names from the ledger:
 
@@ -160,7 +175,7 @@ Act on the exit code:
 Do not use `herdr agent wait` or `herdr wait agent-status` here. They are edge-triggered, so a
 timeout is not evidence that an agent is still running.
 
-## 8. Harvest
+## 7. Harvest
 
 Per worktree, in the ledger's order:
 
@@ -172,7 +187,7 @@ git -C "$WT" diff --stat
 Run the repo's test command inside each worktree. Report per task: what changed, what passed,
 what the agent flagged. Read the diffs — a settled agent is not a correct agent.
 
-## 9. Merge and tear down
+## 8. Merge and tear down
 
 Commits and merges need the user's approval, per `AGENTS.md`. After approval, commit inside the
 worktree with the `commit` skill, merge, then:
