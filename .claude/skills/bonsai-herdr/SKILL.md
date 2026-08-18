@@ -12,7 +12,8 @@ then supervise all of them from here.
 |---|---|
 | worktree create / name / remove | bonsai |
 | workspace, pane, agent lifecycle | herdr |
-| decompose, brief, supervise, harvest, merge | this session |
+| decompose, brief, supervise, harvest, rework, merge | this session |
+| tear down — closing anything, removing a worktree | the user, per step 10 |
 
 Read the `herdr` skill first. It is the source of truth for herdr's concepts and CLI, including
 the rule that workspace/tab/pane ids compact when things close. This skill adds only what a
@@ -202,26 +203,95 @@ git -C "$WT" diff --stat
 Run the repo's test command inside each worktree. Report per task: what changed, what passed,
 what the agent flagged. Read the diffs — a settled agent is not a correct agent.
 
-## 8. Merge and tear down
+## 8. Rework or accept
 
-Commits and merges need the user's approval, per `AGENTS.md`. After approval, commit inside the
-worktree with the `commit` skill, merge, then:
+Harvest ends in one of three outcomes. Decide per task, not for the batch.
+
+- Accept → step 9.
+- Abandon → say so and leave everything standing. Step 10 still needs its own yes.
+- Rework → send a follow-up to the same agent, then go back to step 6.
+
+The agent name is durable, so re-resolve the pane and reuse it:
 
 ```bash
+PANE=$("$STATUS" "$BRANCH" | cut -f3)
+herdr pane run "$PANE" "<follow-up text>"
+```
+
+One line, for the same reason the first brief is one line. State only what changed:
+
+```
+Follow-up: <what to fix, one line>. Same branch and worktree — stay in it. In scope: <paths>. Done when: <observable condition>. Do not commit.
+```
+
+If the status line reads `missing`, or the pane sits at a bash prompt, claude has exited. Start it
+again in the same pane and wait for detection before briefing:
+
+```bash
+herdr pane run "$PANE" "claude"
+"$STATUS" --registered "$BRANCH"
+```
+
+A restart loses the agent's conversation. Write the follow-up so it stands on its own — a whole
+brief, not a correction to something the agent no longer remembers.
+
+## 9. Merge
+
+Commits and merges need the user's approval, per `AGENTS.md`. After approval, commit inside the
+worktree with the `commit` skill, then merge one branch at a time, in the ledger's order.
+
+Run the repo's test command in the main tree after each merge, not once at the end. Two branches
+that each pass alone can still break together, and merging one at a time is what tells you which
+one did it.
+
+A conflict is a stop condition. Report which files conflict and hand it to the user. Do not
+resolve it yourself — the agent that wrote the branch knows the intent, and you are not it.
+
+## 10. Tear down — only when the user says so
+
+Nothing is closed or removed until the user says so in the message just before it. This is a
+separate decision from the merge, and it stays separate when the merge has just succeeded.
+
+Approval to commit, merge, or push is not approval to tear down. Approval for one branch is not
+approval for the next. Silence is not approval.
+
+These are the destructive calls. Do not run them unasked, and do not run them as cleanup after a
+failure either:
+
+| call | destroys |
+|---|---|
+| `herdr workspace close` | the workspace and every pane in it |
+| `herdr tab close`, `herdr pane close` | the pane and whatever is running in it |
+| `bonsai remove`, `bonsai prune` | the worktree checkout |
+
+When the work settles, report the state and print the commands. Do not run them:
+
+```bash
+# when you are done with <branch>:
 herdr workspace close "$WS"
 bonsai remove "$BRANCH"
 ```
 
-bonsai owns the worktree, so remove it with `bonsai remove`, not `herdr worktree remove`.
+If the user does say yes, repeat the scope back first — which branches, and whether it covers the
+workspace, the worktree, or both — then run only what they named, in that order. herdr closes the
+workspace; bonsai owns the worktree, so remove it with `bonsai remove`, never
+`herdr worktree remove`.
+
+A merged branch whose worktree is still standing is a normal end state, not an untidy one. Leave
+it and record it in the ledger.
 
 ## Ledger
 
-Write `.tmp/bonsai-herdr.md` when the worktrees are created, and update it after briefing and
-after harvest:
+Write `.tmp/bonsai-herdr.md` when the worktrees are created, and update it after briefing, after
+harvest, and after anything is torn down:
 
 ```
-| task | branch | worktree | workspace | agent | command | status |
+| task | branch | worktree | workspace | agent | command | status | teardown |
 ```
+
+`teardown` is `open` or `closed`, and it records what was actually run. Never write `closed` for a
+worktree you left standing. A ledger that disagrees with `git worktree list` is worse than no
+ledger, because the next session rebuilds state from it.
 
 herdr's ids go stale; branch names, paths, and agent names do not. After an interruption, rebuild
 state from this file plus `herdr agent list`, never from ids remembered earlier in the session.

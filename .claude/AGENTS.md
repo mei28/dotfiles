@@ -36,6 +36,8 @@ Violating any of these sends the work back. There are no exceptions.
 - Structural and behavioral changes never share a commit; the structural one goes first:
   the `tidy-first` skill.
 - Ask before commit, push, and PR creation. Present what changed and its blast radius.
+- Ask before closing a pane, tab, or workspace, and before removing a worktree. Merging is not
+  permission to tear down. Leave the worktree standing until told otherwise.
 - Never add CLAUDE CODE signatures or `Co-Authored-By` trailers to commits.
 - Commit only when the test suite passes and linter/type warnings are resolved.
 

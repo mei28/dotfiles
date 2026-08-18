@@ -226,6 +226,11 @@ herdr workspace close 2
 herdr pane close 1-3
 ```
 
+closing is destructive and it is not your call. `workspace close` takes every pane in that
+workspace with it, and `pane close` takes whatever is running inside that pane. the same goes for
+`tab close`. ask the user first, close only what they named, and never close something as cleanup
+after a failure. see the hard rules in `AGENTS.md`.
+
 ## recipes
 
 ### run a server and wait until it is ready
