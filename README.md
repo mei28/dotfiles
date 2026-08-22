@@ -303,7 +303,7 @@ repo を編集すればそのまま全プロジェクトのセッションに反
 skills は 5 系統:
 
 - 委譲: `codex-implement`, `codex-review`, `antigravity-implement`, `antigravity-review`, `handoff`
-- 開発規律: `tdd`, `tidy-first`, `commit`, `deslop`, `dig`
+- 開発規律: `tdd`, `tidy-first`, `commit`, `deslop`, `grill-me` (要件を1問ずつ詰める尋問。上流は mattpocock/skills)
 - 文章: `tech-writing`, `japanese-tech-writing`, `cognitive-rhythm-writing`
 - 並行作業: `bonsai-herdr`, `herdr`
 - ツール固有: `marimo-notebook` (marimo ノートブックの記法とハマりどころ。上流は marimo-team/skills)
