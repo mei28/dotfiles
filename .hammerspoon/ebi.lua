@@ -8,7 +8,15 @@ local Layout = require('keyLayout')
 return Layout:new("Ebi", {
   "q  l  ,  .  ;    f  w  r  y  p",
   "a  o  e  i  u    k  t  n  s  h",
-  "z  x  c  v  b    g  d  m  j  /",
+  "z  x  c  v  /    g  d  m  j  b",
 }, {
   shiftPassthrough = { ",", "." },
 })
+
+-- return Layout:new("Ebi", {
+--   "q  l  ,  .  ;    f  w  r  y  p",
+--   "a  o  e  i  u    k  t  n  s  h",
+--   "z  x  c  v  b    g  d  m  j  /",
+-- }, {
+--   shiftPassthrough = { ",", "." },
+-- })
