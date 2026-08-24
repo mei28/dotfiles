@@ -23,8 +23,8 @@ set({ "v", "n" }, "x", '"_x')
 -- dl削除でヤンクしない
 set("n", "dl", '"_dd')
 
--- ESC連打:noh
-set("n", "<Esc><Esc>", "<CMD>nohl<CR>")
+-- ESC:noh
+set("n", "<Esc>", "<Cmd>nohlsearch<CR><Esc>")
 
 -- 分割windowの移動
 set("n", "<Leader>j", "<C-w>j")
