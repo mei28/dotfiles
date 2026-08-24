@@ -1,4 +1,4 @@
-local Layout = require('keyLayout')
+local Layout = require("keyLayout")
 
 -- QWERTY (reference):
 -- q  w  e  r  t    y  u  i  o  p
@@ -6,11 +6,11 @@ local Layout = require('keyLayout')
 -- z  x  c  v  b    n  m  ,  .  /
 
 return Layout:new("Ebi", {
-  "q  l  ,  .  ;    f  w  r  y  p",
-  "a  o  e  i  u    k  t  n  s  h",
-  "z  x  c  v  /    g  d  m  j  b",
+	"q  l  ,  .  ;    f  w  r  y  p",
+	"a  o  e  i  u    k  t  n  s  h",
+	"z  x  c  v  /    g  d  m  j  b",
 }, {
-  shiftPassthrough = { ",", "." },
+	shiftPassthrough = { ",", ".", "/" },
 })
 
 -- return Layout:new("Ebi", {
