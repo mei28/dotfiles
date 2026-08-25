@@ -3,6 +3,7 @@ require('ime')
 require('launch')
 require('grayscale')
 require('enterSwap')
+require('caffeine')
 -- disabled: kanata is off (enableKanata = false in nix-darwin/config/kanata.nix), which
 -- removes the LaunchDaemon plist, so the HRM toggle and daemon controls have nothing to
 -- talk to. Re-enable this together with that flag.

@@ -116,3 +116,6 @@ export ANDROID_HOME=/opt/homebrew/share/android-commandlinetools
 export NDK_HOME=$ANDROID_HOME/ndk/27.0.12077973
 path_prepend "$ANDROID_HOME/platform-tools"
 path_prepend "$JAVA_HOME/bin"
+
+## caffeinate helpers: cafwake (hold across a lock) / caf (hold for one command)
+source "$HOME/dotfiles/.config/nix/home-manager/modules/configs/caffeinate.bash"
