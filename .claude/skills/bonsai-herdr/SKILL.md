@@ -1,6 +1,6 @@
 ---
 name: bonsai-herdr
-description: Run independent tasks in parallel — one bonsai git worktree per task, each opened as its own herdr workspace with its own claude agent, all supervised from this session. Use when a request splits into tasks that touch disjoint files and should progress at the same time. Requires HERDR_ENV=1.
+description: Run independent tasks in parallel — one bonsai git worktree per task, each opened as its own herdr workspace with its own agent, all supervised from this session. Use when a request splits into tasks that touch disjoint files and should progress at the same time. Requires HERDR_ENV=1.
 ---
 
 # bonsai-herdr
@@ -61,7 +61,7 @@ resolves, so a single call would pass with bonsai missing.
 ## 2. Decompose and get approval
 
 Split the request into tasks with disjoint file scopes. Default to at most 3 in flight; ask
-before going higher — each agent is a full claude session against the user's quota.
+before going higher — each agent is a full session against that tool's quota.
 
 Present this table and wait for approval before creating anything:
 
@@ -69,9 +69,10 @@ Present this table and wait for approval before creating anything:
 |---|---|---|---|
 | … | … | … | claude |
 
-The agent is `claude` unless the user asked for `claude-glm` on that task. The branch name
-doubles as the task slug and the agent name, so keep it short and unique (`docs-readme`,
-`fix-lint`).
+The agent is `claude` unless the user names another one for that task — `opencode`, or any
+other command on PATH. Different rows may use different agents; the `agent` column is what the
+user approves. The branch name doubles as the task slug and the agent name, so keep it short and
+unique (`docs-readme`, `fix-lint`).
 
 Agent names are resolved across the whole herdr instance, not per repo. Check `herdr agent list`
 for a name already in use — another repo's run may hold it — and prefix the repo name if it does
@@ -85,6 +86,7 @@ supervision, which watches all of them at once.
 ```bash
 BRANCH=docs-readme
 BASE=main
+AGENT=claude   # or opencode, or whatever the approved table says for this row
 bonsai add -c "$BRANCH" --base "$BASE"
 WT=$(command bonsai cd "$BRANCH")
 [ -d "$WT/.git" ] || [ -f "$WT/.git" ]
@@ -101,10 +103,10 @@ If it did not, read it out of `git worktree list --porcelain` instead and fix th
 ## 4. Open each worktree and start its agent
 
 `herdr worktree open` always creates a root shell pane and herdr has no flag to suppress it, so
-run claude *in* that pane rather than adding a second one. The workspace stays at one pane, and
-claude runs as a child of an interactive shell — Ctrl-Z drops to the prompt and the pane
-survives. `herdr agent start` would make claude the pane's own process instead, so suspending or
-exiting it takes the pane down and the work with it.
+run the agent *in* that pane rather than adding a second one. The workspace stays at one pane,
+and the agent runs as a child of an interactive shell — Ctrl-Z drops to the prompt and the pane
+survives. `herdr agent start` would make the agent the pane's own process instead, so suspending
+or exiting it takes the pane down and the work with it.
 
 ```bash
 OPEN=$(herdr worktree open --path "$WT" --label "$BRANCH" --no-focus --json) || exit 1
@@ -120,7 +122,7 @@ if [ "$REUSED" = "true" ]; then
 fi
 
 herdr agent rename "$ROOT" "$BRANCH" || exit 1
-herdr pane run "$ROOT" "claude"
+herdr pane run "$ROOT" "$AGENT"
 ```
 
 Keep `--no-focus` so the user stays in the pane they are in.
@@ -128,21 +130,22 @@ Keep `--no-focus` so the user stays in the pane they are in.
 `already_open: true` means the path already had a workspace and `$ROOT` is a pane someone else is
 using. Reuse the workspace, but give this task its own tab so nothing lands in that pane.
 
-Name the pane before launching claude. `herdr agent rename` takes a pane with no agent detected
-in it yet, so the durable handle exists from the start instead of racing claude's startup.
+Name the pane before launching the agent. `herdr agent rename` takes a pane with no agent
+detected in it yet, so the durable handle exists from the start instead of racing the agent's
+startup.
 
-For `claude-glm`, check that it resolves first, then pass it to `pane run` in place of `claude`:
+Whenever `$AGENT` is not `claude`, check that it resolves before opening anything:
 
 ```bash
-command -v claude-glm
+command -v "$AGENT"
 ```
 
 If it is not on PATH, stop and ask the user how it is invoked. Do not start `claude` instead — a
-task the user wanted on another model would run on this one without them knowing.
+task the user wanted on another agent would run on this one without them knowing.
 
 ## 5. Brief each agent
 
-Step 4 named the pane before claude was up, so the name alone does not mean claude is ready.
+Step 4 named the pane before the agent was up, so the name alone does not mean it is ready.
 `--registered` waits for herdr to actually detect the agent, which is the real signal:
 
 ```bash
@@ -224,11 +227,11 @@ One line, for the same reason the first brief is one line. State only what chang
 Follow-up: <what to fix, one line>. Same branch and worktree — stay in it. In scope: <paths>. Done when: <observable condition>. Do not commit.
 ```
 
-If the status line reads `missing`, or the pane sits at a bash prompt, claude has exited. Start it
-again in the same pane and wait for detection before briefing:
+If the status line reads `missing`, or the pane sits at a bash prompt, the agent has exited. Start
+it again in the same pane and wait for detection before briefing:
 
 ```bash
-herdr pane run "$PANE" "claude"
+herdr pane run "$PANE" "$AGENT"
 "$STATUS" --registered "$BRANCH"
 ```
 
@@ -298,13 +301,14 @@ state from this file plus `herdr agent list`, never from ids remembered earlier 
 
 ## Notes
 
-- Child agents load `~/.claude/CLAUDE.md` → `AGENTS.md` themselves, so TDD and tidy-first already
-  apply. Do not restate them in the task text.
+- Child agents load the shared `AGENTS.md` themselves — Claude Code through `~/.claude/CLAUDE.md`,
+  opencode through `~/.config/opencode/AGENTS.md` — so TDD and tidy-first already apply. Do not
+  restate them in the task text.
 - Children must not run this skill. Depth is 1.
 - Children do not commit. The parent reviews the diffs and commits after the user approves.
 - A worktree is a separate checkout, so `.tmp/` is not shared with the children. Everything they
   need goes in the task text.
-- A fresh worktree path is new to claude, so the first run there can ask the user to trust the
+- A fresh worktree path is new to the agent, so the first run there can ask the user to trust the
   folder. It surfaces as `blocked` and goes to the human like any other prompt.
 - `herdr worktree open` returns `already_open: true` when that path already has a workspace.
   Reuse it instead of opening a second one.

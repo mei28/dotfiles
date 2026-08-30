@@ -1,13 +1,16 @@
 # Development Standards & Coding Conventions
 
-> Single source of truth shared by all AI coding agents (Claude Code, Codex, Antigravity).
-> Claude Code loads this via `@AGENTS.md` in `CLAUDE.md`; Codex reads `~/.codex/AGENTS.md`
-> (symlinked to this file); Antigravity reaches it via each repo's `GEMINI.md`.
+> Single source of truth shared by all AI coding agents (Claude Code, Codex, Antigravity,
+> opencode). Claude Code loads this via `@AGENTS.md` in `CLAUDE.md`; Codex reads
+> `~/.codex/AGENTS.md` (symlinked to this file); opencode reads
+> `~/.config/opencode/AGENTS.md` (also symlinked to this file); Antigravity reaches it via
+> each repo's `GEMINI.md`.
 
 ## Skills
 
-Skills live in `~/.claude/skills/<name>/SKILL.md`. That path resolves for all three tools.
+Skills live in `~/.claude/skills/<name>/SKILL.md`. That path resolves for every tool.
 - Claude Code: invoke the skill by name.
+- opencode: invoke through the native `skill` tool; `~/.claude/skills` is discovered automatically.
 - Codex / Antigravity: read the file before starting the work it covers.
 
 Below, "the `x` skill" means exactly this. Each skill's `description` states its own trigger.
@@ -110,7 +113,8 @@ and quality before accepting.
 |---|---|
 | Orchestrate / Plan / Evaluate | Claude Code (primary) |
 | Implement | Codex (primary), Antigravity (secondary) |
-| Review | All three (multi-perspective cross-check) |
+| Review | Claude Code, Codex, Antigravity (multi-perspective cross-check) |
+| Fallback main, when Claude Code is unavailable | opencode (GLM / Kimi on a self-hosted server) |
 
 | Action | Skill |
 |---|---|
@@ -119,6 +123,7 @@ and quality before accepting.
 | Handoff | `handoff` (writes `.tmp/progress.md`) |
 
 When any tool nears its usage limit, run `handoff` and let another tool resume from `.tmp/progress.md`.
+When Claude Code itself is the one that ran out, opencode picks up the whole session, not just one phase.
 Operational guides: `~/dotfiles/docs/claude-codex.md` (Claude ↔ Codex),
-`~/dotfiles/docs/antigravity.md` (Antigravity CLI).
-All three tools share this file for behavioral consistency.
+`~/dotfiles/docs/antigravity.md` (Antigravity CLI), `~/dotfiles/docs/opencode.md` (opencode).
+Every tool shares this file for behavioral consistency.

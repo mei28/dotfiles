@@ -19,6 +19,7 @@ in
     # AI コーディング CLI
     ../modules/claude.nix
     ../modules/codex.nix
+    ../modules/opencode.nix
   ];
 
   home.username = username;

@@ -1,0 +1,39 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+
+  // nix 管理のため自己更新は不可。nix store が読み取り専用で失敗する。
+  // 更新は `nix flake update` → `just update <host>`。
+  "autoupdate": false,
+
+  // Claude が使えないときの主軸として使うので、フル権限の build を既定にする。
+  "default_agent": "build",
+
+  // AGENTS.md の Hard Rules「commit / push / PR 作成の前に確認する」を permission でも
+  // 担保する。opencode の build agent は既定で bash を全部通すため、明示しないと
+  // 素通りする（allow リストに無いものを聞く Claude Code とは向きが逆）。
+  // ask になった要求は Clawd on Desk のバブルにも出る。
+  "permission": {
+    "bash": {
+      "*": "allow",
+      "git commit *": "ask",
+      "git push *": "ask",
+      "gh pr create *": "ask"
+    }
+  }
+
+  // provider と model はここに追記する。GLM / Kimi は自前のローカルサーバなので、
+  // 組み込みの zai / moonshotai ではなく openai-compatible で定義する:
+  //
+  //   "provider": {
+  //     "local": {
+  //       "npm": "@ai-sdk/openai-compatible",
+  //       "name": "Local",
+  //       "options": { "baseURL": "{env:OPENCODE_BASE_URL}" },
+  //       "models": { "<model-id>": { "name": "<display name>" } }
+  //     }
+  //   },
+  //   "model": "local/<model-id>"
+  //
+  // baseURL を {env:...} にしておけば、実値を bash.nix の sessionVariables で
+  // ホストごとに与えられ、この JSON 自体は 2 台で共有できる。
+}

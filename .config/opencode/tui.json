@@ -1,0 +1,11 @@
+{
+  "$schema": "https://opencode.ai/tui.json",
+
+  // 既定では ctrl+d が app_exit / session_delete / input_delete に三重登録されており、
+  // 入力欄が空のときに押すと opencode ごと終了する。3 つを分離する。
+  "keybinds": {
+    "app_exit": "ctrl+c,<leader>q",
+    "session_delete": "none",
+    "input_delete": "delete,shift+delete"
+  }
+}
