@@ -690,9 +690,17 @@ if type bun &> /dev/null; then
     alias ccl='bun x ccusage blocks --live'
 fi
 
-if type claude &> /dev/null; then
-    export EDITOR="nvim"
-fi
+# エディタは無条件に設定する。
+# 以前は `if type claude` の中にあったが、claude の入る ~/.local/bin が PATH に
+# 加わるのは後方 (path_prepend "$HOME/.local/bin") なので判定時に見つからず、
+# この export は一度も実行されていなかった。
+#
+# home-manager の sessionVariables でも同じ値を設定しているが、そちらは
+# hm-session-vars.sh が __HM_SESS_VARS_SOURCED で二重読み込みを防ぐため、
+# 古い値を持つ親から起動したシェルには届かない。bashrc 側はガードが無いので、
+# 環境を引き継いだシェルでも上書きできる。
+export EDITOR="nvim"
+export VISUAL="nvim"
 
 # Function to omit '%' for the fg command
 fg() {

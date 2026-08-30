@@ -59,6 +59,12 @@
 
   # Environment variables
   home.sessionVariables = {
+    # nvim を全ツール共通のエディタにする。未設定だと macOS 既定の nano が残り、
+    # $VISUAL / $EDITOR を読むツール（opencode の editor_open など）が nano を開く。
+    # git は core.editor で個別に nvim を指しているため、これとは独立。
+    EDITOR = "nvim";
+    VISUAL = "nvim";
+
     PKG_CONFIG_PATH = "${pkgs.curl.dev}/lib/pkgconfig";
     LDFLAGS = "-L${pkgs.curl.dev}/lib";
     CPPFLAGS = "-I${pkgs.curl.dev}/include";
