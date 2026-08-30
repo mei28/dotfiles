@@ -9,11 +9,20 @@
     pkgs.opencode
   ];
 
-  # 設定ディレクトリは丸ごと symlink する。認証情報は ~/.local/share/opencode/auth.json
-  # に分離されるため、丸ごと貼っても repo に秘密が入らない（codex の config.toml が
-  # symlink できないのとは事情が違う）。
-  # herdr と Clawd on Desk のインストーラが plugins/ に書き込むので、その生成物も
-  # repo に入る。~/.claude/hooks/herdr-agent-state.sh と同じ扱い。
+  # 設定ディレクトリを dotfiles に置く。認証情報は ~/.local/share/opencode/auth.json
+  # に分離されるため、repo に秘密は入らない（codex の config.toml が symlink できない
+  # のとは事情が違う）。
+  #
+  # この宣言はこのマシンでは実質 no-op になる。~/.config 自体が dotfiles/.config への
+  # symlink なので、~/.config/opencode は最初から dotfiles の実体を指している。
+  # 適用すると自己参照ループになるため home-manager は載せない。herdr の
+  # xdg.configFile も同じ状態。~/.config が symlink でないホストのために残してある。
+  #
+  # opencode は config ディレクトリに書き込む。@opencode-ai/plugin を npm で入れるため
+  # node_modules / package.json / package-lock.json が生える。opencode 自身が
+  # .gitignore を置いてそれらを除外するので、repo は汚れない。
+  # herdr と Clawd on Desk のインストーラも plugins/ に書き込む。そちらの生成物は
+  # 追跡対象で、~/.claude/hooks/herdr-agent-state.sh と同じ扱い。
   xdg.configFile."opencode".source =
     config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.config/opencode";
 }

@@ -27,9 +27,16 @@ Claude モデルを opencode で回すには API キー課金が要る。だか�
 - 本体: nix（`modules/opencode.nix` の `pkgs.opencode`）で管理する。
   更新は `nix flake update` から `just update <host>` で適用する。
 - `autoupdate` は `false` 固定。nix store は読み取り専用で、自己更新が走ると失敗する。
-- 設定ディレクトリ: `~/.config/opencode` を丸ごと symlink する。
-  認証情報は `~/.local/share/opencode/auth.json` に分離されるため、丸ごと貼っても
-  repo に秘密が入らない。codex の `config.toml` を symlink できないのとは事情が違う。
+- 設定ディレクトリ: `~/.config/opencode` が dotfiles の実体を指す。
+  `~/.config` 自体が `dotfiles/.config` への symlink なので、`modules/opencode.nix` の
+  `xdg.configFile` 宣言はこのマシンでは no-op になる。`~/.config` が symlink でない
+  ホスト用に残してあるだけで、実際の配置はこの symlink が担っている。herdr の
+  `xdg.configFile` も同じ状態。
+- 認証情報は `~/.local/share/opencode/auth.json` に分離されるため、repo に秘密は入らない。
+  codex の `config.toml` を symlink できないのとは事情が違う。
+- opencode は config ディレクトリに書き込む。`@opencode-ai/plugin` を npm で入れるため
+  `node_modules/` と `package.json` と `package-lock.json` が生える。opencode 自身が
+  `.gitignore` を置いて除外するので repo は汚れない。
 - 共有 `AGENTS.md`: `.config/opencode/AGENTS.md` を `.claude/AGENTS.md` への相対 symlink
   にしてある。opencode の global ルール探索は `~/.config/opencode/AGENTS.md` を見る。
   `~/.claude/CLAUDE.md` へのフォールバックもあるが、そちらは `@AGENTS.md` の import しか
