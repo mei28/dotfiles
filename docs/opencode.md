@@ -55,10 +55,23 @@ nix が自動でやること: `pkgs.opencode` の導入と `~/.config/opencode` 
 | 2. herdr 連携 | `herdr integration install opencode` | `~/.config/opencode/plugins/herdr-agent-state.js` を置く。状態がサイドバーに出る |
 | 3. Clawd 連携 | Clawd on Desk 側で opencode を有効化 | opencode は権限承認をバブルで出せる数少ないエージェントの 1 つ |
 | 4. プロバイダ登録 | `opencode auth login` | 自前サーバの API キーを登録。対話必須 |
-| 5. モデル設定 | `.config/opencode/opencode.json` に `provider` と `model` を記入 | ファイル内のコメントに雛形あり |
+| 5. Brave Search | `~/.config/brave/api_key` にキーを置く | host-local。repo に秘密を入れない。sbi-mac のオーバーレイが `{env:HOME}/.config/brave/api_key` を読む |
+| 6. モデル設定 | sbi-mac のみ: `hosts/sbi-mac.nix` が `OPENCODE_CONFIG` で `opencode.sbi-mac.json` を指す | provider と mcp はホスト別ファイルに分離。共有 `opencode.json` には書かない |
 
 `opencode auth login` の認証情報は `~/.local/share/opencode/auth.json` に入る。
 repo には入らないので、ホストごとに 1 回ずつ実行する。
+
+## プロバイダ / MCP のホスト分離
+
+共通設定は `~/.config/opencode/opencode.json`。glm / kimi を載せる kadode provider と
+brave-search MCP は sbi-mac 専用オーバーレイ `opencode.sbi-mac.json` に置く。
+`hosts/sbi-mac.nix` が `home.sessionVariables.OPENCODE_CONFIG` でこのファイルを指すため、
+opencode は起動時に共通ファイルとマージして読む。babalab-mac は env 未設定のため
+オーバーレイが読まれず、provider / mcp ともロードされない（自前サーバが無いため）。
+
+Brave Search の API キーは `~/.config/brave/api_key`（host-local、repo 外）。
+オーバーレイの MCP 設定が `{env:HOME}/.config/brave/api_key` を指すので、
+キーが repo に入らない。Kim 系の検索能力を Claude Code 相当に引き上げる。
 
 ## 資産の引き継ぎ状況
 
@@ -69,7 +82,7 @@ repo には入らないので、ホストごとに 1 回ずつ実行する。
 | herdr | 公式連携あり（`herdr integration install opencode`） |
 | Clawd on Desk | 公式サポートあり。承認バブルも対応 |
 | Codex への委譲 | `codex-implement` / `codex-review` は `codex exec` を叩くだけなので無改造で動く |
-| statusline | 持たない。組み込みフッターが context 使用率とコストを出す |
+| statusline | `third_party/opencode/opencode-statusline` の TUI plugin として prompt 右側へ追加する。項目は `.config/opencode/statusline-plugin.json` に書く |
 | WezTerm のタブ状態表示 | 移植しない。下記の制約を参照 |
 | hooks | 無い。プラグイン方式（`tool.execute.before/after`, `session.*`） |
 | `.claude/agents`, `.claude/commands` | 互換なし。opencode 側は `~/.config/opencode/{agents,commands}` |
@@ -89,7 +102,7 @@ vim 風の再マップは中途半端にしかならない。長文は `<leader>
 ## 既知の制約
 
 - Anthropic の Pro / Max サブスクは使えない（上記「位置づけ」を参照）
-- statusline のフックが無い。feature request は open だが未実装
+- 公式の `statusLine` config hook は未実装。feature request は open だが、現状は `third_party/opencode/opencode-statusline` の plugin で逃げている
 - hooks が無いので、`.claude/hooks/wezterm-state.sh` 相当は移植していない。
   opencode の TUI は stdout を占有しており、プラグインから OSC を撃つと描画を壊す。
   そもそもあの仕組みは WezTerm のタブに 1 対 1 で対応する設計で、herdr の中では

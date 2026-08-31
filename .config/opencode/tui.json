@@ -150,8 +150,8 @@
     // 入力欄の編集 (入力欄が focus のときだけ有効)
     "input_clear": "ctrl+c",   // Claude Code の ctrl+c。空なら終了
     "input_paste": {"key": "ctrl+v", "preventDefault": false},
-    "input_submit": "super+return",
-    "input_newline": "return,shift+return,ctrl+return,alt+return,ctrl+j",
+    "input_submit": "return",
+    "input_newline": "shift+return,ctrl+return,alt+return,ctrl+j",
     "input_move_left": "left,ctrl+b",
     "input_move_right": "right,ctrl+f",
     "input_move_up": "up,ctrl+p",   // ctrl+p を上移動に追加

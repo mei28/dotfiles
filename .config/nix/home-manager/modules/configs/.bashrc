@@ -873,6 +873,10 @@ if type ferment &> /dev/null; then
   eval "$(ferment completion bash)"
 fi
 
+if type opencode &> /dev/null; then
+  alias opc='opencode'
+fi
+
 #=====================#
 # change config by OS #
 #=====================#
