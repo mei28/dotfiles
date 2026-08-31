@@ -1,6 +1,11 @@
 {
   "$schema": "https://opencode.ai/tui.json",
 
+  // Claude Code-like prompt statusline.
+  "plugin": [
+    "/Users/mingzhe.yang/dotfiles/third_party/opencode/opencode-statusline"
+  ],
+
   // 誤爆を減らすため、グローバルなキーは意図的に残したものだけにしてある。
   // 残す基準は Claude Code で使っている操作。それ以外のグローバルは "none"。
   // 入力欄・ダイアログ・補完・diff ビューアのキーは、そのコンテキストが開いている

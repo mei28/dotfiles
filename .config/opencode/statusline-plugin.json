@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "fields": [
+    "repo",
+    "branch",
+    "git_diff_stats",
+    "context_window",
+    "quota_5h",
+    "session_cost",
+    "generation_metrics"
+  ]
+}

@@ -36,6 +36,11 @@ credentials.json
 node_modules/
 package.json
 package-lock.json
+
+# opencode statusline plugin is vendored for dotfiles-managed config; keep npm manifests tracked.
+!third_party/opencode/opencode-statusline/package.json
+!third_party/opencode/opencode-statusline/package-lock.json
+
 .mypy_cache/
 .config/configstore/
 .config/efm-langserver/

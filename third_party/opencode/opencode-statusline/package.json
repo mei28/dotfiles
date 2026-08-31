@@ -1,0 +1,77 @@
+{
+  "name": "opencode-statusline",
+  "version": "0.1.0",
+  "private": true,
+  "description": "OpenCode statusline and provider usage plugin with zero context pollution.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./server": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./tui": {
+      "types": "./dist/tui.d.ts",
+      "default": "./dist/tui.js"
+    }
+  },
+  "oc-plugin": [
+    "server",
+    "tui"
+  ],
+  "files": [
+    "dist",
+    "doc",
+    "README*.md"
+  ],
+  "scripts": {
+    "build": "node scripts/clean-dist.mjs && tsc && node scripts/prepare-tui-dist.mjs",
+    "build:check": "npm run build && npm pack --dry-run",
+    "typecheck": "tsc --noEmit",
+    "test": "npm run build && vitest run",
+    "prepack": "npm run build"
+  },
+  "keywords": [
+    "opencode",
+    "plugin",
+    "statusline",
+    "quota",
+    "usage"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kalcohol/opencode-statusline.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kalcohol/opencode-statusline/issues"
+  },
+  "homepage": "https://github.com/kalcohol/opencode-statusline#readme",
+  "dependencies": {
+    "@opentui/core": "^0.4.5",
+    "@opentui/keymap": "^0.4.5",
+    "@opentui/solid": "^0.4.5",
+    "solid-js": "1.9.12",
+    "string-width": "^7.2.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.29.7",
+    "@babel/preset-typescript": "^7.29.7",
+    "@opencode-ai/plugin": "^1.18.3",
+    "@types/node": "^24.0.0",
+    "babel-preset-solid": "^1.9.12",
+    "typescript": "^5.8.0",
+    "vitest": "^4.1.10"
+  },
+  "peerDependencies": {
+    "@opencode-ai/plugin": ">=1.15.10"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

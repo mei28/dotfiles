@@ -9,6 +9,11 @@
     pkgs.opencode
   ];
 
+  # statusline plugin の選択状態を XDG data 配下ではなく dotfiles 管理に寄せる。
+  home.sessionVariables = {
+    OPENCODE_STATUSLINE_CONFIG = "${config.home.homeDirectory}/dotfiles/.config/opencode/statusline-plugin.json";
+  };
+
   # 設定ディレクトリを dotfiles に置く。認証情報は ~/.local/share/opencode/auth.json
   # に分離されるため、repo に秘密は入らない（codex の config.toml が symlink できない
   # のとは事情が違う）。
