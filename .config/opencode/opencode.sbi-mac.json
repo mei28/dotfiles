@@ -1,0 +1,78 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+
+  // sbi-mac 専用オーバーレイ。hosts/sbi-mac.nix が OPENCODE_CONFIG でこのファイルを指す。
+  // 共有の opencode.json とマージされる（非衝突キーは保持、衝突時はこちらが優先）。
+  //
+  // babalab-mac には自前サーバ (glm / kimi) が無いため、このファイルは読ませない。
+  // env を export しないホストでは provider も mcp もロードされない。
+
+  // 既定モデル。build agent が Claude Code 代行主軸で回す。検索能力を含め Kimi K3 が
+  // Claude Code に最も近いため、既定は kimi-k3 に置く。
+  "model": "kadode/kimi-k3",
+
+  // 軽量タスク（タイトル生成等）のモデル。未設定だと built-in の "opencode" provider
+  // が認証情報ありで自動ロードされ、gpt-nano 等の社外クラウドへ飛ぶリスクがある。
+  // kadode 内の安いモデルに固定して社外経由を断つ。
+  "small_model": "kadode/glm-5.2-nvfp4",
+
+  // allowlist。kadode 以外の provider を一切ロードさせない。
+  // disabled_providers: ["opencode"] より強く、built-in cloud provider を全遮断する。
+  // brave-search は MCP であり provider ではないため影響しない。
+  "enabled_providers": ["kadode"],
+
+  "provider": {
+    "kadode": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Kadode (Internal)",
+      "options": {
+        "baseURL": "https://kadode.om-dev.sbintuitions.com:8000/v1",
+        // 秘密を config に直書きしない。実値は hosts/sbi-mac.nix の KADODE_TOKEN で与える。
+        // VPN 経由は dummy、Cloudflare Access 経由は実トークンを env に置く。
+        "apiKey": "{env:KADODE_TOKEN}"
+      },
+      "models": {
+        "glm-5.2-nvfp4": {
+          "name": "GLM 5.2 (nvfp4)",
+          "options": { "reasoningEffort": "medium" },
+          "variants": {
+            "low": { "reasoningEffort": "low" },
+            "medium": { "reasoningEffort": "medium" },
+            "high": { "reasoningEffort": "high" }
+          }
+        },
+        "glm-5.2-fp8": {
+          "name": "GLM 5.2 (fp8)",
+          "options": { "reasoningEffort": "medium" },
+          "variants": {
+            "low": { "reasoningEffort": "low" },
+            "medium": { "reasoningEffort": "medium" },
+            "high": { "reasoningEffort": "high" }
+          }
+        },
+        "kimi-k3": {
+          "name": "Kimi K3",
+          "options": { "reasoningEffort": "high" },
+          "variants": {
+            "low": { "reasoningEffort": "low" },
+            "high": { "reasoningEffort": "high" },
+            "max": { "reasoningEffort": "max" }
+          }
+        }
+      }
+    }
+  },
+
+  // Claude Code 相当の検索を opencode にも。Brave Search API キーは
+  // ~/.config/brave/api_key にホストローカルで置く（repo に秘密を入れない）。
+  // {env:HOME} でパスをホスト非依存にする。api_key が無いホストでは MCP が起動失敗するが、
+  // sbi-mac 以外でこのファイルは読まれないので問題ない。
+  "mcp": {
+    "brave-search": {
+      "type": "local",
+      "command": ["npx", "-y", "@brave/brave-search-mcp-server"],
+      "enabled": true,
+      "environment": { "BRAVE_API_KEY_FILE": "{env:HOME}/.config/brave/api_key" }
+    }
+  }
+}
