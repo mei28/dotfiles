@@ -49,6 +49,8 @@ in
 
   system.primaryUser = username;
 
-  # /etc/shells に nix bash を登録 (chsh で login shell に指定可能にする)
+  # /etc/shells に nix bash を登録し、login shell もそこへ揃える。
+  # macOS 付属の /bin/bash (3.2) だと HM 生成の ~/.bashrc が読めないため。
   environment.shells = [ pkgs.bash ];
+  users.users.${username}.shell = pkgs.bash;
 }

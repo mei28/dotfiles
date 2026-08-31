@@ -241,7 +241,7 @@ just test-all             # 全テスト実行
 - CLI: gh, bat, just, fd, ripgrep, dust, delta, tldr, csvlens, miniserve, serie
 - ファイル管理: yazi, trash-cli, tree, wget, curl, zip, unzip
 - エディタ/セッション: neovim, tmux, tmux-mem-cpu-load
-- shell: bash, fzf, zoxide, fastfetch
+- shell: bash, fzf, zoxide, fastfetch。macOS の login shell は nix-darwin 側で nix bash に揃える
 - VCS: git, gitui, jujutsu
 
 ### 開発環境 (development)
