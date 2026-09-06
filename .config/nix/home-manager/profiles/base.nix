@@ -60,6 +60,10 @@
   # Home Manager自身
   programs.home-manager.enable = true;
 
+  # Every ~/.config entry is declared per app rather than covered by a single
+  # ~/.config -> ~/dotfiles/.config symlink. Hosts that still have that symlink
+  # skip these as no-ops; hosts without it reach the config only through here.
+  # Declaring each one keeps the managed set readable and the hosts in sync.
   home.file = {
     ".config/nvim".source =
       config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.config/nvim";
@@ -74,6 +78,14 @@
     config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.config/herdr/config.toml";
   xdg.configFile."herdr/bin".source =
     config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.config/herdr/bin";
+
+  # yazi ships in home.packages on every host and marimo is used on every host,
+  # but both configs were reachable only through the ~/.config symlink, so hosts
+  # without it silently ran on default settings.
+  xdg.configFile."yazi".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.config/yazi";
+  xdg.configFile."marimo".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/.config/marimo";
 
   # unfreeパッケージを許可
   nixpkgs.config.allowUnfree = true;

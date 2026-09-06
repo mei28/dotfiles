@@ -72,6 +72,17 @@
           }
         ]
       }
+    ],
+    "PermissionRequest": [
+      {
+        "hooks": [
+          {
+            "command": "\"/usr/local/bin/node\" \"/Applications/Clawd on Desk.app/Contents/Resources/app.asar.unpacked/hooks/codex-hook.js\"",
+            "timeout": 600,
+            "type": "command"
+          }
+        ]
+      }
     ]
   }
 }
