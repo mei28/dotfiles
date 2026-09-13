@@ -4,9 +4,7 @@
     "repo",
     "branch",
     "git_diff_stats",
-    "context_window",
-    "quota_5h",
-    "session_cost",
-    "generation_metrics"
+    "subagent_status",
+    "agent_status"
   ]
 }

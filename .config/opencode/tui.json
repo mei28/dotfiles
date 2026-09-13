@@ -53,15 +53,15 @@
     "diff_help": "?",
 
     // エディタとテーマ
-    "editor_open": "ctrl+d",   // 外部エディタ。ctrl+d を空けてここに割り当てた
+    "editor_open": "ctrl+g",   // 外部エディタ。Claude Code と同じ
     "theme_list": "none",   // 既定: "<leader>t"
     "theme_switch_mode": "none",
     "theme_mode_lock": "none",
 
     // UI
-    "sidebar_toggle": "none",   // 既定: "<leader>b"
+    "sidebar_toggle": "<leader>b",   // 既定: "<leader>b"
     "scrollbar_toggle": "none",
-    "status_view": "none",   // 既定: "<leader>s"
+    "status_view": "<leader>s",   // 既定: "<leader>s"
     "debug_view": "none",
 
     // セッション
@@ -176,7 +176,7 @@
     "input_delete_to_line_end": "ctrl+k",
     "input_delete_to_line_start": "ctrl+u",
     "input_backspace": "backspace,shift+backspace",
-    "input_delete": "delete,shift+delete",   // ctrl+d を外して editor_open に譲った
+    "input_delete": "ctrl+d,delete,shift+delete",   // 既定に戻した。Claude Code でも ctrl+d は文字削除
     "input_undo": "ctrl+-,super+z",
     "input_redo": "ctrl+.,super+shift+z",
     "input_word_forward": "alt+f,alt+right,ctrl+right",

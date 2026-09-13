@@ -38,7 +38,8 @@
           "variants": {
             "low": { "reasoningEffort": "low" },
             "medium": { "reasoningEffort": "medium" },
-            "high": { "reasoningEffort": "high" }
+            "high": { "reasoningEffort": "high" },
+            "max": { "reasoningEffort": "max" }
           }
         },
         "glm-5.2-fp8": {
@@ -47,7 +48,28 @@
           "variants": {
             "low": { "reasoningEffort": "low" },
             "medium": { "reasoningEffort": "medium" },
-            "high": { "reasoningEffort": "high" }
+            "high": { "reasoningEffort": "high" },
+            "max": { "reasoningEffort": "max" }
+          }
+        },
+        "glm-5.3": {
+          "name": "GLM 5.3",
+          "options": { "reasoningEffort": "medium" },
+          "variants": {
+            "low": { "reasoningEffort": "low" },
+            "medium": { "reasoningEffort": "medium" },
+            "high": { "reasoningEffort": "high" },
+            "max": { "reasoningEffort": "max" }
+          }
+        },
+        "glm-5.3-flash": {
+          "name": "GLM 5.3 Flash",
+          "options": { "reasoningEffort": "medium" },
+          "variants": {
+            "low": { "reasoningEffort": "low" },
+            "medium": { "reasoningEffort": "medium" },
+            "high": { "reasoningEffort": "high" },
+            "max": { "reasoningEffort": "max" }
           }
         },
         "kimi-k3": {
