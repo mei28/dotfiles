@@ -13,7 +13,8 @@ bonsai が git worktree を作り、herdr がその worktree を workspace と�
 |---|---|---|
 | worktree の作成 / 命名 / 削除 | bonsai | `.bonsai/<branch>` 配下のチェックアウト |
 | workspace / tab / pane / agent のライフサイクル | herdr | 端末の分割とエージェントの起動 |
-| 分解 / 指示 / 監視 / 収穫 / マージ | Claude Code のセッション | `bonsai-herdr` skill |
+| 分解 / 指示 / 監視 / 収穫 / 取り込み | Claude Code のセッション | `bonsai-herdr` skill |
+| 採用ブランチの merge / 接着修正 / 衝突解決 | 統合エージェント | `.bonsai/integ-<slug>` の claude |
 
 ```
   bonsai                                   herdr
@@ -204,24 +205,45 @@ herdr agent send <name> "<text>"           # 文字だけ。Enter は送らな�
 
 `~/.claude/skills/bonsai-herdr/SKILL.md` が両者をつなぐ手順を持つ。
 ファイル範囲が重ならないタスクに分けられる依頼を、タスクごとの worktree と workspace とエージェントに割り当て、ひとつのセッションから監督する。
+採用したブランチは統合 worktree で合流させて検証し、取り込み先のブランチは利用者が取り込み方を指示したときだけ動く。
+
+### 統合 worktree
+
+親セッション、統合 worktree、タスク worktree の三層で動く。
+
+```
+  親セッション（$BASE をチェックアウト）
+     │ 分解 / 指示 / 監視 / 収穫 / 取り込み
+     ├──▶ .bonsai/integ-<slug>   統合エージェント: merge / テスト / 接着修正 / 衝突解決
+     ├──▶ .bonsai/<task-1>       タスクエージェント
+     └──▶ .bonsai/<task-2>       タスクエージェント
+```
+
+- `$BASE` は skill を呼んだ時点でチェックアウトされていたブランチ。タスクブランチも統合ブランチもここから枝分かれし、最後にここへ戻る。detached HEAD なら停止する。
+- 統合 worktree はタスク worktree と同じ手順で step 3〜5 に作り、エージェントは役割だけ伝えて `idle` で待たせる。
+- 承認はタスクの採用ごとに 1 回。その承認で親がタスク worktree でコミットし、統合エージェントに merge とテストを一行で指示する。
+- 「単体では通るが合わせると壊れる」接着部分はどのタスクにも属さないので、統合エージェントが直す。親がその diff を読み、承認を取ってコミットする。
+- 衝突は親が解かない。利用者に「タスクエージェントへ差し戻す（既定）」か「統合エージェントに解かせる」かを聞く。
+- 全部入って統合 worktree のテストが通ったら、親は diff stat とテスト結果を報告して止まる。取り込み方（ローカルマージ、PR など）は毎回利用者が指示し、親が実行する。skill に既定はない。
 
 ### 流れ
 
-1. 事前確認。`HERDR_ENV=1`、`herdr` と `bonsai` の両方が PATH にあること、`git status` が空であること、`.bonsai.toml` があること。
+1. 事前確認。`HERDR_ENV=1`、`herdr` と `bonsai` の両方が PATH にあること、`git status` が空であること、`.bonsai.toml` があること、`git branch --show-current` が空でないこと。
    どれも停止条件であり、迂回しない。
    worktree はベースのコミットから枝分かれするため、未コミットの変更は子には渡らない。
-2. 分解と承認。ファイル範囲の重ならないタスクに分け、表にして人間の承認を取る。
+2. 分解と承認。ファイル範囲の重ならないタスクに分け、表にして人間の承認を取る。統合ブランチ `integ-<slug>` も同じ承認に含める。
    同時実行は既定で3つまで。各エージェントが利用者の枠を消費する完全な claude セッションだからだ。
-3. タスクごとに `bonsai add -c <branch> --base <base>` で worktree を作る。
+3. タスクごと、および統合用に `bonsai add -c <branch> --base <base>` で worktree を作る。
 4. `herdr worktree open` で workspace を開く。
    できた root pane を `herdr agent rename` で命名し、`herdr pane run` でその pane の shell から claude を起動する。
    `already_open: true` のときは既存の workspace を再利用しつつ、`herdr tab create` でこのタスク専用の tab を足す。
-5. `agent-status.sh --registered` で検出を待ってから、`herdr pane run` でタスクを一行で送る。
-6. エージェント名でポーリングして監視する。
+5. `agent-status.sh --registered` で検出を待ってから、`herdr pane run` でタスクを一行で送る。統合エージェントには役割だけを送る。
+6. タスクのエージェント名でポーリングして監視する。統合エージェントはここには含めない。
 7. worktree ごとに diff とテストを確認する。
 8. 受け入れるか、同じエージェントに追指示して 6 に戻るか、諦めるかを、タスクごとに決める。
-9. 承認を得てからコミットし、台帳の順に1本ずつマージする。マージのたびにテストを走らせる。
-10. 片付けは指示があるまでしない。workspace も worktree も立てたまま残す。
+9. 採用したタスクごとに承認を取り、コミットして統合エージェントに merge とテストを指示する。台帳の順に1本ずつ。衝突と失敗の扱いは上の「統合 worktree」のとおり。
+10. 全部入ったら報告して止まり、利用者の指示どおりに取り込み先へ入れる。
+11. 片付けは指示があるまでしない。workspace も worktree も立てたまま残す。
 
 ### 落とし穴
 
@@ -268,6 +290,7 @@ worktree は独立したチェックアウトなので、`.tmp/` は子と共有
 
 マージ済みなのに worktree が残っているのは、散らかっているのではなく正常な終着点である。
 そのまま残し、台帳の `teardown` 列に `open` と書く。
+統合 workspace と統合 worktree も同じ扱いで、取り込みが済んでも指示なしには消さない。
 実行していない片付けを `closed` と書かない。
 台帳と `git worktree list` が食い違うと、次のセッションが誤った状態から組み直す。
 
@@ -284,6 +307,7 @@ harvest で差分を見て足りなければ、同じエージェントに投げ
 ### 台帳
 
 `.tmp/bonsai-herdr.md` に、タスク、ブランチ、worktree、workspace、エージェント名、コマンド、状態、片付けの有無を書く。
+統合 worktree も `integration` という task 名で 1 行持つ。
 herdr の ID は古くなるが、ブランチ名とパスとエージェント名は古くならない。
 中断から復帰するときは、この台帳と `herdr agent list` から状態を組み直す。
 セッションの途中で覚えた ID からは組み直さない。

@@ -1,19 +1,21 @@
 ---
 name: bonsai-herdr
-description: Run independent tasks in parallel — one bonsai git worktree per task, each opened as its own herdr workspace with its own agent, all supervised from this session. Use when a request splits into tasks that touch disjoint files and should progress at the same time. Requires HERDR_ENV=1.
+description: Run independent tasks in parallel — one bonsai git worktree per task, each opened as its own herdr workspace with its own agent, plus an integration worktree whose agent merges accepted branches and verifies them before anything lands on the base branch, all supervised from this session. Use when a request splits into tasks that touch disjoint files and should progress at the same time. Requires HERDR_ENV=1.
 ---
 
 # bonsai-herdr
 
 Split a request into independent tasks, give each task a worktree, a workspace, and an agent,
-then supervise all of them from here.
+then supervise all of them from here. Accepted branches meet in an integration worktree first;
+the base branch moves only when the user says how.
 
 | Layer | Owner |
 |---|---|
 | worktree create / name / remove | bonsai |
 | workspace, pane, agent lifecycle | herdr |
-| decompose, brief, supervise, harvest, rework, merge | this session |
-| tear down — closing anything, removing a worktree | the user, per step 10 |
+| decompose, brief, supervise, harvest, rework, land | this session |
+| merge accepted branches, fix glue, resolve conflicts on request | the integration agent |
+| tear down — closing anything, removing a worktree | the user, per step 11 |
 
 Read the `herdr` skill first. It is the source of truth for herdr's concepts and CLI, including
 the rule that workspace/tab/pane ids compact when things close. This skill adds only what a
@@ -43,6 +45,7 @@ command -v bonsai
 git status --porcelain
 [ -f .bonsai.toml ]
 bonsai list
+BASE=$(git branch --show-current); [ -n "$BASE" ]
 ```
 
 Check the two binaries separately. `command -v herdr bonsai` exits 0 when only one of them
@@ -57,6 +60,9 @@ resolves, so a single call would pass with bonsai missing.
   `.gitignore`. Do not reach for `bonsai init --dry-run` to preview that; as of bonsai 0.1.5 it
   performs the write.
 - `bonsai list` is for reading existing worktrees, so a branch name already taken shows up here.
+- `$BASE` is the branch checked out where this skill was invoked. Every task branch and the
+  integration branch fork from it, and it is where the result lands in step 10. Empty means a
+  detached HEAD → stop; there is no branch to land on.
 
 ## 2. Decompose and get approval
 
@@ -69,10 +75,16 @@ Present this table and wait for approval before creating anything:
 |---|---|---|---|
 | … | … | … | claude |
 
+Integration: branch `integ-<slug>`, worktree `.bonsai/integ-<slug>`, agent `claude`.
+
 The agent is `claude` unless the user names another one for that task — `opencode`, or any
 other command on PATH. Different rows may use different agents; the `agent` column is what the
 user approves. The branch name doubles as the task slug and the agent name, so keep it short and
 unique (`docs-readme`, `fix-lint`).
+
+The integration line is part of the same approval. Propose `<slug>` from the request's subject
+(`integ-auth`, `integ-docs`). It is not a task: it gets no file scope, and its agent stays idle
+until step 9 sends it something to merge.
 
 Agent names are resolved across the whole herdr instance, not per repo. Check `herdr agent list`
 for a name already in use — another repo's run may hold it — and prefix the repo name if it does
@@ -80,13 +92,12 @@ for a name already in use — another repo's run may hold it — and prefix the 
 
 ## 3. Create a worktree per task
 
-Steps 3 to 5 are per task. Run them for each row of the approved table before moving on to
-supervision, which watches all of them at once.
+Steps 3 to 5 are per worktree: each row of the approved table, then the integration line. Run
+them for all of them before moving on to supervision, which watches the tasks at once.
 
 ```bash
-BRANCH=docs-readme
-BASE=main
-AGENT=claude   # or opencode, or whatever the approved table says for this row
+BRANCH=docs-readme   # or integ-<slug> for the integration worktree
+AGENT=claude         # or opencode, or whatever the approved table says for this row
 bonsai add -c "$BRANCH" --base "$BASE"
 WT=$(command bonsai cd "$BRANCH")
 [ -d "$WT/.git" ] || [ -f "$WT/.git" ]
@@ -167,14 +178,23 @@ Task text template. It is one line; keep it that way when you fill it in.
 Task: <one line>. Branch: <branch>, already checked out in this worktree — stay in it. In scope: <paths you may change>. Out of scope: everything else; other agents own the rest of the repo. Done when: <observable condition, e.g. `just test` passes>. Do not commit; leave the changes in the working tree. When you finish, print a summary: what you changed, which files, what you verified.
 ```
 
+The integration agent gets a role brief instead, so the merge briefs in step 9 can stay short:
+
+```
+Role: integration. Branch: integ-<slug>, already checked out in this worktree — stay in it. Wait for merge instructions from the parent session; do nothing until then. Do not commit on your own initiative.
+```
+
 ## 6. Supervise
 
-Watch every agent from one call, using the names from the ledger:
+Watch every task agent from one call, using the names from the ledger:
 
 ```bash
 NAMES=(docs-readme fix-lint)
 "$STATUS" --wait "${NAMES[@]}"
 ```
+
+`NAMES` holds task agents only. The integration agent is idle by design at this point, and
+listing it here would make its `idle` look like a finished task. Step 9 waits on it by itself.
 
 Act on the exit code:
 
@@ -211,7 +231,7 @@ what the agent flagged. Read the diffs — a settled agent is not a correct agen
 Harvest ends in one of three outcomes. Decide per task, not for the batch.
 
 - Accept → step 9.
-- Abandon → say so and leave everything standing. Step 10 still needs its own yes.
+- Abandon → say so and leave everything standing. Step 11 still needs its own yes.
 - Rework → send a follow-up to the same agent, then go back to step 6.
 
 The agent name is durable, so re-resolve the pane and reuse it:
@@ -238,19 +258,107 @@ herdr pane run "$PANE" "$AGENT"
 A restart loses the agent's conversation. Write the follow-up so it stands on its own — a whole
 brief, not a correction to something the agent no longer remembers.
 
-## 9. Merge
+## 9. Integrate
 
-Commits and merges need the user's approval, per `AGENTS.md`. After approval, commit inside the
-worktree with the `commit` skill, then merge one branch at a time, in the ledger's order.
+Accepted branches go into the integration branch one at a time, in the ledger's order. The base
+branch does not move here; that is step 10.
 
-Run the repo's test command in the main tree after each merge, not once at the end. Two branches
-that each pass alone can still break together, and merging one at a time is what tells you which
-one did it.
+```bash
+SLUG=auth                                  # from the integration line approved in step 2
+INTEG=$(command bonsai cd "integ-$SLUG")
+[ -d "$INTEG/.git" ] || [ -f "$INTEG/.git" ]
+```
 
-A conflict is a stop condition. Report which files conflict and hand it to the user. Do not
-resolve it yourself — the agent that wrote the branch knows the intent, and you are not it.
+Per accepted task:
 
-## 10. Tear down — only when the user says so
+1. Ask the user once. The approval covers committing the task branch and merging it into
+   `integ-<slug>`, per `AGENTS.md`.
+2. Commit inside the task worktree with the `commit` skill.
+3. Brief the integration agent. One line, like every brief:
+   ```
+   Merge: run `git merge --no-ff <branch>` on integ-<slug>, then run `<test cmd>`. If the merge conflicts, stop without resolving and print the conflicting files. If tests fail, print the failing output and say whether it looks like an interaction between branches or a bug inside <branch>. Otherwise print a one-line summary. The merge commit is the only commit you make.
+   ```
+4. Wait on it alone, with the same exit-code handling as step 6:
+   ```bash
+   "$STATUS" --wait "integ-$SLUG"
+   ```
+5. Read what it printed and branch on the outcome.
+
+Merging one branch at a time is what tells you which one broke the build. Two branches that
+each pass alone can still break together.
+
+### Passed
+
+Next task.
+
+### Conflict
+
+Ask the user which way to go; do not resolve it yourself. The default is to send it back,
+because the agent that wrote the branch knows the intent:
+
+- Send back: abort the merge, then follow up the task agent and take that task through steps
+  6, 7, and 8 again before returning to 3.
+  ```bash
+  git -C "$INTEG" merge --abort
+  ```
+  ```
+  Follow-up: merge integ-<slug> into <branch> and resolve the conflicts in <files>. Same branch and worktree — stay in it. Done when: no conflict markers remain and `<test cmd>` passes. Do not commit.
+  ```
+- Resolve here: brief the integration agent, then review its resolution before completing the
+  merge. The merge commit is still covered by the approval in 1.
+  ```
+  Resolve: the merge of <branch> on integ-<slug> is conflicted in <files>. Resolve it and leave the merge in progress; do not commit. Done when: no conflict markers remain and `<test cmd>` passes.
+  ```
+  ```bash
+  "$STATUS" --wait "integ-$SLUG"
+  git -C "$INTEG" diff --cached
+  git -C "$INTEG" commit --no-edit
+  ```
+
+### Tests fail, bug inside the branch
+
+Undo the merge so the integration branch stays green, then send that task to rework in step 8:
+```bash
+git -C "$INTEG" reset --hard HEAD~1
+```
+Run this right after the failed merge and before any other merge, so `HEAD~1` is the state
+before it.
+
+### Tests fail, interaction between branches
+
+This glue belongs to no task branch, so the integration agent owns it:
+```
+Fix: <what breaks and why>. In scope: <paths>. Done when: `<test cmd>` passes. Do not commit; leave the changes in the working tree.
+```
+When it settles, read `git -C "$INTEG" diff` yourself, ask the user for commit approval, and
+commit with the `commit` skill in the integration worktree.
+
+## 10. Land
+
+When every accepted task is in and the integration worktree passes, report and stop:
+
+```bash
+git -C "$INTEG" diff --stat "$BASE...integ-$SLUG"
+```
+
+Give the user the diff stat, the test result, and the list of glue commits. Then ask how to land.
+This skill has no default; the user says which each time. Two shapes they may name:
+
+- Local merge, in this session's checkout, which is on `$BASE`:
+  ```bash
+  git merge --no-ff "integ-$SLUG"
+  ```
+  then run the test command here.
+- Pull request. `push` and `pr create` need their own approval per `AGENTS.md`; run them only
+  when the landing instruction included them:
+  ```bash
+  git push -u origin "integ-$SLUG"
+  gh pr create --base "$BASE"
+  ```
+
+Run the landing yourself. The integration agent's job ended with the last green merge.
+
+## 11. Tear down — only when the user says so
 
 Nothing is closed or removed until the user says so in the message just before it. This is a
 separate decision from the merge, and it stays separate when the merge has just succeeded.
@@ -266,6 +374,9 @@ failure either:
 | `herdr workspace close` | the workspace and every pane in it |
 | `herdr tab close`, `herdr pane close` | the pane and whatever is running in it |
 | `bonsai remove`, `bonsai prune` | the worktree checkout |
+
+The integration workspace and worktree are on this list like any other. A landed integration
+branch whose worktree is still standing is as normal an end state as a merged task branch.
 
 When the work settles, report the state and print the commands. Do not run them:
 
@@ -292,6 +403,8 @@ harvest, and after anything is torn down:
 | task | branch | worktree | workspace | agent | command | status | teardown |
 ```
 
+The integration worktree gets a row too, with `integration` in the `task` column.
+
 `teardown` is `open` or `closed`, and it records what was actually run. Never write `closed` for a
 worktree you left standing. A ledger that disagrees with `git worktree list` is worse than no
 ledger, because the next session rebuilds state from it.
@@ -304,8 +417,10 @@ state from this file plus `herdr agent list`, never from ids remembered earlier 
 - Child agents load the shared `AGENTS.md` themselves — Claude Code through `~/.claude/CLAUDE.md`,
   opencode through `~/.config/opencode/AGENTS.md` — so TDD and tidy-first already apply. Do not
   restate them in the task text.
-- Children must not run this skill. Depth is 1.
-- Children do not commit. The parent reviews the diffs and commits after the user approves.
+- Children must not run this skill. Depth is 1. The integration agent is a child too.
+- Task agents do not commit. The parent reviews the diffs and commits after the user approves.
+  The integration agent's only commits are merge commits, each covered by an acceptance approval
+  in step 9; glue fixes are committed by the parent.
 - A worktree is a separate checkout, so `.tmp/` is not shared with the children. Everything they
   need goes in the task text.
 - A fresh worktree path is new to the agent, so the first run there can ask the user to trust the
