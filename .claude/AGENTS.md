@@ -106,24 +106,20 @@ Confirmation, signatures, and the test gate are in Hard Rules.
 
 ## Multi-Tool AI Collaboration
 
-Claude does not blindly accept delegated output — it evaluates correctness, standards adherence,
-and quality before accepting.
+The tool running the session does the whole task itself: research, planning, implementation,
+review. Handing a phase to another tool (Codex, Antigravity, opencode) happens only when the
+user names that tool for that task. Do not propose it unprompted, and do not fall back to
+another tool when one is missing or at its limit; report and stop.
 
-| Role | Tool |
+When delegation is requested, use the matching skill and evaluate what comes back for
+correctness, standards adherence, and quality before accepting it.
+
+| Requested action | Skill |
 |---|---|
-| Orchestrate / Plan / Evaluate | Claude Code (primary) |
-| Implement | Codex (primary), Antigravity (secondary) |
-| Review | Claude Code, Codex, Antigravity (multi-perspective cross-check) |
-| Fallback main, when Claude Code is unavailable | opencode (GLM / Kimi on a self-hosted server) |
+| Implement via Codex / Antigravity | `codex-implement`, `antigravity-implement` |
+| Review via Codex / Antigravity | `codex-review`, `antigravity-review` |
+| Session handoff note | `handoff` (writes `.tmp/progress.md`) |
 
-| Action | Skill |
-|---|---|
-| Implement | `codex-implement`, `antigravity-implement` |
-| Review | `codex-review`, `antigravity-review` |
-| Handoff | `handoff` (writes `.tmp/progress.md`) |
-
-When any tool nears its usage limit, run `handoff` and let another tool resume from `.tmp/progress.md`.
-When Claude Code itself is the one that ran out, opencode picks up the whole session, not just one phase.
 Operational guides: `~/dotfiles/docs/claude-codex.md` (Claude ↔ Codex),
 `~/dotfiles/docs/antigravity.md` (Antigravity CLI), `~/dotfiles/docs/opencode.md` (opencode).
 Every tool shares this file for behavioral consistency.

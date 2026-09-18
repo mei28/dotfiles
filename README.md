@@ -263,11 +263,14 @@ just test-all             # 全テスト実行
 Claude Code / Codex / Antigravity の設定をこの repo で管理する。
 開発標準は 1 ファイルに集約し、各ツールへ symlink で配る。
 
-| 役割 | ツール |
-|------|--------|
-| 調査・計画・オーケストレーション | Claude Code |
-| 実装・レビュー | Codex |
-| レビュー (別視点)・大規模コンテキスト解析 | Antigravity |
+| 役割 | 既定 | 明示指示時 |
+|------|------|------------|
+| 調査・計画・実装・レビュー | Claude Code | — |
+| 実装の委譲 | — | Codex, Antigravity |
+| レビュー (別視点)・大規模コンテキスト解析 | — | Codex, Antigravity |
+
+既定は Claude Code 単独で完結させる。Codex / Antigravity はユーザーがそのツールを指名した
+ときだけ使い、Claude が自発的に提案・切替することはない。
 
 ### 開発標準の単一の真実
 
@@ -302,7 +305,7 @@ repo を編集すればそのまま全プロジェクトのセッションに反
 
 skills は 5 系統:
 
-- 委譲: `codex-implement`, `codex-review`, `antigravity-implement`, `antigravity-review`, `handoff`
+- 委譲 (明示指示時のみ): `codex-implement`, `codex-review`, `antigravity-implement`, `antigravity-review`, `handoff`
 - 開発規律: `tdd`, `tidy-first`, `commit`, `deslop`, `grill-me` (要件を1問ずつ詰める尋問。上流は mattpocock/skills)
 - 文章: `tech-writing`, `japanese-tech-writing`, `cognitive-rhythm-writing`
 - 並行作業: `bonsai-herdr`, `herdr`

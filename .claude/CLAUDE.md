@@ -10,6 +10,5 @@ and Antigravity). Only Claude-Code-specific rules belong here.
 
 ## Planning & Subagents
 - Use Plan mode for non-trivial tasks. Explore the codebase with the Explore subagent and design with the Plan subagent before implementing.
-- Keep research (Claude Code) and implementation (Codex) separated per the Multi-Tool AI Collaboration section in `AGENTS.md`.
-- Raw commands behind the delegation skills: `codex exec -s workspace-write`, `codex review --uncommitted`.
-  Full operating guide: `~/dotfiles/docs/claude-codex.md`.
+- Implement in Claude Code as well. Codex / Antigravity come in only when the user asks for them;
+  see the Multi-Tool AI Collaboration section in `AGENTS.md`.

@@ -1,7 +1,7 @@
 # Antigravity CLI 連携ガイド
 
-Claude Code をオーケストレーターとして、Antigravity CLI (`agy`) に実装・レビューを委譲する。
-Antigravity は Claude Code / Codex と同格の実行エージェントであり、どれかが上限に近づいたら別のツールが引き継げる。
+ユーザーが明示的に指示したときに、Claude Code から Antigravity CLI (`agy`) へ実装・レビューを委譲する手順。
+既定では Claude Code が全工程を担う。Antigravity は Codex と同格の委譲先で、ユーザーが選べばどちらにも任せられる。
 
 > **経緯**: Google Gemini CLI は 2026-06-18 に個人向け（Google AI Pro 含む）を停止した。
 > Antigravity CLI がその後継。コマンドは `gemini` → `agy`。
@@ -9,19 +9,19 @@ Antigravity は Claude Code / Codex と同格の実行エージェントであ�
 
 ## 三ツールの役割
 
-| フェーズ | 主担当 | 補助 |
+| フェーズ | 既定 | 明示指示時 |
 |---|---|---|
 | 調査 / 計画 / 評価 | Claude Code | — |
-| 実装 | Codex（主）、Antigravity（副） | Claude Code |
-| レビュー | Claude + Codex + Antigravity（三者） | — |
-| フォールバック | 残り二ツール | 上限に近いツールを迂回 |
+| 実装 | Claude Code | Codex または Antigravity |
+| レビュー | Claude Code | Codex / Antigravity を追加の視点として |
+| 切り替え | ユーザーが判断（自動では行わない） | `.tmp/progress.md` で別ツールが再開 |
 
 Claude は Codex / Antigravity の出力を **受け取り → 評価 → 採否判断** する。盲目的には受け入れない。
 
 ```
         ┌────────────────────┐
         │   Claude Code       │  指示・評価
-        │  調査 / 計画 (主)   │
+        │  既定で全工程       │
         └─────────┬──────────┘
                   │
         ┌─────────┴──────────┐
@@ -29,8 +29,8 @@ Claude は Codex / Antigravity の出力を **受け取り → 評価 → 採否
         ▼                    ▼
 ┌──────────────┐    ┌──────────────────┐
 │   Codex CLI  │    │  Antigravity CLI  │
-│  実装 (主)   │    │  実装 (副)        │
-│  レビュー    │    │  レビュー         │
+│  委譲時のみ  │    │  委譲時のみ       │
+│ 実装/レビュー│    │  実装/レビュー    │
 └──────────────┘    └──────────────────┘
         │                    │
         └─────────┬──────────┘

@@ -1,6 +1,6 @@
 ---
 name: antigravity-review
-description: Get a second-opinion code review from Antigravity CLI (agy) on the current working-tree diff or branch, returning an APPROVED/WARNING/BLOCKED verdict. Use to cross-check Claude Code's own review with a different model.
+description: Get a second-opinion code review from Antigravity CLI (agy) on the current working-tree diff or branch, returning an APPROVED/WARNING/BLOCKED verdict. Use only when the user explicitly asks for an Antigravity review; never invoke on your own initiative.
 ---
 
 # antigravity-review
@@ -25,7 +25,8 @@ agy
    ```bash
    command -v agy
    ```
-   If not found, stop and report: "Antigravity CLI (`agy`) is not installed on this machine. Install with: `curl -fsSL https://antigravity.google/cli/install.sh | bash`. Alternatively run `/codex-review` if Codex is available."
+   If not found, stop and report: "Antigravity CLI (`agy`) is not installed on this machine. Install with: `curl -fsSL https://antigravity.google/cli/install.sh | bash`."
+   Do not switch to another tool unless the user asks.
 2. Determine what to review: working-tree diff by default. Confirm the base branch (usually `main`). Use `$ARGUMENTS` to override scope (e.g. a specific file or commit range).
 3. Build the diff and run Antigravity (read-only; do not use `--headless`):
    ```bash
@@ -46,7 +47,7 @@ agy
    $(cat path/to/file)"
      ```
 4. Relay Antigravity's findings and the final verdict verbatim, then add your own brief take (agree/disagree, anything it missed).
-5. If issues are actionable, offer to fix them (Claude) or delegate via `antigravity-implement`.
+5. If issues are actionable, fix them in Claude Code. Delegate via `antigravity-implement` only if the user asks.
 
 ## Notes
 

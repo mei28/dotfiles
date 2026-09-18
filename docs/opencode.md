@@ -11,7 +11,7 @@ skills と開発標準は Claude Code / Codex と同じものを共有し、herd
 
 | 状況 | 使うツール |
 |---|---|
-| 通常 | Claude Code（調査 / 計画 / 評価）+ Codex（実装 / レビュー） |
+| 通常 | Claude Code（全工程。Codex / Antigravity は明示指示時のみ） |
 | Claude Code が上限や障害で使えない | opencode が主軸を引き継ぐ |
 
 役割の一部を切り出すのではなく、セッションごと引き継ぐ点が Codex や Antigravity への

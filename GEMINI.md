@@ -9,9 +9,9 @@ standards shared by all AI tools. Do not rely on summaries; read the file itself
 
 ## Multi-Tool Context
 
-- Claude Code: orchestration, research, and planning
-- Codex: implementation and review
-- Antigravity: independent review perspective, large-context analysis
+- Claude Code: the default for every phase (research, planning, implementation, review)
+- Codex / Antigravity: brought in only when the user asks — implementation, or an independent
+  review with large-context analysis
 
 For the collaboration guide, read `docs/antigravity.md`.
 

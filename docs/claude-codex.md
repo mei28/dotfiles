@@ -1,23 +1,24 @@
 # Claude Code × Codex 連携ガイド
 
-Claude Code を主軸に、調査と計画は Claude Code、実装とレビューは Codex に分担する。
+既定では Claude Code が調査・計画・実装・レビューをすべて担う。
+本書は、ユーザーが明示的に Codex へ委譲すると決めたときの手順をまとめる。
 Antigravity CLI も同じ枠組みで使える（詳細は `docs/antigravity.md`）。
-どちらかが利用上限に近づいたら、別のツールへ手動で切り替えて継続する。
+利用上限に近づいたときの切り替えもユーザーが判断し、手動で行う。
 全ツールは共有の開発標準（`.claude/AGENTS.md`）で一貫して動く。
 
 ## 役割分担
 
-| フェーズ | 主担当 | 補助 |
+| フェーズ | 既定 | 明示指示時 |
 |---|---|---|
-| 調査 / 計画 / 評価 | Claude Code（Plan mode, Explore/Plan） | Codex, Antigravity |
-| 実装 | Codex（`codex exec` / TUI / MCP） | Antigravity, Claude Code |
-| レビュー | Codex + Antigravity + Claude（三者） | — |
-| 引き継ぎ | `.tmp/progress.md`（三ツール共通） | — |
+| 調査 / 計画 / 評価 | Claude Code（Plan mode, Explore/Plan） | — |
+| 実装 | Claude Code | Codex（`codex exec` / TUI / MCP）、Antigravity |
+| レビュー | Claude Code | Codex / Antigravity を追加の視点として |
+| 引き継ぎ | `.tmp/progress.md`（`handoff` skill） | 同じノートを三ツール共通で使う |
 
 ```
         ┌────────────────────┐  Claude→Codex (MCP / codex exec)  ┌────────────────────┐
         │   Claude Code       │ ════════════════════════════════▶ │      Codex CLI      │
-        │  調査 / 計画 (主)   │                                   │  実装 / レビュー(主)│
+        │  既定で全工程       │                                   │  委譲時のみ         │
         │  Plan / Explore     │ ◀════════════════════════════════ │  exec / review / TUI│
         └─────────┬──────────┘  Codex→Claude (mcp_servers.claude) └─────────┬──────────┘
                   └──────────────── .tmp/progress.md ─────────────────────┘

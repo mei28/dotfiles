@@ -1,6 +1,6 @@
 ---
 name: codex-review
-description: Get a second-opinion code review from OpenAI Codex (read-only) on the current working-tree diff or branch, returning an APPROVED/WARNING/BLOCKED verdict. Use to cross-check Claude Code's own review with a different model.
+description: Get a second-opinion code review from OpenAI Codex (read-only) on the current working-tree diff or branch, returning an APPROVED/WARNING/BLOCKED verdict. Use only when the user explicitly asks for a Codex review; never invoke on your own initiative.
 ---
 
 # codex-review
@@ -13,7 +13,8 @@ See `~/dotfiles/docs/claude-codex.md`.
    ```bash
    command -v codex
    ```
-   If not found, stop and report: "Codex is not installed on this machine. Install via nix (`just build <host>`) or run `/antigravity-review` as an alternative."
+   If not found, stop and report: "Codex is not installed on this machine. Install via nix (`just build <host>`)."
+   Do not switch to another tool unless the user asks.
 2. Determine what to review: working-tree diff by default. Confirm the base branch (usually `main`). Use `$ARGUMENTS` to override scope (e.g. a PR number or file set).
 3. Run Codex's built-in review (read-only by design; it never edits files, so approval is less of a concern):
    ```bash
@@ -22,7 +23,7 @@ See `~/dotfiles/docs/claude-codex.md`.
    - `--uncommitted` reviews staged + unstaged + untracked changes. Use `--base <branch>` to review against a base branch, or `--commit <sha>` for a single commit.
    - Alternatively, if the `codex` MCP server is connected, call its tool with the same instructions.
 4. Relay Codex's findings and the final verdict verbatim, then add your own brief take (agree/disagree, anything Codex missed).
-5. If issues are actionable, offer to fix them (Claude) or delegate via `codex-implement`.
+5. If issues are actionable, fix them in Claude Code. Delegate via `codex-implement` only if the user asks.
 
 ## Notes
 - `codex review` is read-only; Codex will not modify files.
