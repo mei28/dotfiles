@@ -1,0 +1,22 @@
+{
+  "rules": {
+    "preset-ai-words-ja": {
+      "no-ai-words": {
+        "severity": "warning",
+        "dictionaryPath": "./ai-words.user.json",
+        "dictionaryMode": "append"
+      },
+      "no-short-topic-comma": {
+        "severity": "warning",
+        "maxLength": 5
+      }
+    },
+    "@textlint-ja/preset-ai-writing": {
+      "no-ai-list-formatting": { "severity": "warning" },
+      "no-ai-hype-expressions": { "severity": "warning" },
+      "no-ai-emphasis-patterns": { "severity": "warning" },
+      "no-ai-colon-continuation": { "severity": "warning" },
+      "ai-tech-writing-guideline": { "severity": "warning" }
+    }
+  }
+}

@@ -73,6 +73,18 @@ setup-ai-mcp:
 
 
 # ========================================
+# Japanese prose lint (japanese-tech-writing skill)
+# ========================================
+# Tools (textlint + presets, suiko, pandoc) are installed separately; see
+# .claude/skills/japanese-tech-writing/references/lint.md
+jtwDir := dotfilesDir + "/.claude/skills/japanese-tech-writing"
+
+# Lint Japanese prose for AI smell (textlint + suiko). Findings do not fail the recipe.
+ja-lint +files:
+  cd "{{invocation_directory()}}" && "{{jtwDir}}/scripts/lint.sh" {{files}}
+
+
+# ========================================
 # Validation & Testing
 # ========================================
 

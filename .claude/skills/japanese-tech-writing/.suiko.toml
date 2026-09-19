@@ -1,0 +1,23 @@
+# suiko configuration for the japanese-tech-writing skill.
+# lint.sh passes this file with --config, so the current directory does not matter.
+version = 1
+
+# Default genre. lint.sh --genre overrides it per run; there is no per-genre allow list.
+genre = "tech"
+
+# fail_on is intentionally unset: findings never change the exit code.
+# Findings are suspicions to judge in the ledger, not errors.
+
+# lint.sh always passes --experimental, so these are disabled by name.
+# Reasons come from suiko's own calibration notes (eval/calibration.md, revision-guide.md):
+#   nominal_ending              inverted detector (zero 体言止め is suspicious); conflicts with
+#                               this skill's norm that limits 体言止め to climaxes
+#   repeated_sentence_lead      fires on 61% of human documents (length-confounded threshold)
+#   low_lexical_diversity_ttr   depends on document length
+#   low_lexical_diversity_mtld  detected no AI document at any threshold
+disabled_rules = [
+  "nominal_ending",
+  "repeated_sentence_lead",
+  "low_lexical_diversity_ttr",
+  "low_lexical_diversity_mtld",
+]

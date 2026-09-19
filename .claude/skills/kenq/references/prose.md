@@ -5,6 +5,7 @@
 一般の文章規範はここに書かない。
 日本語原稿は `../../japanese-tech-writing/SKILL.md`、英語原稿は `../../tech-writing/SKILL.md` を併用する。
 このファイルは論文に固有の差分だけを持つ。
+推敲を終えた原稿をファイルに書き出したら `../../japanese-tech-writing/scripts/lint.sh <file>` を実行し、指摘ごとの採否を台帳に記録する。`.tex` はそのまま渡せる。手順は `../../japanese-tech-writing/references/lint.md`。
 
 ## 既知から未知へ
 
