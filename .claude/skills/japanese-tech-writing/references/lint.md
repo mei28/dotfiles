@@ -4,17 +4,19 @@ textlint と suiko で日本語の原稿を検査し、指摘を一つずつ「�
 
 ## 必要なツール
 
-導入はユーザーが行う（当面は手動、最終的には nix home-manager）。`scripts/lint.sh` は PATH 上の実行ファイルを呼ぶだけで、無ければエラーで止まる。
+`scripts/lint.sh` は PATH 上の実行ファイルを呼ぶだけで、無ければエラーで止まる。導入は nix home-manager の `.config/nix/home-manager/modules/ja-lint.nix`（`profiles/base.nix` から読むので全ホスト共通）で、`just update <host>` で入る。
 
-| ツール | 版 | 用途 |
-|---|---|---|
-| `suiko` | 0.3.7 以上（0.3.8 で `long_attributive_span` が加わる） | 翻訳調、反復、文長、文書構造、読解負荷 |
-| `textlint` | 15.8 | 下の 2 プリセットの実行系 |
-| `textlint-rule-preset-ai-words-ja` | 1.2.1 | AI 以後に増えた語 55 語、短い主題の読点 |
-| `@textlint-ja/textlint-rule-preset-ai-writing` | 1.7.0 | 太字ラベル付き箇条書き、誇張語、強調の型、コロン接続、技術文書の言い回し |
-| `pandoc` | 任意 | `.tex` を Markdown に変換する |
+| ツール | 版 | 由来 | 用途 |
+|---|---|---|---|
+| `suiko` | 0.3.8 | `.config/nix/pkgs/suiko.nix`（GitHub release のビルド済みバイナリ） | 翻訳調、反復、文長、文書構造、読解負荷 |
+| `textlint` | 15.8.0 | `.config/nix/pkgs/textlint-ja/`（`buildNpmPackage`。下の 2 プリセットを同梱し、`--rules-base-directory` を焼き込んだ wrapper） | 2 プリセットの実行系 |
+| `textlint-rule-preset-ai-words-ja` | 1.2.1 | 同上 | AI 以後に増えた語 55 語、短い主題の読点 |
+| `@textlint-ja/textlint-rule-preset-ai-writing` | 1.7.0 | 同上 | 太字ラベル付き箇条書き、誇張語、強調の型、コロン接続、技術文書の言い回し |
+| `pandoc` | nixpkgs | `pkgs.pandoc` | `.tex` を Markdown に変換する |
 
-textlint はプリセットを設定ファイルの位置からは解決しない。textlint 自身の位置から `node_modules` を遡るか、`--rules-base-directory` で指定した場所から解決する。手動導入なら 3 パッケージを同じ prefix に入れる（`npm i -g textlint@15.8.0 textlint-rule-preset-ai-words-ja@1.2.1 @textlint-ja/textlint-rule-preset-ai-writing@1.7.0`）。nix で入れるなら `buildNpmPackage` で一つの `node_modules` にまとめ（`dependencies` に置く。`devDependencies` は prune で消える）、wrapper に `--rules-base-directory <store>/lib/node_modules/<name>/node_modules` を焼き込む。suiko のビルド済みバイナリは `.config/nix/home-manager/modules/deno-pin.nix` と同じ型（system 別 `fetchurl`、Linux は `autoPatchelfHook`）で包める。v0.3.8 の SHA-256 は各リリース資産の `.sha256` にある。
+nix の `textlint` は同梱の 2 プリセット専用で、他のルールは解決しない。版を上げるときは、suiko は `suiko.nix` の `version` と 4 つの hash（release の `.sha256` を `nix hash convert --hash-algo sha256 --to sri` で変換）、textlint は `package.json` を直して `npm install --package-lock-only --ignore-scripts` でロックを作り直し、`nix run nixpkgs#prefetch-npm-deps -- package-lock.json` で `npmDepsHash` を差し替える。`nix build .#suiko` と `nix build .#textlint-ja` で単体確認できる。
+
+nix を使えない環境では手動で入れる。textlint はプリセットを設定ファイルの位置からは解決しないので、3 パッケージを同じ prefix に入れる（`npm i -g textlint@15.8.0 textlint-rule-preset-ai-words-ja@1.2.1 @textlint-ja/textlint-rule-preset-ai-writing@1.7.0`）。suiko は `cargo install suiko --locked`（Rust 1.97 以上）かビルド済みバイナリ。二重に入れない。PATH では `~/.cargo/bin` と `~/.npm-global/bin` が `~/.nix-profile/bin` より先に来るので、手動導入分が残っていると nix 側は使われない。
 
 ## いつ実行するか
 
@@ -107,10 +109,10 @@ suiko lint --config ~/.claude/skills/japanese-tech-writing/.suiko.toml --experim
 
 | 元 | URL | 取り込んだもの（2026-09-19 時点） | 更新時に見直す先 |
 |---|---|---|---|
-| nwiizo/suiko | https://github.com/nwiizo/suiko （crates.io: https://crates.io/crates/suiko ） | CLI 0.3.7。`skills/suiko/references/` の translationese.md、forbidden-patterns.md、revision-guide.md、readability-antipatterns.md、`eval/technical-wording.md`、`eval/calibration.md`。CHANGELOG は https://github.com/nwiizo/suiko/blob/main/CHANGELOG.md | 新しい検出カテゴリは `ai-syntax.md` の表と `.suiko.toml` の `disabled_rules`。校正結果の変化は本ファイルの「信号の信頼度」 |
+| nwiizo/suiko | https://github.com/nwiizo/suiko （crates.io: https://crates.io/crates/suiko ） | CLI 0.3.8（nix、GitHub release）。`skills/suiko/references/` の translationese.md、forbidden-patterns.md、revision-guide.md、readability-antipatterns.md、`eval/technical-wording.md`、`eval/calibration.md`。CHANGELOG は https://github.com/nwiizo/suiko/blob/main/CHANGELOG.md | 新しい検出カテゴリは `ai-syntax.md` の表と `.suiko.toml` の `disabled_rules`。版は `.config/nix/pkgs/suiko.nix`。校正結果の変化は本ファイルの「信号の信頼度」 |
 | coji/natural-japanese | https://github.com/coji/natural-japanese | suiko の元。references は同一。判断台帳とスイープ改稿の罠は `skills/natural-japanese/references/revision-guide.md` | 本ファイルの「判断台帳」「一律に直さない」 |
-| p1ass/textlint-rule-preset-ai-words-ja | https://github.com/p1ass/textlint-rule-preset-ai-words-ja （npm: https://www.npmjs.com/package/textlint-rule-preset-ai-words-ja ） | 1.2.1。辞書 55 語（README の「検出する単語」表、`src/dictionary.ts`）、`no-short-topic-comma` | 語の追加・削除は `ai-vocabulary.md` の表。`.textlintrc.json` のオプション |
-| textlint-ja/textlint-rule-preset-ai-writing | https://github.com/textlint-ja/textlint-rule-preset-ai-writing （npm: https://www.npmjs.com/package/@textlint-ja/textlint-rule-preset-ai-writing ） | 1.7.0。5 ルール（no-ai-list-formatting、no-ai-hype-expressions、no-ai-emphasis-patterns、no-ai-colon-continuation、ai-tech-writing-guideline） | ルールの追加は `.textlintrc.json`（severity を warning で明記する） |
+| p1ass/textlint-rule-preset-ai-words-ja | https://github.com/p1ass/textlint-rule-preset-ai-words-ja （npm: https://www.npmjs.com/package/textlint-rule-preset-ai-words-ja ） | 1.2.1。辞書 55 語（README の「検出する単語」表、`src/dictionary.ts`）、`no-short-topic-comma` | 語の追加・削除は `ai-vocabulary.md` の表。`.textlintrc.json` のオプション。版は `.config/nix/pkgs/textlint-ja/package.json` |
+| textlint-ja/textlint-rule-preset-ai-writing | https://github.com/textlint-ja/textlint-rule-preset-ai-writing （npm: https://www.npmjs.com/package/@textlint-ja/textlint-rule-preset-ai-writing ） | 1.7.0。5 ルール（no-ai-list-formatting、no-ai-hype-expressions、no-ai-emphasis-patterns、no-ai-colon-continuation、ai-tech-writing-guideline） | ルールの追加は `.textlintrc.json`（severity を warning で明記する）。版は `.config/nix/pkgs/textlint-ja/package.json` |
 | textlint | https://github.com/textlint/textlint | 15.8.0。`--config`、`--format unix`、`--rules-base-directory` の挙動 | 本ファイルの「必要なツール」の版 |
 | Qiita 7 万記事の前後比較（nyosegawa） | https://nyosegawa.com/posts/qiita-writing-before-after-ai/ | 語彙の増加倍率、文書の形の変化（本ファイルの「根拠」） | 数値は「根拠」節、語の一覧は `ai-vocabulary.md` |
 | k16shikano「日本語技術文書の文章規範」 | https://gist.github.com/k16shikano/fd287c3133457c4fd8f5601d34aa817d | `SKILL.md` の「LLM っぽい表現の禁止」の元。suiko / natural-japanese も同じ gist を取り込んでいる | `SKILL.md` の同節 |

@@ -69,6 +69,12 @@
       {
         formatter = pkgs.nixfmt;
 
+        # Standalone builds for the custom packages (`nix build .#suiko`).
+        packages = {
+          suiko = pkgs.callPackage ./.config/nix/pkgs/suiko.nix { };
+          textlint-ja = pkgs.callPackage ./.config/nix/pkgs/textlint-ja { };
+        };
+
         # Home Manager + nix-darwin
         # 属性名は username 非依存。実 username は各 profile が
         # builtins.getEnv "USER" で動的解決 (--impure 必須)

@@ -41,6 +41,10 @@ package-lock.json
 !third_party/opencode/opencode-statusline/package.json
 !third_party/opencode/opencode-statusline/package-lock.json
 
+# textlint bundle for the japanese-tech-writing skill is built by nix from these manifests.
+!.config/nix/pkgs/textlint-ja/package.json
+!.config/nix/pkgs/textlint-ja/package-lock.json
+
 .mypy_cache/
 .config/configstore/
 .config/efm-langserver/
