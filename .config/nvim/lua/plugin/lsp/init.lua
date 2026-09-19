@@ -46,6 +46,7 @@ local spec = {
 				"harper_ls",
 				"nil_ls",
 				"gopls",
+				"texlab",
 				"copilot",
 			}
 
