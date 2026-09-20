@@ -14,8 +14,8 @@ hosts/     → 端末ごとの定義 (何を使うかを宣言)
 
 | OS | profiles | darwin |
 |-----|----------|--------|
-| macOS | base + development + macos | あり (brew含む) |
-| Linux | base + development | なし |
+| macOS (babalab-mac, sbi-mac) | base + development + macos | あり (brew含む) |
+| Linux (mei-ubuntu, qia-aws, sbi-superpod) | base + development | なし |
 
 ### 編集ガイド
 
@@ -128,6 +128,27 @@ just bootstrap babalab-mac       # Home Manager
 just bootstrap-darwin babalab-mac  # nix-darwin
 ```
 
+### Linux デスクトップ (mei-ubuntu)
+
+```bash
+git clone https://github.com/mei28/dotfiles.git ~/dotfiles
+cd ~/dotfiles
+./setup.sh                 # ~/.config -> ~/dotfiles/.config
+curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
+just bootstrap mei-ubuntu  # Home Manager
+```
+
+wezterm は home-manager 管理外。APT repo から入れる
+(<https://wezterm.org/install/linux.html#using-the-apt-repo>):
+
+```bash
+curl -fsSL https://apt.fury.io/wez/gpg.key | sudo gpg --yes --dearmor -o /usr/share/keyrings/wezterm-fury.gpg
+echo 'deb [signed-by=/usr/share/keyrings/wezterm-fury.gpg] https://apt.fury.io/wez/ * *' | sudo tee /etc/apt/sources.list.d/wezterm.list
+sudo chmod 644 /usr/share/keyrings/wezterm-fury.gpg
+sudo apt update
+sudo apt install wezterm-nightly   # stable の wezterm とは排他
+```
+
 ### リモート (EC2/Linux)
 
 ワンコマンド (ホスト名を引数で指定):
@@ -213,6 +234,7 @@ just test-all             # 全テスト実行
 │   ├── hosts/          # 端末ごとの定義
 │   │   ├── babalab-mac.nix
 │   │   ├── sbi-mac.nix
+│   │   ├── mei-ubuntu.nix
 │   │   ├── qia-aws.nix
 │   │   └── sbi-superpod.nix
 │   ├── profiles/       # 機能グループ

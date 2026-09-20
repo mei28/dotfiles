@@ -26,9 +26,6 @@ alias suspend='systemctl suspend'
 alias powtune='sudo powertop --auto-tune'
 alias powtop='sudo powertop'
 
-# wezterm
-alias wezterm='flatpak run org.wezfurlong.wezterm'
-
 toggle_suspend(){
     is_masked=$(systemctl is-enabled sleep.target)
 

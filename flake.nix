@@ -106,6 +106,14 @@
             modules = [ ./.config/nix/home-manager/hosts/qia-aws.nix ];
           };
 
+          homeConfigurations.mei-ubuntu = home-manager.lib.homeManagerConfiguration {
+            pkgs = pkgs;
+            extraSpecialArgs = {
+              inherit inputs system;
+            };
+            modules = [ ./.config/nix/home-manager/hosts/mei-ubuntu.nix ];
+          };
+
           homeConfigurations.sbi-superpod = home-manager.lib.homeManagerConfiguration {
             pkgs = pkgs;
             extraSpecialArgs = {
