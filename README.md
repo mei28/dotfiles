@@ -303,13 +303,14 @@ repo を編集すればそのまま全プロジェクトのセッションに反
 | `runcat-statusline.py` | `statusline.sh` から呼ばれ `~/.claude/runcat-usage.json` を書く |
 | `output-styles/` `plugins/` | 出力スタイルとプラグイン設定 |
 
-skills は 5 系統:
+skills は 6 系統:
 
 - 委譲 (明示指示時のみ): `codex-implement`, `codex-review`, `antigravity-implement`, `antigravity-review`, `handoff`
 - 開発規律: `tdd`, `tidy-first`, `commit`, `deslop`, `grill-me` (要件を1問ずつ詰める尋問。上流は mattpocock/skills)
 - 文章: `tech-writing`, `japanese-tech-writing`, `cognitive-rhythm-writing`
 - 並行作業: `bonsai-herdr`, `herdr`
 - ツール固有: `marimo-notebook` (marimo ノートブックの記法とハマりどころ。上流は marimo-team/skills)
+- Kaggle: `kaggle-onboard`, `kaggle-validation`, `kaggle-experiment`, `kaggle-submit`, `kaggle-retro` (手順と判断。コマンドは waggle (テンプレート repo) の justfile)
 
 hooks は `settings.json` から呼ばれる:
 
