@@ -25,11 +25,6 @@ google-cloud-sdk/
 credentials.json
 *credentials*
 
-# 認証トークンを含むツール
-.config/gcloud/
-.config/gh/
-.config/github-copilot/
-
 # =============================================================================
 # キャッシュ・自動生成
 # =============================================================================
@@ -46,9 +41,6 @@ package-lock.json
 !.config/nix/pkgs/textlint-ja/package-lock.json
 
 .mypy_cache/
-.config/configstore/
-.config/efm-langserver/
-.config/yarn/
 
 # Python (rye/uv) - 実行環境
 .rye/shims/
@@ -56,9 +48,29 @@ package-lock.json
 .rye/py/
 
 # =============================================================================
-# 履歴・一時ファイル
+# ~/.config (allowlist)
 # =============================================================================
-.config/fzf-make/history.toml
+# ~/.config はこのリポジトリの .config への symlink なので、GUI アプリの設定や
+# キャッシュ (chromium, Slack, dconf, gtk-3.0, ...) と home-manager が生成する
+# symlink (git, tmux, systemd, environment.d, ...) が作業ツリーに落ちてくる。
+# 管理対象のディレクトリだけを許可し、それ以外は無視する。
+# 新しいツールの設定を管理するときは !.config/<name>/ を足す。
+# gcloud, gh, github-copilot, zed は認証トークンを含むので許可しない。
+.config/*
+!.config/aerospace/
+!.config/cmux/
+!.config/ghostty/
+!.config/herdr/
+!.config/kanata/
+!.config/karabiner/
+!.config/marimo/
+!.config/mutagen/
+!.config/nix/
+!.config/nvim/
+!.config/omniwm/
+!.config/opencode/
+!.config/wezterm/
+!.config/yazi/
 
 # =============================================================================
 # WezTerm (マシンローカル設定)
@@ -79,16 +91,6 @@ package-lock.json
 .config/karabiner/automatic_backups/
 
 # =============================================================================
-# Zed (機密情報を含むため除外)
-# =============================================================================
-.config/zed/
-
-# =============================================================================
-# Raycast (拡張機能のみ除外)
-# =============================================================================
-.config/raycast/extensions/
-
-# =============================================================================
 # Herdr (実行時ログ・ソケット・セッション状態を除外、config.tomlのみ管理)
 # =============================================================================
 .config/herdr/*.log
@@ -107,23 +109,11 @@ result
 .config/nix/home-manager/.claude/
 .config/nix/home-manager/profiles/options-override.nix
 
-# home-manager が生成する symlink。~/.config がこのリポジトリへの symlink なので
-# 生成物が作業ツリー内に落ちてくる。実体は /nix/store で switch のたびにハッシュが
-# 変わるため、追跡すると永久に dirty になる。定義元は .config/nix/home-manager/modules/ 側。
-.config/git/config
-.config/git/ignore
-.config/git/attributes
-.config/git/hooks/
-.config/gitui/theme.ron
-.config/gitui/key_bindings.ron
-.config/jj/config.toml
-.config/tmux/tmux.conf
-.config/ruff/ruff.toml
+# home-manager が生成する symlink。実体は /nix/store で switch のたびにハッシュが
+# 変わるため、追跡すると永久に dirty になる。他の生成物は allowlist の外なので
+# ここに書くのは許可済みディレクトリに落ちるものだけ。定義元は modules/mutagen.nix。
 .config/mutagen/mutagen.yml
-.config/environment.d/
-.config/systemd/
 .config/nix/.claude/settings.local.json
-.config/jj/repos
 
 # =============================================================================
 # Claude Code
