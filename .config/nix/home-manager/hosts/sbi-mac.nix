@@ -31,8 +31,7 @@ in
   # babalab-mac は自前サーバが無いため env 未設定のまま（provider/mcp ともロードなし）。
   # ファイル実体は dotfiles/.config/opencode/opencode.sbi-mac.json。
   home.sessionVariables = {
-    OPENCODE_CONFIG =
-      "${config.home.homeDirectory}/dotfiles/.config/opencode/opencode.sbi-mac.json";
+    OPENCODE_CONFIG = "${config.home.homeDirectory}/dotfiles/.config/opencode/opencode.sbi-mac.json";
     # kadode の API キー。VPN 経由は dummy で通る。Cloudflare Access 経由に切替える時は
     # ここを実トークンに置き換える。config JSON には書かない（{env:KADODE_TOKEN} 参照）。
     KADODE_TOKEN = "no-key-required";

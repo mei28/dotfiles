@@ -62,7 +62,10 @@ stdenvNoCC.mkDerivation {
   installCheckPhase = ''
     runHook preInstallCheck
     $out/bin/suiko --version | grep -F "${version}"
-    printf '重要なのは、結論です。\n' | $out/bin/suiko lint - --json | grep -q forbidden_phrase
+    # Not `grep -q`: it exits on the first match and closes the pipe while suiko
+    # is still writing the JSON, and suiko (Rust, SIGPIPE ignored) then panics
+    # with "failed printing to stdout: Broken pipe". Read to EOF instead.
+    printf '重要なのは、結論です。\n' | $out/bin/suiko lint - --json | grep -F forbidden_phrase > /dev/null
     runHook postInstallCheck
   '';
 
