@@ -15,7 +15,7 @@ dotfilesDir := env_var_or_default("DOTFILES_DIR", env_var("HOME") + "/dotfiles")
 # ========================================
 # Host-based Configuration
 # ========================================
-# Hosts: babalab-mac, sbi-mac, qia-aws, sbi-superpod
+# Hosts: babalab-mac, sbi-mac, mei-ubuntu, qia-aws, sbi-superpod
 
 # Update flake.lock
 update-flake:
@@ -70,6 +70,14 @@ setup-ai-mcp:
   @env -C "$HOME" codex mcp get claude >/dev/null 2>&1 || \
     env -C "$HOME" codex mcp add claude -- claude mcp serve
   @echo "AI MCP wired. Verify: claude mcp list / codex mcp list"
+
+# Kaggle 用の Claude Code plugin（NVIDIA nvidia-kaggle）を登録・導入（冪等, 各ホストで一度）。有効化は settings.json の enabledPlugins。
+setup-claude-plugins:
+  @claude plugin marketplace list 2>/dev/null | grep -q "nvidia-kaggle" || \
+    claude plugin marketplace add https://github.com/NVIDIA/nvidia-kaggle.git
+  @claude plugin list 2>/dev/null | grep -q "nvidia-kaggle@nvidia-kaggle" || \
+    claude plugin install nvidia-kaggle@nvidia-kaggle --scope user
+  @echo "Claude plugins installed. Verify: claude plugin list"
 
 
 # ========================================
@@ -135,6 +143,7 @@ info:
   @echo "Available hosts:"
   @echo "  babalab-mac   - Personal Mac (base + development + macos + darwin)"
   @echo "  sbi-mac       - Work Mac (base + development + macos + darwin)"
+  @echo "  mei-ubuntu    - Personal Ubuntu (base + development)"
   @echo "  qia-aws       - AWS remote (base + development)"
   @echo "  sbi-superpod  - Superpod remote (base + development)"
 
