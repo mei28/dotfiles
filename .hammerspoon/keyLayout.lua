@@ -67,6 +67,21 @@ local function parseLayoutRows(rows)
 	return keyMap
 end
 
+-- The custom keyboard's symbol layer sends ? : < > with Right Shift (e.g. RSFT(KC_SLSH))
+-- to mark them as symbols. Only these four keys honor the mark: the built-in keyboard's
+-- Right Shift arrives with the same flag, and Right Shift + a letter key must still be
+-- remapped (Ebi types ? as Shift + the QWERTY B position).
+local rightShiftMarkedKeys = {
+	[charToKeyCode[";"]] = true,
+	[charToKeyCode[","]] = true,
+	[charToKeyCode["."]] = true,
+	[charToKeyCode["/"]] = true,
+}
+
+local function isRightShiftHeld(event)
+	return event:rawFlags() & hs.eventtap.event.rawFlagMasks.deviceRightShift ~= 0
+end
+
 -- Convert character list to keyCode set
 local function parseShiftPassthrough(chars)
 	if not chars then
@@ -112,6 +127,10 @@ function Layout:remapKey(event)
 	-- 修飾キー（Ctrl/Cmd/Alt）が押されている場合はリマップしない
 	-- ショートカットは物理配置（QWERTY）のまま機能させる
 	if flags.ctrl or flags.cmd or flags.alt then
+		return false
+	end
+
+	if rightShiftMarkedKeys[keyCode] and isRightShiftHeld(event) then
 		return false
 	end
 
