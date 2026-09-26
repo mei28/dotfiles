@@ -1,10 +1,6 @@
 local Layout = {}
 Layout.__index = Layout
 
--- Kaede (~/Documents/Kaede) marks the keys it posts with this kCGEventSourceUserData value
--- ("KAED"). They already are the keys Kaede means, such as romaji retyped into azooKey.
-local kaedeMarker = 0x4B414544
-
 -- Character to macOS keyCode mapping
 local charToKeyCode = {
 	q = 0x0c,
@@ -121,10 +117,6 @@ end
 
 function Layout:remapKey(event)
 	if not self.enabled then
-		return false
-	end
-
-	if event:getProperty(hs.eventtap.event.properties.eventSourceUserData) == kaedeMarker then
 		return false
 	end
 

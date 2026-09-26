@@ -106,17 +106,6 @@ end
 Eikana = hs.eventtap.new({ hs.eventtap.event.types.keyUp, hs.eventtap.event.types.flagsChanged }, EikanaEvent)
 Eikana:start()
 
--- Kaede switches to azooKey on its own, without the right Command key. Follow the input
--- source itself, so the layout is on in Japanese and off in English whoever switched.
-hs.keycodes.inputSourceChanged(function()
-	local method = hs.keycodes.currentMethod()
-	if method == config.inputMethods.jp then
-		config.module:enableLayout()
-	elseif method == config.inputMethods.en then
-		config.module:disableLayout()
-	end
-end)
-
 -- Event handler for Escape key to switch to English
 local function Esc2Eng(event)
 	if event:getKeyCode() == hs.keycodes.map["escape"] then
