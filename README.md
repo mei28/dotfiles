@@ -339,6 +339,10 @@ hooks は `settings.json` から呼ばれる:
 - `wezterm-state.sh` — 状態 (idle/thinking/executing) を WezTerm に反映
 - `herdr-agent-state.sh` — herdr にエージェント状態を通知
 
+Stop には `third_party/claude-code/claude-code-japanese-guard` の `japanese-guard.py` も登録している。
+ターンの最終回答が英語主体なら、1回だけ日本語で書き直させる。
+上流は minorun365/claude-code-japanese-guard (Apache-2.0) で、930f056 を無改変で置いている。
+
 ### .codex/
 
 `modules/codex.nix` が `~/.codex/` 配下へ個別に symlink する。

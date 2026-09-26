@@ -5,7 +5,7 @@
     "sessionUrl": false
   },
   "includeCoAuthoredBy": false,
-  "model": "opus[1m]",
+  "model": "opus",
   "hooks": {
     "PostToolUse": [
       {
@@ -134,6 +134,15 @@
             "type": "command",
             "command": "$HOME/dotfiles/.claude/hooks/wezterm-state.sh idle",
             "timeout": 5
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/dotfiles/third_party/claude-code/claude-code-japanese-guard/hooks/japanese-guard.py",
+            "timeout": 10
           }
         ]
       },
@@ -298,9 +307,12 @@
       "effortLevel": "high"
     },
     "claude-fable-5-1": {
-      "effortLevel": "high"
+      "effortLevel": "xhigh"
     },
     "claude-opus-5": {
+      "effortLevel": "xhigh"
+    },
+    "claude-opus-5-5": {
       "effortLevel": "xhigh"
     }
   },
