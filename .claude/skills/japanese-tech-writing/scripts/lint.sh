@@ -12,8 +12,8 @@
 #
 # Output: a header, then textlint findings (unix format), then suiko's text report.
 #         Findings never change the exit code; they are suspicions for the ledger.
-#         All textlint rules are pinned to severity "warning" in .textlintrc.json for
-#         that reason: an "error" finding would make textlint exit 1.
+#         textlint runs with --output-file so that findings reported as errors do not
+#         make it exit 1; see the textlint step.
 #
 # Exit codes:
 #   0  both tools ran (findings or not)
@@ -150,8 +150,17 @@ for c in "${converted[@]+"${converted[@]}"}"; do
 done
 
 echo "== textlint =="
-textlint --config "$TEXTLINT_CONFIG" --format unix -- "${targets[@]}" \
+# ai-tech-writing-guideline reports some checks as errors whatever severity
+# .textlintrc.json sets. An error finding makes textlint exit 1, the same code it uses
+# when no rule loads or a rule crashes. With --output-file it exits 0 on findings, so
+# any nonzero status is a failure. It writes no file when there is nothing to report.
+[ -n "$tmpdir" ] || tmpdir="$(mktemp -d)"
+textlint_out="$tmpdir/textlint.txt"
+textlint --config "$TEXTLINT_CONFIG" --format unix --output-file "$textlint_out" -- "${targets[@]}" \
   || die "textlint failed (exit $?)"
+if [ -f "$textlint_out" ]; then
+  cat "$textlint_out"
+fi
 
 echo "== suiko =="
 suiko_args=(lint --config "$SUIKO_CONFIG" --experimental --reading-load)

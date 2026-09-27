@@ -37,7 +37,7 @@ nix を使えない環境では手動で入れる。textlint はプリセット�
 
 ## 出力の読み方
 
-textlint は `path:line:col: message [Warning/ruleId]` の一行形式で出る。ruleId は `ai-words-ja/no-ai-words`、`ai-words-ja/no-short-topic-comma`、`@textlint-ja/ai-writing/<rule>` のいずれか。全ルールを severity `warning` に固定してあるのは、`error` の指摘があると textlint が exit 1 を返し、指摘と実行エラーを区別できなくなるからで、重みの違いではない。
+textlint は `path:line:col: message [Warning/ruleId]` の一行形式で出る。ruleId は `ai-words-ja/no-ai-words`、`ai-words-ja/no-short-topic-comma`、`@textlint-ja/ai-writing/<rule>` のいずれか。`.textlintrc.json` では全ルールを severity `warning` にしてあるが、`ai-tech-writing-guideline` はこの指定を無視して `[Error/ruleId]` で出す。Warning と Error は重みの違いではない。textlint は Error の指摘があると exit 1 を返し、ルールが一つも読み込めないときも同じ exit 1 を返す。そこで `lint.sh` は `--output-file` で結果を一時ファイルに書かせる。このとき textlint は指摘があっても exit 0 を返すので、0 以外はすべて実行エラーとして止める。
 
 suiko は件数、カテゴリ別の内訳、`[warn] L12 (category)` に続く該当箇所と説明、最後に読解負荷のブロックを出す。読解負荷（長い一文、読点のない長文、漢字の連続、二重否定、「の」の連鎖、長い連体修飾節）は AI 臭とは別の観点で、既存の規範「読み手の負荷の管理」に従って直す。
 
