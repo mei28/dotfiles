@@ -1,3 +1,7 @@
+-- Started by the home-manager launchd agent instead (profiles/macos.nix), which waits
+-- for the Nix store; as a Login Item it can start before ~/.hammerspoon resolves.
+hs.autoLaunch(false)
+
 require('window')
 require('ime')
 require('launch')
