@@ -41,6 +41,7 @@
     mcat
     miniserve
     serie
+    bottom
   ];
 
   # 共通モジュールのインポート
