@@ -89,7 +89,9 @@ next_agent = "prefix+."         # optional, unset by default
 # next_tab = "prefix+n"
 # switch_tab = "prefix+1..9"
 # switch_workspace = ""   # optional indexed binding, e.g. "prefix+shift+1..9"
-# close_tab = "prefix+shift+x"
+# close_tab is unbound here and rebound to the confirming popup [[keys.command]]
+# below: prefix+shift+x now asks [y/N] before running `herdr tab close`.
+close_tab = ""
 # rename_pane = "prefix+shift+p"
 # edit_scrollback = "prefix+e"
 # focus_pane_left = "prefix+h"
@@ -124,6 +126,16 @@ split_vertical = ["prefix+v", "prefix+|"]
 # key = "prefix+alt+g"
 # type = "pane"
 # command = "lazygit"
+
+# Tab close with a [y/N] confirmation popup (replaces the immediate close_tab).
+# Covers any tab, not just the last one; mouse-initiated closes are unaffected.
+[[keys.command]]
+key = "prefix+shift+x"
+type = "popup"
+command = "~/.config/herdr/bin/close-tab-confirm.sh"
+description = "close tab (asks first)"
+width = 36
+height = 5
 
 # Legacy indexed shortcut config is still parsed for compatibility.
 # Prefer switch_tab, switch_workspace, and focus_agent for new configs.

@@ -30,7 +30,7 @@
       url = "github:mei28/bonsai";
     };
     herdr = {
-      url = "github:ogulcancelik/herdr/v0.7.4";
+      url = "github:herdrdev/herdr/v0.9.3";
     };
     tmux-mutagen-status = {
       url = "github:mei28/tmux-mutagen-status";

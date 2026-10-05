@@ -77,10 +77,11 @@ Present this table and wait for approval before creating anything:
 
 Integration: branch `integ-<slug>`, worktree `.bonsai/integ-<slug>`, agent `claude`.
 
-The agent is `claude` unless the user names another one for that task — `opencode`, or any
-other command on PATH. Different rows may use different agents; the `agent` column is what the
-user approves. The branch name doubles as the task slug and the agent name, so keep it short and
-unique (`docs-readme`, `fix-lint`).
+The agent is `claude` unless the user names another one for that task — `opencode`, `codex`, or
+any kind `herdr agent start --kind` accepts (step 4 launches through it). Different rows may use
+different agents; the `agent` column is what the user approves. The branch name doubles as the
+task slug and the agent name, so keep it short, unique (`docs-readme`, `fix-lint`), and inside
+herdr's agent-name rule `[a-z][a-z0-9_-]{0,31}`.
 
 The integration line is part of the same approval. Propose `<slug>` from the request's subject
 (`integ-auth`, `integ-docs`). It is not a task: it gets no file scope, and its agent stays idle
@@ -114,13 +115,12 @@ If it did not, read it out of `git worktree list --porcelain` instead and fix th
 ## 4. Open each worktree and start its agent
 
 `herdr worktree open` always creates a root shell pane and herdr has no flag to suppress it, so
-run the agent *in* that pane rather than adding a second one. The workspace stays at one pane,
-and the agent runs as a child of an interactive shell — Ctrl-Z drops to the prompt and the pane
-survives. `herdr agent start` would make the agent the pane's own process instead, so suspending
-or exiting it takes the pane down and the work with it.
+run the agent *in* that pane rather than adding a second one. The workspace stays at one pane.
+Pass the repository explicitly with `--cwd`: without an active workspace to infer it from (this
+session may run headless, or focused elsewhere), the call fails with `invalid_request`.
 
 ```bash
-OPEN=$(herdr worktree open --path "$WT" --label "$BRANCH" --no-focus --json) || exit 1
+OPEN=$(herdr worktree open --cwd "$(git rev-parse --show-toplevel)" --path "$WT" --label "$BRANCH" --no-focus --json) || exit 1
 read -r WS ROOT REUSED <<<"$(printf '%s' "$OPEN" | python3 -c '
 import sys, json
 r = json.load(sys.stdin)["result"]
@@ -132,8 +132,7 @@ if [ "$REUSED" = "true" ]; then
     python3 -c 'import sys,json; print(json.load(sys.stdin)["result"]["root_pane"]["pane_id"])') || exit 1
 fi
 
-herdr agent rename "$ROOT" "$BRANCH" || exit 1
-herdr pane run "$ROOT" "$AGENT"
+herdr agent start "$BRANCH" --kind "$AGENT" --pane "$ROOT"
 ```
 
 Keep `--no-focus` so the user stays in the pane they are in.
@@ -141,23 +140,26 @@ Keep `--no-focus` so the user stays in the pane they are in.
 `already_open: true` means the path already had a workspace and `$ROOT` is a pane someone else is
 using. Reuse the workspace, but give this task its own tab so nothing lands in that pane.
 
-Name the pane before launching the agent. `herdr agent rename` takes a pane with no agent
-detected in it yet, so the durable handle exists from the start instead of racing the agent's
-startup.
+`agent start` launches the agent inside the pane's interactive shell, attaches the durable name
+at launch, and returns only after herdr has detected the agent and found it ready for input
+(30-second default timeout). The pane stays a shell pane: Ctrl-Z drops the agent to the prompt
+and the pane survives, and the agent exiting also leaves the pane. If the agent blocks during
+startup — the folder-trust prompt on a fresh worktree — the call errors with `agent_not_ready`,
+but the name is registered and step 6 hands the block to the human like any other.
 
-Whenever `$AGENT` is not `claude`, check that it resolves before opening anything:
+A name belongs to the live agent and is cleared when that agent exits. Pre-naming an undetected
+pane is no longer possible (`agent rename` rejects panes without a detected agent); `agent start`
+attaches the handle atomically on every start instead.
 
-```bash
-command -v "$AGENT"
-```
-
-If it is not on PATH, stop and ask the user how it is invoked. Do not start `claude` instead — a
-task the user wanted on another agent would run on this one without them knowing.
+`--kind` must be a herdr-supported agent kind (`herdr agent start --help` lists them). If the
+user names an agent outside that list, stop and ask how it is invoked. Do not start `claude`
+instead — a task the user wanted on another agent would run on this one without them knowing.
 
 ## 5. Brief each agent
 
-Step 4 named the pane before the agent was up, so the name alone does not mean it is ready.
-`--registered` waits for herdr to actually detect the agent, which is the real signal:
+`agent start` already waited for detection, but re-check that the name resolves through the
+watcher before briefing — this also catches the `agent_not_ready` path, where the name is
+registered and the agent sits blocked:
 
 ```bash
 STATUS=~/.claude/skills/bonsai-herdr/scripts/agent-status.sh
@@ -166,8 +168,8 @@ PANE=$("$STATUS" "$BRANCH" | cut -f3)
 herdr pane run "$PANE" "<task text>"
 ```
 
-`herdr pane run` sends the text plus a real Enter. `herdr agent send` writes literal text without
-Enter, so the prompt would sit there unsubmitted.
+`herdr pane run` sends the text plus a real Enter. Do not replace it with bare text writes
+(`herdr pane send-text`), which would leave the brief sitting in the composer unsubmitted.
 
 Send the task as a single line. A newline inside the text reaches the agent's TUI as a submit, so
 a multi-line brief arrives as several half-prompts and the agent starts on the first fragment.
@@ -211,8 +213,9 @@ Act on the exit code:
   then go back to `--wait`.
 - `0` — everyone settled. Harvest.
 
-Do not use `herdr agent wait` or `herdr wait agent-status` here. They are edge-triggered, so a
-timeout is not evidence that an agent is still running.
+Do not supervise with `herdr agent wait` — its trigger semantics depend on call context, and this
+skill's wait/retry contract lives in the script's exit codes. The script polls `herdr agent list`
+instead.
 
 ## 7. Harvest
 
@@ -247,11 +250,11 @@ One line, for the same reason the first brief is one line. State only what chang
 Follow-up: <what to fix, one line>. Same branch and worktree — stay in it. In scope: <paths>. Done when: <observable condition>. Do not commit.
 ```
 
-If the status line reads `missing`, or the pane sits at a bash prompt, the agent has exited. Start
-it again in the same pane and wait for detection before briefing:
+If the status line reads `missing`, or the pane sits at a bash prompt, the agent has exited and
+its name was cleared with it. Start it again in the same pane, which also re-attaches the name:
 
 ```bash
-herdr pane run "$PANE" "$AGENT"
+herdr agent start "$BRANCH" --kind "$AGENT" --pane "$PANE"
 "$STATUS" --registered "$BRANCH"
 ```
 
@@ -424,6 +427,7 @@ state from this file plus `herdr agent list`, never from ids remembered earlier 
 - A worktree is a separate checkout, so `.tmp/` is not shared with the children. Everything they
   need goes in the task text.
 - A fresh worktree path is new to the agent, so the first run there can ask the user to trust the
-  folder. It surfaces as `blocked` and goes to the human like any other prompt.
+  folder. `agent start` reports this as an `agent_not_ready` error after registering the name; in
+  supervision it surfaces as `blocked` and goes to the human like any other prompt.
 - `herdr worktree open` returns `already_open: true` when that path already has a workspace.
   Reuse it instead of opening a second one.

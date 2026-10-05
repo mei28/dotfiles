@@ -4,7 +4,7 @@
 bonsai が git worktree を作り、herdr がその worktree を workspace として開いてエージェントを住まわせる。
 両者をつなぐ手順は `bonsai-herdr` skill に畳み込んであり、Claude Code のセッションから呼び出せる。
 
-本ガイドは herdr 0.7.4 と bonsai 0.1.5 で実機確認した内容に基づく。
+本ガイドは herdr 0.9.3 と bonsai 0.1.5 で実機確認した内容に基づく。
 掲載したコマンドはすべて `--help` で存在を確認している。
 
 ## 役割分担
@@ -35,7 +35,7 @@ worktree と workspace は一対一で対応させる。
 ## 構成の考え方
 
 - 両ツールとも nix の flake input で管理する。
-  `flake.nix` の `bonsai`（`github:mei28/bonsai`）と `herdr`（`github:ogulcancelik/herdr/v0.7.4`）が実体。
+  `flake.nix` の `bonsai`（`github:mei28/bonsai`）と `herdr`（`github:herdrdev/herdr/v0.9.3`）が実体。
   herdr は各ホスト（`hosts/babalab-mac.nix` など）、bonsai は `profiles/development.nix` で入れている。
 - herdr の設定は `config.toml` と `bin/` だけを symlink する。
   `~/.config/herdr/sessions/` は実行時状態なので symlink の対象から外してある（`profiles/base.nix`）。
@@ -60,9 +60,9 @@ worktree と workspace は一対一で対応させる。
 `bonsai init --dry-run` で下見はできない。0.1.5 では dry-run と称して実際に書き込む。
 
 `herdr integration status` は導入済みのフックを一覧する。
-確認時点では claude、codex、copilot が入っている。
-`agy`（Antigravity CLI）は herdr の対応エージェント一覧に含まれない。
-そのため Antigravity は本ガイドの並列運用の対象外とする（`docs/antigravity.md` と同じ判断）。
+確認時点では claude、codex、opencode が入っている。
+`agy`（Antigravity CLI）は 0.8.0 から herdr の対応エージェントに加わった。
+本ガイドの並列運用は引き続き claude / codex / opencode を前提とし、agy を組み込むかは別途判断とする（`docs/antigravity.md`）。
 
 ## bonsai による worktree 管理
 
@@ -141,7 +141,7 @@ zsh を使う場合は同じ要領で `bonsai shell-init zsh` を読み込む必
 ### ID と環境変数
 
 ID は稼働中のセッションに閉じた短い識別子で、実行中の herdr から読み直して使う。
-0.7.4 では workspace が `wF`、tab が `wF:t1`、pane が `wF:p2` の形になる。
+0.9.3 では workspace が `w1`、tab が `w1:t1`、pane が `w1:p2` の形になる。
 pane や tab を閉じると詰め直されるため、以前に見た ID が同じ対象を指す保証はない。
 必要になった時点で `herdr workspace list` や `herdr pane list`、`herdr agent list` から読み直す。
 
@@ -176,29 +176,37 @@ herdr pane read <pane_id> --source recent --lines 80
 herdr pane close <pane_id>
 
 herdr agent list                           # 検出済みエージェントと状態
-herdr agent rename <pane_id> <name>        # pane に名前を付ける。エージェント未検出でもよい
-herdr agent start <name> --cwd <path> --workspace <id> --no-focus -- claude
+herdr agent rename <target> <name>         # エージェントに名前を付ける。検出済みの pane/agent に限る
+herdr agent start <name> --kind claude --pane <pane_id>
+                                           # 既存 pane の shell でエージェントを起動し、命名と検出待ちを兼ねる
 herdr agent read <name> --source recent --lines 80
-herdr agent send <name> "<text>"           # 文字だけ。Enter は送らない
+herdr agent prompt <name> "<text>"         # テキスト送信 + Enter。--wait で settled 状態まで待てる
+herdr agent wait <name> --until done       # 状態待ち。起動中のエージェントの遷移を見る用途向け
 ```
 
 `herdr worktree open` は既にその path に workspace があると `already_open: true` を返す。
 その場合は既存の workspace を再利用し、新しく開き直さない。
+アクティブな workspace からリポジトリを推測できない文脈（headless のサーバなど）では
+`--cwd <repo>` か `--workspace <id>` でリポジトリを明示しないと `invalid_request` で落ちる。
 
-`herdr agent start` はエージェントを pane 自身のプロセスとして起動する。
-そのため中断や終了が pane ごと落とすことになり、長時間動かすエージェントには向かない（後述）。
+`herdr agent start` は既存 pane の対話 shell の中でエージェントを起動し、
+命名と検出・入力可能の待ち受け（既定 30 秒）を一度に行う。
+pane のプロセスは shell のままなので、Ctrl-Z で中断してもエージェントが終了しても pane は残る（実機確認）。
+起動中に承認プロンプトで停まった場合は `agent_not_ready` のエラーを返すが、名前は登録済みになる。
 
-`herdr agent rename` で付けた `<name>` は、ID と違って安定した取っ手になる。
-以後の `agent read` や `agent send` はこの名前で対象を指定できる。
-`rename` はエージェントがまだ検出されていない pane も受け付けるため、起動前に名前を確定できる。
+`<name>` は ID と違って安定した取っ手になる。
+名前は `[a-z][a-z0-9_-]{0,31}` に合い、生きているエージェント間で一意でなければならない。
+エージェントが終了すると名前は消えるため、起動し直したら付け直す（`agent start` が毎回付ける）。
+以後の `agent read` や `agent prompt` はこの名前で対象を指定できる。pane ID での指定も可能。
 名前は herdr インスタンス全体で解決されるため、別リポジトリの実行が同じ名前を使っていると誤送信になる。
 `herdr agent list` で衝突を確認し、必要ならリポジトリ名を前置する。
+`agent rename` での命名は検出後にしかできない。検出前の pane に付ける名札が欲しければ
+`herdr pane rename` があるが、pane の表示名は `agent list` の対象指定には使えない。
 
 ### 待ち受けの注意
 
-`herdr wait agent-status` と `herdr agent wait` はエッジトリガである。
-状態が変わった瞬間を捉える設計なので、その瞬間を逃すと以後は発火せずタイムアウトする。
-タイムアウトは「まだ動いている」証拠にならない。
+`herdr wait` は 0.9.3 で廃止され、`agent wait` / `pane wait-output` に分かれた。
+待ちは呼び出し後の遷移を見る設計なので、その瞬間を逃した待ちは当てにしない。
 状態を知りたいときは `herdr agent list` を読み直してポーリングする。
 
 ## bonsai-herdr skill
@@ -235,9 +243,9 @@ herdr agent send <name> "<text>"           # 文字だけ。Enter は送らな�
    同時実行は既定で3つまで。各エージェントが利用者の枠を消費する完全な claude セッションだからだ。
 3. タスクごと、および統合用に `bonsai add -c <branch> --base <base>` で worktree を作る。
 4. `herdr worktree open` で workspace を開く。
-   できた root pane を `herdr agent rename` で命名し、`herdr pane run` でその pane の shell から claude を起動する。
+   できた root pane を `herdr agent start <branch> --kind claude --pane <pane_id>` で起動する。命名と検出待ちを兼ねる。
    `already_open: true` のときは既存の workspace を再利用しつつ、`herdr tab create` でこのタスク専用の tab を足す。
-5. `agent-status.sh --registered` で検出を待ってから、`herdr pane run` でタスクを一行で送る。統合エージェントには役割だけを送る。
+5. `agent-status.sh --registered` で名前の解決を確認してから、`herdr pane run` でタスクを一行で送る。統合エージェントには役割だけを送る。
 6. タスクのエージェント名でポーリングして監視する。統合エージェントはここには含めない。
 7. worktree ごとに diff とテストを確認する。
 8. 受け入れるか、同じエージェントに追指示して 6 に戻るか、諦めるかを、タスクごとに決める。
@@ -249,21 +257,22 @@ herdr agent send <name> "<text>"           # 文字だけ。Enter は送らな�
 
 `herdr worktree open` は必ず root の shell pane を作る。
 これを抑制するフラグはない。
-そこで pane を増やさず、この root pane の中で claude を起動する。
+そこで pane を増やさず、この root pane の中でエージェントを起動する。
 workspace は最初から pane ひとつで済み、閉じるべき pane も残らない。
 
-`herdr agent start` を使わないのは、pane の寿命が変わるためだ。
-`agent start` は claude を pane 自身のプロセスにするので、Ctrl-Z で中断したり claude を終了したりすると pane ごと消え、その中の作業も失われる。
-対話 shell から起動しておけば、Ctrl-Z は bash のプロンプトに戻るだけで pane は残る。
-実機のペインで確認した挙動である。
+起動には `herdr agent start` を使う。
+エージェントは pane の対話 shell の子として動くため、Ctrl-Z で中断しても終了しても pane は残る（実機確認）。
+起動と同時に名前が付き、検出と入力可能になるまで待ってから返る。
+起動中にフォルダ信頼などのプロンプトで停まると `agent_not_ready` を返すが、名前は登録済みで、状態は `blocked` として監視に出る。
 
-命名は claude の起動より先に行う。
-`herdr agent rename` はエージェントが検出されていない pane も受け付けるので、起動の競合を待たずに取っ手を確定できる。
+0.7.4 では `agent start` がエージェントを pane 自身のプロセスにしてしまい、
+中断や終了で pane ごと消えるため避けていた。0.9.3 ではこの回避理由は消えた。
+代わりに `agent rename` は検出済みのエージェントにしか効かなくなった。
+起動前の pane に先に名札を付ける運用は成り立たない。
 
-その代わり、名前が付いていることは claude が動いていることを意味しない。
-`agent-status.sh` は、名前はあるがエージェントが未検出の pane を `starting` として報告する。
-`--registered` はこの `starting` が解けるまで、つまり herdr がエージェントを実際に検出するまで待つ。
-名前の出現だけを待つのでは、起動途中の pane に指示を送ってしまう。
+`agent-status.sh` の `starting`（名前はあるが未検出）は 0.9.3 ではほぼ現れない。
+名前を付けられる時点で検出も済んでいるためだ。
+`--registered` は「名前が `agent list` から引ける」ことを確認する合図としてそのまま使える。
 
 指示は一行で送る。
 テキスト中の改行はエージェントの TUI に送信として届くので、複数行のブリーフは途中で分割されて届き、最初の断片だけで走り出す。
@@ -297,11 +306,11 @@ worktree は独立したチェックアウトなので、`.tmp/` は子と共有
 ### 追指示
 
 harvest で差分を見て足りなければ、同じエージェントに投げ直す。
-エージェント名は古くならないので、`agent-status.sh` で pane を引き直して `herdr pane run` で送る。
+エージェント名はそのまま使えるので、`agent-status.sh` で pane を引き直して `herdr pane run` で送る。
 指示が一行でなければならない制約は初回と同じだ。
 
 状態が `missing` だったり pane が bash のプロンプトに戻っていたりする場合は claude が終了している。
-同じ pane で起動し直し、`--registered` で検出を待ってから送る。
+エージェントの終了で名前も消えるので、同じ pane で `herdr agent start <branch> --kind <agent> --pane <pane_id>` として起動し直し、`--registered` で名前の解決を確認してから送る。
 起動し直すと会話は失われるので、追指示は単独で成立する完全なブリーフとして書く。
 
 ### 台帳
@@ -325,7 +334,7 @@ herdr の ID は古くなるが、ブランチ名とパスとエージェント�
 | `.bonsai.toml` | bonsai のリポジトリ設定。`worktree_dir` で worktree の置き場を決める |
 | `.bonsai/<branch>/` | bonsai が作る worktree。git の ignore 対象 |
 | `.config/herdr/config.toml` | herdr の設定。テーマ、既定 shell、更新チャンネル、キーバインド |
-| `.config/herdr/bin/` | herdr が呼ぶ補助スクリプト |
+| `.config/herdr/bin/` | herdr が呼ぶ補助スクリプト。`herdr-ssh-badge`（SSH バッジ）と `close-tab-confirm.sh`（tab close の確認 popup） |
 | `~/.config/herdr/sessions/<name>/` | セッションのソケットとログ。実行時状態なので symlink しない |
 | `~/.claude/skills/bonsai-herdr/SKILL.md` | 並列実行の手順 |
 | `~/.claude/skills/bonsai-herdr/scripts/agent-status.sh` | エージェント状態のポーリング。終了コードで待ちを制御する |
@@ -345,12 +354,14 @@ herdr の ID は古くなるが、ブランチ名とパスとエージェント�
 - `bonsai remove` が未コミットの変更で止まる
   → 内容を確認してから `--force` を付ける。ブランチも消すなら `--with-branch`。
 - `herdr` のコマンドが応答しない
-  → `herdr status` で server が running か、client と protocol が一致しているかを見る。
+  → `herdr status` で server が running か、client と server のバージョンが一致しているかを見る。
+  アップデート直後に client だけ新しくなると protocol_mismatch になる。server を止めて再起動すれば揃う。
   必要なら `herdr server reload-config`、それでも駄目なら `herdr server stop` のうえで再接続する。
-- `herdr worktree open --help` が `unknown option: --help` を返す
-  → 末端のサブコマンドはヘルプを持たないものがある。`herdr worktree --help` に usage 行がまとまっている。
-- `herdr wait agent-status` がタイムアウトする
-  → エッジトリガなので発火を逃した可能性がある。`herdr agent list` を読み直して現在の状態を確かめる。
+- `herdr wait` が `unknown command` になる
+  → 0.9.3 で廃止された。遷移待ちは `herdr agent wait <name> --until <state>` や `herdr pane wait-output` を使う。
+  現在の状態の確認は `herdr agent list` の読み直しが確実。
+- worktree グループの親 workspace を閉じられない
+  → 0.9.0 から、開いている worktree workspace を抱える親の close には明示が必要になった（`workspace close --group`）。bonsai 運用で閉じるのは子の worktree workspace だけなので、通常は変わらない。
 - エージェントが `herdr agent list` に出ない
   → 検出フックが入っていない。`herdr integration status` を見て、`herdr integration install claude` を実行する。
 - エージェント名で送った指示が別のセッションへ届いた
