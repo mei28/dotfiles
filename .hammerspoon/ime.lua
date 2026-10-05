@@ -6,6 +6,8 @@ local layouts = {
 	waddlier = require("waddlier"),
 }
 
+local core = require("ime_core")
+
 -- Detect Japanese input method (prefer azooKey if available)
 local function detectJapaneseMethod()
 	local azooKeyName = "azooKey (日本語)"
@@ -39,7 +41,22 @@ local config = {
 	layout = "ebi", -- Default layout
 	inputMethods = { en = enMethod, jp = jpMethod },
 	displayName = { en = "ABC", jp = jpDisplayName },
+	-- Decision log for diagnosing missed switches; flip to false once stable.
+	debug = true,
 }
+
+local debugLogPath = os.getenv("HOME") .. "/.hammerspoon_ime_debug.log"
+
+local function logDebug(msg)
+	if not config.debug then
+		return
+	end
+	local f = io.open(debugLogPath, "a")
+	if f then
+		f:write(os.date("%Y-%m-%d %H:%M:%S") .. " " .. msg .. "\n")
+		f:close()
+	end
+end
 
 -- Validate and initialize layout
 if not layouts[config.layout] then
@@ -47,21 +64,33 @@ if not layouts[config.layout] then
 end
 config.module = layouts[config.layout]
 
-local isSimpleCmd = false
-
 -- Helper function to switch input method
 local function switchInputMethod(lang)
-	if hs.keycodes.currentMethod() ~= config.inputMethods[lang] then
+	local current = hs.keycodes.currentMethod()
+	local setMethod, layout = core.planSwitch(lang, current, config.inputMethods[lang], config.module:isEnabled())
+
+	local app = hs.application.frontmostApplication()
+	logDebug(string.format(
+		"switch %s: currentMethod=%s setMethod=%s layout=%s app=%s secure=%s",
+		lang,
+		tostring(current),
+		tostring(setMethod),
+		tostring(layout),
+		app and app:name() or "?",
+		tostring(hs.eventtap.isSecureInputEnabled())
+	))
+
+	if setMethod then
 		hs.keycodes.setMethod(config.inputMethods[lang])
 		hs.alert.show(config.displayName[lang], hs.styledtext, hs.screen.mainScreen(), config.showtime)
+	end
 
-		if lang == "en" then
-			config.module:disableLayout()
-			hs.alert.show(config.module.name .. " OFF", hs.screen.mainScreen(), config.showtime)
-		elseif lang == "jp" then
-			config.module:enableLayout()
-			hs.alert.show(config.module.name .. " ON", hs.screen.mainScreen(), config.showtime)
-		end
+	if layout == "disable" then
+		config.module:disableLayout()
+		hs.alert.show(config.module.name .. " OFF", hs.screen.mainScreen(), config.showtime)
+	elseif layout == "enable" then
+		config.module:enableLayout()
+		hs.alert.show(config.module.name .. " ON", hs.screen.mainScreen(), config.showtime)
 	end
 end
 
@@ -81,29 +110,41 @@ local function changeLayout(newLayout)
 	end
 end
 
--- Event handler for key and flag changes
-local function EikanaEvent(event)
-	local map = hs.keycodes.map
-	local keyCode = event:getKeyCode()
-	local flags = event:getFlags()
+-- Event handler for key and flag changes.
+-- keyDown-based combination detection in ime_core: any other key's keyDown while
+-- Cmd is held marks the press as a combination, so the result no longer depends
+-- on whether you release Cmd or the other key first.
+local cmdState = core.newCmdState()
+local map = hs.keycodes.map
 
-	if event:getType() == hs.eventtap.event.types.keyUp then
-		if flags["cmd"] then
-			isSimpleCmd = true
-		end
-	elseif event:getType() == hs.eventtap.event.types.flagsChanged then
-		if not flags["cmd"] and not isSimpleCmd then
-			if keyCode == map["cmd"] then
-				switchInputMethod("en")
-			elseif keyCode == map["rightcmd"] then
-				switchInputMethod("jp")
-			end
-		end
-		isSimpleCmd = false
+local function EikanaEvent(event)
+	local types = hs.eventtap.event.types
+	local eventType = event:getType()
+	local kind
+	if eventType == types.flagsChanged then
+		kind = "flagsChanged"
+	elseif eventType == types.keyDown then
+		kind = "keyDown"
+	else
+		return
+	end
+
+	local keyCode = event:getKeyCode()
+	local isKeyRepeat = event:getProperty(hs.eventtap.event.properties.keyboardEventAutorepeat) == 1
+	local decision, reason, comboKeyCode =
+		core.handleCmdEvent(cmdState, kind, keyCode, event:getFlags()["cmd"] and true or false, isKeyRepeat)
+
+	if decision then
+		logDebug(string.format("cmd tap: key=%d decide=%s", keyCode, decision))
+		switchInputMethod(decision)
+	elseif reason then
+		-- combo: which key turned it into a combination; notHeld: the press event never arrived
+		local comboLabel = comboKeyCode and string.format(" comboKey=%s(%d)", tostring(map[comboKeyCode]), comboKeyCode) or ""
+		logDebug(string.format("cmd tap: key=%d ignored (%s%s)", keyCode, reason, comboLabel))
 	end
 end
 
-Eikana = hs.eventtap.new({ hs.eventtap.event.types.keyUp, hs.eventtap.event.types.flagsChanged }, EikanaEvent)
+Eikana = hs.eventtap.new({ hs.eventtap.event.types.keyDown, hs.eventtap.event.types.flagsChanged }, EikanaEvent)
 Eikana:start()
 
 -- Event handler for Escape key to switch to English
