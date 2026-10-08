@@ -21,6 +21,17 @@ hs.hotkey.bind({ 'alt', 'ctrl' }, 'r', function()
   hs.reload()
 end)
 
+-- reload notification: confirm visually that a reload happened, and mark the
+-- debug log so later analysis can tell reloads apart from eventtap stalls
+hs.alert.show("Hammerspoon reloaded", 0.8)
+do
+  local f = io.open(os.getenv("HOME") .. "/.hammerspoon_ime_debug.log", "a")
+  if f then
+    f:write(os.date("%Y-%m-%d %H:%M:%S") .. " config reloaded\n")
+    f:close()
+  end
+end
+
 -- visible key
 -- hs.eventtap.new({ hs.eventtap.event.types.keyDown, hs.eventtap.event.types.systemDefined },
 --   function(event)

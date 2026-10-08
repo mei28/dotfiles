@@ -19,28 +19,38 @@ local function detectJapaneseMethod()
 	return "Hiragana", "かな", "Japanese"
 end
 
--- Detect English input method (Apple 日本語 IME 入りなら Romaji、無ければ ABC/U.S.)
-local function detectEnglishMethod()
-	local preferred = { "Romaji", "ABC", "U.S.", "English (US)" }
-	local available = hs.keycodes.methods()
-	for _, want in ipairs(preferred) do
-		for _, method in ipairs(available) do
-			if method == want then
-				return want
-			end
-		end
+-- Detect the English input target: prefer a real keyboard LAYOUT (ABC/U.S.)
+-- over Romaji. Romaji is a mode INSIDE the Japanese IME (Kotoeri), and
+-- switching between two modes of one input method is unreliable — TIS
+-- reports the new selection but apps keep typing in the previous mode
+-- (observed 2026-10-08: "display says hiragana but romaji comes out"). A
+-- layout<->method switch does not hit this. Layouts must be looked up in
+-- hs.keycodes.layouts(); methods() never lists them (Hammerspoon #1022).
+local function detectEnglishTarget()
+	local layout = core.pickByPreference(hs.keycodes.layouts(), { "ABC", "U.S.", "English (US)" })
+	if layout then
+		return layout, "layout"
 	end
-	return "ABC"
+	-- no separate English layout enabled: fall back to the IME's Romaji mode
+	return core.pickByPreference(hs.keycodes.methods(), { "Romaji" }, "Romaji"), "method"
 end
 
 local jpMethod, jpDisplayName = detectJapaneseMethod()
-local enMethod = detectEnglishMethod()
+local enName, enKind = detectEnglishTarget()
+
+local function setInputTarget(target)
+	if target.kind == "layout" then
+		hs.keycodes.setLayout(target.name)
+	else
+		hs.keycodes.setMethod(target.name)
+	end
+end
 
 local config = {
 	showtime = 0.2,
 	layout = "ebi", -- Default layout
-	inputMethods = { en = enMethod, jp = jpMethod },
-	displayName = { en = "ABC", jp = jpDisplayName },
+	targets = { en = { name = enName, kind = enKind }, jp = { name = jpMethod, kind = "method" } },
+	displayName = { en = enName, jp = jpDisplayName },
 	-- Decision log for diagnosing missed switches; flip to false once stable.
 	debug = true,
 }
@@ -64,24 +74,65 @@ if not layouts[config.layout] then
 end
 config.module = layouts[config.layout]
 
--- Helper function to switch input method
-local function switchInputMethod(lang)
-	local current = hs.keycodes.currentMethod()
-	local setMethod, layout = core.planSwitch(lang, current, config.inputMethods[lang], config.module:isEnabled())
+-- Post-switch verification: TIS can report a successful selection while the
+-- app keeps typing in the previous source (observed 2026-10-08), so re-read
+-- the current source shortly after a switch and retry on mismatch. The timer
+-- must be a global or it gets garbage-collected before firing.
+local VERIFY_DELAY = 0.25
+local VERIFY_MAX_RETRIES = 2
+VerifyTimer = nil
+
+-- forward declaration: scheduleVerify retries by calling the switch again
+local switchInputMethod
+
+local function scheduleVerify(lang, verifyState)
+	if VerifyTimer then
+		VerifyTimer:stop() -- debounce: only the latest switch gets verified
+	end
+	VerifyTimer = hs.timer.doAfter(VERIFY_DELAY, function()
+		local currentMethod = hs.keycodes.currentMethod()
+		local currentLayout = hs.keycodes.currentLayout()
+		local verdict = core.verifyResult(verifyState,
+			core.inputMatches(config.targets[lang], currentMethod, currentLayout), VERIFY_MAX_RETRIES)
+		if verdict == "ok" then
+			return
+		end
+		logDebug(string.format("verify %s: lang=%s method=%s layout=%s retries=%d",
+			verdict, lang, tostring(currentMethod), tostring(currentLayout), verifyState.retries))
+		if verdict == "giveup" then
+			hs.alert.show("IME switch failed (" .. lang .. ")", 1.0)
+			return
+		end
+		switchInputMethod(lang, verifyState)
+	end)
+end
+
+-- Helper function to switch input method. verifyState is set only on
+-- verification retries so the retry budget is shared across the retries.
+function switchInputMethod(lang, verifyState)
+	local target = config.targets[lang]
+	local currentMethod = hs.keycodes.currentMethod()
+	local currentLayout = hs.keycodes.currentLayout()
+	local needsSwitch, layout =
+		core.planSwitch(lang, currentMethod, currentLayout, target, config.module:isEnabled())
 
 	local app = hs.application.frontmostApplication()
 	logDebug(string.format(
-		"switch %s: currentMethod=%s setMethod=%s layout=%s app=%s secure=%s",
+		"switch %s: method=%s layout=%s src=%s target=%s(%s) needsSwitch=%s layoutOp=%s app=%s secure=%s",
 		lang,
-		tostring(current),
-		tostring(setMethod),
+		tostring(currentMethod),
+		tostring(currentLayout),
+		tostring(hs.keycodes.currentSourceID()),
+		target.name,
+		target.kind,
+		tostring(needsSwitch),
 		tostring(layout),
 		app and app:name() or "?",
 		tostring(hs.eventtap.isSecureInputEnabled())
 	))
 
-	if setMethod then
-		hs.keycodes.setMethod(config.inputMethods[lang])
+	if needsSwitch then
+		setInputTarget(target)
 		hs.alert.show(config.displayName[lang], hs.styledtext, hs.screen.mainScreen(), config.showtime)
 	end
 
@@ -92,6 +143,8 @@ local function switchInputMethod(lang)
 		config.module:enableLayout()
 		hs.alert.show(config.module.name .. " ON", hs.screen.mainScreen(), config.showtime)
 	end
+
+	scheduleVerify(lang, verifyState or core.newVerifyState())
 end
 
 -- Helper function to change layout
@@ -109,6 +162,24 @@ local function changeLayout(newLayout)
 		hs.alert.show("Invalid layout: " .. newLayout, hs.screen.mainScreen(), config.showtime)
 	end
 end
+
+-- Record secure-input transitions: while secure input is on, macOS stops
+-- delivering keyboard events to event taps, which shows up in the log as a
+-- silent gap that looks like "switching died" (observed 2026-10-08).
+local lastSecure = nil
+-- hs.timer objects are garbage-collected unless a reference is kept, so this
+-- must be a global like Eikana / Esc2EngEvent below
+SecureInputPoller = hs.timer.doEvery(10, function()
+	if not config.debug then
+		return
+	end
+	local secure = hs.eventtap.isSecureInputEnabled()
+	if secure ~= lastSecure then
+		lastSecure = secure
+		local app = hs.application.frontmostApplication()
+		logDebug(string.format("secure input: %s app=%s", tostring(secure), app and app:name() or "?"))
+	end
+end)
 
 -- Event handler for key and flag changes.
 -- keyDown-based combination detection in ime_core: any other key's keyDown while
