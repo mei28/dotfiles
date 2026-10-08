@@ -104,6 +104,25 @@ Confirmation, signatures, and the test gate are in Hard Rules.
   Skip the worktree when the change is too small to be worth one, or when the files have to be
   edited in place to take effect. Say which of the two applies and keep working in the main tree.
 
+## Issue-driven Development
+
+Work that gets a branch or worktree starts from an approved GitHub issue; small in-place
+edits and investigation do not need one.
+
+- Issue creation always needs the user's approval first (the bonsai-herdr decomposition table
+  doubles as that approval when it lists the issues).
+- Branch, worktree, herdr workspace, and herdr agent all share one name: `i<issue#>-<slug>`.
+- PR bodies carry `Closes #N` per task issue, so merging closes them. Default merge is squash.
+  `Closes` auto-closes only when the PR's base is the repo's default branch; otherwise close
+  the issues manually after the merge.
+- By default the user merges PRs on GitHub; after they report it, verify with
+  `gh pr view --json state`, then propose cleaning up that branch's workspace and worktree and
+  run it only on confirmation. Run `gh pr merge` yourself only when told to.
+- Never pass `--delete-branch` to `gh pr merge` — it deletes the local branch too, and post-merge
+  cleanup is scoped to workspace + worktree by design.
+- Procedure detail (issue template, progress comments, integ vs per-task PRs, parent tracking
+  issue, cleanup commands): the `issue-driven` skill. `bonsai-herdr` defers to it.
+
 ## Multi-Tool AI Collaboration
 
 The tool running the session does the whole task itself: research, planning, implementation,

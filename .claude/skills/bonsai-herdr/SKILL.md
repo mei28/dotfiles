@@ -71,17 +71,23 @@ before going higher — each agent is a full session against that tool's quota.
 
 Present this table and wait for approval before creating anything:
 
-| task | branch | file scope | agent |
-|---|---|---|---|
-| … | … | … | claude |
+| task | issue | branch | file scope | agent |
+|---|---|---|---|---|
+| … | title draft | i<#>-<slug> | … | claude |
+
+Approving the table also approves creating the issues. Right after approval, create them —
+one per task plus one parent tracking issue — following the `issue-driven` skill, which owns
+everything issue/PR-shaped for this skill. Branch names need the issue numbers, so issues
+come before worktrees.
 
 Integration: branch `integ-<slug>`, worktree `.bonsai/integ-<slug>`, agent `claude`.
 
 The agent is `claude` unless the user names another one for that task — `opencode`, `codex`, or
 any kind `herdr agent start --kind` accepts (step 4 launches through it). Different rows may use
 different agents; the `agent` column is what the user approves. The branch name doubles as the
-task slug and the agent name, so keep it short, unique (`docs-readme`, `fix-lint`), and inside
-herdr's agent-name rule `[a-z][a-z0-9_-]{0,31}`.
+task slug and the agent name; it carries the issue number (`i<issue#>-<slug>`, per the
+issue-driven skill), so keep the slug short and stay inside herdr's agent-name rule
+`[a-z][a-z0-9_-]{0,31}`.
 
 The integration line is part of the same approval. Propose `<slug>` from the request's subject
 (`integ-auth`, `integ-docs`). It is not a task: it gets no file scope, and its agent stays idle
@@ -97,7 +103,7 @@ Steps 3 to 5 are per worktree: each row of the approved table, then the integrat
 them for all of them before moving on to supervision, which watches the tasks at once.
 
 ```bash
-BRANCH=docs-readme   # or integ-<slug> for the integration worktree
+BRANCH=i123-docs-readme   # i<issue#>-<slug>; or integ-<slug> for the integration worktree
 AGENT=claude         # or opencode, or whatever the approved table says for this row
 bonsai add -c "$BRANCH" --base "$BASE"
 WT=$(command bonsai cd "$BRANCH")
@@ -191,7 +197,7 @@ Role: integration. Branch: integ-<slug>, already checked out in this worktree �
 Watch every task agent from one call, using the names from the ledger:
 
 ```bash
-NAMES=(docs-readme fix-lint)
+NAMES=(i123-docs-readme i124-fix-lint)
 "$STATUS" --wait "${NAMES[@]}"
 ```
 
@@ -345,19 +351,24 @@ git -C "$INTEG" diff --stat "$BASE...integ-$SLUG"
 ```
 
 Give the user the diff stat, the test result, and the list of glue commits. Then ask how to land.
-This skill has no default; the user says which each time. Two shapes they may name:
+Landing shape and PR mechanics follow the `issue-driven` skill. The default is one PR from
+the integration branch whose body lists `Closes #N` for every child issue; per-task PRs only
+when the batch is small or the user asks to go one by one. Shapes they may name:
 
-- Local merge, in this session's checkout, which is on `$BASE`:
+- Pull request (default). `push` and `pr create` need their own approval per `AGENTS.md`; run
+  them only when the landing instruction included them:
+  ```bash
+  git push -u origin "integ-$SLUG"
+  gh pr create --base "$BASE"   # body: Closes #<child> ... for every child issue
+  ```
+  Merge and post-merge cleanup are the issue-driven skill's steps 5-6: the user merges by
+  default, verify MERGED yourself, propose cleanup, run it only on a yes.
+- Local merge, in this session's checkout, which is on `$BASE`. Nothing lands on GitHub, so
+  nothing auto-closes; close the child issues manually right after and say you did:
   ```bash
   git merge --no-ff "integ-$SLUG"
   ```
   then run the test command here.
-- Pull request. `push` and `pr create` need their own approval per `AGENTS.md`; run them only
-  when the landing instruction included them:
-  ```bash
-  git push -u origin "integ-$SLUG"
-  gh pr create --base "$BASE"
-  ```
 
 Run the landing yourself. The integration agent's job ended with the last green merge.
 
@@ -365,6 +376,10 @@ Run the landing yourself. The integration agent's job ended with the last green 
 
 Nothing is closed or removed until the user says so in the message just before it. This is a
 separate decision from the merge, and it stays separate when the merge has just succeeded.
+
+For PR-landed branches, the trigger comes from the issue-driven skill: the user merges on
+GitHub (default) and reports it; you verify with `gh pr view --json state`, then propose
+cleanup showing the exact scope. Never detach teardown from that verification.
 
 Approval to commit, merge, or push is not approval to tear down. Approval for one branch is not
 approval for the next. Silence is not approval.
@@ -403,7 +418,7 @@ Write `.tmp/bonsai-herdr.md` when the worktrees are created, and update it after
 harvest, and after anything is torn down:
 
 ```
-| task | branch | worktree | workspace | agent | command | status | teardown |
+| task | issue | pr | branch | worktree | workspace | agent | command | status | teardown |
 ```
 
 The integration worktree gets a row too, with `integration` in the `task` column.
@@ -413,7 +428,8 @@ worktree you left standing. A ledger that disagrees with `git worktree list` is 
 ledger, because the next session rebuilds state from it.
 
 herdr's ids go stale; branch names, paths, and agent names do not. After an interruption, rebuild
-state from this file plus `herdr agent list`, never from ids remembered earlier in the session.
+state from this file plus `herdr agent list`, and reconcile the `issue`/`pr` columns with
+`gh issue view` / `gh pr view` — never from ids or issue numbers remembered earlier in the session.
 
 ## Notes
 
