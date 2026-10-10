@@ -550,8 +550,34 @@ if type herdr &> /dev/null; then
         eval "$respawn"
     }
 
+    # Stop a session and attach to it again, so its server restarts on the
+    # installed herdr (a Nix install cannot live-handoff). Refused inside herdr:
+    # stopping from a pane would also kill the shell running this.
+    function _rhdr_restart() {
+        local name="$1" answer
+        if [ "${HERDR_ENV:-}" = "1" ]; then
+            echo "rhdr: --restart must run outside herdr" >&2
+            return 1
+        fi
+
+        read -r -n 1 -p "Stop herdr session '$name'? Every pane process exits. [y/N] " answer
+        echo
+        [[ "$answer" == [yY] ]] || return 0
+        herdr session stop "$name" || return 1
+        herdr --session "$name"
+    }
+
+    # rhdr                    re-exec idle pane shells (inside herdr)
+    # rhdr --restart [name]   restart a session's server (outside herdr; default main)
     function rhdr() {
-        _rhdr_respawn
+        if [ $# -eq 0 ]; then
+            _rhdr_respawn
+        elif [ "$1" = "--restart" ] && [ $# -le 2 ]; then
+            _rhdr_restart "${2:-main}"
+        else
+            echo "usage: rhdr [--restart [name]]" >&2
+            return 1
+        fi
     }
 
     if type fzf &> /dev/null && type jq &> /dev/null; then
