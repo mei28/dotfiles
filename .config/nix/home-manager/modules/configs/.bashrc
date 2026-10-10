@@ -517,6 +517,39 @@ if type herdr &> /dev/null; then
         dhdr "$@"
     }
 
+    # Re-exec a login shell in every idle pane, then in this one, so long-lived
+    # panes pick up dotfiles/nix changes without restarting the server. Panes
+    # with a foreground program (agents, editors) are left alone. The calling
+    # pane is skipped by id: during the loop its shell still owns the
+    # foreground, so it would look idle and get a second exec typed into it.
+    # __HM_SESS_VARS_SOURCED is dropped because hm-session-vars.sh returns early
+    # while it is set, which would keep the old session variables.
+    function rhdr() {
+        if [ "${HERDR_ENV:-}" != "1" ]; then
+            echo "rhdr: run this inside a herdr pane" >&2
+            return 1
+        fi
+
+        # $SHELL must expand in each target pane, not here.
+        # shellcheck disable=SC2016
+        local respawn='exec env -u __HM_SESS_VARS_SOURCED "$SHELL" -l'
+        local list panes pane info idle
+        list=$(herdr pane list) || return 1
+        panes=$(jq -r '.result.panes[].pane_id' <<<"$list") || return 1
+        for pane in $panes; do
+            [ "$pane" = "$HERDR_PANE_ID" ] && continue
+            info=$(herdr pane process-info --pane "$pane") || return 1
+            idle=$(jq -r '.result.process_info | .shell_pid != null and .shell_pid == .foreground_process_group_id' <<<"$info") || return 1
+            if [ "$idle" = "true" ]; then
+                herdr pane run "$pane" "$respawn" || return 1
+                echo "respawned: $pane"
+            else
+                echo "skipped (busy): $pane"
+            fi
+        done
+        eval "$respawn"
+    }
+
     if type fzf &> /dev/null && type jq &> /dev/null; then
         function phdr() {
             local selection name

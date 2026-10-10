@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 # Ask before closing the active tab, so a stray prefix+shift+x cannot make a
 # tab (and, when it is the last one, the whole workspace) vanish without
 # warning.
