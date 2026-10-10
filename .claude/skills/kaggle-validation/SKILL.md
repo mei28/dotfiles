@@ -58,7 +58,9 @@ hope to detect (see `references/cv-lb-gap.md`).
    before submitting. The agent is registered only when the session was opened in the competition
    repository; from another working directory, give a general-purpose agent the body of
    `.claude/agents/leak-reviewer.md` as its instructions instead.
-8. After every submission, add a row to "CV vs LB" (exp, run, cv, public lb, gap). When the gap
+8. After every submission, add a row to "CV vs LB" (exp, run, cv, public lb, gap). The scatter
+   (`just cv-lb-plot`) and the CV vs LB tracking Issue are refreshed in the `kaggle-journal` wrap-up
+   that follows the LB. When the gap
    exceeds the fold spread or CV and LB rank experiments differently, follow
    `references/cv-lb-gap.md`: adversarial validation, then a new fold version if the split was
    wrong, then rerun the reference experiments on the new folds.
@@ -88,6 +90,7 @@ hope to detect (see `references/cv-lb-gap.md`).
 - `kaggle-onboard`: where the test-set construction is first written down.
 - `kaggle-experiment`: uses `Config.folds` and records per-fold scores.
 - `kaggle-submit`: adds the LB value that completes the CV vs LB row.
+- `kaggle-journal`: the CV vs LB figure and tracking Issue.
 
 ## Sources
 

@@ -21,7 +21,8 @@ during them; this is the moment.
 1. Gather the records: `just exp-table`, `docs/submissions.md`, `docs/validation.md` (CV vs LB
    table), `gh issue list --state all --label idea`, `gh issue list --state all --label cv`, and
    `kaggle competitions submissions -c <comp>` for private scores. Add the private LB to each
-   submission row.
+   submission row. Read the diary Issue (`gh issue view <diary> --comments`) and the CV vs LB Issue:
+   the diary's dated entries give the timeline, and its "つまずいたこと" sections are the friction log.
 2. Fill `docs/retro.md` section by section using `references/retro-questions.md`: result and
    shake-up, phases (planned dates versus when the baseline, the diverse models, and the ensemble
    actually happened), decisions and their outcomes (each closed Issue: kept or dropped, and what
@@ -59,6 +60,7 @@ during them; this is the moment.
 ## Related skills
 
 - `kaggle-onboard`: the next competition starts from what this retrospective changed.
+- `kaggle-journal`: the diary and the tracking Issues read in step 1.
 - `commit`, `tdd`: for the template and skill changes.
 
 ## Sources

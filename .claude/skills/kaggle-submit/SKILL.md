@@ -33,6 +33,8 @@ record. Commands come from the template's `justfile` (`just --list`); the flow i
    `docs/submissions.md` (date, exp, run, cv, public LB, message).
 4. `just record <exp> <issue> --run <run> --lb <score>` adds the LB to the Issue comment, and the
    CV vs LB table in `docs/validation.md` gets its row (see `kaggle-validation`).
+5. The recorded LB is a checkpoint: offer the `kaggle-journal` wrap-up without waiting to be asked
+   (CV vs LB figure and Issue, diary, roadmap).
 
 ## Steps for a code competition (`SUBMIT_MODE=code`)
 
@@ -51,7 +53,7 @@ four assets and their versions are described in `references/code-competition-ass
    (`references/submission-troubleshooting.md`). Download the output with `kaggle kernels output` and
    diff `submission.csv` against the local one when in doubt.
 6. `just submit <exp> "<message>" --now --kernel <user>/<comp>-sub --version <n>` submits the kernel
-   output and records the LB as in the CSV flow.
+   output and records the LB as in the CSV flow, including the `kaggle-journal` wrap-up offer.
 
 ## Notes
 
@@ -75,6 +77,7 @@ four assets and their versions are described in `references/code-competition-ass
 
 - `kaggle-validation`: CV vs LB table and leak review.
 - `kaggle-experiment`: the run being submitted.
+- `kaggle-journal`: the wrap-up after the LB is recorded.
 
 ## Sources
 

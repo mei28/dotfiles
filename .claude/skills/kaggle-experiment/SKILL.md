@@ -35,7 +35,8 @@ output-first error analysis, decision gates).
    `run_in_background`; other runtimes: `nohup ... &` or a second terminal). Variants are CLI
    overrides, for example
    `just run <exp> --model-params.n-estimators 500 --seed 1`; each distinct override set gets its own
-   run directory named by a hash, or `--run <name>` to choose.
+   run directory named by a hash, or `--run <name>` to choose. While a long run is going, offer the
+   `kaggle-journal` wrap-up; the waiting time is when the user has asked for it before.
 6. Record right after the run finishes, without waiting to be asked: `just exp-table`, then
    `just record <exp> <issue> [--run <run>]`. Confirm `output/<exp>/<run>/metrics.json` exists; a run
    without it is not finished.
@@ -79,6 +80,7 @@ The procedure (codes Dataset, training kernel metadata, `kaggle kernels push --a
 
 - `kaggle-validation`: fold file and leak review before trusting a new model's CV.
 - `kaggle-submit`: turning a run into a submission and recording LB.
+- `kaggle-journal`: the wrap-up offered while a long run is going.
 - `tdd`, `tidy-first`: for code that moves into `src/kgl`.
 
 ## Sources

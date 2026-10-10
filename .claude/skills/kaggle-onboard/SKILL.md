@@ -46,12 +46,18 @@ around it. The user must have joined the competition on Kaggle (accepted the rul
 6. Research prior art with the `nvidia-kaggle` skill: top leaderboard writeups (for a finished
    competition or a similar past one), discussions searched for "CV", "validation", "leak", and
    "shift", and the most voted public kernels. Write one page under "Prior art" with links and the
-   one-line takeaway of each; the takeaways become Issue candidates.
+   one-line takeaway of each; the takeaways become Issue candidates. The forum and kernel findings
+   also go into `docs/discussions.md` and `docs/notebooks.md` in the `kaggle-research` formats, with
+   the `last-checked` markers set, so later checks start from them.
 7. Propose the first Issues and stop for approval: one `cv` Issue (how the test set was built and
    which split to use), one `idea` Issue for the baseline, and three to five `idea` Issues from prior
    art. After approval create them with `gh issue create --label <label> --title <title> --body <body>`
    using the headings of `.github/ISSUE_TEMPLATE/idea.yml` (Hypothesis, Why it might work, How to
-   test, Expected effect).
+   test, Expected effect). In the same proposal, include the three tracking Issues of the
+   `kaggle-journal` skill (diary, Glossary, CV vs LB; titles and bodies in its
+   `references/tracking-issues.md`) and pin the diary and the Glossary. Do not create milestones;
+   the phase dates in `docs/competition.md` are the guide. Write the first diary comment about the
+   onboarding.
 8. Hand off: fold design goes through `kaggle-validation`; the baseline run goes through
    `kaggle-experiment`. Say so and stop.
 
@@ -75,12 +81,14 @@ around it. The user must have joined the competition on Kaggle (accepted the rul
 - Guessed the metric's averaging or the id order instead of reading the evaluation page.
 - Created Issues without approval, or one Issue per experiment instead of one per idea.
 - Skipped `just labels`; template repositories do not copy labels.
+- Left the tracking Issues for later, so the first days of work had no diary and no CV vs LB record.
 - Searched writeups by hand when the plugin was installed, or built a fallback path when it was not.
 
 ## Related skills
 
 - `kaggle-validation`: fold design after onboarding.
 - `kaggle-experiment`: the first baseline run.
+- `kaggle-journal`, `kaggle-research`: the tracking Issues and the digest formats used here.
 - `tdd`: adding the metric to `kgl.metrics`.
 
 ## Sources
