@@ -524,7 +524,7 @@ if type herdr &> /dev/null; then
     # foreground, so it would look idle and get a second exec typed into it.
     # __HM_SESS_VARS_SOURCED is dropped because hm-session-vars.sh returns early
     # while it is set, which would keep the old session variables.
-    function rhdr() {
+    function _rhdr_respawn() {
         if [ "${HERDR_ENV:-}" != "1" ]; then
             echo "rhdr: run this inside a herdr pane" >&2
             return 1
@@ -548,6 +548,10 @@ if type herdr &> /dev/null; then
             fi
         done
         eval "$respawn"
+    }
+
+    function rhdr() {
+        _rhdr_respawn
     }
 
     if type fzf &> /dev/null && type jq &> /dev/null; then
