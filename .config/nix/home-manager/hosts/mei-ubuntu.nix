@@ -28,6 +28,8 @@ in
     ../modules/opencode.nix
     # SSH 中は GNOME の自動サスペンドを止める (systemd user service)
     ../modules/inhibit-suspend-on-ssh.nix
+    # NVIDIA GPU viewer, wrapped to find the host driver's NVML
+    ../modules/nvitop.nix
   ];
 
   home.username = username;
