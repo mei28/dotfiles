@@ -326,7 +326,14 @@
   },
   "skillOverrides": {
     "antigravity-implement": "off",
-    "antigravity-review": "off"
+    "antigravity-review": "off",
+    "kaggle-onboard": "name-only",
+    "kaggle-validation": "name-only",
+    "kaggle-experiment": "name-only",
+    "kaggle-submit": "name-only",
+    "kaggle-journal": "name-only",
+    "kaggle-research": "name-only",
+    "kaggle-retro": "name-only"
   },
   "env": {
     "ENABLE_CLAUDEAI_MCP_SERVERS": "false"
