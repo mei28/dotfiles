@@ -1,6 +1,6 @@
 ---
 name: issue-driven
-description: Start branch/worktree work from an approved GitHub issue, keep progress visible in the issue thread, land via a PR whose Closes #N auto-closes the issue (squash by default), and clean up the workspace/worktree after the merge on confirmation. Use when a task gets its own branch — solo or in a bonsai-herdr batch — or when the user says issue駆動, issue を建てて, 起票して.
+description: "Start branch/worktree work from an approved GitHub issue, keep progress visible in the issue thread, land via a PR whose Closes #N auto-closes the issue (squash by default), and clean up the workspace/worktree after the merge on confirmation. Use when a task gets its own branch — solo or in a bonsai-herdr batch — or when the user says issue駆動, issue を建てて, 起票して."
 ---
 
 # issue-driven

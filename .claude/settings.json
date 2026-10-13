@@ -5,7 +5,6 @@
     "sessionUrl": false
   },
   "includeCoAuthoredBy": false,
-  "model": "opus",
   "hooks": {
     "PostToolUse": [
       {
@@ -123,16 +122,6 @@
             "command": "\"/usr/local/bin/node\" \"/Applications/Clawd on Desk.app/Contents/Resources/app.asar.unpacked/hooks/clawd-hook.js\" SessionStart",
             "timeout": 5,
             "async": true
-          }
-        ]
-      },
-      {
-        "matcher": "^(startup|resume|clear|compact|fork)$",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash '/Users/mingzhe.yang/.claude/hooks/herdr-agent-state.sh' session",
-            "timeout": 10
           }
         ]
       }
@@ -331,5 +320,15 @@
   "agentPushNotifEnabled": true,
   "feedbackSurveyState": {
     "lastShownTime": 1754308736953
+  },
+  "permissions": {
+    "defaultMode": "auto"
+  },
+  "skillOverrides": {
+    "antigravity-implement": "off",
+    "antigravity-review": "off"
+  },
+  "env": {
+    "ENABLE_CLAUDEAI_MCP_SERVERS": "false"
   }
 }
