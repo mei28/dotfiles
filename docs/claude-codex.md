@@ -11,12 +11,12 @@ Antigravity CLI も同じ枠組みで使える（詳細は `docs/antigravity.md`
 | フェーズ | 既定 | 明示指示時 |
 |---|---|---|
 | 調査 / 計画 / 評価 | Claude Code（Plan mode, Explore/Plan） | — |
-| 実装 | Claude Code | Codex（`codex exec` / TUI / MCP）、Antigravity |
+| 実装 | Claude Code | Codex（`codex exec` / TUI）、Antigravity |
 | レビュー | Claude Code | Codex / Antigravity を追加の視点として |
 | 引き継ぎ | `.tmp/progress.md`（`handoff` skill） | 同じノートを三ツール共通で使う |
 
 ```
-        ┌────────────────────┐  Claude→Codex (MCP / codex exec)  ┌────────────────────┐
+        ┌────────────────────┐  Claude→Codex (codex exec / TUI)  ┌────────────────────┐
         │   Claude Code       │ ════════════════════════════════▶ │      Codex CLI      │
         │  既定で全工程       │                                   │  委譲時のみ         │
         │  Plan / Explore     │ ◀════════════════════════════════ │  exec / review / TUI│
@@ -49,25 +49,25 @@ nix が自動でやること: `~/.codex/{AGENTS.md,prompts,shared.config.toml}` 
 |---|---|---|
 | 1. nix 適用 | `just build babalab-mac` → `just update babalab-mac` | AGENTS.md / prompts / shared profile の symlink を作る |
 | 2. Codex ログイン | `codex login`（確認 `codex login status`） | ChatGPT サインイン。対話必須 |
-| 3. MCP 相互登録 | `just setup-ai-mcp`（確認 `claude mcp list` / `codex mcp list`） | 両方向を冪等登録 |
+| 3. MCP 登録 | `just setup-ai-mcp`（確認 `codex mcp list`） | Codex から Claude を呼べるよう冪等登録 |
 | 4.（任意）profile 既定化 | `codex -p shared` → TUI settings | active profile に `shared` を一度選ぶと `-p shared` を省略できる |
-| 5. Claude 再起動 | なし | `@AGENTS.md` import と MCP を再読込する |
+| 5. Claude 再起動 | なし | `@AGENTS.md` import を再読込する |
 
 `.codex/config.toml.example` は base config の役割を説明する参照資料であり、codex には読み込まれない。
 宣言的な既定値は `.codex/shared.config.toml` に置く。
 
-## 承認と進捗の可視化（3レーン）
+## 承認と進捗の可視化（2レーン）
 
 | レーン | 用途 | 起動 | 承認 | 進捗 |
 |---|---|---|---|---|
 | 監督 | 人間が操作を見て承認する作業 | `codex -p shared -a on-request` | TUI only | status_line ライブ |
 | 信頼済み自動実行 | 承認済み計画を非対話で実装する作業 | `codex exec -p shared -c approval_policy=never --json ...` | 承認待ちを作らない | background + Monitor で `--json` を見る |
-| 結果だけ | 短時間の委譲で最終結果だけ要る作業 | MCP `codex`（`approval-policy: never`） | 承認を使わない | 最終応答のみ |
 
-MCP `codex` は `approval-policy` と `sandbox` を持ち、承認を MCP elicitation として転送する設計になっている。
-Claude Code 2.1.183 は elicitation に対応している。
-しかし Codex の未修正バグ [#18268](https://github.com/openai/codex/issues/18268)（OPEN）により、仕様に沿った承認応答が Codex server 側で Denied として扱われる。
-そのため、信頼できる人間承認は TUI に限定する。
+Claude から Codex へは CLI と TUI だけで委譲する。
+MCP サーバー（`codex mcp-server`）の登録は 2026-10 に撤去した。
+codex-cli 0.159.1 にこのサブコマンドがなく、起動に失敗し続けていたためである。
+撤去前から、Codex のバグ [#18268](https://github.com/openai/codex/issues/18268) で人間承認が Denied に倒れ、最終応答だけを受け取る用途に限っていた。
+人間承認が要る作業は監督レーンで扱う。
 自動実行レーンでは `approval_policy=never` を明示し、承認待ちで止まらないようにする。
 
 Claude が監督レーンに作業を振る場合は、ユーザーが別ペインへ貼り付けられる起動コマンドを提示する。
@@ -236,14 +236,6 @@ codex review --uncommitted "End with APPROVED/WARNING/BLOCKED."
 #   --commit <sha>: 単一コミット
 ```
 
-### MCP 経由
-
-`just setup-ai-mcp` 済みなら、Claude のセッション中に `codex` MCP ツールを直接呼べる。
-`claude mcp list` で `codex ... Connected` を確認する。
-ただし MCP 経由は最終応答だけが戻る。
-人間承認は #18268 のため現状の運用対象にしない。
-使う場合は `approval-policy: never` を指定し、短時間の「結果だけ」レーンに限定する。
-
 ### 進捗の確認
 
 - `codex exec --json` は Claude Code から `run_in_background` で起動し、Monitor で JSON ストリームを見る。
@@ -313,7 +305,7 @@ Codex 内の slash commands（`~/.codex/prompts/` 由来。`/` メニューに�
 | `~/.codex/shared.config.toml` | `.codex/shared.config.toml` への symlink（共有 profile） |
 | `~/.codex/config.toml` | codex 所有。symlink しない。trust / nux / model / MCP / tui の runtime 状態 |
 | `.config/nix/home-manager/modules/codex.nix` | `pkgs.codex` + `~/.codex` の symlink を管理 |
-| `justfile` の `setup-ai-mcp` | Claude↔Codex の MCP を冪等登録 |
+| `justfile` の `setup-ai-mcp` | Codex → Claude の MCP（`claude mcp serve`）を冪等登録 |
 | `docs/antigravity.md` | Antigravity CLI 連携ガイド |
 
 ## 既存 repo への展開
@@ -324,9 +316,6 @@ Codex は `CLAUDE.md` を指示ファイルとして読む。
 
 ## トラブルシュート
 
-- `claude mcp list` に codex が出ない / connected でない
-  → `just setup-ai-mcp` を再実行する。
-  `codex mcp-server --help` でサブコマンド名を確認する（旧版は `codex mcp`）。
 - Codex から claude が呼べない（`codex mcp list` に出ない）
   → `$HOME` から `just setup-ai-mcp` を実行する。
   `claude mcp serve --help` を確認し、PATH に `claude` があることを確認する。
@@ -337,10 +326,8 @@ Codex は `CLAUDE.md` を指示ファイルとして読む。
   → config.toml は symlink しない設計。
   `modules/codex.nix` に config.toml の symlink が残っていないか確認する。
 - 昇格拒否で停止
-  → MCP `codex` の人間承認は [#18268](https://github.com/openai/codex/issues/18268) と非対話設計のため止まりやすい。
-  人間承認が必要なら TUI の `codex -p shared -a on-request` へ回す。
+  → 人間承認が必要なら TUI の `codex -p shared -a on-request` へ回す。
   自動実行なら `codex exec -p shared -c approval_policy=never --json ...` を使う。
-  将来の codex release で #18268 が修正されたら、`approval_policy=never` の強制と TUI ルーティングを緩める。
 - サンドボックス初期化エラー
   → 承認ではなく OS サンドボックス（Linux Landlock など）の初期化失敗として扱う。
   すでに隔離された環境では `-s danger-full-access` か `--dangerously-bypass-approvals-and-sandbox` を使う。

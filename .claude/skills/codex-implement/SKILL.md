@@ -1,6 +1,6 @@
 ---
 name: codex-implement
-description: Delegate implementation of an approved plan to OpenAI Codex via `codex exec`, the Codex TUI, or a final-only MCP call, then summarize the resulting diff. Use only when the user explicitly asks for Codex to implement; never invoke on your own initiative.
+description: Delegate implementation of an approved plan to OpenAI Codex via `codex exec` or the Codex TUI, then summarize the resulting diff. Use only when the user explicitly asks for Codex to implement; never invoke on your own initiative.
 ---
 
 # codex-implement
@@ -57,13 +57,10 @@ See `~/dotfiles/docs/claude-codex.md` for the full workflow.
    Instead: paste the plan directly into the Codex pane, and when Codex goes idle, inspect
    `git diff` / `git status` yourself and update `.tmp/progress.md` via the `handoff` skill.
 
-   **Lane C — Final-only MCP**: Use only for short, self-contained tasks where no progress stream is needed. Use the MCP `codex` tool with `approval-policy: never`.
-
 5. When Codex finishes, run `git diff` (and `git status`) and summarize what changed, file by file.
 6. Update `.tmp/progress.md` (Done/Next/Open). Review the diff yourself; run `codex-review` only if the user asks for it.
 
 ## Notes
 - **Lane A failure mode**: `codex exec` in background spawns `claude mcp serve` as a subprocess. Without a TTY, MCP tool calls (Read, Bash, Edit) are auto-cancelled with "user cancelled MCP tool call". Fix: embed all needed content in the prompt; do not ask Codex to read files via MCP.
-- MCP `codex` human approval is currently unusable because Codex issue #18268 makes compliant approval responses fall back to Denied. Use TUI (Lane B) for human approval.
 - Orchestrating Codex from Claude still consumes Claude tokens. If Claude is near its limit, do not use this skill; tell the user to run `codex -p shared` directly and have it read `.tmp/progress.md` (not `/resume`; see Lane B).
 - Codex edits files itself; do not also edit them from Claude in parallel.

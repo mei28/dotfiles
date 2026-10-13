@@ -63,13 +63,12 @@ delete-old-profiles:
 # ========================================
 # 運用ガイド: docs/claude-codex.md
 
-# Claude<->Codex の MCP を相互登録（冪等, 各ホストで一度）。状態ファイルに書くため symlink 不可。
+# 逆向き（Claude→Codex）は CLI で呼ぶ。codex-cli 0.159.1 に mcp-server サブコマンドがないため MCP 登録はしない。
+# Codex から Claude Code を MCP で呼べるよう登録（冪等, 各ホストで一度）。状態ファイルに書くため symlink 不可。
 setup-ai-mcp:
-  @claude mcp get codex >/dev/null 2>&1 || \
-    claude mcp add -s user --transport stdio codex -- codex mcp-server
   @env -C "$HOME" codex mcp get claude >/dev/null 2>&1 || \
     env -C "$HOME" codex mcp add claude -- claude mcp serve
-  @echo "AI MCP wired. Verify: claude mcp list / codex mcp list"
+  @echo "AI MCP wired. Verify: codex mcp list"
 
 # Kaggle 用の Claude Code plugin（NVIDIA nvidia-kaggle）を登録・導入（冪等, 各ホストで一度）。有効化は settings.json の enabledPlugins。
 setup-claude-plugins:

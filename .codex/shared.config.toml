@@ -10,9 +10,9 @@
 #   base の ~/.codex/config.toml は codex 所有のまま（symlink しない）。
 #
 # 運用メモ:
-#   approval_policy=on-request は TUI 対話時のみ実効。exec/MCP 委譲では機能せず、
+#   approval_policy=on-request は TUI 対話時のみ実効。exec 委譲では機能せず、
 #   自動実行は `-c approval_policy=never` で上書きする（承認待ち停止を避ける）。
-#   背景は docs/claude-codex.md「承認と進捗の可視化（3レーン）」を参照。
+#   背景は docs/claude-codex.md「承認と進捗の可視化（2レーン）」を参照。
 
 model_reasoning_effort = "high"
 sandbox_mode           = "workspace-write"

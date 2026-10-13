@@ -21,11 +21,9 @@ See `~/dotfiles/docs/claude-codex.md`.
    codex review --uncommitted "For each issue give file:line, severity, problem, and a fix. Cover correctness, security, error handling, missing tests, and ~/.codex/AGENTS.md standards. End with one verdict: APPROVED / WARNING / BLOCKED."
    ```
    - `--uncommitted` reviews staged + unstaged + untracked changes. Use `--base <branch>` to review against a base branch, or `--commit <sha>` for a single commit.
-   - Alternatively, if the `codex` MCP server is connected, call its tool with the same instructions.
 4. Relay Codex's findings and the final verdict verbatim, then add your own brief take (agree/disagree, anything Codex missed).
 5. If issues are actionable, fix them in Claude Code. Delegate via `codex-implement` only if the user asks.
 
 ## Notes
 - `codex review` is read-only; Codex will not modify files.
-- The MCP path returns final-only output, while `codex review` streams progress in the CLI.
 - This is a complement to, not a replacement for, Claude's `/code-review`.
