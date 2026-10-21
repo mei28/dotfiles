@@ -45,6 +45,8 @@ suiko は件数、カテゴリ別の内訳、`[warn] L12 (category)` に続く�
 
 定義の箇条書き `**用語**：説明` は本スキルの整形規範が指示する形だが、textlint の `no-ai-list-formatting` はこれを太字ラベルとして指す。「残す/規範上の指示」で記録する。
 
+`short_topic_comma` と `no-short-topic-comma` が指す短い主題の読点を「残す/規範上の指示」とするのは、後ろに長い修飾語が続いて係りが曖昧になる逆順のとき（`sentence.md` の「読点」の理由 2）だけである。そのときは逆順であることを添える。それ以外は直す。
+
 ## 判断台帳
 
 指摘ごとに一行、チャットの返答に書く。ファイルにはしない。当面は全件を見せ、慣れてきたら「残す」だけに減らす。
@@ -134,6 +136,5 @@ suiko lint --config ~/.claude/skills/japanese-tech-writing/.suiko.toml --experim
 | textlint-ja/textlint-rule-preset-ai-writing | https://github.com/textlint-ja/textlint-rule-preset-ai-writing （npm: https://www.npmjs.com/package/@textlint-ja/textlint-rule-preset-ai-writing ） | 1.7.0。5 ルール（no-ai-list-formatting、no-ai-hype-expressions、no-ai-emphasis-patterns、no-ai-colon-continuation、ai-tech-writing-guideline） | ルールの追加は `.textlintrc.json`（severity を warning で明記する）。版は `.config/nix/pkgs/textlint-ja/package.json` |
 | textlint | https://github.com/textlint/textlint | 15.8.0。`--config`、`--format unix`、`--rules-base-directory` の挙動 | 本ファイルの「必要なツール」の版 |
 | Qiita 7 万記事の前後比較（nyosegawa） | https://nyosegawa.com/posts/qiita-writing-before-after-ai/ | 語彙の増加倍率、文書の形の変化（本ファイルの「根拠」） | 数値は「根拠」節、語の一覧は `ai-vocabulary.md` |
-| k16shikano「日本語技術文書の文章規範」 | https://gist.github.com/k16shikano/fd287c3133457c4fd8f5601d34aa817d | `SKILL.md` の「LLM っぽい表現の禁止」の元。suiko / natural-japanese も同じ gist を取り込んでいる | `SKILL.md` の同節 |
 
-MIT の表示は `third-party-notices.md` にある。
+`SKILL.md` の規範の元になった k16shikano の gist は、取り込んだ版とあわせて `SKILL.md` の「出典」に載せている。MIT の表示は `third-party-notices.md` にある。

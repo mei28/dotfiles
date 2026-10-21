@@ -88,7 +88,7 @@ Replace vague superlatives with specifics:
 ### Writing Clarity
 - Conciseness: "first and foremost" → "first"; "be able to" → "can"; "need to" → imperative; "make changes to" → "change"
 - Active voice with direct subject-verb-object structure
-- One idea per sentence (target ~50 characters); remove unnecessary connectives
+- One idea per sentence; remove unnecessary connectives
 - Unify terminology, UI element names, and tone throughout
 
 ## Git Workflow

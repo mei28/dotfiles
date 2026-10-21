@@ -11,7 +11,7 @@ genre = "tech"
 # lint.sh always passes --experimental, so these are disabled by name.
 # Reasons come from suiko's own calibration notes (eval/calibration.md, revision-guide.md):
 #   nominal_ending              inverted detector (zero 体言止め is suspicious); conflicts with
-#                               this skill's norm that limits 体言止め to climaxes
+#                               this skill's norm that bans 体言止め in running prose
 #   repeated_sentence_lead      fires on 61% of human documents (length-confounded threshold)
 #   low_lexical_diversity_ttr   depends on document length
 #   low_lexical_diversity_mtld  detected no AI document at any threshold

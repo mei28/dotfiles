@@ -16,6 +16,11 @@ The permission notice below applies to each of them.
   The 55-word dictionary reproduced in `ai-vocabulary.md`, and the format of
   `../ai-words.user.json`.
 
+`SKILL.md` adapts k16shikano's gist "日本語技術文書の文章規範"
+(https://gist.github.com/k16shikano/fd287c3133457c4fd8f5601d34aa817d), revision 8f2d5761,
+which is released under the Unlicense. No notice is required; the revision is recorded in the
+出典 (sources) section of `SKILL.md`.
+
 The increase ratios quoted in `lint.md` come from the article
 "生成AI以前と以後でエンジニアの文章はどう変わったのか: Qiitaの7万記事を数えてみた話"
 (https://nyosegawa.com/posts/qiita-writing-before-after-ai/), cited as a source.
