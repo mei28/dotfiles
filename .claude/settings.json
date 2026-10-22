@@ -322,7 +322,8 @@
     "lastShownTime": 1754308736953
   },
   "permissions": {
-    "defaultMode": "auto"
+    "defaultMode": "auto",
+    "ask": ["Artifact"]
   },
   "skillOverrides": {
     "antigravity-implement": "off",

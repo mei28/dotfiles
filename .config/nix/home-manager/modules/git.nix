@@ -20,12 +20,30 @@ in
     ];
 
     ignores = [
+      # macOS
       ".DS_Store"
-      "*DS_Store*"
-      "node_modules"
+      # Secrets
+      ".env"
+      ".env.*"
+      "!.env.example"
+      "!.env.sample"
+      # Personal agent settings (`**/` reaches nested dirs like frontend/.claude)
+      "**/.claude/settings.local.json"
+      # Python
+      ".venv/"
+      "__pycache__/"
+      ".mypy_cache/"
+      ".pytest_cache/"
+      ".ruff_cache/"
+      ".ipynb_checkpoints/"
+      # Rust / Node / Nix (`/result` anchors to the repo root to spare result/ dirs)
+      "target/"
+      "node_modules/"
+      "/result"
+      "/result-*"
+      # Tools
       "*.swp"
-      ".venv"
-      "target"
+      ".jj/"
       ".bonsai"
       ".tmp"
     ];
