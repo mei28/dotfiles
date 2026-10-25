@@ -18,7 +18,9 @@ let
   nix = import ./config/nix.nix;
   fonts = import ./config/fonts.nix { inherit pkgs; };
   services = import ./config/services.nix;
-  kanata = import ./config/kanata.nix { inherit username; };
+  # kanata は使っていないので外している。戻すときは下の imports とあわせてコメントを外す。
+  # kanata = import ./config/kanata.nix { inherit username; };
+  kasane = import ./config/kasane.nix;
 
   # macOS system.* settings (split per concern under config/system/)
   system = import ./config/system { inherit pkgs; };
@@ -35,7 +37,8 @@ in
     nix
     services
     fonts
-    kanata
+    # kanata
+    kasane
 
     system
     systemKeyboard

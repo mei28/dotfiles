@@ -11,8 +11,9 @@
       "nikitabobko/tap/aerospace"
       # "ngrok"
       "wezterm@nightly"
-      "ghostty"
-      "cmux"
+      # ghostty と cmux は使っていないので外している
+      # "ghostty"
+      # "cmux"
       "azookey"
       "marta"
       "raycast"

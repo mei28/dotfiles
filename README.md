@@ -273,10 +273,9 @@ just test-all             # 全テスト実行
 - 自作ツール: cliperge, sgh, portsage, bonsai
 
 ### macOS (macos profile + darwin)
-- symlink: hammerspoon, aerospace, wezterm, ghostty, karabiner, cmux, raycast
-- Homebrew cask: aerospace, hammerspoon, wezterm@nightly, ghostty, raycast, marta, azookey, thaw, cmux
+- symlink: hammerspoon, aerospace, wezterm, karabiner, raycast
+- Homebrew cask: aerospace, hammerspoon, wezterm@nightly, raycast, marta, azookey, thaw
 - フォント: nerd-fonts.hack, nerd-fonts.symbols-only
-- キーリマップ: kanata
 
 ---
 

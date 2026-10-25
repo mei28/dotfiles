@@ -29,6 +29,9 @@
     bonsai = {
       url = "github:mei28/bonsai";
     };
+    kasane = {
+      url = "github:mei28/kasane";
+    };
     herdr = {
       url = "github:herdrdev/herdr/v0.9.3";
     };
@@ -127,6 +130,7 @@
             system = "aarch64-darwin";
             modules = [
               ./.config/nix/nix-darwin/hosts/babalab-mac.nix
+              inputs.kasane.darwinModules.default
             ];
           };
 
@@ -134,6 +138,7 @@
             system = "aarch64-darwin";
             modules = [
               ./.config/nix/nix-darwin/hosts/sbi-mac.nix
+              inputs.kasane.darwinModules.default
             ];
           };
         };
