@@ -47,9 +47,9 @@ let
       nativeBuildInputs = [
         finalPkgs.unzip
       ]
-      ++ lib.optional finalPkgs.stdenv.isLinux finalPkgs.autoPatchelfHook;
+      ++ lib.optional finalPkgs.stdenv.hostPlatform.isLinux finalPkgs.autoPatchelfHook;
 
-      buildInputs = lib.optionals finalPkgs.stdenv.isLinux [
+      buildInputs = lib.optionals finalPkgs.stdenv.hostPlatform.isLinux [
         finalPkgs.stdenv.cc.cc.lib
       ];
 

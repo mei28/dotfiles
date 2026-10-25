@@ -8,7 +8,7 @@
 let
   runtimeUser = builtins.getEnv "USER";
   username = if runtimeUser != "" then runtimeUser else "user";
-  homeRoot = if pkgs.stdenv.isDarwin then "/Users" else "/home";
+  homeRoot = if pkgs.stdenv.hostPlatform.isDarwin then "/Users" else "/home";
 in
 {
   # 私物 Ubuntu デスクトップ。babalab-mac の Linux 版。
@@ -28,6 +28,8 @@ in
     ../modules/opencode.nix
     # SSH 中は GNOME の自動サスペンドを止める (systemd user service)
     ../modules/inhibit-suspend-on-ssh.nix
+    # IME は fcitx5。GNOME 標準の ibus-daemon ユニットは毎回失敗するので mask する
+    ../modules/mask-gnome-ibus.nix
     # NVIDIA GPU viewer, wrapped to find the host driver's NVML
     ../modules/nvitop.nix
   ];

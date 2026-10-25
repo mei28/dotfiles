@@ -48,7 +48,7 @@
       inputs.bonsai.packages.${system}.default
     ]
     # Cloud: nixpkgs の google-cloud-sdk は Linux ビルドが不安定なため macOS のみ
-    ++ lib.optionals stdenv.isDarwin [ google-cloud-sdk ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [ google-cloud-sdk ]
     ++ [ fzf-make ];
 
   # ruff + mutagen

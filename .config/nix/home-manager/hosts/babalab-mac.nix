@@ -9,7 +9,7 @@
 let
   runtimeUser = builtins.getEnv "USER";
   username = if runtimeUser != "" then runtimeUser else "user";
-  homeRoot = if pkgs.stdenv.isDarwin then "/Users" else "/home";
+  homeRoot = if pkgs.stdenv.hostPlatform.isDarwin then "/Users" else "/home";
 in
 {
   imports = [
