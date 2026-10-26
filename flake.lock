@@ -155,11 +155,11 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1792971387,
-        "narHash": "sha256-ZOFoVSDdbqCPVLJB5v8xTP9Q7Y7JvbXfIOk4ilugarc=",
+        "lastModified": 1792983375,
+        "narHash": "sha256-QhT4N+Hoe5AWDdrHhjRWtS7ZNtP6aLMZg8jwT/3fBas=",
         "owner": "mei28",
         "repo": "kasane",
-        "rev": "0519bc424b7d0c09c96d6692a7abd5f09df0a54a",
+        "rev": "740bc2d9c02d8959523dc613359918e65f1c4e02",
         "type": "github"
       },
       "original": {
