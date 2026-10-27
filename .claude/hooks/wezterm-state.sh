@@ -5,7 +5,9 @@
 # フック実行時 controlling TTY 無いケース有り (Claude Code 2.x)。
 # /dev/tty 不可なら親プロセス (Claude Code) の TTY 経由で OSC 送出。
 resolve_target_tty() {
-	if : > /dev/tty 2>/dev/null; then
+	# Grouped so that 2>/dev/null also silences the failed open of /dev/tty itself;
+	# `: > /dev/tty 2>/dev/null` applies the redirects left to right and leaks the error.
+	if { : > /dev/tty; } 2>/dev/null; then
 		echo /dev/tty
 		return
 	fi
