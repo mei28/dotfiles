@@ -80,16 +80,19 @@ and generated documentation. Worked examples and the full norms: the `tech-writi
 ### Avoid Hyperbolic Expressions
 Replace vague superlatives with specifics:
 - "revolutionary" / "game-changer" / "paradigm shift" → describe the specific transformation or impact
-- "ultimate" / "fast" / "significantly" / "efficient" → give measurable metrics ("under 50ms", "200% improvement", "30% memory reduction")
+- "ultimate" / "fast" / "significantly" / "efficient" → give measurable metrics with their source ("under 50ms in the CI benchmark", "200% improvement over v1.2", "30% memory reduction on the sample dataset")
 - "completely/all" → specify scope ("many", "major")
 - "magical" / "supercharge" / "unleash potential" → describe the concrete gain or new opportunity
 - "redefine industry" / "change the future" / "inevitable change" → explain the specific new perspective and why it matters
 
 ### Writing Clarity
 - Conciseness: "first and foremost" → "first"; "be able to" → "can"; "need to" → imperative; "make changes to" → "change"
-- Active voice with direct subject-verb-object structure
-- One idea per sentence; remove unnecessary connectives
-- Unify terminology, UI element names, and tone throughout
+- Active voice with direct subject-verb-object structure; use the passive only when the object or
+  procedure is the topic and the actor does not matter
+- One idea per sentence, where an idea is one claim with its condition, reason, or contrast; split
+  independent claims joined by "and", and remove unnecessary connectives
+- Unify terminology and UI element names throughout; keep the tone consistent across passages
+  that play the same role
 
 ## Git Workflow
 

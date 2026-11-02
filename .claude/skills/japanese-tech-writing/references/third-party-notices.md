@@ -21,6 +21,14 @@ The permission notice below applies to each of them.
 which is released under the Unlicense. No notice is required; the revision is recorded in the
 出典 (sources) section of `SKILL.md`.
 
+The revision procedure in `revision.md`, the rules in `claims.md`, `composition.md`, `terms.md`,
+`notes-figures.md`, and `genres.md`, and parts of `SKILL.md` and `sentence.md` are based on
+Kentaro Imajo (imos)'s editing rules "humanizer" (https://imoz.jp/humanizer.ja.txt and
+https://imoz.jp/humanizer.en.txt, fetched 2026-11-02). Those files state no license, so no
+sentence or example is reproduced: each rule was rewritten in this skill's own words with new
+examples. `upstream-humanizer.md` maps every upstream section to the place that absorbed it.
+The English rules in `../../tech-writing/` follow the same approach.
+
 The increase ratios quoted in `lint.md` come from the article
 "生成AI以前と以後でエンジニアの文章はどう変わったのか: Qiitaの7万記事を数えてみた話"
 (https://nyosegawa.com/posts/qiita-writing-before-after-ai/), cited as a source.
