@@ -836,8 +836,11 @@ _osc52_copy() {
 
 # clipboard helper: reads from stdin and copies to clipboard
 _copy_to_clipboard() {
-    # ssh 中はリモートの X ではなく手元端末の clipboard を OSC52 で狙う
-    if [[ -n "$SSH_TTY" || -n "$SSH_CONNECTION" ]]; then
+    # Over ssh, target the local terminal's clipboard via OSC52, not the remote X.
+    # Linux herdr panes inherit the herdr server's env, so SSH_* may be missing even
+    # when viewed over ssh; herdr hands OSC52 to the client in use (ssh or desktop).
+    if [[ -n "$SSH_TTY" || -n "$SSH_CONNECTION" ]] ||
+        [[ -n "$HERDR_ENV" && "$OSTYPE" == linux* ]]; then
         _osc52_copy
         return
     fi

@@ -18,8 +18,13 @@ local is_win = has "win32"
 if is_unix then require 'config.unix' end
 if is_win then require 'config.windows' end
 
--- Over SSH, route yanks to the local clipboard via OSC 52 (overrides config.unix)
-if vim.env.SSH_CONNECTION or vim.env.SSH_TTY then
+-- Over SSH, route yanks to the local clipboard via OSC 52 (overrides config.unix).
+-- Linux herdr panes too: they inherit the herdr server's env, so a server started
+-- from the desktop hides SSH_* even when the pane is viewed over ssh. herdr hands
+-- OSC 52 to the client in use (OSC 52 over ssh, xsel on the desktop).
+local over_ssh = vim.env.SSH_CONNECTION or vim.env.SSH_TTY
+local in_linux_herdr = vim.env.HERDR_ENV and has "linux"
+if over_ssh or in_linux_herdr then
   require 'config.clipboard'
 end
 
