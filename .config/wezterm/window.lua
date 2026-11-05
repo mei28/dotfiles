@@ -8,10 +8,10 @@ M.inactive_pane_hsb = {
 }
 
 M.window_padding = {
-	left = 0,
-	right = 20,
-	top = 10,
-	bottom = 0,
+	left = 20,
+	right = 40,
+	top = 20,
+	bottom = 20,
 }
 M.background = {
 	{

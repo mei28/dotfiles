@@ -99,7 +99,7 @@
   "nvim-navic": { "branch": "master", "commit": "455808fd0fae06e6d70fadfd61432275db8f34ce" },
   "nvim-overleaf": { "branch": "main", "commit": "92a985e27ef1fc2aea637f883e26a39a72fc13ed" },
   "nvim-pqf": { "branch": "main", "commit": "0f11180718b861986ac06a2fef16c404a58b3645" },
-  "nvim-scrollbar": { "branch": "main", "commit": "f8e87b96cd6362ef8579be456afee3b38fd7e2a8" },
+  "nvim-scrollbar": { "branch": "refactor/v2", "commit": "b39443d8fcae3e326ff965dea3fe7df266c8ccac" },
   "nvim-surround": { "branch": "main", "commit": "8b47db616ef658b8fc27e61db2896aa2f40134de" },
   "nvim-swm": { "branch": "main", "commit": "4ccb2b137b117092f3efa426261ddbef25111454" },
   "nvim-treesitter": { "branch": "main", "commit": "f603a2f4da48728f80257fb5fbb90145fd1dc173" },
