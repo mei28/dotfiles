@@ -60,6 +60,31 @@ Principles, not absolutes. Departing from one is fine; say why.
 - Code shows HOW, tests show WHAT, commits show WHY, comments show WHY NOT.
 - Keep documentation up to date with code changes.
 
+## Documentation vs Code
+
+Documentation in a repository tends to lag behind its code. When a document and the existing
+code disagree, treat the existing code as correct and follow it. This covers every document in
+the repository: CLAUDE.md, AGENTS.md, GEMINI.md, README, `docs/`, comments, and docstrings. It
+covers disagreements on conventions and on behavior alike.
+
+- Hard Rules outrank the existing code. Code that breaks a Hard Rule sets no precedent.
+- A Default may yield to the existing code. Say why when it does.
+- When a document mentions the disagreement itself, follow the document. Examples are a
+  migration target, frozen legacy code, a reversed convention, or a note on which side is
+  authoritative. Do not report such a disagreement or propose a fix for it.
+- In your final reply, list each disagreement you found and propose a fix to the document.
+  Edit the document only after I approve that fix. Documents your own change makes stale are
+  outside this rule: update them as part of the change, as Defaults says.
+- Collect the disagreements that delegated agents report into your own final reply.
+
+Ask me before acting on this section in each case below. I remove a case once it no longer
+needs asking. A disagreement outside the listed cases is settled by this section; it is not an
+uncertainty under the Hard Rules.
+
+- The disagreement is on a convention.
+- The disagreement is on behavior.
+- You judge that a document mentions the disagreement.
+
 ## Working Rules
 
 - Run independent operations concurrently, not sequentially.
