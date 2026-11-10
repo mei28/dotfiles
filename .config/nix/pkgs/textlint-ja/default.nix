@@ -17,7 +17,7 @@ buildNpmPackage {
   version = "15.8.0";
 
   src = ./.;
-  npmDepsHash = "sha256-kH9z3i6g5VIt+RkgVIUwb4ffsQIh+X0PNlhYpWb1VyI=";
+  npmDepsHash = "sha256-Qd5q+a6DVZ3m03KoV9eMdNRiNVBAEw/gkxlw6c5650A=";
   nodejs = nodejs_24;
 
   dontNpmBuild = true;
