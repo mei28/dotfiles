@@ -1,10 +1,30 @@
 {
+  "env": {
+    "ENABLE_CLAUDEAI_MCP_SERVERS": "false"
+  },
   "attribution": {
     "commit": "",
     "pr": "",
     "sessionUrl": false
   },
   "includeCoAuthoredBy": false,
+  "permissions": {
+    "ask": [
+      "Artifact"
+    ],
+    "defaultMode": "auto"
+  },
+  "skillOverrides": {
+    "antigravity-implement": "off",
+    "antigravity-review": "off",
+    "kaggle-onboard": "name-only",
+    "kaggle-validation": "name-only",
+    "kaggle-experiment": "name-only",
+    "kaggle-submit": "name-only",
+    "kaggle-journal": "name-only",
+    "kaggle-research": "name-only",
+    "kaggle-retro": "name-only"
+  },
   "hooks": {
     "PostToolUse": [
       {
@@ -320,23 +340,5 @@
   "agentPushNotifEnabled": true,
   "feedbackSurveyState": {
     "lastShownTime": 1754308736953
-  },
-  "permissions": {
-    "defaultMode": "auto",
-    "ask": ["Artifact"]
-  },
-  "skillOverrides": {
-    "antigravity-implement": "off",
-    "antigravity-review": "off",
-    "kaggle-onboard": "name-only",
-    "kaggle-validation": "name-only",
-    "kaggle-experiment": "name-only",
-    "kaggle-submit": "name-only",
-    "kaggle-journal": "name-only",
-    "kaggle-research": "name-only",
-    "kaggle-retro": "name-only"
-  },
-  "env": {
-    "ENABLE_CLAUDEAI_MCP_SERVERS": "false"
   }
 }
