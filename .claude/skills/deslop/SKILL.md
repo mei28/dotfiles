@@ -165,16 +165,16 @@ Analysis results presented in this format:
 ### Details
 
 #### 1. Excessive Comments (Priority: High)
-- **Location**: Lines 15-25
-- **Issue**: Each line has comments explaining code behavior
-- **Reason**: Code itself is clear, comments are redundant
-- **Fix**: Remove comments, rename function from `process_user_data` to `validate_and_save_user`
+- Location: Lines 15-25
+- Issue: Each line has comments explaining code behavior
+- Reason: Code itself is clear, comments are redundant
+- Fix: Remove comments, rename function from `process_user_data` to `validate_and_save_user`
 
 #### 2. Unnecessary Error Handling (Priority: Medium)
-- **Location**: Lines 45-52
-- **Issue**: Blanket try-except for internal function call
-- **Reason**: This function is guaranteed not to throw exceptions
-- **Fix**: Remove try-except block
+- Location: Lines 45-52
+- Issue: Blanket try-except for internal function call
+- Reason: This function is guaranteed not to throw exceptions
+- Fix: Remove try-except block
 
 ### Improved Code
 
@@ -191,7 +191,8 @@ Analysis results presented in this format:
 
 ## Related Commands
 
-- `/review`: General code review
+- `/code-review`: Correctness review of the current diff
+- `/simplify`: Reuse and simplification cleanups on the changed code
 - `/security-review`: Security-focused review
 - Test tools: Run tests after changes
 

@@ -15,15 +15,16 @@
     "defaultMode": "auto"
   },
   "skillOverrides": {
-    "antigravity-implement": "off",
-    "antigravity-review": "off",
+    "antigravity-implement": "name-only",
+    "antigravity-review": "name-only",
     "kaggle-onboard": "name-only",
     "kaggle-validation": "name-only",
     "kaggle-experiment": "name-only",
     "kaggle-submit": "name-only",
     "kaggle-journal": "name-only",
     "kaggle-research": "name-only",
-    "kaggle-retro": "name-only"
+    "kaggle-retro": "name-only",
+    "deslop": "name-only"
   },
   "hooks": {
     "PostToolUse": [
@@ -32,7 +33,7 @@
           {
             "type": "command",
             "command": "$HOME/dotfiles/.claude/hooks/wezterm-state.sh thinking",
-            "timeout": 5
+            "timeout": 1
           }
         ]
       },
@@ -54,7 +55,7 @@
           {
             "type": "command",
             "command": "$HOME/dotfiles/.claude/hooks/wezterm-state.sh thinking",
-            "timeout": 5
+            "timeout": 1
           }
         ]
       },
@@ -76,7 +77,7 @@
           {
             "type": "command",
             "command": "$HOME/dotfiles/.claude/hooks/wezterm-state.sh executing",
-            "timeout": 5
+            "timeout": 1
           }
         ]
       },
@@ -152,7 +153,7 @@
           {
             "type": "command",
             "command": "$HOME/dotfiles/.claude/hooks/wezterm-state.sh idle",
-            "timeout": 5
+            "timeout": 1
           }
         ]
       },
@@ -183,7 +184,7 @@
           {
             "type": "command",
             "command": "$HOME/dotfiles/.claude/hooks/wezterm-state.sh idle",
-            "timeout": 5
+            "timeout": 1
           }
         ]
       },
@@ -205,7 +206,7 @@
           {
             "type": "command",
             "command": "$HOME/dotfiles/.claude/hooks/wezterm-state.sh thinking",
-            "timeout": 5
+            "timeout": 1
           }
         ]
       },
@@ -335,6 +336,7 @@
       "effortLevel": "xhigh"
     }
   },
+  "advisorModel": "fable",
   "editorMode": "normal",
   "verbose": true,
   "agentPushNotifEnabled": true,

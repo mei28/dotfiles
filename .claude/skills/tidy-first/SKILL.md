@@ -89,7 +89,6 @@ Pick one and say which. Do not let a tangled diff grow while deciding.
 
 ## Related skills
 
-- `refactor` finds candidates by static analysis and produces a report. This skill is the discipline for how and when to apply them.
 - `../tdd/SKILL.md` step 4 ("optionally refactor") is where this skill enters a red-green cycle.
 
 ## Sources
